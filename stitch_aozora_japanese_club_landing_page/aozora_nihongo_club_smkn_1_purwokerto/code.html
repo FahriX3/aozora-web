@@ -1,0 +1,1942 @@
+<!doctype html>
+<html lang="id" style="">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+            rel="stylesheet"
+        />
+        <link href="https://fonts.googleapis.com" rel="preconnect" />
+        <link
+            crossorigin=""
+            href="https://fonts.gstatic.com"
+            rel="preconnect"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            @layer base {
+                html,
+                body {
+                    margin: 0;
+                    padding: 0;
+                }
+                body {
+                    overscroll-behavior: none;
+                }
+                main > :first-child {
+                    margin-top: 0 !important;
+                }
+                main > :last-child {
+                    margin-bottom: 0 !important;
+                }
+            }
+            ::-webkit-scrollbar {
+                display: none;
+            }
+        </style>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "surface-dim": "#d7dadf",
+                            "surface-tint": "#0050e2",
+                            "inverse-surface": "#2d3135",
+                            "aozora-sky": "#38BDF8",
+                            "tertiary-fixed-dim": "#ffb4aa",
+                            "surface-variant": "#dfe3e8",
+                            "on-tertiary-fixed": "#410001",
+                            "on-primary-container": "#e2e6ff",
+                            "primary-container": "#0d59f2",
+                            surface: "#f6f9fe",
+                            "on-secondary-container": "#5f637a",
+                            "on-surface": "#181c20",
+                            "error-container": "#ffdad6",
+                            "on-primary-fixed-variant": "#003cad",
+                            "surface-container-low": "#f1f4f9",
+                            "surface-container-high": "#e5e8ed",
+                            "secondary-container": "#dde1fc",
+                            "on-primary": "#ffffff",
+                            "gold-shrine": "#F59E0B",
+                            "torii-vermilion": "#E83A30",
+                            "indigo-night": "#0B1021",
+                            "secondary-fixed-dim": "#c1c5df",
+                            tertiary: "#a40009",
+                            "inverse-primary": "#b5c4ff",
+                            "on-tertiary-container": "#ffe0dc",
+                            "surface-container-highest": "#dfe3e8",
+                            "on-secondary": "#ffffff",
+                            "surface-bright": "#f6f9fe",
+                            "on-tertiary": "#ffffff",
+                            "outline-variant": "#c3c5d8",
+                            "on-background": "#181c20",
+                            "on-surface-variant": "#434655",
+                            "on-error": "#ffffff",
+                            "tertiary-container": "#c9221d",
+                            "surface-container": "#ebeef3",
+                            "inverse-on-surface": "#eef1f6",
+                            "surface-container-lowest": "#ffffff",
+                            "on-error-container": "#93000a",
+                            "secondary-fixed": "#dde1fc",
+                            "on-tertiary-fixed-variant": "#930007",
+                            "sakura-tint": "#FDE8E8",
+                            secondary: "#595d74",
+                            background: "#f6f9fe",
+                            "tertiary-fixed": "#ffdad5",
+                            "on-secondary-fixed-variant": "#41465b",
+                            "primary-fixed-dim": "#b5c4ff",
+                            "primary-fixed": "#dce1ff",
+                            primary: "#0043c0",
+                            "cloud-white": "#FFFFFF",
+                            "on-secondary-fixed": "#161b2e",
+                            "on-primary-fixed": "#00164e",
+                            error: "#ba1a1a",
+                            outline: "#737687",
+                        },
+                        borderRadius: {
+                            DEFAULT: "0.25rem",
+                            lg: "0.5rem",
+                            xl: "0.75rem",
+                            full: "9999px",
+                        },
+                        spacing: {
+                            "margin-mobile": "1.25rem",
+                            "space-xs": "0.25rem",
+                            "space-xl": "2.5rem",
+                            "space-2xl": "4rem",
+                            "space-lg": "1.5rem",
+                            margin: "3rem",
+                            "gutter-mobile": "0.875rem",
+                            "space-sm": "0.5rem",
+                            gutter: "1.5rem",
+                            "space-md": "1rem",
+                        },
+                        fontFamily: {
+                            "headline-lg-mobile": ["Plus Jakarta Sans"],
+                            "display-hero-mobile": ["Plus Jakarta Sans"],
+                            "body-sm": ["Be Vietnam Pro"],
+                            "headline-sm": ["Plus Jakarta Sans"],
+                            "label-md": ["Space Grotesk"],
+                            "headline-md": ["Plus Jakarta Sans"],
+                            "headline-lg": ["Plus Jakarta Sans"],
+                            "display-hero": ["Plus Jakarta Sans"],
+                            "body-lg": ["Be Vietnam Pro"],
+                            "label-badge": ["Space Grotesk"],
+                            "label-lg": ["Space Grotesk"],
+                            "body-md": ["Be Vietnam Pro"],
+                        },
+                        fontSize: {
+                            "headline-lg-mobile": [
+                                "28px",
+                                {
+                                    lineHeight: "36px",
+                                    letterSpacing: "-0.01em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "display-hero-mobile": [
+                                "36px",
+                                {
+                                    lineHeight: "44px",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "800",
+                                },
+                            ],
+                            "body-sm": [
+                                "13px",
+                                { lineHeight: "20px", fontWeight: "400" },
+                            ],
+                            "headline-sm": [
+                                "20px",
+                                { lineHeight: "28px", fontWeight: "600" },
+                            ],
+                            "label-md": [
+                                "12px",
+                                {
+                                    lineHeight: "16px",
+                                    letterSpacing: "0.08em",
+                                    fontWeight: "500",
+                                },
+                            ],
+                            "headline-md": [
+                                "26px",
+                                {
+                                    lineHeight: "34px",
+                                    letterSpacing: "-0.01em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "headline-lg": [
+                                "38px",
+                                {
+                                    lineHeight: "46px",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "display-hero": [
+                                "56px",
+                                {
+                                    lineHeight: "64px",
+                                    letterSpacing: "-0.03em",
+                                    fontWeight: "800",
+                                },
+                            ],
+                            "body-lg": [
+                                "18px",
+                                { lineHeight: "28px", fontWeight: "400" },
+                            ],
+                            "label-badge": [
+                                "11px",
+                                {
+                                    lineHeight: "14px",
+                                    letterSpacing: "0.1em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "label-lg": [
+                                "14px",
+                                {
+                                    lineHeight: "18px",
+                                    letterSpacing: "0.06em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "body-md": [
+                                "15px",
+                                { lineHeight: "24px", fontWeight: "400" },
+                            ],
+                        },
+                    },
+                },
+            };
+        </script>
+    </head>
+    <body
+        class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-aozora-sky selection:text-indigo-night"
+    >
+        <header
+            class="fixed top-0 left-0 w-full z-50 bg-cloud-white/90 backdrop-blur-xl shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)]"
+        >
+            <div
+                class="h-20 max-w-[1280px] mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-md"
+            >
+                <div class="flex items-center gap-space-md">
+                    <a
+                        class="flex items-center gap-space-sm group"
+                        data-path="beranda"
+                        href="#"
+                        ><div
+                            class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary font-headline-md text-headline-md shadow-[0_2px_10px_rgba(13,89,242,0.12)] group-hover:scale-105 transition-transform"
+                        >
+                            <span class="text-torii-vermilion">青</span
+                            ><span class="text-aozora-sky">空</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex items-center gap-space-xs">
+                                <span
+                                    class="font-headline-sm text-headline-sm tracking-tight text-indigo-night"
+                                    >Aozora</span
+                                ><span
+                                    class="font-label-badge text-label-badge px-1.5 py-0.5 rounded-full bg-sakura-tint text-torii-vermilion"
+                                    >日本語部</span
+                                >
+                            </div>
+                            <span
+                                class="font-label-md text-label-md text-secondary tracking-wider uppercase"
+                                >SMKN 1 Purwokerto</span
+                            >
+                        </div></a
+                    >
+                </div>
+                <nav
+                    class="hidden lg:flex items-center gap-space-lg"
+                    data-active-classes="text-primary font-semibold relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary"
+                >
+                    <a
+                        aria-current="page"
+                        class="transition-colors text-primary font-semibold relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary"
+                        data-path="beranda"
+                        href="#"
+                        >Beranda</a
+                    ><a
+                        class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
+                        data-path="tentang-kami"
+                        href="#"
+                        >Tentang Kami</a
+                    ><a
+                        class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
+                        data-path="event-matsuri"
+                        href="#"
+                        >Event &amp; Matsuri</a
+                    ><a
+                        class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
+                        data-path="dokumentasi-foto-video"
+                        href="#"
+                        >Dokumentasi Foto &amp; Video</a
+                    ><a
+                        class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
+                        data-path="kontak"
+                        href="#"
+                        >Kontak</a
+                    >
+                </nav>
+                <div class="flex items-center gap-space-md">
+                    <img
+                        alt="Profile"
+                        class="w-8 h-8 rounded-full object-cover shadow-[0_2px_8px_rgba(13,89,242,0.15)]"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe_57QRBxcPOxYpvoRkSSUOgH3K1ldKLCAAaYxfqzhuBIlPdMwKPITA2FIlP0xftYt--7X0loUMNwZ3T9pulWmnG7VAMJ8nmf0Mp3aTJ6os01vkE0OvrX_iO1kRs0RDhqlXwPpl4Ml0xCGRXfQS7jdEdDo9TB2Dllwrv5QjGy2VIHvbP1RYVt0cM680j6nLbITW4yZn8WUyuEtBYx5aysZQlq8S0jg7y_N6BRIYSJYRFAStambE6vz"
+                    />
+                </div>
+            </div>
+        </header>
+        <main class="w-full pt-20 bg-surface min-h-screen">
+            <div class="flex flex-col w-full overflow-hidden">
+                <!-- Top Ambient Anime Glow Elements -->
+                <div class="relative w-full">
+                    <div
+                        class="absolute top-10 left-1/4 w-96 h-96 bg-aozora-sky/15 rounded-full blur-3xl pointer-events-none -z-10"
+                    ></div>
+                    <div
+                        class="absolute top-32 right-10 w-80 h-80 bg-torii-vermilion/10 rounded-full blur-3xl pointer-events-none -z-10"
+                    ></div>
+                    <div
+                        class="absolute -top-12 right-1/3 text-[140px] font-headline-lg font-extrabold text-primary-container/[0.03] select-none pointer-events-none -z-10 tracking-widest"
+                    >
+                        青空文化
+                    </div>
+                    <!-- HERO SECTION -->
+                    <section
+                        class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin pt-space-lg md:pt-space-xl pb-space-2xl"
+                    >
+                        <div
+                            class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center"
+                        >
+                            <!-- Left Hero Content (7 cols) -->
+                            <div
+                                class="lg:col-span-7 flex flex-col gap-space-md z-10"
+                            >
+                                <!-- Japanese Club Top Badge -->
+                                <div
+                                    class="flex flex-wrap items-center gap-space-xs"
+                                >
+                                    <div
+                                        class="inline-flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-primary/10 text-primary shadow-sm backdrop-blur-md"
+                                    >
+                                        <span
+                                            class="w-2 h-2 rounded-full bg-torii-vermilion animate-ping"
+                                        ></span>
+                                        <span
+                                            class="font-label-badge text-label-badge tracking-widest text-torii-vermilion font-bold"
+                                            >青空部</span
+                                        >
+                                        <span class="text-secondary text-xs"
+                                            >•</span
+                                        >
+                                        <span
+                                            class="font-label-badge text-label-badge text-primary uppercase"
+                                            >SMKN 1 Purwokerto</span
+                                        >
+                                    </div>
+                                    <span
+                                        class="px-2.5 py-1 rounded-full bg-sakura-tint text-torii-vermilion font-label-badge text-label-badge font-bold"
+                                    >
+                                        新入部員募集中
+                                    </span>
+                                </div>
+                                <!-- Bold Display Typography -->
+                                <h1
+                                    class="font-display-hero text-display-hero text-indigo-night tracking-tight leading-[1.08] mt-space-xs"
+                                >
+                                    Jelajahi Bahasa &amp; Pesona
+                                    <span
+                                        class="relative inline-block text-primary"
+                                    >
+                                        Budaya Jepang
+                                        <svg
+                                            class="absolute -bottom-2 left-0 w-full h-3 text-aozora-sky/70"
+                                            fill="none"
+                                            preserveAspectRatio="none"
+                                            viewBox="0 0 260 12"
+                                        >
+                                            <path
+                                                d="M2 9C50 3 170 1 258 8"
+                                                stroke="currentColor"
+                                                stroke-linecap="round"
+                                                stroke-width="4"
+                                            ></path>
+                                        </svg>
+                                    </span>
+                                    Bersama Aozora!
+                                </h1>
+                                <!-- Subtitle -->
+                                <p
+                                    class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mt-space-xs leading-relaxed"
+                                >
+                                    Wadah eksplorasi bahasa Jepang, anime &amp;
+                                    manga, festival matsuri, hingga persiapan
+                                    sertifikasi JLPT yang seru, interaktif, dan
+                                    penuh persahabatan bagi siswa-siswi SMKN 1
+                                    Purwokerto.
+                                </p>
+                                <!-- Quick Action Buttons -->
+                                <div
+                                    class="flex flex-wrap items-center gap-space-md pt-space-sm"
+                                >
+                                    <a
+                                        class="inline-flex items-center gap-space-sm bg-cloud-white hover:bg-surface-container-low text-primary font-label-lg text-label-lg px-space-lg py-space-md rounded-lg shadow-md hover:shadow-lg transition-all group"
+                                        href="#event"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform"
+                                            >calendar_month</span
+                                        >
+                                        <span class="font-bold"
+                                            >Lihat Agenda Event</span
+                                        >
+                                        <span class="text-aozora-sky">✨</span>
+                                    </a>
+                                </div>
+                                <!-- Quick Stat Badges Strip -->
+                                <div
+                                    class="grid grid-cols-3 gap-space-sm pt-space-md max-w-lg"
+                                >
+                                    <div
+                                        class="p-space-md rounded-xl bg-cloud-white shadow-sm flex flex-col"
+                                    >
+                                        <span
+                                            class="font-headline-md text-headline-md text-primary font-extrabold"
+                                            >50+</span
+                                        >
+                                        <span
+                                            class="font-label-badge text-label-badge text-secondary uppercase"
+                                            >Anggota Aktif</span
+                                        >
+                                    </div>
+                                    <div
+                                        class="p-space-md rounded-xl bg-cloud-white shadow-sm flex flex-col"
+                                    >
+                                        <span
+                                            class="font-headline-md text-headline-md text-torii-vermilion font-extrabold"
+                                            >10+</span
+                                        >
+                                        <span
+                                            class="font-label-badge text-label-badge text-secondary uppercase"
+                                            >Event / Tahun</span
+                                        >
+                                    </div>
+                                    <div
+                                        class="p-space-md rounded-xl bg-cloud-white shadow-sm flex flex-col"
+                                    >
+                                        <span
+                                            class="font-headline-md text-headline-md text-indigo-night font-extrabold"
+                                            >N5-N4</span
+                                        >
+                                        <span
+                                            class="font-label-badge text-label-badge text-secondary uppercase"
+                                            >JLPT Coaching</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Right Hero: Interactive Anime UI Mascot Showcase (5 cols) -->
+                            <div
+                                class="lg:col-span-5 relative mt-space-lg lg:mt-0"
+                            >
+                                <!-- Traditional Cloud / Sun Decorative Halo -->
+                                <div
+                                    class="absolute -top-8 -right-8 w-72 h-72 rounded-full bg-torii-vermilion/10 -z-10 blur-xl"
+                                ></div>
+                                <div
+                                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-aozora-sky/20 -z-10 blur-2xl"
+                                ></div>
+                                <!-- Main Genshin-inspired Character HUD Card -->
+                                <div
+                                    class="relative rounded-2xl bg-cloud-white/95 backdrop-blur-xl p-space-md md:p-space-lg shadow-xl shadow-primary-container/10 transition-transform duration-300"
+                                    id="mascotCard"
+                                    style="
+                                        transform: perspective(1000px)
+                                            rotateY(0deg) rotateX(0deg);
+                                    "
+                                >
+                                    <!-- Top HUD Bar -->
+                                    <div
+                                        class="flex items-center justify-between pb-space-sm"
+                                    >
+                                        <div
+                                            class="flex items-center gap-space-xs"
+                                        >
+                                            <span
+                                                class="w-3 h-3 rounded-full bg-torii-vermilion inline-block"
+                                            ></span>
+                                            <span
+                                                class="w-3 h-3 rounded-full bg-gold-shrine inline-block"
+                                            ></span>
+                                            <span
+                                                class="w-3 h-3 rounded-full bg-aozora-sky inline-block"
+                                            ></span>
+                                            <span
+                                                class="font-label-badge text-label-badge text-indigo-night ml-2 uppercase font-bold"
+                                                >CLUB AMBASSADOR</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="px-2 py-0.5 rounded bg-primary text-cloud-white font-label-badge text-label-badge"
+                                        >
+                                            SSR ★★★★★
+                                        </div>
+                                    </div>
+                                    <!-- Speech Bubble Floating above -->
+                                    <div
+                                        class="relative mb-space-sm p-space-sm rounded-xl bg-secondary-container/60 shadow-sm flex items-start gap-space-xs"
+                                    >
+                                        <span class="text-xl">💬</span>
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="font-label-badge text-label-badge text-primary font-bold"
+                                                >Sora-chan (空ちゃん)</span
+                                            >
+                                            <p
+                                                class="font-body-sm text-body-sm text-indigo-night leading-tight font-medium"
+                                                id="speechBubbleText"
+                                            >
+                                                "Konnichiwa! Selamat datang di
+                                                Aozora Club~ Ikuti petualangan
+                                                seru kami di SMKN 1!"
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- Character Artwork Visual Display -->
+                                    <div
+                                        class="relative w-full aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-surface to-secondary-container/40 flex items-center justify-center group shadow-inner"
+                                    >
+                                        <img
+                                            alt="Mascot Sora-chan Aozora Nihongo Club"
+                                            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe_57QRBxcPOxYpvoRkSSUOgH3K1ldKLCAAaYxfqzhuBIlPdMwKPITA2FIlP0xftYt--7X0loUMNwZ3T9pulWmnG7VAMJ8nmf0Mp3aTJ6os01vkE0OvrX_iO1kRs0RDhqlXwPpl4Ml0xCGRXfQS7jdEdDo9TB2Dllwrv5QjGy2VIHvbP1RYVt0cM680j6nLbITW4yZn8WUyuEtBYx5aysZQlq8S0jg7y_N6BRIYSJYRFAStambE6vz"
+                                        />
+                                        <!-- Floating HUD Attributes -->
+                                        <div
+                                            class="absolute top-3 left-3 flex flex-col gap-1.5"
+                                        >
+                                            <span
+                                                class="px-2.5 py-1 rounded-md bg-indigo-night/80 backdrop-blur-md text-cloud-white font-label-badge text-label-badge"
+                                            >
+                                                Mascot: Sora-chan
+                                            </span>
+                                            <span
+                                                class="px-2.5 py-1 rounded-md bg-torii-vermilion/90 backdrop-blur-md text-cloud-white font-label-badge text-label-badge"
+                                            >
+                                                Club Level: S-Tier
+                                            </span>
+                                        </div>
+                                        <!-- Interactive Voice Audio Pill -->
+                                        <button
+                                            class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-cloud-white/90 hover:bg-cloud-white shadow-md backdrop-blur-md text-indigo-night font-label-badge text-label-badge flex items-center gap-1.5 transition-all transform hover:scale-105 active:scale-95"
+                                            id="voicePlayBtn"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-torii-vermilion text-base"
+                                                style="
+                                                    font-variation-settings: &quot;FILL&quot;
+                                                        1;
+                                                "
+                                                >volume_up</span
+                                            >
+                                            <span id="voiceStatusText" class=""
+                                                >Voice: Ganbatte! 🌸</span
+                                            >
+                                        </button>
+                                    </div>
+                                    <!-- Mascot Footer Attributes / Tags -->
+                                    <div
+                                        class="flex flex-wrap items-center justify-between pt-space-sm gap-space-xs font-label-badge text-label-badge"
+                                    >
+                                        <div
+                                            class="flex items-center gap-space-xs text-secondary"
+                                        >
+                                            <span
+                                                class="px-2 py-0.5 rounded bg-surface-container text-on-surface"
+                                                >#NihongoClub</span
+                                            >
+                                            <span
+                                                class="px-2 py-0.5 rounded bg-surface-container text-on-surface"
+                                                >#SmeconPurwokerto</span
+                                            >
+                                        </div>
+                                        <span
+                                            class="text-aozora-sky font-bold tracking-wide"
+                                            >一期一会 (Ichigo Ichie)</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- SECTION 2: TENTANG KAMI & VALUE PILLARS -->
+                <section
+                    class="w-full bg-surface-container-low/70 py-space-2xl relative"
+                    id="tentang"
+                >
+                    <div
+                        class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin"
+                    >
+                        <!-- Section Header -->
+                        <div
+                            class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-xl"
+                        >
+                            <div
+                                class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-sakura-tint text-torii-vermilion font-label-badge text-label-badge mb-space-xs font-bold"
+                            >
+                                <span class="">🌸 KEUNGGULAN KAMI</span>
+                                <span class="">•</span>
+                                <span class="">私たちについて</span>
+                            </div>
+                            <h2
+                                class="font-headline-lg text-headline-lg text-indigo-night tracking-tight"
+                            >
+                                Kenapa Belajar &amp; Berkarya di Aozora?
+                            </h2>
+                            <p
+                                class="font-body-md text-body-md text-on-surface-variant mt-space-xs"
+                            >
+                                Menggabungkan atmosfer santai nan produktif khas
+                                pop-culture Jepang dengan penguatan kompetensi
+                                akademik dan vokasi.
+                            </p>
+                        </div>
+                        <!-- 4 Bento Grid Feature Pillars -->
+                        <div
+                            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md"
+                        >
+                            <!-- Pillar 1 -->
+                            <div
+                                class="relative rounded-2xl bg-cloud-white p-space-lg shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden group"
+                            >
+                                <div
+                                    class="absolute -right-4 -bottom-4 text-7xl font-bold text-surface-container-high/40 select-none pointer-events-none group-hover:text-aozora-sky/20 transition-colors"
+                                >
+                                    学
+                                </div>
+                                <div>
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-aozora-sky/15 flex items-center justify-center text-primary mb-space-md shadow-sm"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-2xl"
+                                            style="
+                                                font-variation-settings: &quot;FILL&quot;
+                                                    1;
+                                            "
+                                            >menu_book</span
+                                        >
+                                    </div>
+                                    <div
+                                        class="flex items-center gap-space-xs mb-space-xs"
+                                    >
+                                        <span
+                                            class="font-label-badge text-label-badge text-primary font-bold"
+                                            >PILAR 01</span
+                                        >
+                                        <span class="text-secondary text-xs"
+                                            >•</span
+                                        >
+                                        <span
+                                            class="font-label-badge text-label-badge text-secondary"
+                                            >INTERACTIVE</span
+                                        >
+                                    </div>
+                                    <h3
+                                        class="font-headline-sm text-headline-sm text-indigo-night mb-space-xs font-bold"
+                                    >
+                                        Pembelajaran Interaktif
+                                    </h3>
+                                    <p
+                                        class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"
+                                    >
+                                        Pelajari Kanji, tata bahasa (bunpou),
+                                        dan percakapan harian (kaiwa) melalui
+                                        anime dubbing, flashcards gamifikasi,
+                                        dan lagu J-Pop.
+                                    </p>
+                                </div>
+                                <div
+                                    class="pt-space-md mt-space-sm flex items-center gap-space-xs text-primary font-label-badge text-label-badge"
+                                >
+                                    <span
+                                        class="w-1.5 h-1.5 rounded-full bg-primary"
+                                    ></span>
+                                    <span class="">Tingkat Pemula s.d N4</span>
+                                </div>
+                            </div>
+                            <!-- Pillar 2 -->
+                            <div
+                                class="relative rounded-2xl bg-cloud-white p-space-lg shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden group"
+                            >
+                                <div
+                                    class="absolute -right-4 -bottom-4 text-7xl font-bold text-surface-container-high/40 select-none pointer-events-none group-hover:text-torii-vermilion/20 transition-colors"
+                                >
+                                    祭
+                                </div>
+                                <div>
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-sakura-tint flex items-center justify-center text-torii-vermilion mb-space-md shadow-sm"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-2xl"
+                                            style="
+                                                font-variation-settings: &quot;FILL&quot;
+                                                    1;
+                                            "
+                                            >theater_comedy</span
+                                        >
+                                    </div>
+                                    <div
+                                        class="flex items-center gap-space-xs mb-space-xs"
+                                    >
+                                        <span
+                                            class="font-label-badge text-label-badge text-torii-vermilion font-bold"
+                                            >PILAR 02</span
+                                        >
+                                        <span class="text-secondary text-xs"
+                                            >•</span
+                                        >
+                                        <span
+                                            class="font-label-badge text-label-badge text-secondary"
+                                            >TRADITION &amp; POP</span
+                                        >
+                                    </div>
+                                    <h3
+                                        class="font-headline-sm text-headline-sm text-indigo-night mb-space-xs font-bold"
+                                    >
+                                        Kebudayaan &amp; Seni
+                                    </h3>
+                                    <p
+                                        class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"
+                                    >
+                                        Praktek langsung seni kaligrafi Shodo,
+                                        melipat Origami rumit, workshop Cosplay
+                                        costume &amp; makeup, hingga pembuatan
+                                        kuliner festival.
+                                    </p>
+                                </div>
+                                <div
+                                    class="pt-space-md mt-space-sm flex items-center gap-space-xs text-torii-vermilion font-label-badge text-label-badge"
+                                >
+                                    <span
+                                        class="w-1.5 h-1.5 rounded-full bg-torii-vermilion"
+                                    ></span>
+                                    <span class=""
+                                        >Bunkasai &amp; Matsuri Show</span
+                                    >
+                                </div>
+                            </div>
+                            <!-- Pillar 3 -->
+                            <div
+                                class="relative rounded-2xl bg-cloud-white p-space-lg shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden group"
+                            >
+                                <div
+                                    class="absolute -right-4 -bottom-4 text-7xl font-bold text-surface-container-high/40 select-none pointer-events-none group-hover:text-primary/20 transition-colors"
+                                >
+                                    友
+                                </div>
+                                <div>
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-secondary-container/60 flex items-center justify-center text-primary mb-space-md shadow-sm"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-2xl"
+                                            style="
+                                                font-variation-settings: &quot;FILL&quot;
+                                                    1;
+                                            "
+                                            >groups</span
+                                        >
+                                    </div>
+                                    <div
+                                        class="flex items-center gap-space-xs mb-space-xs"
+                                    >
+                                        <span
+                                            class="font-label-badge text-label-badge text-primary font-bold"
+                                            >PILAR 03</span
+                                        >
+                                        <span class="text-secondary text-xs"
+                                            >•</span
+                                        >
+                                        <span
+                                            class="font-label-badge text-label-badge text-secondary"
+                                            >COMMUNITY</span
+                                        >
+                                    </div>
+                                    <h3
+                                        class="font-headline-sm text-headline-sm text-indigo-night mb-space-xs font-bold"
+                                    >
+                                        Sahabat Satu Hobi
+                                    </h3>
+                                    <p
+                                        class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"
+                                    >
+                                        Circle suportif untuk nobar anime
+                                        bulanan, diskusi manga/game, bertukar
+                                        merchandise, serta mengasah soft-skills
+                                        kepemimpinan organisasi.
+                                    </p>
+                                </div>
+                                <div
+                                    class="pt-space-md mt-space-sm flex items-center gap-space-xs text-primary font-label-badge text-label-badge"
+                                >
+                                    <span
+                                        class="w-1.5 h-1.5 rounded-full bg-primary"
+                                    ></span>
+                                    <span class="">Keluarga Besar Smecon</span>
+                                </div>
+                            </div>
+                            <!-- Pillar 4 -->
+                            <div
+                                class="relative rounded-2xl bg-cloud-white p-space-lg shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden group"
+                            >
+                                <div
+                                    class="absolute -right-4 -bottom-4 text-7xl font-bold text-surface-container-high/40 select-none pointer-events-none group-hover:text-gold-shrine/20 transition-colors"
+                                >
+                                    勝
+                                </div>
+                                <div>
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-gold-shrine/15 flex items-center justify-center text-gold-shrine mb-space-md shadow-sm"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-2xl"
+                                            style="
+                                                font-variation-settings: &quot;FILL&quot;
+                                                    1;
+                                            "
+                                            >military_tech</span
+                                        >
+                                    </div>
+                                    <div
+                                        class="flex items-center gap-space-xs mb-space-xs"
+                                    >
+                                        <span
+                                            class="font-label-badge text-label-badge text-gold-shrine font-bold"
+                                            >PILAR 04</span
+                                        >
+                                        <span class="text-secondary text-xs"
+                                            >•</span
+                                        >
+                                        <span
+                                            class="font-label-badge text-label-badge text-secondary"
+                                            >PRESTIGE</span
+                                        >
+                                    </div>
+                                    <h3
+                                        class="font-headline-sm text-headline-sm text-indigo-night mb-space-xs font-bold"
+                                    >
+                                        Kompetisi &amp; Prestasi
+                                    </h3>
+                                    <p
+                                        class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"
+                                    >
+                                        Bimbingan intensif persiapan lomba
+                                        Rodoku (baca puisi Jepang), Speech
+                                        Contest antar-SMK se-Jawa Tengah, dan
+                                        tryout resmi JLPT.
+                                    </p>
+                                </div>
+                                <div
+                                    class="pt-space-md mt-space-sm flex items-center gap-space-xs text-gold-shrine font-label-badge text-label-badge"
+                                >
+                                    <span
+                                        class="w-1.5 h-1.5 rounded-full bg-gold-shrine"
+                                    ></span>
+                                    <span class=""
+                                        >Juara Tingkat Karesidenan</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- SECTION 3: AGENDA EVENT TERBARU & TIMELINE -->
+                <section class="w-full py-space-2xl relative" id="event">
+                    <div
+                        class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin"
+                    >
+                        <!-- Section Header -->
+                        <div
+                            class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md"
+                        >
+                            <div class="flex flex-col">
+                                <div
+                                    class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-primary/10 text-primary font-label-badge text-label-badge mb-space-xs font-bold self-start"
+                                >
+                                    <span class=""
+                                        >⛩️ JADWAL &amp; DOKUMENTASI</span
+                                    >
+                                    <span class="">•</span>
+                                    <span class="">催し物</span>
+                                </div>
+                                <h2
+                                    class="font-headline-lg text-headline-lg text-indigo-night tracking-tight"
+                                >
+                                    Event &amp; Kegiatan Unggulan Aozora
+                                </h2>
+                                <p
+                                    class="font-body-md text-body-md text-on-surface-variant mt-space-xs max-w-xl"
+                                >
+                                    Keseruan festival akbar tahunan, workshop
+                                    seni mendalam, dan uji ketangkasan bahasa
+                                    yang siap kamu ikuti.
+                                </p>
+                            </div>
+                            <!-- Filter / Tab selector Mockup -->
+                            <div
+                                class="inline-flex p-1 rounded-xl bg-surface-container shadow-inner self-start md:self-auto"
+                            >
+                                <button
+                                    class="event-filter-btn px-4 py-2 rounded-lg font-label-md text-label-md transition-all text-secondary"
+                                    data-tab="all"
+                                >
+                                    Semua Agenda
+                                </button>
+                                <button
+                                    class="event-filter-btn px-4 py-2 rounded-lg hover:text-indigo-night font-label-md text-label-md transition-all text-secondary"
+                                    data-tab="matsuri"
+                                >
+                                    Matsuri
+                                </button>
+                                <button
+                                    class="event-filter-btn px-4 py-2 rounded-lg hover:text-indigo-night font-label-md text-label-md transition-all bg-cloud-white text-primary shadow-sm font-bold"
+                                    data-tab="workshop"
+                                >
+                                    Workshop
+                                </button>
+                            </div>
+                        </div>
+                        <!-- 3 Detailed Event Cards -->
+                        <div
+                            class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg"
+                        >
+                            <!-- Event Card 1: Bunkasai Matsuri (Hero Feature Card) -->
+                            <div
+                                class="rounded-2xl bg-cloud-white p-space-lg shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
+                            >
+                                <div
+                                    class="absolute top-0 left-0 w-full h-1.5 bg-torii-vermilion"
+                                ></div>
+                                <div>
+                                    <!-- Header Tags -->
+                                    <div
+                                        class="flex items-center justify-between gap-space-xs mb-space-sm"
+                                    >
+                                        <span
+                                            class="px-2.5 py-1 rounded-full bg-sakura-tint text-torii-vermilion font-label-badge text-label-badge font-bold"
+                                        >
+                                            🏮 ANNUAL MATSURI
+                                        </span>
+                                        <span
+                                            class="font-label-badge text-label-badge text-secondary font-medium"
+                                            >15 Mei 2026</span
+                                        >
+                                    </div>
+                                    <!-- Title & Time -->
+                                    <h3
+                                        class="font-headline-sm text-headline-sm text-indigo-night font-bold group-hover:text-torii-vermilion transition-colors"
+                                    >
+                                        Bunkasai Matsuri SMKN 1: "Haru no
+                                        Hikari"
+                                    </h3>
+                                    <div
+                                        class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm mt-space-xs"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-sm text-torii-vermilion"
+                                            >schedule</span
+                                        >
+                                        <span class="">08:00 - 16:00 WIB</span>
+                                        <span class="text-secondary">•</span>
+                                        <span
+                                            class="material-symbols-outlined text-sm text-primary"
+                                            >location_on</span
+                                        >
+                                        <span class="">Aula Graha SMKN 1</span>
+                                    </div>
+                                    <!-- Description -->
+                                    <p
+                                        class="font-body-sm text-body-sm text-on-surface-variant mt-space-sm leading-relaxed"
+                                    >
+                                        Pesta kebudayaan akbar dengan Maid &amp;
+                                        Butler Cafe kreasi siswa, parade Cosplay
+                                        Walk, stan kuliner Takoyaki &amp;
+                                        Dorayaki, serta pertunjukan live band
+                                        lagu anisong.
+                                    </p>
+                                    <!-- Documentation indicator -->
+                                    <div
+                                        class="mt-space-md p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between"
+                                    >
+                                        <div
+                                            class="flex items-center gap-space-xs text-primary font-label-badge text-label-badge"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-base"
+                                                >photo_library</span
+                                            >
+                                            <span class=""
+                                                >📸 48 Foto Terarsip</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="flex items-center gap-space-xs text-torii-vermilion font-label-badge text-label-badge"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-base"
+                                                >videocam</span
+                                            >
+                                            <span class="">🎥 Video Recap</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Bottom CTA -->
+                                <div class="pt-space-md mt-space-sm">
+                                    <button
+                                        class="w-full py-2.5 rounded-lg bg-surface-container hover:bg-torii-vermilion hover:text-on-primary text-indigo-night font-label-md text-label-md font-bold transition-colors flex items-center justify-center gap-space-xs"
+                                    >
+                                        <span class=""
+                                            >Detail Kegiatan &amp; Rundown</span
+                                        >
+                                        <span
+                                            class="material-symbols-outlined text-sm"
+                                            >arrow_forward</span
+                                        >
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Event Card 2: Workshop Shodo & Origami -->
+                            <div
+                                class="rounded-2xl bg-cloud-white p-space-lg shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
+                            >
+                                <div
+                                    class="absolute top-0 left-0 w-full h-1.5 bg-aozora-sky"
+                                ></div>
+                                <div>
+                                    <div
+                                        class="flex items-center justify-between gap-space-xs mb-space-sm"
+                                    >
+                                        <span
+                                            class="px-2.5 py-1 rounded-full bg-aozora-sky/15 text-primary font-label-badge text-label-badge font-bold"
+                                        >
+                                            🖌️ WORKSHOP TRADISIONAL
+                                        </span>
+                                        <span
+                                            class="font-label-badge text-label-badge text-secondary font-medium"
+                                            >28 Maret 2026</span
+                                        >
+                                    </div>
+                                    <h3
+                                        class="font-headline-sm text-headline-sm text-indigo-night font-bold group-hover:text-primary transition-colors"
+                                    >
+                                        Workshop Shodo (書道) &amp; Seni Origami
+                                    </h3>
+                                    <div
+                                        class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm mt-space-xs"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-sm text-aozora-sky"
+                                            >schedule</span
+                                        >
+                                        <span class="">15:30 - 17:15 WIB</span>
+                                        <span class="text-secondary">•</span>
+                                        <span
+                                            class="material-symbols-outlined text-sm text-primary"
+                                            >location_on</span
+                                        >
+                                        <span class="">Lab Bahasa 2</span>
+                                    </div>
+                                    <p
+                                        class="font-body-sm text-body-sm text-on-surface-variant mt-space-sm leading-relaxed"
+                                    >
+                                        Pelatihan menulis huruf Kanji
+                                        menggunakan kuas fude dan tinta sumi
+                                        tradisional, didampingi pembuatan karya
+                                        origami 3D orisinal karya peserta.
+                                    </p>
+                                    <div
+                                        class="mt-space-md p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between"
+                                    >
+                                        <div
+                                            class="flex items-center gap-space-xs text-primary font-label-badge text-label-badge"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-base"
+                                                >palette</span
+                                            >
+                                            <span class=""
+                                                >Alat &amp; Bahan
+                                                Disediakan</span
+                                            >
+                                        </div>
+                                        <span
+                                            class="font-label-badge text-label-badge text-gold-shrine font-bold"
+                                            >Free Sertifikat</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="pt-space-md mt-space-sm">
+                                    <button
+                                        class="w-full py-2.5 rounded-lg bg-surface-container hover:bg-primary hover:text-on-primary text-indigo-night font-label-md text-label-md font-bold transition-colors flex items-center justify-center gap-space-xs"
+                                    >
+                                        <span class=""
+                                            >Ikuti Sesi Workshop</span
+                                        >
+                                        <span
+                                            class="material-symbols-outlined text-sm"
+                                            >arrow_forward</span
+                                        >
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Event Card 3: Speech & Quiz Contest -->
+                            <div
+                                class="rounded-2xl bg-cloud-white p-space-lg shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
+                            >
+                                <div
+                                    class="absolute top-0 left-0 w-full h-1.5 bg-gold-shrine"
+                                ></div>
+                                <div>
+                                    <div
+                                        class="flex items-center justify-between gap-space-xs mb-space-sm"
+                                    >
+                                        <span
+                                            class="px-2.5 py-1 rounded-full bg-gold-shrine/15 text-gold-shrine font-label-badge text-label-badge font-bold"
+                                        >
+                                            🏆 TOURNAMENT &amp; SPEECH
+                                        </span>
+                                        <span
+                                            class="font-label-badge text-label-badge text-secondary font-medium"
+                                            >12 April 2026</span
+                                        >
+                                    </div>
+                                    <h3
+                                        class="font-headline-sm text-headline-sm text-indigo-night font-bold group-hover:text-gold-shrine transition-colors"
+                                    >
+                                        Aozora Nihongo Speech &amp; Quiz Contest
+                                    </h3>
+                                    <div
+                                        class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm mt-space-xs"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-sm text-gold-shrine"
+                                            >schedule</span
+                                        >
+                                        <span class="">09:00 - 14:00 WIB</span>
+                                        <span class="text-secondary">•</span>
+                                        <span
+                                            class="material-symbols-outlined text-sm text-primary"
+                                            >location_on</span
+                                        >
+                                        <span class="">Ruang Teater Mini</span>
+                                    </div>
+                                    <p
+                                        class="font-body-sm text-body-sm text-on-surface-variant mt-space-sm leading-relaxed"
+                                    >
+                                        Uji ketangkasan berbicara bahasa Jepang
+                                        di depan juri, disusul kuis cepat
+                                        tanggap seputar kebudayaan pop Jepang
+                                        dan geografi kepulauan Nippon.
+                                    </p>
+                                    <div
+                                        class="mt-space-md p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between"
+                                    >
+                                        <div
+                                            class="flex items-center gap-space-xs text-primary font-label-badge text-label-badge"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-base"
+                                                >emoji_events</span
+                                            >
+                                            <span class=""
+                                                >Piala &amp; Uang
+                                                Pembinaan</span
+                                            >
+                                        </div>
+                                        <span
+                                            class="font-label-badge text-label-badge text-torii-vermilion font-bold"
+                                            >Internal Smecon</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="pt-space-md mt-space-sm">
+                                    <button
+                                        class="w-full py-2.5 rounded-lg bg-surface-container hover:bg-gold-shrine hover:text-indigo-night text-indigo-night font-label-md text-label-md font-bold transition-colors flex items-center justify-center gap-space-xs"
+                                    >
+                                        <span class=""
+                                            >Registrasi Peserta Lomba</span
+                                        >
+                                        <span
+                                            class="material-symbols-outlined text-sm"
+                                            >arrow_forward</span
+                                        >
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Prominent Call to Action Button for Full Event Archive -->
+                        <div class="mt-space-xl flex justify-center">
+                            <a
+                                class="inline-flex items-center gap-space-sm bg-indigo-night hover:bg-primary text-cloud-white font-label-lg text-label-lg px-space-xl py-space-md rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 group"
+                                href="#"
+                            >
+                                <span
+                                    class="material-symbols-outlined text-aozora-sky group-hover:rotate-45 transition-transform"
+                                    >auto_awesome</span
+                                >
+                                <span class=""
+                                    >Lihat Semua Event &amp; Arsip Dokumentasi
+                                    (15+ Event)</span
+                                >
+                                <span
+                                    class="text-aozora-sky font-bold text-lg transition-transform group-hover:translate-x-1"
+                                    >→</span
+                                >
+                            </a>
+                        </div>
+                        <!-- DOKUMENTASI MEDIA MOCKUP HIGHLIGHT (Photo & Video Player Box) -->
+                        <div
+                            class="mt-space-2xl p-space-lg rounded-2xl bg-cloud-white shadow-md"
+                        >
+                            <div
+                                class="flex flex-col md:flex-row items-start md:items-center justify-between pb-space-md gap-space-sm"
+                            >
+                                <div>
+                                    <span
+                                        class="font-label-badge text-label-badge text-torii-vermilion uppercase font-bold"
+                                        >SNAPSHOT REKAPITULASI</span
+                                    >
+                                    <h4
+                                        class="font-headline-md text-headline-md text-indigo-night tracking-tight mt-0.5"
+                                    >
+                                        Galeri Foto &amp; Aftermovie Matsuri
+                                    </h4>
+                                </div>
+                                <div
+                                    class="flex items-center gap-space-xs font-label-badge text-label-badge"
+                                >
+                                    <span
+                                        class="px-2 py-1 rounded bg-secondary-container/50 text-indigo-night"
+                                        >Total 250+ Dokumentasi</span
+                                    >
+                                    <span
+                                        class="px-2 py-1 rounded bg-sakura-tint text-torii-vermilion"
+                                        >Update Terbaru</span
+                                    >
+                                </div>
+                            </div>
+                            <div
+                                class="grid grid-cols-1 md:grid-cols-12 gap-space-md"
+                            >
+                                <!-- Video Mockup Preview (7 cols) -->
+                                <div
+                                    class="md:col-span-7 relative rounded-xl overflow-hidden bg-indigo-night group aspect-video flex items-center justify-center shadow-inner"
+                                >
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-indigo-night/90 via-indigo-night/30 to-transparent z-10 pointer-events-none"
+                                    ></div>
+                                    <!-- Video Overlay Canvas Details -->
+                                    <div
+                                        class="absolute top-4 left-4 z-20 flex items-center gap-space-xs"
+                                    >
+                                        <span
+                                            class="w-2.5 h-2.5 rounded-full bg-torii-vermilion animate-ping"
+                                        ></span>
+                                        <span
+                                            class="font-label-badge text-label-badge text-cloud-white bg-indigo-night/60 px-2 py-0.5 rounded backdrop-blur-md"
+                                        >
+                                            AFTERMOVIE BUNKASAI 2025
+                                        </span>
+                                    </div>
+                                    <!-- Play Button Interactive -->
+                                    <button
+                                        class="relative z-20 w-16 h-16 rounded-full bg-cloud-white/90 hover:bg-torii-vermilion text-indigo-night hover:text-cloud-white flex items-center justify-center shadow-2xl transition-all transform group-hover:scale-110"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-3xl ml-1"
+                                            style="
+                                                font-variation-settings: &quot;FILL&quot;
+                                                    1;
+                                            "
+                                            >play_arrow</span
+                                        >
+                                    </button>
+                                    <!-- Video duration & viewers -->
+                                    <div
+                                        class="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between text-cloud-white font-label-badge text-label-badge"
+                                    >
+                                        <span class=""
+                                            >▶ 03:42 • 1080p 60FPS</span
+                                        >
+                                        <span class="flex items-center gap-1">
+                                            <span
+                                                class="material-symbols-outlined text-xs text-aozora-sky"
+                                                >visibility</span
+                                            >
+                                            1.4K Views Smecon TV
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- 2 Gallery Thumbnails (5 cols) -->
+                                <div
+                                    class="md:col-span-5 flex flex-col gap-space-sm justify-between"
+                                >
+                                    <div
+                                        class="p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-center gap-space-md cursor-pointer group"
+                                    >
+                                        <div
+                                            class="w-20 h-20 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary overflow-hidden relative shadow-sm"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform text-primary"
+                                                >photo_camera</span
+                                            >
+                                            <span
+                                                class="absolute bottom-1 right-1 font-label-badge text-[9px] bg-indigo-night/80 text-cloud-white px-1 rounded"
+                                                >24 JPG</span
+                                            >
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="font-label-badge text-label-badge text-torii-vermilion font-bold"
+                                                >FOTO RESMI</span
+                                            >
+                                            <span
+                                                class="font-headline-sm text-sm font-bold text-indigo-night"
+                                                >Cosplay Showcase &amp; Maid
+                                                Cafe 2025</span
+                                            >
+                                            <span
+                                                class="font-body-sm text-xs text-secondary mt-1"
+                                                >Dokumentasi Tim Jurnalistik
+                                                SMKN 1</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-center gap-space-md cursor-pointer group"
+                                    >
+                                        <div
+                                            class="w-20 h-20 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary overflow-hidden relative shadow-sm"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform text-torii-vermilion"
+                                                >history_edu</span
+                                            >
+                                            <span
+                                                class="absolute bottom-1 right-1 font-label-badge text-[9px] bg-indigo-night/80 text-cloud-white px-1 rounded"
+                                                >16 JPG</span
+                                            >
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="font-label-badge text-label-badge text-primary font-bold"
+                                                >HASIL KARYA</span
+                                            >
+                                            <span
+                                                class="font-headline-sm text-sm font-bold text-indigo-night"
+                                                >Pameran Kaligrafi Shodo Anggota
+                                                Baru</span
+                                            >
+                                            <span
+                                                class="font-body-sm text-xs text-secondary mt-1"
+                                                >Dipajang di Mading
+                                                Perpustakaan</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="p-space-sm rounded-xl bg-secondary-container/40 flex items-center justify-between px-space-md"
+                                    >
+                                        <span
+                                            class="font-body-sm text-body-sm text-indigo-night"
+                                            >Punya foto dokumentasi bersama
+                                            Aozora?</span
+                                        >
+                                        <a
+                                            class="font-label-badge text-label-badge text-primary font-bold hover:underline"
+                                            href="#"
+                                            >Kirim ke Arsip ↗</a
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- SECTION 4: KONTAK, JADWAL & REGISTRASI CEPAT -->
+                <section
+                    class="w-full bg-surface-container-low/80 py-space-2xl relative"
+                    id="kontak"
+                >
+                    <div
+                        class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin"
+                    >
+                        <div
+                            class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start"
+                        >
+                            <!-- Left: Information Cards & Schedule (6 cols) -->
+                            <div
+                                class="lg:col-span-6 flex flex-col gap-space-md"
+                            >
+                                <div
+                                    class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-torii-vermilion/10 text-torii-vermilion font-label-badge text-label-badge self-start font-bold"
+                                >
+                                    <span class=""
+                                        >⛩️ JADWAL &amp; SEKRETARIAT</span
+                                    >
+                                    <span class="">•</span>
+                                    <span class="">連絡先</span>
+                                </div>
+                                <h2
+                                    class="font-headline-lg text-headline-lg text-indigo-night tracking-tight"
+                                >
+                                    Datang &amp; Kunjungi Sesi Latihan Rutin
+                                </h2>
+                                <p
+                                    class="font-body-md text-body-md text-on-surface-variant"
+                                >
+                                    Pintu Aozora selalu terbuka untuk seluruh
+                                    siswa SMKN 1 Purwokerto dari semua jurusan
+                                    (PPLG, AKL, MPLB, PM, DKV, dsb). Tidak ada
+                                    syarat kemampuan awal!
+                                </p>
+                                <!-- Schedule Focus Box -->
+                                <div
+                                    class="p-space-lg rounded-2xl bg-cloud-white shadow-md relative overflow-hidden"
+                                >
+                                    <div
+                                        class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full pointer-events-none"
+                                    ></div>
+                                    <div
+                                        class="flex items-center gap-space-sm mb-space-md"
+                                    >
+                                        <div
+                                            class="w-10 h-10 rounded-lg bg-torii-vermilion text-on-primary flex items-center justify-center font-headline-sm"
+                                        >
+                                            木
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="font-label-badge text-label-badge text-torii-vermilion font-bold"
+                                                >JADWAL KUMPUL MINGGUAN
+                                                (MOKUYOUBI)</span
+                                            >
+                                            <span
+                                                class="font-headline-sm text-headline-sm text-indigo-night font-bold"
+                                                >Setiap Hari Kamis Sore</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="grid grid-cols-1 sm:grid-cols-2 gap-space-md"
+                                    >
+                                        <div
+                                            class="flex items-start gap-space-xs"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-primary text-xl mt-0.5"
+                                                >timer</span
+                                            >
+                                            <div class="flex flex-col">
+                                                <span
+                                                    class="font-label-badge text-label-badge text-secondary"
+                                                    >WAKTU PERTEMUAN</span
+                                                >
+                                                <span
+                                                    class="font-headline-sm text-sm font-bold text-indigo-night"
+                                                    >16.00 - 17.00 WIB</span
+                                                >
+                                                <span
+                                                    class="font-body-sm text-xs text-on-surface-variant"
+                                                    >Setelah jam pelajaran
+                                                    usai</span
+                                                >
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="flex items-start gap-space-xs"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-torii-vermilion text-xl mt-0.5"
+                                                >room</span
+                                            >
+                                            <div class="flex flex-col">
+                                                <span
+                                                    class="font-label-badge text-label-badge text-secondary"
+                                                    >LOKASI RUANGAN</span
+                                                >
+                                                <span
+                                                    class="font-headline-sm text-sm font-bold text-indigo-night"
+                                                    >Lab Bahasa / R. Eskul</span
+                                                >
+                                                <span
+                                                    class="font-body-sm text-xs text-on-surface-variant"
+                                                    >Gedung Tengah Lt. 2 SMKN
+                                                    1</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Official Social & Contacts Mini Grid -->
+                                <div
+                                    class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm"
+                                >
+                                    <a
+                                        class="p-space-md rounded-xl bg-cloud-white hover:bg-secondary-container/30 shadow-sm flex items-center gap-space-sm transition-colors group"
+                                        href="https://instagram.com"
+                                        target="_blank"
+                                    >
+                                        <div
+                                            class="w-10 h-10 rounded-lg bg-torii-vermilion/10 text-torii-vermilion flex items-center justify-center"
+                                        >
+                                            <span class="font-bold text-lg"
+                                                >📸</span
+                                            >
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="font-label-badge text-label-badge text-secondary"
+                                                >INSTAGRAM RESMI</span
+                                            >
+                                            <span
+                                                class="font-label-lg text-label-lg font-bold text-indigo-night group-hover:text-primary transition-colors"
+                                                >@aozora_nihongo</span
+                                            >
+                                        </div>
+                                    </a>
+                                    <a
+                                        class="p-space-md rounded-xl bg-cloud-white hover:bg-secondary-container/30 shadow-sm flex items-center gap-space-sm transition-colors group"
+                                        href="mailto:aozora@smkn1purwokerto.sch.id"
+                                    >
+                                        <div
+                                            class="w-10 h-10 rounded-lg bg-aozora-sky/15 text-primary flex items-center justify-center"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-xl"
+                                                >mail</span
+                                            >
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="font-label-badge text-label-badge text-secondary"
+                                                >EMAIL HOTLINE</span
+                                            >
+                                            <span
+                                                class="font-label-lg text-label-lg font-bold text-indigo-night group-hover:text-primary transition-colors"
+                                                >aozora@smkn1...</span
+                                            >
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- School Address Badge -->
+                                <div
+                                    class="p-space-sm px-space-md rounded-xl bg-cloud-white/70 flex items-center gap-space-sm text-secondary font-body-sm text-xs"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-sm"
+                                        >school</span
+                                    >
+                                    <span class=""
+                                        >SMK Negeri 1 Purwokerto — Jl. Dr.
+                                        Soeparno No. 29, Karangwangkal,
+                                        Purwokerto Timur</span
+                                    >
+                                </div>
+                            </div>
+                            <!-- Right: Registration Form & Quick Interactive Q&A (6 cols) -->
+                            <div
+                                class="lg:col-span-6 rounded-2xl bg-cloud-white p-space-lg md:p-space-xl shadow-xl relative overflow-hidden flex flex-col justify-between"
+                                id="info-rekrutmen"
+                            >
+                                <div
+                                    class="absolute -top-12 -right-12 w-40 h-40 bg-sakura-tint rounded-full blur-2xl pointer-events-none -z-10"
+                                ></div>
+                                <div>
+                                    <div
+                                        class="flex items-center justify-between pb-space-xs"
+                                    >
+                                        <div
+                                            class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-sakura-tint text-torii-vermilion font-label-badge text-label-badge font-bold"
+                                        >
+                                            <span class=""
+                                                >🌸 REKRUTMEN OFFLINE</span
+                                            ><span class="">•</span
+                                            ><span class="">新入部員募集</span>
+                                        </div>
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-sakura-tint flex items-center justify-center text-torii-vermilion font-bold text-lg"
+                                        >
+                                            桜
+                                        </div>
+                                    </div>
+                                    <h3
+                                        class="font-headline-md text-headline-md text-indigo-night font-bold mt-space-xs leading-snug"
+                                    >
+                                        Pendaftaran Resmi Melalui Demo Eskul
+                                        SMKN 1 Purwokerto
+                                    </h3>
+                                    <div
+                                        class="mt-space-md flex flex-col gap-space-sm"
+                                    >
+                                        <div
+                                            class="p-space-md rounded-xl bg-surface-container-low flex items-start gap-space-sm"
+                                        >
+                                            <div
+                                                class="w-8 h-8 rounded-lg bg-primary text-cloud-white font-label-badge text-label-badge font-bold flex items-center justify-center shrink-0"
+                                            >
+                                                01
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <span
+                                                    class="font-label-lg text-label-lg font-bold text-indigo-night"
+                                                    >Kunjungi Booth Aozora Saat
+                                                    Demo Eskul</span
+                                                >
+                                                <p
+                                                    class="font-body-sm text-body-sm text-on-surface-variant mt-0.5"
+                                                >
+                                                    Datangi stan klub kami di
+                                                    area lapangan/hall utama
+                                                    sekolah saat gelaran Demo
+                                                    Ekstrakurikuler berlangsung.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="p-space-md rounded-xl bg-surface-container-low flex items-start gap-space-sm"
+                                        >
+                                            <div
+                                                class="w-8 h-8 rounded-lg bg-torii-vermilion text-cloud-white font-label-badge text-label-badge font-bold flex items-center justify-center shrink-0"
+                                            >
+                                                02
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <span
+                                                    class="font-label-lg text-label-lg font-bold text-indigo-night"
+                                                    >Coba Mini-Games &amp; Temu
+                                                    Maskot Sora-chan</span
+                                                >
+                                                <p
+                                                    class="font-body-sm text-body-sm text-on-surface-variant mt-0.5"
+                                                >
+                                                    Rasakan keseruan kuis
+                                                    budaya, kenalan dengan
+                                                    pengurus klub, serta berfoto
+                                                    bersama maskot Sora-chan.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="p-space-md rounded-xl bg-surface-container-low flex items-start gap-space-sm"
+                                        >
+                                            <div
+                                                class="w-8 h-8 rounded-lg bg-gold-shrine text-indigo-night font-label-badge text-label-badge font-bold flex items-center justify-center shrink-0"
+                                            >
+                                                03
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <span
+                                                    class="font-label-lg text-label-lg font-bold text-indigo-night"
+                                                    >Isi Formulir Fisik &amp;
+                                                    Masuk Grup Koordinasi</span
+                                                >
+                                                <p
+                                                    class="font-body-sm text-body-sm text-on-surface-variant mt-0.5"
+                                                >
+                                                    Pengisian berkas fisik
+                                                    dilakukan langsung di tempat
+                                                    dan kamu akan segera
+                                                    dimasukkan ke grup WhatsApp
+                                                    resmi angkatan baru.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- CLIENT INTERACTIVE SCRIPT -->
+            <script>
+                // 1. Interactive Voice Clip on Mascot
+                const voiceBtn = document.getElementById("voicePlayBtn");
+                const voiceText = document.getElementById("voiceStatusText");
+                const speechBubble =
+                    document.getElementById("speechBubbleText");
+
+                const voiceQuotes = [
+                    {
+                        voice: "Voice: Oyasumi~ ✨",
+                        quote: "Jangan lupa istirahat ya! Sampai ketemu di ruang bahasa Kamis sore nanti!",
+                    },
+                    {
+                        voice: "Voice: Ganbatte! 🌸",
+                        quote: "Konnichiwa! Belajar bahasa Jepang itu mudah asalkan dinikmati bersama teman satu frekuensi!",
+                    },
+                    {
+                        voice: "Voice: Sugoi ne! ⭐",
+                        quote: "Wah, antusiasmemu keren sekali! Siap tampil di Bunkasai Matsuri tahun ini?",
+                    },
+                    {
+                        voice: "Voice: Ikuzo! 🚀",
+                        quote: "Ayo asah skill Kaiwa-mu! Petualangan di Aozora baru saja dimulai!",
+                    },
+                ];
+
+                let currentQuoteIndex = 0;
+                if (voiceBtn) {
+                    voiceBtn.addEventListener("click", () => {
+                        currentQuoteIndex =
+                            (currentQuoteIndex + 1) % voiceQuotes.length;
+                        const target = voiceQuotes[currentQuoteIndex];
+                        voiceText.textContent = target.voice;
+                        speechBubble.textContent = `"${target.quote}"`;
+
+                        // Temporary animation punch
+                        voiceBtn.classList.add(
+                            "bg-sakura-tint",
+                            "text-torii-vermilion",
+                        );
+                        setTimeout(() => {
+                            voiceBtn.classList.remove(
+                                "bg-sakura-tint",
+                                "text-torii-vermilion",
+                            );
+                        }, 400);
+                    });
+                }
+
+                // 2. Parallax / Subtle Cursor Reaction on Mascot HUD Card
+                const mascotCard = document.getElementById("mascotCard");
+                if (mascotCard && window.innerWidth > 768) {
+                    mascotCard.addEventListener("mousemove", (e) => {
+                        const rect = mascotCard.getBoundingClientRect();
+                        const x = e.clientX - rect.left - rect.width / 2;
+                        const y = e.clientY - rect.top - rect.height / 2;
+                        mascotCard.style.transform = `perspective(1000px) rotateY(${x * 0.02}deg) rotateX(${-y * 0.02}deg)`;
+                    });
+
+                    mascotCard.addEventListener("mouseleave", () => {
+                        mascotCard.style.transform =
+                            "perspective(1000px) rotateY(0deg) rotateX(0deg)";
+                    });
+                }
+
+                // 3. Tab Filter Switcher (Visual mockup interaction)
+                const filterBtns =
+                    document.querySelectorAll(".event-filter-btn");
+                filterBtns.forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        filterBtns.forEach((b) => {
+                            b.classList.remove(
+                                "bg-cloud-white",
+                                "text-primary",
+                                "shadow-sm",
+                                "font-bold",
+                            );
+                            b.classList.add("text-secondary");
+                        });
+                        btn.classList.add(
+                            "bg-cloud-white",
+                            "text-primary",
+                            "shadow-sm",
+                            "font-bold",
+                        );
+                        btn.classList.remove("text-secondary");
+                    });
+                });
+
+                // 4. Form Submission Simulation
+                function handleFormSubmit() {
+                    const successBox =
+                        document.getElementById("formSuccessMessage");
+                    if (successBox) {
+                        successBox.classList.remove("hidden");
+                        const submitBtn = document.querySelector(
+                            '#joinClubForm button[type="submit"]',
+                        );
+                        if (submitBtn) {
+                            submitBtn.disabled = true;
+                            submitBtn.classList.add(
+                                "opacity-50",
+                                "cursor-not-allowed",
+                            );
+                        }
+                    }
+                }
+            </script>
+        </main>
+        <footer
+            class="w-full bg-indigo-night text-cloud-white pt-space-2xl pb-space-xl relative overflow-hidden"
+        >
+            <div
+                class="absolute -right-16 -top-16 text-[220px] font-headline-lg font-extrabold text-cloud-white/[0.03] select-none pointer-events-none"
+            >
+                青空
+            </div>
+            <div
+                class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin relative z-10"
+            >
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl pb-space-2xl"
+                >
+                    <div class="flex flex-col gap-space-md">
+                        <div class="flex items-center gap-space-sm">
+                            <div
+                                class="w-9 h-9 rounded-lg bg-cloud-white/10 flex items-center justify-center font-headline-sm text-headline-sm text-aozora-sky"
+                            >
+                                青
+                            </div>
+                            <span
+                                class="font-headline-sm text-headline-sm tracking-tight text-cloud-white"
+                                >Aozora Nihongo</span
+                            >
+                        </div>
+                        <p
+                            class="font-body-sm text-body-sm text-surface-dim leading-relaxed"
+                        >
+                            Ekstrakurikuler Bahasa dan Kebudayaan Jepang di SMKN
+                            1 Purwokerto. Ruang eksplorasi bahasa, anime
+                            culture, kaiwa, cosplay, kaligrafi shodo, dan
+                            matsuri berprestasi.
+                        </p>
+                        <div
+                            class="inline-flex items-center gap-space-xs self-start px-space-sm py-1 rounded-full bg-cloud-white/10 text-aozora-sky font-label-badge text-label-badge"
+                        >
+                            <span class="">🇯🇵 PURWOKERTO JAPANESE CLUB</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-space-sm">
+                        <span
+                            class="font-headline-sm text-headline-sm text-cloud-white flex items-center gap-space-xs"
+                            ><span class="text-torii-vermilion">⛩️</span> Info
+                            Jadwal Rutin</span
+                        >
+                        <div
+                            class="p-space-md rounded-xl bg-cloud-white/5 flex flex-col gap-space-xs"
+                        >
+                            <div
+                                class="flex items-center gap-space-xs text-aozora-sky font-label-md text-label-md"
+                            >
+                                <span
+                                    class="w-2 h-2 rounded-full bg-aozora-sky animate-ping"
+                                ></span
+                                ><span class="">PERTEMUAN MINGGUAN</span>
+                            </div>
+                            <span
+                                class="font-headline-sm text-headline-sm text-cloud-white"
+                                >Setiap Kamis</span
+                            ><span
+                                class="font-body-sm text-body-sm text-surface-dim"
+                                >16.00 - 17.00 WIB</span
+                            >
+                            <div
+                                class="mt-space-xs pt-space-xs text-surface-dim font-body-sm text-body-sm"
+                            >
+                                <span class=""
+                                    >📍 Ruang Kelas SMKN 1 Purwokerto</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-space-sm">
+                        <span
+                            class="font-headline-sm text-headline-sm text-cloud-white"
+                            >Lokasi &amp; Narahubung</span
+                        >
+                        <div
+                            class="flex flex-col gap-space-xs text-surface-dim font-body-sm text-body-sm"
+                        >
+                            <span class="">SMK Negeri 1 Purwokerto</span
+                            ><span class=""
+                                >Jl. Dr. Soeparno No. 29, Karangwangkal</span
+                            ><span class=""
+                                >Purwokerto Timur, Banyumas 53123</span
+                            ><span
+                                class="text-aozora-sky font-label-md text-label-md mt-space-xs"
+                                >Email: aozora@smkn1purwokerto.sch.id</span
+                            >
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-space-sm">
+                        <span
+                            class="font-headline-sm text-headline-sm text-cloud-white"
+                            >Kanal Komunitas</span
+                        >
+                        <p class="font-body-sm text-body-sm text-surface-dim">
+                            Ikuti dokumentasi terkini kegiatan, tutorial
+                            kosakata, dan live event matsuri kami.
+                        </p>
+                        <div
+                            class="flex flex-col gap-space-xs font-label-md text-label-md"
+                        >
+                            <a
+                                class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
+                                href="#"
+                                ><span class="">Instagram @aozora.smecon</span
+                                ><span class="text-aozora-sky font-bold"
+                                    >↗</span
+                                ></a
+                            ><a
+                                class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
+                                href="#"
+                                ><span class="">YouTube Aozora Channel</span
+                                ><span class="text-aozora-sky font-bold"
+                                    >↗</span
+                                ></a
+                            ><a
+                                class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
+                                href="#"
+                                ><span class=""
+                                    >Discord Server Aozora Kaiwa</span
+                                ><span class="text-aozora-sky font-bold"
+                                    >↗</span
+                                ></a
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-surface-dim"
+                >
+                    <div class="flex items-center gap-space-xs">
+                        <span class=""
+                            >© 2025 Aozora Nihongo Club SMKN 1 Purwokerto.</span
+                        ><span class="">Hak Cipta Dilindungi.</span>
+                    </div>
+                    <div
+                        class="flex items-center gap-space-md font-label-md text-label-md"
+                    >
+                        <span class="text-cloud-white/70"
+                            >一期一会 (Ichigo Ichie)</span
+                        ><span class="">•</span
+                        ><span class="text-aozora-sky"
+                            >Aozora Blue Skies Ahead</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

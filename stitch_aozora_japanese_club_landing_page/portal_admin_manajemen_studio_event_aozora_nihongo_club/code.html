@@ -1,0 +1,1416 @@
+<!doctype html>
+<html lang="id" style="">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+            rel="stylesheet"
+        />
+        <link href="https://fonts.googleapis.com" rel="preconnect" />
+        <link
+            crossorigin=""
+            href="https://fonts.gstatic.com"
+            rel="preconnect"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            @layer base {
+                html,
+                body {
+                    margin: 0;
+                    padding: 0;
+                }
+                body {
+                    overscroll-behavior: none;
+                }
+                main > :first-child {
+                    margin-top: 0 !important;
+                }
+                main > :last-child {
+                    margin-bottom: 0 !important;
+                }
+            }
+            ::-webkit-scrollbar {
+                display: none;
+            }
+        </style>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: "#0043c0",
+                            "inverse-primary": "#b5c4ff",
+                            "on-tertiary-fixed": "#410001",
+                            "gold-shrine": "#F59E0B",
+                            "outline-variant": "#c3c5d8",
+                            outline: "#737687",
+                            "on-primary-fixed": "#00164e",
+                            "surface-container-highest": "#dfe3e8",
+                            surface: "#f6f9fe",
+                            "on-secondary-container": "#5f637a",
+                            "cloud-white": "#FFFFFF",
+                            error: "#ba1a1a",
+                            "secondary-fixed": "#dde1fc",
+                            secondary: "#595d74",
+                            background: "#f6f9fe",
+                            "primary-fixed": "#dce1ff",
+                            "inverse-surface": "#2d3135",
+                            "surface-container-low": "#f1f4f9",
+                            "on-secondary-fixed": "#161b2e",
+                            "aozora-sky": "#38BDF8",
+                            "on-secondary-fixed-variant": "#41465b",
+                            "primary-fixed-dim": "#b5c4ff",
+                            "on-tertiary-container": "#ffe0dc",
+                            "on-surface-variant": "#434655",
+                            "surface-tint": "#0050e2",
+                            "on-background": "#181c20",
+                            "tertiary-fixed": "#ffdad5",
+                            "on-tertiary-fixed-variant": "#930007",
+                            "error-container": "#ffdad6",
+                            "on-primary": "#ffffff",
+                            "surface-variant": "#dfe3e8",
+                            "surface-dim": "#d7dadf",
+                            "torii-vermilion": "#E83A30",
+                            "tertiary-fixed-dim": "#ffb4aa",
+                            "tertiary-container": "#c9221d",
+                            "on-primary-fixed-variant": "#003cad",
+                            "indigo-night": "#0B1021",
+                            "secondary-container": "#dde1fc",
+                            "on-error": "#ffffff",
+                            "inverse-on-surface": "#eef1f6",
+                            tertiary: "#a40009",
+                            "surface-container": "#ebeef3",
+                            "surface-bright": "#f6f9fe",
+                            "surface-container-high": "#e5e8ed",
+                            "on-error-container": "#93000a",
+                            "on-tertiary": "#ffffff",
+                            "surface-container-lowest": "#ffffff",
+                            "primary-container": "#0d59f2",
+                            "on-secondary": "#ffffff",
+                            "on-primary-container": "#e2e6ff",
+                            "on-surface": "#181c20",
+                            "sakura-tint": "#FDE8E8",
+                            "secondary-fixed-dim": "#c1c5df",
+                        },
+                        borderRadius: {
+                            DEFAULT: "0.25rem",
+                            lg: "0.5rem",
+                            xl: "0.75rem",
+                            full: "9999px",
+                        },
+                        spacing: {
+                            "space-md": "1rem",
+                            "space-xs": "0.25rem",
+                            margin: "3rem",
+                            "space-sm": "0.5rem",
+                            "space-lg": "1.5rem",
+                            "space-2xl": "4rem",
+                            "margin-mobile": "1.25rem",
+                            "space-xl": "2.5rem",
+                            gutter: "1.5rem",
+                            "gutter-mobile": "0.875rem",
+                        },
+                        fontFamily: {
+                            "body-md": ["Be Vietnam Pro"],
+                            "label-lg": ["Space Grotesk"],
+                            "headline-lg": ["Plus Jakarta Sans"],
+                            "headline-md": ["Plus Jakarta Sans"],
+                            "label-badge": ["Space Grotesk"],
+                            "display-hero-mobile": ["Plus Jakarta Sans"],
+                            "label-md": ["Space Grotesk"],
+                            "body-sm": ["Be Vietnam Pro"],
+                            "display-hero": ["Plus Jakarta Sans"],
+                            "headline-lg-mobile": ["Plus Jakarta Sans"],
+                            "body-lg": ["Be Vietnam Pro"],
+                            "headline-sm": ["Plus Jakarta Sans"],
+                        },
+                        fontSize: {
+                            "body-md": [
+                                "15px",
+                                { lineHeight: "24px", fontWeight: "400" },
+                            ],
+                            "label-lg": [
+                                "14px",
+                                {
+                                    lineHeight: "18px",
+                                    letterSpacing: "0.06em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "headline-lg": [
+                                "38px",
+                                {
+                                    lineHeight: "46px",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "headline-md": [
+                                "26px",
+                                {
+                                    lineHeight: "34px",
+                                    letterSpacing: "-0.01em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "label-badge": [
+                                "11px",
+                                {
+                                    lineHeight: "14px",
+                                    letterSpacing: "0.1em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "display-hero-mobile": [
+                                "36px",
+                                {
+                                    lineHeight: "44px",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "800",
+                                },
+                            ],
+                            "label-md": [
+                                "12px",
+                                {
+                                    lineHeight: "16px",
+                                    letterSpacing: "0.08em",
+                                    fontWeight: "500",
+                                },
+                            ],
+                            "body-sm": [
+                                "13px",
+                                { lineHeight: "20px", fontWeight: "400" },
+                            ],
+                            "display-hero": [
+                                "56px",
+                                {
+                                    lineHeight: "64px",
+                                    letterSpacing: "-0.03em",
+                                    fontWeight: "800",
+                                },
+                            ],
+                            "headline-lg-mobile": [
+                                "28px",
+                                {
+                                    lineHeight: "36px",
+                                    letterSpacing: "-0.01em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "body-lg": [
+                                "18px",
+                                { lineHeight: "28px", fontWeight: "400" },
+                            ],
+                            "headline-sm": [
+                                "20px",
+                                { lineHeight: "28px", fontWeight: "600" },
+                            ],
+                        },
+                    },
+                },
+            };
+        </script>
+    </head>
+    <body
+        class="bg-background font-body-md text-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary"
+    >
+        <aside
+            class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_4px_24px_-4px_rgba(13,89,242,0.08)]"
+        >
+            <div class="flex flex-col">
+                <div
+                    class="h-20 px-space-lg flex items-center justify-between bg-surface-container-low/50"
+                >
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-[0_4px_14px_rgba(13,89,242,0.3)]"
+                        >
+                            <span
+                                class="material-symbols-outlined text-on-primary text-[22px]"
+                                >cyclone</span
+                            >
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex items-center gap-1.5">
+                                <span
+                                    class="font-headline-sm text-headline-sm font-bold tracking-tight text-on-surface"
+                                    >青空</span
+                                ><span
+                                    class="font-headline-sm text-headline-sm font-bold tracking-tight text-primary"
+                                    >AOZORA</span
+                                >
+                            </div>
+                            <span
+                                class="font-label-badge text-label-badge text-outline uppercase"
+                                >SMKN 1 Purwokerto</span
+                            >
+                        </div>
+                    </div>
+                    <span
+                        class="font-label-badge text-label-badge bg-sakura-tint text-torii-vermilion px-2 py-0.5 rounded-full font-bold"
+                        >部活</span
+                    >
+                </div>
+                <div class="px-space-lg pt-space-md pb-space-xs">
+                    <span
+                        class="font-label-badge text-label-badge text-outline uppercase tracking-wider"
+                        >Navigasi Portal</span
+                    >
+                </div>
+                <nav
+                    class="flex flex-col gap-1.5 px-space-md"
+                    data-active-classes="bg-primary text-on-primary font-bold shadow-[0_8px_20px_-4px_rgba(13,89,242,0.35)]"
+                >
+                    <a
+                        class="flex items-center gap-3 px-space-md py-3 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container hover:text-on-surface transition-all duration-200"
+                        data-path="dashboard"
+                        href="#"
+                        ><span class="material-symbols-outlined text-[20px]"
+                            >space_dashboard</span
+                        ><span class="">Dashboard</span></a
+                    ><a
+                        aria-current="page"
+                        class="flex items-center gap-3 px-space-md py-3 rounded-lg transition-all duration-200 bg-primary text-on-primary font-bold shadow-[0_8px_20px_-4px_rgba(13,89,242,0.35)]"
+                        data-path="manajemen-event"
+                        href="#"
+                        ><span class="material-symbols-outlined text-[20px]"
+                            >celebration</span
+                        ><span class="">Manajemen Event</span></a
+                    ><a
+                        class="flex items-center gap-3 px-space-md py-3 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container hover:text-on-surface transition-all duration-200"
+                        data-path="peserta-dan-pendaftar"
+                        href="#"
+                        ><span class="material-symbols-outlined text-[20px]"
+                            >how_to_reg</span
+                        ><span class="">Menejemen Pengguna</span></a
+                    ><a
+                        class="flex items-center gap-3 px-space-md py-3 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container hover:text-on-surface transition-all duration-200"
+                        data-path="log-dan-pengaturan"
+                        href="#"
+                        ><span class="material-symbols-outlined text-[20px]"
+                            >settings</span
+                        ><span class="">Log &amp; Pengaturan</span></a
+                    >
+                </nav>
+            </div>
+            <div class="p-space-md">
+                <div
+                    class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-2 relative overflow-hidden"
+                >
+                    <div class="flex items-center justify-between">
+                        <span
+                            class="font-label-badge text-label-badge text-primary uppercase font-bold"
+                            >Status Server</span
+                        ><span
+                            class="flex h-2 w-2 rounded-full bg-aozora-sky animate-pulse"
+                        ></span>
+                    </div>
+                    <p
+                        class="font-body-sm text-body-sm text-on-surface-variant"
+                    >
+                        Sistem aktif: Bunkasai 2025 Sync Online
+                    </p>
+                    <span class="font-label-badge text-label-badge text-outline"
+                        >v2.4.1 Anime-HUD Engine</span
+                    >
+                </div>
+            </div>
+        </aside>
+        <div class="pl-72">
+            <header
+                class="fixed top-0 left-72 right-0 h-20 bg-surface-container-lowest/90 backdrop-blur-xl z-40 flex items-center justify-between px-space-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"
+            >
+                <div class="flex items-center gap-4">
+                    <div
+                        class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-full"
+                    >
+                        <span
+                            class="material-symbols-outlined text-[18px] text-aozora-sky"
+                            >school</span
+                        ><span
+                            class="font-label-md text-label-md text-on-surface font-semibold"
+                            >SMKN 1 Purwokerto</span
+                        >
+                    </div>
+                    <div
+                        class="hidden xl:flex items-center gap-2 text-on-surface-variant"
+                    >
+                        <span
+                            class="font-body-sm text-body-sm bg-secondary-container/50 text-on-secondary-fixed px-2.5 py-1 rounded-md font-medium"
+                            >Semester Genap 2024/2025</span
+                        >
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="relative flex items-center">
+                        <input
+                            class="w-64 pl-10 pr-4 py-2 rounded-xl bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all"
+                            placeholder="Cari agenda, peserta, berkas..."
+                            type="text"
+                        /><span
+                            class="material-symbols-outlined absolute left-3 text-outline text-[20px]"
+                            >search</span
+                        >
+                    </div>
+                    <button
+                        class="relative w-10 h-10 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface flex items-center justify-center transition-colors"
+                        title="Notifikasi Kegiatan"
+                    >
+                        <span class="material-symbols-outlined text-[20px]"
+                            >notifications</span
+                        ><span
+                            class="absolute top-2 right-2 w-2 h-2 rounded-full bg-torii-vermilion"
+                        ></span>
+                    </button>
+                    <div class="h-8 w-[1px] bg-surface-container-high"></div>
+                    <div class="flex items-center gap-3 pl-1">
+                        <div class="flex flex-col text-right">
+                            <span
+                                class="font-label-lg text-label-lg text-on-surface font-bold"
+                                >Sensei Haruto</span
+                            ><span
+                                class="font-label-badge text-label-badge text-torii-vermilion uppercase font-semibold"
+                                >Admin<br
+                            /></span>
+                        </div>
+                        <div
+                            class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"
+                        >
+                            <span
+                                class="material-symbols-outlined text-on-primary text-[18px]"
+                                >person</span
+                            >
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <main class="relative pt-20 w-full min-h-screen bg-background">
+                <div class="flex flex-col w-full">
+                    <!-- Dynamic Notification / Live Toast Banner -->
+                    <div
+                        class="w-full bg-gradient-to-r from-primary via-primary-container to-aozora-sky text-on-primary px-space-xl py-2.5 flex items-center justify-between shadow-sm"
+                    >
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-cloud-white/20 text-cloud-white"
+                            >
+                                <span
+                                    class="material-symbols-outlined text-[16px] animate-spin"
+                                    style="animation-duration: 6s"
+                                    >cyclone</span
+                                >
+                            </span>
+                            <span
+                                class="font-label-badge text-label-badge tracking-wider uppercase font-bold bg-sakura-tint text-torii-vermilion px-2.5 py-0.5 rounded-full"
+                                >Bunkasai Sync 2026</span
+                            >
+                            <span
+                                class="font-body-sm text-body-sm text-cloud-white/95"
+                                >Penyusunan edisi ke-6 festival kebudayaan
+                                Jepang SMKN 1 Purwokerto sedang disinkronisasi
+                                ke portal publik siswa.</span
+                            >
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span
+                                class="font-label-md text-label-md text-cloud-white/80"
+                                >Auto-save:
+                                <span class="text-cloud-white font-semibold"
+                                    >Aktif (12 detik lalu)</span
+                                ></span
+                            >
+                            <button
+                                class="text-cloud-white hover:text-sakura-tint transition-colors flex items-center p-1"
+                                onclick="
+                                    this.parentElement.parentElement.remove()
+                                "
+                                title="Tutup pemberitahuan"
+                            >
+                                <span
+                                    class="material-symbols-outlined text-[18px]"
+                                    >close</span
+                                >
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-space-xl flex flex-col gap-space-xl">
+                        <!-- Top Action Breadcrumbs & Header Bar -->
+                        <div
+                            class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg"
+                        >
+                            <div class="flex flex-col gap-1.5">
+                                <div
+                                    class="flex items-center gap-2 text-outline font-label-md text-label-md"
+                                >
+                                    <a
+                                        class="hover:text-primary transition-colors"
+                                        href="#"
+                                        >Portal Pengurus</a
+                                    >
+                                    <span class="text-outline-variant">/</span>
+                                    <a
+                                        class="hover:text-primary transition-colors"
+                                        href="#"
+                                        >Manajemen Event</a
+                                    >
+                                    <span class="text-outline-variant">/</span>
+                                    <span class="text-primary font-semibold"
+                                        >Studio Event &amp; Editor</span
+                                    >
+                                </div>
+                                <div class="flex items-center gap-3 flex-wrap">
+                                    <h1
+                                        class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight"
+                                    >
+                                        Aozora Matsuri 2026: Natsu no Kaze
+                                    </h1>
+                                    <span
+                                        class="font-headline-sm text-headline-sm font-semibold text-primary/70"
+                                        >夏の風</span
+                                    >
+                                    <span
+                                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 font-label-badge text-label-badge uppercase tracking-wider font-bold shadow-sm"
+                                    >
+                                        <span
+                                            class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
+                                        ></span>
+                                        ● SEGERA HADIR
+                                    </span>
+                                    <span
+                                        class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container/70 text-on-secondary-fixed font-label-badge text-label-badge font-semibold"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-[14px]"
+                                            >edit_note</span
+                                        >
+                                        Mode Editor Aktif
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- Action Button Group -->
+                            <div class="flex items-center gap-2.5 flex-wrap">
+                                <button
+                                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-lg text-label-lg shadow-sm transition-all duration-200"
+                                    title="Buka pratinjau halaman pengunjung"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-[18px] text-aozora-sky"
+                                        >open_in_new</span
+                                    >
+                                    <span class="">Preview Web Live</span>
+                                </button>
+                                <button
+                                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant font-label-lg text-label-lg transition-all duration-200"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-[18px]"
+                                        >save</span
+                                    >
+                                    <span class="">Simpan Draft</span>
+                                </button>
+                                <button
+                                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary hover:bg-aozora-sky text-on-primary font-label-lg text-label-lg font-bold shadow-[0_8px_20px_-4px_rgba(13,89,242,0.35)] transition-all duration-200"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-[18px]"
+                                        >publish</span
+                                    >
+                                    <span class="">Publikasikan Update</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Quick KPI Metric Cards -->
+
+                        <!-- Navigation Tabs -->
+                        <div
+                            class="flex items-center gap-2 overflow-x-auto pb-1 border-b border-surface-container-highest"
+                        >
+                            <button
+                                class="flex items-center gap-2 px-5 py-3 rounded-t-xl bg-surface-container-lowest text-primary font-label-lg text-label-lg font-bold shadow-sm relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[3px] after:bg-primary transition-all"
+                            >
+                                <span
+                                    class="material-symbols-outlined text-[20px]"
+                                    >info</span
+                                >
+                                <span class=""
+                                    >1. Informasi Utama &amp; Poster</span
+                                >
+                                <span
+                                    class="ml-1 w-2 h-2 rounded-full bg-primary"
+                                ></span>
+                            </button>
+                            <button
+                                class="flex items-center gap-2 px-5 py-3 rounded-t-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-lg text-label-lg font-medium transition-all"
+                            >
+                                <span
+                                    class="material-symbols-outlined text-[20px]"
+                                    >view_timeline</span
+                                ><span class="">2. Susunan Aktivitas&nbsp;</span
+                                ><span
+                                    class="px-2 py-0.5 rounded-full bg-surface-container-highest text-outline font-label-badge text-label-badge"
+                                    >8 Sesi</span
+                                >
+                            </button>
+
+                            <button
+                                class="flex items-center gap-2 px-5 py-3 rounded-t-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-lg text-label-lg font-medium transition-all"
+                            >
+                                <span
+                                    class="material-symbols-outlined text-[20px]"
+                                    >settings_suggest</span
+                                >
+                                <span class=""
+                                    >5. Pengaturan Publikasi &amp; SEO</span
+                                >
+                            </button>
+                        </div>
+                        <!-- Split 2-Column Workflow Layout -->
+                        <div
+                            class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl"
+                        >
+                            <!-- Left Column: Form & Configuration (~65% width) -->
+                            <div
+                                class="lg:col-span-8 flex flex-col gap-space-xl"
+                            >
+                                <!-- Section A: Form Detail Acara -->
+                                <div
+                                    class="bg-surface-container-lowest p-space-xl rounded-xl shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)] flex flex-col gap-space-lg"
+                                >
+                                    <div
+                                        class="flex items-center justify-between pb-space-md border-b border-surface-container"
+                                    >
+                                        <div class="flex items-center gap-3">
+                                            <span
+                                                class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-bold font-label-md text-label-md"
+                                                >01</span
+                                            >
+                                            <div>
+                                                <h2
+                                                    class="font-headline-sm text-headline-sm font-bold text-on-surface"
+                                                >
+                                                    Data Identitas Festival
+                                                    &amp; Jadwal
+                                                </h2>
+                                                <p
+                                                    class="font-body-sm text-body-sm text-on-surface-variant"
+                                                >
+                                                    Konfigurasi metadata,
+                                                    klasifikasi kegiatan, dan
+                                                    jadwal penyelenggaraan resmi
+                                                    SMKN 1 Purwokerto.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="font-label-badge text-label-badge bg-surface-container px-2.5 py-1 rounded-full text-outline font-semibold"
+                                            >FORM-ID: EVT-2026-NATSU</span
+                                        >
+                                    </div>
+                                    <!-- Dual Titles: ID & Japanese Kanji -->
+                                    <div
+                                        class="grid grid-cols-1 md:grid-cols-2 gap-space-md"
+                                    >
+                                        <div class="flex flex-col gap-1.5">
+                                            <label
+                                                class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5"
+                                            >
+                                                <span class=""
+                                                    >Nama Festival (Bahasa
+                                                    Indonesia)</span
+                                                >
+                                                <span
+                                                    class="text-torii-vermilion"
+                                                    >*</span
+                                                >
+                                            </label>
+                                            <input
+                                                class="px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                type="text"
+                                                value="Aozora Matsuri 2026: Natsu no Kaze"
+                                            />
+                                            <span
+                                                class="font-label-badge text-label-badge text-outline"
+                                                >Gunakan format tema resmi yang
+                                                sudah disetujui Pembina.</span
+                                            >
+                                        </div>
+                                        <div class="flex flex-col gap-1.5">
+                                            <label
+                                                class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5"
+                                            >
+                                                <span class=""
+                                                    >Judul Kanji &amp; Romaji
+                                                    (Penulisan Jepang)</span
+                                                >
+                                                <span
+                                                    class="text-primary font-bold"
+                                                    >青空</span
+                                                >
+                                            </label>
+                                            <input
+                                                class="px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                type="text"
+                                                value="青空祭り2026: 夏の風 (Natsu no Kaze)"
+                                            />
+                                            <span
+                                                class="font-label-badge text-label-badge text-outline"
+                                                >Akan ditampilkan pada watermark
+                                                poster dan badge peserta.</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <!-- Kategori & Status Selector -->
+                                    <div
+                                        class="grid grid-cols-1 md:grid-cols-2 gap-space-md"
+                                    >
+                                        <div class="flex flex-col gap-1.5">
+                                            <label
+                                                class="font-label-md text-label-md text-on-surface font-semibold"
+                                                >Kategori Kegiatan</label
+                                            >
+                                            <select
+                                                class="px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                            >
+                                                <option selected="">
+                                                    Annual Matsuri / Bunkasai
+                                                    Sekolah
+                                                </option>
+                                                <option>
+                                                    Workshop Kebudayaan (Origami
+                                                    &amp; Kaligrafi Shodo)
+                                                </option>
+                                                <option>
+                                                    Kompetisi Bahasa Jepang
+                                                    &amp; Rodoku
+                                                </option>
+                                                <option>
+                                                    Cosplay Walk &amp; Anisong
+                                                    Showcase
+                                                </option>
+                                                <option>
+                                                    Study Club &amp; Kelas
+                                                    Persiapan JLPT N5
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="flex flex-col gap-1.5">
+                                            <label
+                                                class="font-label-md text-label-md text-on-surface font-semibold"
+                                                >Status Siklus Event</label
+                                            >
+                                            <div
+                                                class="grid grid-cols-3 gap-2 bg-surface-container-low p-1 rounded-lg"
+                                            >
+                                                <button
+                                                    class="py-2 rounded-md bg-primary text-on-primary font-label-badge text-label-badge font-bold shadow-sm text-center"
+                                                    type="button"
+                                                >
+                                                    Akan Datang
+                                                </button>
+                                                <button
+                                                    class="py-2 rounded-md text-on-surface-variant hover:bg-surface-container font-label-badge text-label-badge font-medium text-center"
+                                                    type="button"
+                                                >
+                                                    Berlangsung
+                                                </button>
+                                                <button
+                                                    class="py-2 rounded-md text-on-surface-variant hover:bg-surface-container font-label-badge text-label-badge font-medium text-center"
+                                                    type="button"
+                                                >
+                                                    Arsip Selesai
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Tanggal & Lokasi -->
+                                    <div
+                                        class="grid grid-cols-1 md:grid-cols-2 gap-space-md"
+                                    >
+                                        <div class="flex flex-col gap-1.5">
+                                            <label
+                                                class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[16px] text-primary"
+                                                    >calendar_today</span
+                                                >
+                                                <span class=""
+                                                    >Tanggal &amp; Waktu
+                                                    Pelaksanaan</span
+                                                >
+                                            </label>
+                                            <div
+                                                class="flex items-center gap-2"
+                                            >
+                                                <input
+                                                    class="w-full px-space-md py-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 outline-none"
+                                                    type="date"
+                                                    value="2026-06-20"
+                                                />
+                                                <input
+                                                    class="w-48 px-space-md py-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 outline-none text-center"
+                                                    type="text"
+                                                    value="08:00 - 16:30 WIB"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col gap-1.5">
+                                            <label
+                                                class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[16px] text-torii-vermilion"
+                                                    >location_on</span
+                                                >
+                                                <span class=""
+                                                    >Lokasi Venue Kampus</span
+                                                >
+                                            </label>
+                                            <input
+                                                class="px-space-md py-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 outline-none"
+                                                type="text"
+                                                value="Graha Utama &amp; Selasar Budaya SMKN 1 Purwokerto"
+                                            />
+                                        </div>
+                                    </div>
+                                    <!-- Deskripsi Acara -->
+                                    <div class="flex flex-col gap-1.5">
+                                        <div
+                                            class="flex items-center justify-between"
+                                        >
+                                            <label
+                                                class="font-label-md text-label-md text-on-surface font-semibold"
+                                                >Sinopsis &amp; Deskripsi
+                                                Publikasi Acara</label
+                                            >
+                                            <span
+                                                class="font-label-badge text-label-badge text-outline"
+                                                >Markdown Didukung • 482
+                                                Karakter</span
+                                            >
+                                        </div>
+                                        <textarea
+                                            class="w-full p-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none leading-relaxed"
+                                            rows="4"
+                                        >
+Festival tahunan terbesar ekstrakurikuler Aozora Nihongo Club SMKN 1 Purwokerto kembali hadir dengan tema "Natsu no Kaze" (Angin Musim Panas). Menghadirkan kompetisi Rodoku, Cosplay Parade, Workshop Origami dan Shodo, Maid Cafe tematik siswa jurusan Kuliner, serta penampilan spektakuler Anisong Band dari perwakilan kelas X hingga XII.</textarea>
+                                    </div>
+                                </div>
+                                <!-- Section B: Rundown Builder Mini-Manager -->
+                                <div
+                                    class="bg-surface-container-lowest p-space-xl rounded-xl shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)] flex flex-col gap-space-lg"
+                                >
+                                    <div
+                                        class="flex items-center justify-between pb-space-md border-b border-surface-container"
+                                    >
+                                        <div class="flex items-center gap-3">
+                                            <span
+                                                class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-bold font-label-md text-label-md"
+                                                >02</span
+                                            >
+                                            <div>
+                                                <h2
+                                                    class="font-headline-sm text-headline-sm font-bold text-on-surface"
+                                                >
+                                                    Susunan Sesi &amp; Aktivitas
+                                                    Eskul (Kelas &amp; Lab)
+                                                </h2>
+                                                <p
+                                                    class="font-body-sm text-body-sm text-on-surface-variant"
+                                                >
+                                                    Atur jadwal kegiatan forum
+                                                    mingguan, workshop masak
+                                                    tata boga, dan sesi foto
+                                                    cosplay bersama.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <button
+                                            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-label-md text-label-md font-semibold transition-colors"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-[18px]"
+                                                >add</span
+                                            >
+                                            <span class="">Tambah Sesi</span>
+                                        </button>
+                                    </div>
+                                    <!-- Interactive Rundown Table / List -->
+                                    <div class="flex flex-col gap-2.5">
+                                        <!-- Item 1 -->
+                                        <div
+                                            class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low/60 hover:bg-surface-container-low transition-colors group"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-outline cursor-grab hover:text-on-surface text-[20px]"
+                                                >drag_indicator</span
+                                            >
+                                            <div
+                                                class="w-24 shrink-0 font-label-badge text-label-badge font-bold bg-cloud-white px-2 py-1 rounded text-primary text-center shadow-xs"
+                                            >
+                                                08:00 - 08:45
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <div
+                                                    class="flex items-center gap-2"
+                                                >
+                                                    <span
+                                                        class="font-label-lg text-label-lg font-bold text-on-surface truncate"
+                                                        >Forum Kumpul &amp;
+                                                        Pembukaan Mingguan</span
+                                                    ><span
+                                                        class="px-2 py-0.5 rounded bg-primary/10 text-primary font-label-badge text-label-badge font-semibold"
+                                                        >Lab Bahasa &amp; Ruang
+                                                        Eskul</span
+                                                    >
+                                                </div>
+                                                <div
+                                                    class="flex items-center gap-3 mt-1 text-on-surface-variant font-body-sm text-body-sm"
+                                                >
+                                                    <span class=""
+                                                        >PIC:
+                                                        <strong
+                                                            class="text-on-surface font-medium"
+                                                            >Bima Saputra (XI
+                                                            RPL 2)</strong
+                                                        ></span
+                                                    ><span class="">•</span
+                                                    ><span
+                                                        class="text-emerald-600 flex items-center gap-1 font-label-badge text-label-badge font-semibold"
+                                                        ><span
+                                                            class="material-symbols-outlined text-[14px]"
+                                                            >check_circle</span
+                                                        >
+                                                        Siap &amp; Buku Catatan
+                                                        Lengkap</span
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity"
+                                            >
+                                                <button
+                                                    class="p-1.5 rounded-md hover:bg-surface-container text-on-surface-variant"
+                                                    title="Edit sesi"
+                                                >
+                                                    <span
+                                                        class="material-symbols-outlined text-[18px]"
+                                                        >edit</span
+                                                    ></button
+                                                ><button
+                                                    class="p-1.5 rounded-md hover:bg-surface-container text-error"
+                                                    title="Hapus sesi"
+                                                >
+                                                    <span
+                                                        class="material-symbols-outlined text-[18px]"
+                                                        >delete</span
+                                                    >
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- Item 2 -->
+                                        <div
+                                            class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low/60 hover:bg-surface-container-low transition-colors group"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-outline cursor-grab hover:text-on-surface text-[20px]"
+                                                >drag_indicator</span
+                                            >
+                                            <div
+                                                class="w-24 shrink-0 font-label-badge text-label-badge font-bold bg-cloud-white px-2 py-1 rounded text-primary text-center shadow-xs"
+                                            >
+                                                09:00 - 11:30
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <div
+                                                    class="flex items-center gap-2"
+                                                >
+                                                    <span
+                                                        class="font-label-lg text-label-lg font-bold text-on-surface truncate"
+                                                        >Workshop Masak:
+                                                        Takoyaki &amp;
+                                                        Onigiri</span
+                                                    ><span
+                                                        class="px-2 py-0.5 rounded bg-amber-50 text-gold-shrine font-label-badge text-label-badge font-semibold"
+                                                        >Ruang Praktik Tata
+                                                        Boga</span
+                                                    >
+                                                </div>
+                                                <div
+                                                    class="flex items-center gap-3 mt-1 text-on-surface-variant font-body-sm text-body-sm"
+                                                >
+                                                    <span class=""
+                                                        >PIC:
+                                                        <strong
+                                                            class="text-on-surface font-medium"
+                                                            >Nabila Kusuma (XII
+                                                            AKL 1)</strong
+                                                        ></span
+                                                    ><span class="">•</span
+                                                    ><span
+                                                        class="text-emerald-600 flex items-center gap-1 font-label-badge text-label-badge font-semibold"
+                                                        ><span
+                                                            class="material-symbols-outlined text-[14px]"
+                                                            >check_circle</span
+                                                        >
+                                                        Bahan &amp; Alat
+                                                        Siap</span
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity"
+                                            >
+                                                <button
+                                                    class="p-1.5 rounded-md hover:bg-surface-container text-on-surface-variant"
+                                                    title="Edit sesi"
+                                                >
+                                                    <span
+                                                        class="material-symbols-outlined text-[18px]"
+                                                        >edit</span
+                                                    ></button
+                                                ><button
+                                                    class="p-1.5 rounded-md hover:bg-surface-container text-error"
+                                                    title="Hapus sesi"
+                                                >
+                                                    <span
+                                                        class="material-symbols-outlined text-[18px]"
+                                                        >delete</span
+                                                    >
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- Item 3 -->
+                                        <div
+                                            class="flex items-center gap-3 p-3.5 rounded-lg bg-surface-container-low/60 hover:bg-surface-container-low transition-colors group"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-outline cursor-grab hover:text-on-surface text-[20px]"
+                                                >drag_indicator</span
+                                            >
+                                            <div
+                                                class="w-24 shrink-0 font-label-badge text-label-badge font-bold bg-cloud-white px-2 py-1 rounded text-primary text-center shadow-xs"
+                                            >
+                                                13:00 - 15:15
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <div
+                                                    class="flex items-center gap-2"
+                                                >
+                                                    <span
+                                                        class="font-label-lg text-label-lg font-bold text-on-surface truncate"
+                                                        >Cosplay Showcase &amp;
+                                                        Sesi Foto Budaya</span
+                                                    ><span
+                                                        class="px-2 py-0.5 rounded bg-sakura-tint text-torii-vermilion font-label-badge text-label-badge font-semibold"
+                                                        >Selasar &amp; Taman
+                                                        Sekolah</span
+                                                    >
+                                                </div>
+                                                <div
+                                                    class="flex items-center gap-3 mt-1 text-on-surface-variant font-body-sm text-body-sm"
+                                                >
+                                                    <span class=""
+                                                        >PIC:
+                                                        <strong
+                                                            class="text-on-surface font-medium"
+                                                            >Dewi Lestari (X DKV
+                                                            1)</strong
+                                                        ></span
+                                                    ><span class="">•</span
+                                                    ><span
+                                                        class="text-emerald-600 flex items-center gap-1 font-label-badge text-label-badge font-semibold"
+                                                        ><span
+                                                            class="material-symbols-outlined text-[14px]"
+                                                            >check_circle</span
+                                                        >
+                                                        Photobooth Torii
+                                                        Siap</span
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity"
+                                            >
+                                                <button
+                                                    class="p-1.5 rounded-md hover:bg-surface-container text-on-surface-variant"
+                                                    title="Edit sesi"
+                                                >
+                                                    <span
+                                                        class="material-symbols-outlined text-[18px]"
+                                                        >edit</span
+                                                    ></button
+                                                ><button
+                                                    class="p-1.5 rounded-md hover:bg-surface-container text-error"
+                                                    title="Hapus sesi"
+                                                >
+                                                    <span
+                                                        class="material-symbols-outlined text-[18px]"
+                                                        >delete</span
+                                                    >
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Section C: Registrasi, Tiket & Kuota Gate -->
+                            </div>
+                            <!-- Right Column: Media, Mascot & Live Preview Card (~35% width) -->
+                            <div
+                                class="lg:col-span-4 flex flex-col gap-space-xl"
+                            >
+                                <!-- Card Key Visual & Poster Utama -->
+                                <div
+                                    class="bg-surface-container-lowest p-space-lg rounded-xl shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)] flex flex-col gap-3.5"
+                                >
+                                    <div
+                                        class="flex items-center justify-between"
+                                    >
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="material-symbols-outlined text-[20px] text-primary"
+                                                >image</span
+                                            >
+                                            <h3
+                                                class="font-label-lg text-label-lg font-bold text-on-surface"
+                                            >
+                                                Key Visual &amp; Poster Utama
+                                            </h3>
+                                        </div>
+                                        <span
+                                            class="font-label-badge text-label-badge bg-primary/10 text-primary px-2 py-0.5 rounded font-bold"
+                                            >1080 × 1350 px</span
+                                        >
+                                    </div>
+                                    <div
+                                        class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low shadow-inner group"
+                                    >
+                                        <img
+                                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                            data-alt="Poster Utama Aozora Matsuri 2026"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7CIXF5H7RUPfTEsJ65Etc4Gj99iVevxTczhr4ukaBioQLGab7Q43r5HC094fendHtWdSZCdg7-rYJFMHogg7zQLUZCoNQQZrLPXMDNvzLN1AS_ZIle-8c4OyW7lGp8QYlEZIO43xxX9PltVGWjN7fMjCtF-hfiDYPjINyu6csi2fKhEtnPIchY_YXLxLuhMGeLjYOv3Jn47RGTrYuavcBPxHmJwyH2rLpvbcISaers769NuQvr-IK"
+                                        />
+                                        <div
+                                            class="absolute top-3 left-3 bg-indigo-night/80 backdrop-blur-md text-cloud-white px-2.5 py-1 rounded-md font-label-badge text-label-badge uppercase tracking-wider font-bold"
+                                        >
+                                            Karya Resmi Sie Pubdok 2026
+                                        </div>
+                                        <div
+                                            class="absolute inset-0 bg-indigo-night/40 backdrop-blur-xs opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 p-4"
+                                        >
+                                            <button
+                                                class="p-2.5 rounded-lg bg-cloud-white text-on-surface hover:bg-surface-container font-label-md text-label-md font-bold shadow-lg flex items-center gap-1.5 transition-transform hover:scale-105"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[18px]"
+                                                    >crop</span
+                                                >
+                                                <span class="">Crop Ulang</span>
+                                            </button>
+                                            <button
+                                                class="p-2.5 rounded-lg bg-primary text-on-primary hover:bg-aozora-sky font-label-md text-label-md font-bold shadow-lg flex items-center gap-1.5 transition-transform hover:scale-105"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[18px]"
+                                                    >upload</span
+                                                >
+                                                <span class=""
+                                                    >Ganti Poster</span
+                                                >
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card Sora-chan Mascot Greeting -->
+                                <div
+                                    class="bg-gradient-to-br from-surface-container-lowest to-surface-container-low p-space-lg rounded-xl shadow-[0_4px_24px_-4px_rgba(13,89,242,0.08)] flex flex-col gap-3 relative overflow-hidden"
+                                >
+                                    <div
+                                        class="absolute top-2 right-3 font-label-badge text-label-badge font-bold text-primary/40 uppercase tracking-widest"
+                                    >
+                                        公式マスコット
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-14 h-14 rounded-2xl bg-sakura-tint/70 p-1 flex items-center justify-center shrink-0 shadow-sm overflow-hidden"
+                                        >
+                                            <img
+                                                class="w-full h-full object-cover rounded-xl"
+                                                data-alt="Maskot Sora-chan"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnQViS562z6AULU0d7rrH017oLZWq72sqy1EZyl1azb1DenOKY6WFiJUtOeZEkAsrWqlWqsUYk0zx_BGiblU1TNOVHCmRcTcH1BmpUCRAY_T6p0tZvi-fsH2fn8D9E94iojtWYJ7aML2Lg81Gk4N97uuypsPhTXkxKGf4CMpNbDWEMX5LYXeCcyWCiHcGgkANYjHiQGoNiFBLaKuJg1dsPvh2JgKtx0izihenbATz1eyiMGaZw-let"
+                                            />
+                                        </div>
+                                        <div class="flex flex-col min-w-0">
+                                            <div
+                                                class="flex items-center gap-1.5"
+                                            >
+                                                <span
+                                                    class="font-label-lg text-label-lg font-bold text-on-surface truncate"
+                                                    >Sora-chan
+                                                    (そらちゃん)</span
+                                                >
+                                                <span
+                                                    class="material-symbols-outlined text-primary text-[18px]"
+                                                    >verified</span
+                                                >
+                                            </div>
+                                            <span
+                                                class="font-label-badge text-label-badge text-torii-vermilion font-bold"
+                                                >Maskot Kebanggaan Klub
+                                                Aozora</span
+                                            >
+                                            <span
+                                                class="font-body-sm text-body-sm text-outline"
+                                                >Pesan Pembuka Web &amp;
+                                                Banner</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="relative bg-cloud-white p-3 rounded-xl shadow-xs flex flex-col gap-2"
+                                    >
+                                        <div
+                                            class="flex items-center justify-between"
+                                        >
+                                            <span
+                                                class="font-label-badge text-label-badge text-primary uppercase font-bold flex items-center gap-1"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[14px]"
+                                                    >campaign</span
+                                                >
+                                                Pesan Sambutan Maskot
+                                            </span>
+                                            <span
+                                                class="font-label-badge text-label-badge text-emerald-600 font-semibold"
+                                                >Tayang di Banner Depan</span
+                                            >
+                                        </div>
+                                        <textarea
+                                            class="w-full p-2 text-on-surface font-body-sm text-body-sm bg-surface-container-low/50 rounded-lg outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 resize-none"
+                                            rows="2"
+                                        >
+Konnichiwa minna-san! Sora-chan sudah tidak sabar menyambut kalian semua di Graha SMKN 1 Purwokerto! Yuk amankan tiketmu sebelum kehabisan ya~ ✨🎌</textarea>
+                                        <div
+                                            class="flex items-center justify-between pt-0.5"
+                                        >
+                                            <label
+                                                class="flex items-center gap-1.5 cursor-pointer"
+                                            >
+                                                <input
+                                                    checked=""
+                                                    class="accent-primary rounded"
+                                                    type="checkbox"
+                                                />
+                                                <span
+                                                    class="font-label-badge text-label-badge text-on-surface-variant font-medium"
+                                                    >Aktif di Banner</span
+                                                >
+                                            </label>
+                                            <button
+                                                class="font-label-badge text-label-badge text-primary font-bold hover:underline"
+                                            >
+                                                Uji Pratinjau Suara
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card Baru: Dropzone Unggah Dokumentasi Otomatis (Drag & Drop) -->
+                                <div
+                                    class="bg-surface-container-lowest p-space-lg rounded-xl shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)] flex flex-col gap-3.5"
+                                >
+                                    <div
+                                        class="flex items-center justify-between pb-2 border-b border-surface-container"
+                                    >
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="material-symbols-outlined text-[20px] text-primary"
+                                                >cloud_upload</span
+                                            >
+                                            <h3
+                                                class="font-label-lg text-label-lg font-bold text-on-surface"
+                                            >
+                                                Unggah Dokumentasi Otomatis
+                                            </h3>
+                                        </div>
+                                        <span
+                                            class="font-label-badge text-label-badge bg-sakura-tint text-torii-vermilion px-2 py-0.5 rounded-full font-bold"
+                                            >Khusus Admin &amp; Sie
+                                            Dokumentasi</span
+                                        >
+                                    </div>
+                                    <div
+                                        class="border-2 border-dashed border-primary/30 hover:border-primary rounded-xl p-5 bg-surface-container-low/50 hover:bg-surface-container-low flex flex-col items-center justify-center gap-2 text-center transition-all cursor-pointer group"
+                                    >
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-primary/10 group-hover:bg-primary text-primary group-hover:text-on-primary flex items-center justify-center transition-colors"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-[22px]"
+                                                >upload_file</span
+                                            >
+                                        </div>
+                                        <div class="flex flex-col gap-0.5">
+                                            <span
+                                                class="font-label-lg text-label-lg font-bold text-on-surface group-hover:text-primary transition-colors"
+                                                >Drag &amp; Drop Foto / Video di
+                                                Sini</span
+                                            >
+                                            <span
+                                                class="font-body-sm text-body-sm text-outline"
+                                                >atau klik untuk telusuri media
+                                                galeri</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="mt-1 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-cloud-white border border-surface-container shadow-xs"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-[14px] text-primary"
+                                                >auto_fix_high</span
+                                            >
+                                            <span
+                                                class="font-label-badge text-label-badge text-on-surface-variant font-medium"
+                                                >Nama file otomatis menjadi
+                                                judul berkas (tidak perlu input
+                                                nama manual satu per satu)</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="flex items-center justify-between text-outline font-label-badge text-label-badge px-1"
+                                    >
+                                        <span class=""
+                                            >Mendukung JPG, PNG, MP4 hingga
+                                            250MB</span
+                                        >
+                                        <span
+                                            class="text-primary font-semibold flex items-center gap-1"
+                                            ><span
+                                                class="w-1.5 h-1.5 rounded-full bg-emerald-500"
+                                            ></span>
+                                            Auto-Index On</span
+                                        >
+                                    </div>
+                                </div>
+
+                                <!-- Card Audit Log & Persetujuan -->
+                                <div
+                                    class="bg-surface-container-lowest p-space-lg rounded-xl shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)] flex flex-col gap-3"
+                                >
+                                    <div
+                                        class="flex items-center justify-between pb-2 border-b border-surface-container"
+                                    >
+                                        <span
+                                            class="font-label-lg text-label-lg font-bold text-on-surface flex items-center gap-2"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-[18px] text-outline"
+                                                >history</span
+                                            >
+                                            <span class=""
+                                                >Audit Log &amp;
+                                                Persetujuan</span
+                                            >
+                                        </span>
+                                        <span
+                                            class="font-label-badge text-label-badge text-primary uppercase font-bold"
+                                            >SMKN 1 Gate</span
+                                        >
+                                    </div>
+                                    <div class="flex flex-col gap-2.5">
+                                        <div
+                                            class="flex items-start gap-3 p-2 rounded-lg bg-surface-container-low/50"
+                                        >
+                                            <div
+                                                class="w-7 h-7 rounded-full bg-primary/15 text-primary flex items-center justify-center shrink-0 mt-0.5"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[16px]"
+                                                    >person</span
+                                                >
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <div
+                                                    class="flex items-center gap-1.5 flex-wrap"
+                                                >
+                                                    <span
+                                                        class="font-label-md text-label-md font-bold text-on-surface"
+                                                        >Arif Kurniawan</span
+                                                    >
+                                                    <span
+                                                        class="font-label-badge text-label-badge bg-secondary-container px-1.5 py-0.2 rounded text-on-secondary-fixed"
+                                                        >Super Admin</span
+                                                    >
+                                                </div>
+                                                <span
+                                                    class="font-body-sm text-body-sm text-on-surface-variant"
+                                                    >Membuat Event</span
+                                                >
+                                                <span
+                                                    class="font-label-badge text-label-badge text-outline mt-0.5"
+                                                    >14 Menit lalu • IP
+                                                    10.12.8.44</span
+                                                >
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="flex items-start gap-3 p-2 rounded-lg bg-sakura-tint/40"
+                                        >
+                                            <div
+                                                class="w-7 h-7 rounded-full bg-torii-vermilion/20 text-torii-vermilion flex items-center justify-center shrink-0 mt-0.5"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[16px]"
+                                                    >verified_user</span
+                                                >
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <div
+                                                    class="flex items-center gap-1.5 flex-wrap"
+                                                >
+                                                    <span
+                                                        class="font-label-md text-label-md font-bold text-on-surface"
+                                                        >Dra. Ratna
+                                                        Handayani</span
+                                                    >
+                                                    <span
+                                                        class="font-label-badge text-label-badge bg-sakura-tint text-torii-vermilion px-1.5 py-0.2 rounded font-bold"
+                                                        >Pembina / Mediasi</span
+                                                    >
+                                                </div>
+                                                <span
+                                                    class="font-body-sm text-body-sm text-on-surface-variant"
+                                                    >Menyetujui &amp; validasi
+                                                    susunan jadwal</span
+                                                >
+                                                <span
+                                                    class="font-label-badge text-label-badge text-outline mt-0.5"
+                                                    >Hari ini, 10:18 WIB • IP
+                                                    10.12.8.55</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

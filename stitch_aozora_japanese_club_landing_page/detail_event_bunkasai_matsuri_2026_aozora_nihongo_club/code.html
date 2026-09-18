@@ -1,0 +1,2222 @@
+<!doctype html>
+<html lang="id" style="">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+            rel="stylesheet"
+        />
+        <link href="https://fonts.googleapis.com" rel="preconnect" />
+        <link
+            crossorigin=""
+            href="https://fonts.gstatic.com"
+            rel="preconnect"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            @layer base {
+                html,
+                body {
+                    margin: 0;
+                    padding: 0;
+                }
+                body {
+                    overscroll-behavior: none;
+                }
+                main > :first-child {
+                    margin-top: 0 !important;
+                }
+                main > :last-child {
+                    margin-bottom: 0 !important;
+                }
+            }
+            ::-webkit-scrollbar {
+                display: none;
+            }
+        </style>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "surface-dim": "#d7dadf",
+                            "surface-tint": "#0050e2",
+                            "inverse-surface": "#2d3135",
+                            "aozora-sky": "#38BDF8",
+                            "tertiary-fixed-dim": "#ffb4aa",
+                            "surface-variant": "#dfe3e8",
+                            "on-tertiary-fixed": "#410001",
+                            "on-primary-container": "#e2e6ff",
+                            "primary-container": "#0d59f2",
+                            surface: "#f6f9fe",
+                            "on-secondary-container": "#5f637a",
+                            "on-surface": "#181c20",
+                            "error-container": "#ffdad6",
+                            "on-primary-fixed-variant": "#003cad",
+                            "surface-container-low": "#f1f4f9",
+                            "surface-container-high": "#e5e8ed",
+                            "secondary-container": "#dde1fc",
+                            "on-primary": "#ffffff",
+                            "gold-shrine": "#F59E0B",
+                            "torii-vermilion": "#E83A30",
+                            "indigo-night": "#0B1021",
+                            "secondary-fixed-dim": "#c1c5df",
+                            tertiary: "#a40009",
+                            "inverse-primary": "#b5c4ff",
+                            "on-tertiary-container": "#ffe0dc",
+                            "surface-container-highest": "#dfe3e8",
+                            "on-secondary": "#ffffff",
+                            "surface-bright": "#f6f9fe",
+                            "on-tertiary": "#ffffff",
+                            "outline-variant": "#c3c5d8",
+                            "on-background": "#181c20",
+                            "on-surface-variant": "#434655",
+                            "on-error": "#ffffff",
+                            "tertiary-container": "#c9221d",
+                            "surface-container": "#ebeef3",
+                            "inverse-on-surface": "#eef1f6",
+                            "surface-container-lowest": "#ffffff",
+                            "on-error-container": "#93000a",
+                            "secondary-fixed": "#dde1fc",
+                            "on-tertiary-fixed-variant": "#930007",
+                            "sakura-tint": "#FDE8E8",
+                            secondary: "#595d74",
+                            background: "#f6f9fe",
+                            "tertiary-fixed": "#ffdad5",
+                            "on-secondary-fixed-variant": "#41465b",
+                            "primary-fixed-dim": "#b5c4ff",
+                            "primary-fixed": "#dce1ff",
+                            primary: "#0043c0",
+                            "cloud-white": "#FFFFFF",
+                            "on-secondary-fixed": "#161b2e",
+                            "on-primary-fixed": "#00164e",
+                            error: "#ba1a1a",
+                            outline: "#737687",
+                        },
+                        borderRadius: {
+                            DEFAULT: "0.25rem",
+                            lg: "0.5rem",
+                            xl: "0.75rem",
+                            full: "9999px",
+                        },
+                        spacing: {
+                            "margin-mobile": "1.25rem",
+                            "space-xs": "0.25rem",
+                            "space-xl": "2.5rem",
+                            "space-2xl": "4rem",
+                            "space-lg": "1.5rem",
+                            margin: "3rem",
+                            "gutter-mobile": "0.875rem",
+                            "space-sm": "0.5rem",
+                            gutter: "1.5rem",
+                            "space-md": "1rem",
+                        },
+                        fontFamily: {
+                            "headline-lg-mobile": ["Plus Jakarta Sans"],
+                            "display-hero-mobile": ["Plus Jakarta Sans"],
+                            "body-sm": ["Be Vietnam Pro"],
+                            "headline-sm": ["Plus Jakarta Sans"],
+                            "label-md": ["Space Grotesk"],
+                            "headline-md": ["Plus Jakarta Sans"],
+                            "headline-lg": ["Plus Jakarta Sans"],
+                            "display-hero": ["Plus Jakarta Sans"],
+                            "body-lg": ["Be Vietnam Pro"],
+                            "label-badge": ["Space Grotesk"],
+                            "label-lg": ["Space Grotesk"],
+                            "body-md": ["Be Vietnam Pro"],
+                        },
+                        fontSize: {
+                            "headline-lg-mobile": [
+                                "28px",
+                                {
+                                    lineHeight: "36px",
+                                    letterSpacing: "-0.01em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "display-hero-mobile": [
+                                "36px",
+                                {
+                                    lineHeight: "44px",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "800",
+                                },
+                            ],
+                            "body-sm": [
+                                "13px",
+                                { lineHeight: "20px", fontWeight: "400" },
+                            ],
+                            "headline-sm": [
+                                "20px",
+                                { lineHeight: "28px", fontWeight: "600" },
+                            ],
+                            "label-md": [
+                                "12px",
+                                {
+                                    lineHeight: "16px",
+                                    letterSpacing: "0.08em",
+                                    fontWeight: "500",
+                                },
+                            ],
+                            "headline-md": [
+                                "26px",
+                                {
+                                    lineHeight: "34px",
+                                    letterSpacing: "-0.01em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "headline-lg": [
+                                "38px",
+                                {
+                                    lineHeight: "46px",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "display-hero": [
+                                "56px",
+                                {
+                                    lineHeight: "64px",
+                                    letterSpacing: "-0.03em",
+                                    fontWeight: "800",
+                                },
+                            ],
+                            "body-lg": [
+                                "18px",
+                                { lineHeight: "28px", fontWeight: "400" },
+                            ],
+                            "label-badge": [
+                                "11px",
+                                {
+                                    lineHeight: "14px",
+                                    letterSpacing: "0.1em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "label-lg": [
+                                "14px",
+                                {
+                                    lineHeight: "18px",
+                                    letterSpacing: "0.06em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "body-md": [
+                                "15px",
+                                { lineHeight: "24px", fontWeight: "400" },
+                            ],
+                        },
+                    },
+                },
+            };
+        </script>
+    </head>
+    <body
+        class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-aozora-sky selection:text-indigo-night"
+    >
+        <header
+            class="fixed top-0 left-0 w-full z-50 bg-cloud-white/90 backdrop-blur-xl shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)]"
+        >
+            <div
+                class="h-20 max-w-[1280px] mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-md"
+            >
+                <div class="flex items-center gap-space-md">
+                    <a
+                        class="flex items-center gap-space-sm group"
+                        data-path="beranda"
+                        href="#"
+                        ><div
+                            class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary font-headline-md text-headline-md shadow-[0_2px_10px_rgba(13,89,242,0.12)] group-hover:scale-105 transition-transform"
+                        >
+                            <span class="text-torii-vermilion">青</span
+                            ><span class="text-aozora-sky">空</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex items-center gap-space-xs">
+                                <span
+                                    class="font-headline-sm text-headline-sm tracking-tight text-indigo-night"
+                                    >Aozora</span
+                                ><span
+                                    class="font-label-badge text-label-badge px-1.5 py-0.5 rounded-full bg-sakura-tint text-torii-vermilion"
+                                    >日本語部</span
+                                >
+                            </div>
+                            <span
+                                class="font-label-md text-label-md text-secondary tracking-wider uppercase"
+                                >SMKN 1 Purwokerto</span
+                            >
+                        </div></a
+                    >
+                </div>
+                <nav
+                    class="hidden lg:flex items-center gap-space-lg"
+                    data-active-classes="text-primary font-semibold relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary"
+                >
+                    <a
+                        aria-current="page"
+                        class="transition-colors text-primary font-semibold relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary"
+                        data-path="beranda"
+                        href="#"
+                        >Beranda</a
+                    ><a
+                        class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
+                        data-path="tentang-kami"
+                        href="#"
+                        >Tentang Kami</a
+                    ><a
+                        class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
+                        data-path="event-matsuri"
+                        href="#"
+                        >Event &amp; Matsuri</a
+                    ><a
+                        class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
+                        data-path="dokumentasi-foto-video"
+                        href="#"
+                        >Dokumentasi Foto &amp; Video</a
+                    ><a
+                        class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
+                        data-path="kontak"
+                        href="#"
+                        >Kontak</a
+                    >
+                </nav>
+                <div class="flex items-center gap-space-md">
+                    <a
+                        class="hidden sm:inline-flex items-center gap-space-xs bg-torii-vermilion hover:bg-tertiary text-on-primary font-label-lg text-label-lg px-space-md py-space-sm rounded-lg shadow-[0_6px_18px_-2px_rgba(232,58,48,0.35)] transition-all transform hover:-translate-y-0.5"
+                        data-path="registrasi-anggota"
+                        href="#"
+                        ><span
+                            class="w-2 h-2 rounded-full bg-cloud-white animate-pulse"
+                        ></span
+                        ><span class="">Gabung Sekarang</span
+                        ><span
+                            class="font-label-badge text-label-badge opacity-80"
+                            >入部</span
+                        ></a
+                    ><img
+                        alt="Profile"
+                        class="w-8 h-8 rounded-full object-cover shadow-[0_2px_8px_rgba(13,89,242,0.15)]"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe_57QRBxcPOxYpvoRkSSUOgH3K1ldKLCAAaYxfqzhuBIlPdMwKPITA2FIlP0xftYt--7X0loUMNwZ3T9pulWmnG7VAMJ8nmf0Mp3aTJ6os01vkE0OvrX_iO1kRs0RDhqlXwPpl4Ml0xCGRXfQS7jdEdDo9TB2Dllwrv5QjGy2VIHvbP1RYVt0cM680j6nLbITW4yZn8WUyuEtBYx5aysZQlq8S0jg7y_N6BRIYSJYRFAStambE6vz"
+                    />
+                </div>
+            </div>
+        </header>
+        <main class="w-full pt-20 bg-surface min-h-screen">
+            <div class="flex flex-col w-full">
+                <!-- Subtle Anime/Culture Lattice Background Vector Layer -->
+                <div class="relative w-full overflow-hidden">
+                    <!-- Faint Ambient Aura -->
+                    <div
+                        class="absolute -top-24 right-1/4 w-96 h-96 bg-aozora-sky/15 rounded-full blur-3xl pointer-events-none"
+                    ></div>
+                    <div
+                        class="absolute top-80 -left-20 w-80 h-80 bg-sakura-tint/60 rounded-full blur-3xl pointer-events-none"
+                    ></div>
+                    <div
+                        class="absolute top-1/2 right-10 text-[260px] font-headline-lg font-extrabold text-indigo-night/[0.02] select-none pointer-events-none [writing-mode:vertical-rl]"
+                    >
+                        春光
+                    </div>
+                    <!-- Main Content Container -->
+                    <div
+                        class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin py-space-lg md:py-space-xl flex flex-col gap-space-xl"
+                    >
+                        <!-- Top Navigation & Breadcrumbs -->
+                        <div
+                            class="flex flex-wrap items-center justify-between gap-space-md"
+                        >
+                            <div
+                                class="flex items-center gap-space-sm text-body-sm font-body-sm text-on-surface-variant"
+                            >
+                                <a
+                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md transition-all group"
+                                    href="#"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-base group-hover:-translate-x-0.5 transition-transform"
+                                        >arrow_back</span
+                                    >
+                                    <span class="">Kembali ke Semua Event</span>
+                                </a>
+                                <span class="text-outline-variant">/</span>
+                                <span
+                                    class="hover:text-primary cursor-pointer transition-colors"
+                                    >Event &amp; Matsuri</span
+                                >
+                                <span class="text-outline-variant">/</span>
+                                <span
+                                    class="text-on-surface font-semibold truncate max-w-[200px] md:max-w-none"
+                                    >Haru no Hikari 2026</span
+                                >
+                            </div>
+                            <div class="flex items-center gap-space-xs">
+                                <span
+                                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-torii-vermilion/10 text-torii-vermilion font-label-badge text-label-badge tracking-wider uppercase"
+                                >
+                                    <span
+                                        class="w-2 h-2 rounded-full bg-torii-vermilion animate-pulse"
+                                    ></span>
+                                    ANNUAL MATSURI • ARSIP DOKUMENTASI LENGKAP
+                                </span>
+                                <span
+                                    class="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-badge text-label-badge"
+                                >
+                                    SMKN 1 PURWOKERTO
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Hero Banner Card (Asymmetrical Japanese HUD Style) -->
+                        <section
+                            class="relative rounded-2xl bg-cloud-white p-space-md md:p-space-xl shadow-[0_4px_24px_-4px_rgba(13,89,242,0.08)] overflow-hidden"
+                        >
+                            <!-- Decorative Watermark Stamp -->
+                            <div
+                                class="absolute -right-8 -bottom-10 text-[180px] font-headline-lg font-extrabold text-primary/[0.03] select-none pointer-events-none"
+                            >
+                                光
+                            </div>
+                            <div
+                                class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-aozora-sky/20 via-transparent to-transparent pointer-events-none"
+                            ></div>
+                            <div
+                                class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center relative z-10"
+                            >
+                                <!-- Text & Context (7 cols) -->
+                                <div
+                                    class="lg:col-span-7 flex flex-col gap-space-md"
+                                >
+                                    <div
+                                        class="flex flex-wrap items-center gap-space-xs"
+                                    >
+                                        <span
+                                            class="px-3 py-1 rounded-md bg-sakura-tint text-torii-vermilion font-label-badge text-label-badge"
+                                        >
+                                            🌸 BUNKASAI FESTIVAL 2026
+                                        </span>
+                                        <span
+                                            class="px-3 py-1 rounded-md bg-secondary-fixed text-primary font-label-badge text-label-badge"
+                                        >
+                                            第5回 文化祭
+                                        </span>
+                                        <span
+                                            class="text-secondary font-label-md text-label-md"
+                                            >Arsip Resmi Kegiatan Siswa</span
+                                        >
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <h1
+                                            class="font-headline-lg text-headline-lg text-indigo-night tracking-tight flex flex-wrap items-baseline gap-x-3"
+                                        >
+                                            <span class=""
+                                                >Bunkasai Matsuri:</span
+                                            >
+                                            <span
+                                                class="text-primary font-extrabold"
+                                                >Haru no Hikari</span
+                                            >
+                                            <span
+                                                class="font-headline-md text-headline-md text-torii-vermilion font-normal"
+                                                >（春の光）</span
+                                            >
+                                        </h1>
+                                        <p
+                                            class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed"
+                                        >
+                                            Merayakan apresiasi budaya Jepang,
+                                            karya kreatif origami &amp;
+                                            kaligrafi, cosplay ramah siswa, dan
+                                            persahabatan antarjurusan di bawah
+                                            naungan langit biru SMKN 1
+                                            Purwokerto.
+                                        </p>
+                                    </div>
+                                    <!-- Metadata Pills Grid -->
+                                    <div
+                                        class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm pt-space-xs"
+                                    >
+                                        <div
+                                            class="p-space-sm rounded-xl bg-surface-container-low flex flex-col"
+                                        >
+                                            <span
+                                                class="font-label-md text-label-md text-secondary uppercase flex items-center gap-1"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-sm text-primary"
+                                                    >calendar_today</span
+                                                >
+                                                Pelaksanaan
+                                            </span>
+                                            <span
+                                                class="font-headline-sm text-headline-sm text-on-surface mt-0.5"
+                                                >15 Mei 2026</span
+                                            >
+                                            <span
+                                                class="font-body-sm text-body-sm text-on-surface-variant"
+                                                >08.00 - 16.00 WIB</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="p-space-sm rounded-xl bg-surface-container-low flex flex-col"
+                                        >
+                                            <span
+                                                class="font-label-md text-label-md text-secondary uppercase flex items-center gap-1"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-sm text-torii-vermilion"
+                                                    >location_on</span
+                                                >
+                                                Lokasi Acara
+                                            </span>
+                                            <span
+                                                class="font-headline-sm text-headline-sm text-on-surface mt-0.5"
+                                                >Graha SMKN 1</span
+                                            >
+                                            <span
+                                                class="font-body-sm text-body-sm text-on-surface-variant"
+                                                >Aula &amp; Selasar Timur</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="col-span-2 sm:col-span-1 p-space-sm rounded-xl bg-surface-container-low flex flex-col"
+                                        >
+                                            <span
+                                                class="font-label-md text-label-md text-secondary uppercase flex items-center gap-1"
+                                                ><span
+                                                    class="material-symbols-outlined text-sm text-gold-shrine"
+                                                    >groups</span
+                                                >Partisipasi Siswa</span
+                                            ><span
+                                                class="font-headline-sm text-headline-sm text-on-surface mt-0.5"
+                                                >Anggota &amp; Guru</span
+                                            ><span
+                                                class="font-body-sm text-body-sm text-on-surface-variant"
+                                                >Seluruh Angkatan Eskul</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <!-- Action Hub Bar -->
+                                    <div
+                                        class="flex flex-wrap items-center gap-space-sm pt-space-xs"
+                                    >
+                                        <a
+                                            class="inline-flex items-center gap-space-xs bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg px-space-lg py-space-sm rounded-lg shadow-[0_6px_20px_-2px_rgba(13,89,242,0.35)] transition-all transform hover:-translate-y-0.5"
+                                            href="#dokumentasi-galeri"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-lg"
+                                                >photo_library</span
+                                            >
+                                            <span class=""
+                                                >Jelajahi Dokumentasi</span
+                                            >
+                                            <span
+                                                class="font-label-badge text-label-badge opacity-75"
+                                                >写真</span
+                                            >
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Graphic Mascot Floating HUD Card (5 cols) -->
+                                <div class="lg:col-span-5 relative">
+                                    <div
+                                        class="relative w-full rounded-2xl bg-gradient-to-tr from-surface-container to-surface-container-low p-3 shadow-[0_12px_32px_-4px_rgba(13,89,242,0.12)]"
+                                    >
+                                        <!-- Visual Hero Banner Image with Persona / Anime Visual Style -->
+                                        <div
+                                            class="relative w-full h-[320px] md:h-[360px] rounded-xl overflow-hidden bg-indigo-night"
+                                        >
+                                            <img
+                                                class="w-full h-full object-cover"
+                                                data-alt="Vibrant anime club celebration of high school Japanese cultural festival Bunkasai Haru no Hikari at SMKN 1 Purwokerto with colorful paper lanterns, red torii gate stage decorations, smiling blue-haired anime student mascot holding fan and manga book, sunny blue skies with sakura cherry blossoms fluttering, highly polished anime key visual art style with crisp lighting and deep contrast"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwj4-juBrPkKtdzt3luDt7Z9-UZqHESroefZCHjglvRrrY46asz7hpVFpCevA1FQwdfEMMkq-MpxebQU-t8ZFR3GivG9SjUjbTMcyG7BYRLs8Nhb8Cvbc7MjNGxtgE2w9ezq3_MCo7EGvabGuT0JGJxeKyeeienN_tdvNqkJVhPtAiaDY3MFoRvjQa-KGlXT1my0Ykp_0R20yGo531zF_Ofs1H8MPVmb_w2fFHuDqJBCFRE2rVC1K6"
+                                            />
+                                            <!-- Inner Tag HUD -->
+                                            <div
+                                                class="absolute inset-0 bg-gradient-to-t from-indigo-night/85 via-transparent to-black/20 flex flex-col justify-between p-space-md text-cloud-white"
+                                            >
+                                                <div
+                                                    class="flex items-center justify-between"
+                                                >
+                                                    <span
+                                                        class="px-2.5 py-1 rounded-full bg-cloud-white/20 backdrop-blur-md font-label-badge text-label-badge flex items-center gap-1"
+                                                    >
+                                                        <span
+                                                            class="w-1.5 h-1.5 rounded-full bg-aozora-sky"
+                                                        ></span>
+                                                        SMKN 1 ARCHIVE NO.
+                                                        2026-FEST
+                                                    </span>
+                                                    <span
+                                                        class="px-2 py-0.5 rounded bg-torii-vermilion font-label-badge text-label-badge"
+                                                        >LIVE HIT 100%</span
+                                                    >
+                                                </div>
+                                                <div>
+                                                    <span
+                                                        class="text-aozora-sky font-label-badge text-label-badge tracking-widest uppercase"
+                                                        >Aftermovie &amp; Photo
+                                                        Vault</span
+                                                    >
+                                                    <h3
+                                                        class="font-headline-sm text-headline-sm text-cloud-white"
+                                                    >
+                                                        Semarak Gelar Budaya
+                                                        Purwokerto
+                                                    </h3>
+                                                    <p
+                                                        class="font-body-sm text-body-sm text-surface-dim mt-0.5"
+                                                    >
+                                                        Diabadikan oleh Tim
+                                                        Multimedia &amp;
+                                                        Jurnalistik SMKN 1
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Floating Quick Stats Floating Chip -->
+                                        <div
+                                            class="absolute -bottom-4 -left-4 bg-cloud-white/95 backdrop-blur-md px-space-md py-space-sm rounded-xl shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)] flex items-center gap-3"
+                                        >
+                                            <div
+                                                class="w-10 h-10 rounded-lg bg-sakura-tint text-torii-vermilion flex items-center justify-center font-headline-sm text-headline-sm"
+                                            >
+                                                春
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <span
+                                                    class="font-headline-sm text-headline-sm text-indigo-night leading-none"
+                                                    >48 Foto &amp; 3 Video</span
+                                                >
+                                                <span
+                                                    class="font-label-md text-label-md text-secondary"
+                                                    >Terarsip Siap Unduh</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Section Navigation Tabs -->
+                        <div
+                            class="sticky top-20 z-30 bg-surface/90 backdrop-blur-md py-2 -mx-margin-mobile px-margin-mobile md:-mx-margin md:px-margin"
+                        >
+                            <div
+                                class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar"
+                                id="content-tabs"
+                            >
+                                <button
+                                    class="tab-btn px-space-md py-2 rounded-xl font-label-lg text-label-lg flex items-center gap-2 whitespace-nowrap shadow-sm transition-all bg-primary text-on-primary active"
+                                    onclick="switchTab('tab-dokumentasi', this)"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-lg"
+                                        >movie_filter</span
+                                    >
+                                    <span class=""
+                                        >Dokumentasi Foto &amp; Video
+                                        (Utama)</span
+                                    >
+                                    <span
+                                        class="px-2 py-0.5 rounded-full bg-cloud-white/20 font-label-badge text-label-badge"
+                                        >48+</span
+                                    >
+                                </button>
+                                <button
+                                    class="tab-btn px-space-md py-2 rounded-xl hover:bg-surface-container-high font-label-lg text-label-lg flex items-center gap-2 whitespace-nowrap transition-all bg-surface-container text-on-surface-variant"
+                                    onclick="switchTab('tab-rundown', this)"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-lg"
+                                        >schedule</span
+                                    ><span class=""
+                                        >Rundown &amp; Aktivitas Eskul</span
+                                    >
+                                </button>
+
+                                <button
+                                    class="tab-btn px-space-md py-2 rounded-xl hover:bg-surface-container-high font-label-lg text-label-lg flex items-center gap-2 whitespace-nowrap transition-all bg-surface-container text-on-surface-variant"
+                                    onclick="switchTab('tab-denah', this)"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-lg"
+                                        >map</span
+                                    ><span class=""
+                                        >Lokasi Lab &amp; Ruang Praktik</span
+                                    >
+                                </button>
+                            </div>
+                        </div>
+                        <!-- TAB 1: DOKUMENTASI FOTO & VIDEO (FOKUS UTAMA USER) -->
+                        <div
+                            class="tab-pane flex flex-col gap-space-2xl"
+                            id="tab-dokumentasi"
+                        >
+                            <!-- Featured Video Showcase (Aftermovie Player) -->
+                            <section
+                                class="flex flex-col gap-space-md"
+                                id="aftermovie-section"
+                            >
+                                <!-- Video Mockup Container -->
+                                <div
+                                    class="relative w-full rounded-2xl bg-indigo-night shadow-[0_12px_36px_-6px_rgba(11,16,33,0.3)] overflow-hidden"
+                                >
+                                    <!-- Simulated Video Frame / Placeholder -->
+
+                                    <!-- Video Credits & Narrative Bar -->
+                                </div>
+                            </section>
+                            <!-- Photo Gallery with Interactive Category Filters -->
+                            <section
+                                class="flex flex-col gap-space-lg"
+                                id="dokumentasi-galeri"
+                            >
+                                <div
+                                    class="flex flex-col md:flex-row md:items-end justify-between gap-space-md"
+                                >
+                                    <div>
+                                        <div
+                                            class="flex items-center gap-2 text-primary font-label-badge text-label-badge uppercase tracking-widest"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-sm"
+                                                >collections</span
+                                            >
+                                            <span class=""
+                                                >Dokumentasi Lengkap
+                                                Bunkasai</span
+                                            >
+                                        </div>
+                                        <h2
+                                            class="font-headline-lg text-headline-lg text-indigo-night"
+                                        >
+                                            Galeri Sorotan Acara (写真)
+                                        </h2>
+                                        <p
+                                            class="font-body-md text-body-md text-on-surface-variant"
+                                        >
+                                            Pilih kategori untuk memfilter momen
+                                            favoritmu selama perhelatan
+                                            festival.
+                                        </p>
+                                    </div>
+                                    <!-- Filter Chips -->
+                                    <div
+                                        class="flex flex-wrap items-center gap-1.5"
+                                        id="gallery-filters"
+                                    >
+                                        <button
+                                            class="gallery-filter-btn px-3.5 py-1.5 rounded-lg font-label-md text-label-md transition-all shadow-sm bg-primary text-on-primary active"
+                                            onclick="filterGallery('all', this)"
+                                        >
+                                            Semua Berkas (48)</button
+                                        ><button
+                                            class="gallery-filter-btn px-3.5 py-1.5 rounded-lg hover:bg-surface-container-high font-label-md text-label-md transition-all bg-surface-container text-on-surface-variant"
+                                            onclick="
+                                                filterGallery('stage', this)
+                                            "
+                                        >
+                                            Foto Kegiatan</button
+                                        ><button
+                                            class="gallery-filter-btn px-3.5 py-1.5 rounded-lg hover:bg-surface-container-high font-label-md text-label-md transition-all bg-surface-container text-on-surface-variant"
+                                            onclick="
+                                                filterGallery('workshop', this)
+                                            "
+                                        >
+                                            Video Dokumentasi
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Dynamic Masonry / Bento Grid Gallery -->
+                                <div
+                                    class="rounded-2xl border border-dashed border-primary/30 bg-cloud-white p-space-md md:p-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md shadow-sm"
+                                >
+                                    <div class="flex items-center gap-space-md">
+                                        <div
+                                            class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-2xl"
+                                                >cloud_upload</span
+                                            >
+                                        </div>
+                                        <div class="flex flex-col gap-0.5">
+                                            <div
+                                                class="flex flex-wrap items-center gap-2"
+                                            >
+                                                <span
+                                                    class="font-label-badge text-label-badge px-2 py-0.5 rounded bg-sakura-tint text-torii-vermilion"
+                                                    >AKSES SIE DOKUMENTASI /
+                                                    ADMIN</span
+                                                ><span
+                                                    class="font-label-badge text-label-badge text-secondary"
+                                                    >Mode Pengelola Aktif</span
+                                                >
+                                            </div>
+                                            <p
+                                                class="font-headline-sm text-headline-sm text-indigo-night"
+                                            >
+                                                Tarik &amp; Lepas (Drag &amp;
+                                                Drop) Berkas Foto / Video
+                                            </p>
+                                            <span
+                                                class="font-body-sm text-body-sm text-on-surface-variant"
+                                                >Drop file langsung di sini —
+                                                nama file otomatis dijadikan
+                                                judul arsip publik tanpa rename
+                                                manual.</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="flex items-center gap-space-xs flex-shrink-0"
+                                    >
+                                        <button
+                                            class="inline-flex items-center gap-2 px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-base"
+                                                >drive_folder_upload</span
+                                            >Pilih dari Perangkat
+                                        </button>
+                                    </div>
+                                </div>
+                                <div
+                                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md"
+                                    id="gallery-grid"
+                                >
+                                    <div
+                                        class="gallery-card group relative rounded-2xl bg-cloud-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)] hover:shadow-[0_12px_32px_-4px_rgba(13,89,242,0.16)] transition-all flex flex-col"
+                                        data-cat="stage"
+                                    >
+                                        <div
+                                            class="relative h-64 overflow-hidden"
+                                        >
+                                            <img
+                                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                data-alt="Siswa SMK berkegiatan di ruang praktik kuliner memasak takoyaki bersama"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJxJig0azMm0H300vLIQ1hCJtamAju6Zch47DfesL5r67qOnUwMJw3yB3Hextc_hcjcMvMX3Qo-zR-y7oO9oaDMKuucXB88bgZ3Ilyeg2t0aN7OFqKrVWAolgC99W7rXEKfbdRIsiy_68CxPBiDlyCy-tgJZtFQdGNQYNjxRZOPdoX_HxHwkuCiZZJF9Sq5XS7RpJpeD0AN2m_BEitwlTHG6k5GK112OAPUJ2ARTH5UcQQ_cHtd2-p"
+                                            /><span
+                                                class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-torii-vermilion text-on-primary font-label-badge text-label-badge"
+                                                >🍳 WORKSHOP BOGA</span
+                                            ><span
+                                                class="absolute top-3 right-3 px-2 py-0.5 rounded bg-black/50 text-cloud-white text-xs font-label-md"
+                                                >09:30 WIB</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="p-space-md flex flex-col gap-1.5 flex-1 justify-between"
+                                        >
+                                            <div class="flex flex-col gap-0.5">
+                                                <div
+                                                    class="flex items-center gap-1.5 text-xs text-secondary font-label-md"
+                                                >
+                                                    <span
+                                                        class="material-symbols-outlined text-sm text-primary"
+                                                        >image</span
+                                                    ><span class=""
+                                                        >Foto Asli RAW</span
+                                                    >
+                                                </div>
+                                                <h3
+                                                    class="font-label-lg text-label-lg text-indigo-night font-bold tracking-wide group-hover:text-primary transition-colors font-mono"
+                                                >
+                                                    IMG_20260515_0930_boga.jpg
+                                                </h3>
+                                            </div>
+                                            <div
+                                                class="flex items-center justify-between pt-space-xs text-xs text-secondary font-label-md border-t border-surface-container mt-auto"
+                                            >
+                                                <span
+                                                    class="text-on-surface-variant"
+                                                    >2.4 MB • 4000x3000</span
+                                                ><a
+                                                    class="text-primary hover:underline cursor-pointer flex items-center gap-1 font-semibold"
+                                                    href="#"
+                                                    >Unduh Resolusi Penuh ↗</a
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="gallery-card group relative rounded-2xl bg-cloud-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)] hover:shadow-[0_12px_32px_-4px_rgba(13,89,242,0.16)] transition-all flex flex-col"
+                                        data-cat="cosplay"
+                                    >
+                                        <div
+                                            class="relative h-64 overflow-hidden"
+                                        >
+                                            <img
+                                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                data-alt="Cosplay Parade"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0YU2AdOkuF_iWKhukkkemkZUIPjkrLKSxxSEt3SuPsFkZTuU4ugN0os518_vgfpHnj-ae6hjSKU_L4FjSnUKKEkE3T_Fjwo_dbCysH6efFpV1-NOmXaX7p3lzj0lWhsaNYi261QX0wEI0e9XPAZzuNQq-ATv8jAj_Rl0Uj9a8kASLJ_l2k0Jboaheq22OQ6l3df2x4QHDx103GM8FSfi_8sP5xjYfpyxkGoU5OxCU-JPDJ0dQdpXH"
+                                            /><span
+                                                class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-sakura-tint text-torii-vermilion font-label-badge text-label-badge"
+                                                >👘 COSPLAY WALK</span
+                                            ><span
+                                                class="absolute top-3 right-3 px-2 py-0.5 rounded bg-black/50 text-cloud-white text-xs font-label-md"
+                                                >09:15 WIB</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="p-space-md flex flex-col gap-1.5 flex-1 justify-between"
+                                        >
+                                            <div class="flex flex-col gap-0.5">
+                                                <div
+                                                    class="flex items-center gap-1.5 text-xs text-secondary font-label-md"
+                                                >
+                                                    <span
+                                                        class="material-symbols-outlined text-sm text-primary"
+                                                        >image</span
+                                                    ><span class=""
+                                                        >Foto Asli RAW</span
+                                                    >
+                                                </div>
+                                                <h3
+                                                    class="font-label-lg text-label-lg text-indigo-night font-bold tracking-wide group-hover:text-primary transition-colors font-mono"
+                                                >
+                                                    DSC_0492_cosplay_walk.jpg
+                                                </h3>
+                                            </div>
+                                            <div
+                                                class="flex items-center justify-between pt-space-xs text-xs text-secondary font-label-md border-t border-surface-container mt-auto"
+                                            >
+                                                <span
+                                                    class="text-on-surface-variant"
+                                                    >4.1 MB • 6000x4000</span
+                                                ><a
+                                                    class="text-primary hover:underline cursor-pointer flex items-center gap-1 font-semibold"
+                                                    href="#"
+                                                    >Unduh Resolusi Penuh ↗</a
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="gallery-card group relative rounded-2xl bg-cloud-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)] hover:shadow-[0_12px_32px_-4px_rgba(13,89,242,0.16)] transition-all flex flex-col"
+                                        data-cat="workshop"
+                                    >
+                                        <div
+                                            class="relative h-64 overflow-hidden"
+                                        >
+                                            <img
+                                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                data-alt="Workshop Shodo"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDL7iIyYdLyIJuHBQtke4h4ln4aY_Qdv77-zGq_pGOU_MU6ezIX85ObZDVWXh9Xnyndlp6K8QgEcydw4zsLvGK4Mecd0FGXwpJnetLsvWKpaWqrhX2b5Lm1oNduIREIpFBvF1vpgmDR1WY_0r7MvyVF6WDZH_rTrvTazXinWSS8nldp9z6L5Tmn-zQo39Ud48J4SV3hGzI3Goy49GO8gZtgw3mRPYwEbKefu6hfzd5sF_vBa3MZ4YU1"
+                                            /><span
+                                                class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-secondary-fixed text-primary font-label-badge text-label-badge"
+                                                >🖌️ WORKSHOP SHODO</span
+                                            ><span
+                                                class="absolute top-3 right-3 px-2 py-0.5 rounded bg-black/50 text-cloud-white text-xs font-label-md"
+                                                >10:45 WIB</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="p-space-md flex flex-col gap-1.5 flex-1 justify-between"
+                                        >
+                                            <div class="flex flex-col gap-0.5">
+                                                <div
+                                                    class="flex items-center gap-1.5 text-xs text-secondary font-label-md"
+                                                >
+                                                    <span
+                                                        class="material-symbols-outlined text-sm text-primary"
+                                                        >videocam</span
+                                                    ><span class=""
+                                                        >Klip Video 4K</span
+                                                    >
+                                                </div>
+                                                <h3
+                                                    class="font-label-lg text-label-lg text-indigo-night font-bold tracking-wide group-hover:text-primary transition-colors font-mono"
+                                                >
+                                                    VID_20260515_shodo_clip.mp4
+                                                </h3>
+                                            </div>
+                                            <div
+                                                class="flex items-center justify-between pt-space-xs text-xs text-secondary font-label-md border-t border-surface-container mt-auto"
+                                            >
+                                                <span
+                                                    class="text-on-surface-variant"
+                                                    >48.2 MB • 01:24 min</span
+                                                ><a
+                                                    class="text-primary hover:underline cursor-pointer flex items-center gap-1 font-semibold"
+                                                    href="#"
+                                                    >Unduh Video Asli ↗</a
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="gallery-card group relative rounded-2xl bg-cloud-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)] hover:shadow-[0_12px_32px_-4px_rgba(13,89,242,0.16)] transition-all flex flex-col"
+                                        data-cat="booth"
+                                    >
+                                        <div
+                                            class="relative h-64 overflow-hidden"
+                                        >
+                                            <img
+                                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                data-alt="Kuliner Matsuri"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJxJig0azMm0H300vLIQ1hCJtamAju6Zch47DfesL5r67qOnUwMJw3yB3Hextc_hcjcMvMX3Qo-zR-y7oO9oaDMKuucXB88bgZ3Ilyeg2t0aN7OFqKrVWAolgC99W7rXEKfbdRIsiy_68CxPBiDlyCy-tgJZtFQdGNQYNjxRZOPdoX_HxHwkuCiZZJF9Sq5XS7RpJpeD0AN2m_BEitwlTHG6k5GK112OAPUJ2ARTH5UcQQ_cHtd2-p"
+                                            /><span
+                                                class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-tertiary-fixed text-tertiary font-label-badge text-label-badge"
+                                                >🍡 KULINER MATSURI</span
+                                            ><span
+                                                class="absolute top-3 right-3 px-2 py-0.5 rounded bg-black/50 text-cloud-white text-xs font-label-md"
+                                                >12:20 WIB</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="p-space-md flex flex-col gap-1.5 flex-1 justify-between"
+                                        >
+                                            <div class="flex flex-col gap-0.5">
+                                                <div
+                                                    class="flex items-center gap-1.5 text-xs text-secondary font-label-md"
+                                                >
+                                                    <span
+                                                        class="material-symbols-outlined text-sm text-primary"
+                                                        >image</span
+                                                    ><span class=""
+                                                        >Foto Asli RAW</span
+                                                    >
+                                                </div>
+                                                <h3
+                                                    class="font-label-lg text-label-lg text-indigo-night font-bold tracking-wide group-hover:text-primary transition-colors font-mono"
+                                                >
+                                                    DSC_0512_takoyaki.jpg
+                                                </h3>
+                                            </div>
+                                            <div
+                                                class="flex items-center justify-between pt-space-xs text-xs text-secondary font-label-md border-t border-surface-container mt-auto"
+                                            >
+                                                <span
+                                                    class="text-on-surface-variant"
+                                                    >3.8 MB • 5400x3600</span
+                                                ><a
+                                                    class="text-primary hover:underline cursor-pointer flex items-center gap-1 font-semibold"
+                                                    href="#"
+                                                    >Unduh Resolusi Penuh ↗</a
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="gallery-card group relative rounded-2xl bg-cloud-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)] hover:shadow-[0_12px_32px_-4px_rgba(13,89,242,0.16)] transition-all flex flex-col"
+                                        data-cat="stage"
+                                    >
+                                        <div
+                                            class="relative h-64 overflow-hidden"
+                                        >
+                                            <img
+                                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                data-alt="Speech Contest &amp; Kaiwa"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJraPtWXRLfYtemJ78AjfYcRJMNU5wpPRnOpt7udO0hDL3tMyVHFmIdtUPKwchI2g67luiLoqQcfRWkf0ZRN2Gx43K-QHH2vw6PaB5CoSKddUL2ql6Kf8ICNr_gBzkB0Pt8Vwpr4JuMi1Ff48TIfCDT6JVCDvPuwvkwsZ-4PyL8LRe0F8r5aTNs15cYo500WQAOiLhu4OOuxmki8NlK1OmpHW7Lx4tHEXx6BKi_K2LZTIUtOyAVnX2"
+                                            /><span
+                                                class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-secondary-fixed text-primary font-label-badge text-label-badge"
+                                                >📖 SESI SASTRA &amp;
+                                                KAIWA</span
+                                            ><span
+                                                class="absolute top-3 right-3 px-2 py-0.5 rounded bg-black/50 text-cloud-white text-xs font-label-md"
+                                                >13:30 WIB</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="p-space-md flex flex-col gap-1.5 flex-1 justify-between"
+                                        >
+                                            <div class="flex flex-col gap-0.5">
+                                                <div
+                                                    class="flex items-center gap-1.5 text-xs text-secondary font-label-md"
+                                                >
+                                                    <span
+                                                        class="material-symbols-outlined text-sm text-primary"
+                                                        >image</span
+                                                    ><span class=""
+                                                        >Foto Asli RAW</span
+                                                    >
+                                                </div>
+                                                <h3
+                                                    class="font-label-lg text-label-lg text-indigo-night font-bold tracking-wide group-hover:text-primary transition-colors font-mono"
+                                                >
+                                                    IMG_20260515_1330_kaiwa.jpg
+                                                </h3>
+                                            </div>
+                                            <div
+                                                class="flex items-center justify-between pt-space-xs text-xs text-secondary font-label-md border-t border-surface-container mt-auto"
+                                            >
+                                                <span
+                                                    class="text-on-surface-variant"
+                                                    >Danu (XII MM) • 3.2
+                                                    MB</span
+                                                ><a
+                                                    class="text-primary hover:underline cursor-pointer flex items-center gap-1 font-semibold"
+                                                    href="#"
+                                                    >Unduh Resolusi Penuh ↗</a
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="gallery-card group relative rounded-2xl bg-cloud-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)] hover:shadow-[0_12px_32px_-4px_rgba(13,89,242,0.16)] transition-all flex flex-col"
+                                        data-cat="workshop"
+                                    >
+                                        <div
+                                            class="relative h-64 overflow-hidden"
+                                        >
+                                            <img
+                                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                data-alt="Pameran Origami"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN_SiQtmV-61mbq9NYqKA4Xu3cQ2TAELIg44xSWFVt8Os8sh0iZ59Jn1RBvdhqMKe_2NM_9TGL3HqF_X7p_KI2Pqee16jyhh9UhstFWVD_NfYbqseD5iL1jWMl21wEX8Lo685vbzoI_rdHdQv9HsbzIHvo2vjL4FTfAjWXhztQxWZnQ8R7IfE_sMmsDnjG6eqzP0rXtaDOeJUcIFMNW_hpqktzK6jB2LOhv3qEZDEfErCCiYebgmq5"
+                                            /><span
+                                                class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-secondary-fixed text-primary font-label-badge text-label-badge"
+                                                >🕊️ PAMERAN ORIGAMI</span
+                                            ><span
+                                                class="absolute top-3 right-3 px-2 py-0.5 rounded bg-black/50 text-cloud-white text-xs font-label-md"
+                                                >11:15 WIB</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="p-space-md flex flex-col gap-1.5 flex-1 justify-between"
+                                        >
+                                            <div class="flex flex-col gap-0.5">
+                                                <div
+                                                    class="flex items-center gap-1.5 text-xs text-secondary font-label-md"
+                                                >
+                                                    <span
+                                                        class="material-symbols-outlined text-sm text-primary"
+                                                        >image</span
+                                                    ><span class=""
+                                                        >Foto Asli RAW</span
+                                                    >
+                                                </div>
+                                                <h3
+                                                    class="font-label-lg text-label-lg text-indigo-night font-bold tracking-wide group-hover:text-primary transition-colors font-mono"
+                                                >
+                                                    IMG_20260515_senbazuru.jpg
+                                                </h3>
+                                            </div>
+                                            <div
+                                                class="flex items-center justify-between pt-space-xs text-xs text-secondary font-label-md border-t border-surface-container mt-auto"
+                                            >
+                                                <span
+                                                    class="text-on-surface-variant"
+                                                    >4.5 MB • 5200x3460</span
+                                                ><a
+                                                    class="text-primary hover:underline cursor-pointer flex items-center gap-1 font-semibold"
+                                                    href="#"
+                                                    >Unduh Resolusi Penuh ↗</a
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Bottom Photo Actions & Callout Box -->
+                                <div
+                                    class="p-space-lg rounded-2xl bg-gradient-to-r from-surface-container to-surface-container-low flex flex-col md:flex-row items-center justify-between gap-space-md"
+                                >
+                                    <div class="flex items-center gap-space-md">
+                                        <div
+                                            class="w-12 h-12 rounded-xl bg-cloud-white text-primary flex items-center justify-center shadow-sm flex-shrink-0"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-2xl"
+                                                >folder_zip</span
+                                            >
+                                        </div>
+                                        <div class="flex flex-col gap-0.5">
+                                            <div
+                                                class="flex items-center gap-2"
+                                            >
+                                                <span
+                                                    class="font-headline-sm text-headline-sm text-indigo-night"
+                                                    >Unduh Seluruh Foto Resolusi
+                                                    Penuh (RAW / FHD)</span
+                                                ><span
+                                                    class="font-label-badge text-label-badge px-2 py-0.5 rounded bg-aozora-sky/20 text-primary"
+                                                    >AKSES SISWA &amp;
+                                                    UMUM</span
+                                                >
+                                            </div>
+                                            <span
+                                                class="font-body-sm text-body-sm text-on-surface-variant"
+                                                >Pengunjung dan siswa dapat
+                                                mengunduh seluruh 180+ foto
+                                                resolusi tinggi secara gratis
+                                                melalui Google Drive Resmi SMKN
+                                                1 Purwokerto.</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="flex flex-col sm:flex-row items-center gap-space-xs w-full md:w-auto flex-shrink-0"
+                                    >
+                                        <button
+                                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg px-space-lg py-space-sm rounded-lg shadow-sm transition-all"
+                                            onclick="downloadArchiveModal()"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-lg"
+                                                >download</span
+                                            ><span class=""
+                                                >Buka Folder Drive (1.8
+                                                GB)</span
+                                            >
+                                        </button>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <!-- TAB 2: RUNDOWN & JADWAL PANGGUNG -->
+                        <div
+                            class="tab-pane flex flex-col gap-space-xl hidden"
+                            id="tab-rundown"
+                        >
+                            <div class="flex flex-col gap-1">
+                                <span
+                                    class="font-label-badge text-label-badge text-primary uppercase tracking-widest"
+                                    >TIMELINE LENGKAP • 15 MEI 2026</span
+                                >
+                                <h2
+                                    class="font-headline-lg text-headline-lg text-indigo-night"
+                                >
+                                    Rundown Aktivitas Eskul &amp; Ruang Praktik
+                                </h2>
+                                <p
+                                    class="font-body-md text-body-md text-on-surface-variant"
+                                >
+                                    Berikut urutan kegiatan resmi Bunkasai Haru
+                                    no Hikari dari sesi pembukaan hingga
+                                    penutupan.
+                                </p>
+                            </div>
+                            <!-- Interactive Schedule Timeline -->
+                            <div class="relative flex flex-col gap-space-md">
+                                <!-- Timeline Track Item 1 -->
+                                <div
+                                    class="p-space-md rounded-2xl bg-cloud-white shadow-sm flex flex-col sm:flex-row items-start gap-space-md"
+                                >
+                                    <div class="sm:w-44 flex flex-col">
+                                        <span
+                                            class="font-headline-sm text-headline-sm text-primary"
+                                            >08.00 - 08.30</span
+                                        >
+                                        <span
+                                            class="font-label-md text-label-md text-secondary"
+                                            >30 Menit • Aula Graha</span
+                                        >
+                                    </div>
+                                    <div class="flex-1 flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="px-2 py-0.5 rounded bg-surface-container font-label-badge text-label-badge text-indigo-night"
+                                                >SEREMONIAL</span
+                                            >
+                                            <h3
+                                                class="font-headline-sm text-headline-sm text-on-surface"
+                                            >
+                                                Upacara Pembukaan &amp; Sambutan
+                                                Kepala Sekolah
+                                            </h3>
+                                        </div>
+                                        <p
+                                            class="font-body-sm text-body-sm text-on-surface-variant"
+                                        >
+                                            Pemotongan pita dan tabuhan
+                                            genderang Taiko simbolik oleh Kepala
+                                            SMKN 1 Purwokerto dan Pembina Aozora
+                                            Nihongo Club.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Timeline Track Item 2 -->
+                                <div
+                                    class="p-space-md rounded-2xl bg-cloud-white shadow-sm flex flex-col sm:flex-row items-start gap-space-md"
+                                >
+                                    <div class="sm:w-44 flex flex-col">
+                                        <span
+                                            class="font-headline-sm text-headline-sm text-primary"
+                                            >08.30 - 10.30</span
+                                        >
+                                        <span
+                                            class="font-label-md text-label-md text-secondary"
+                                            >120 Menit • Selasar Timur</span
+                                        >
+                                    </div>
+                                    <div class="flex-1 flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="px-2 py-0.5 rounded bg-sakura-tint font-label-badge text-label-badge text-torii-vermilion"
+                                                >PARADE</span
+                                            >
+                                            <h3
+                                                class="font-headline-sm text-headline-sm text-on-surface"
+                                            >
+                                                Parade Cosplay Walk &amp;
+                                                Pengenalan Budaya Tradisional
+                                            </h3>
+                                        </div>
+                                        <p
+                                            class="font-body-sm text-body-sm text-on-surface-variant"
+                                        >
+                                            Pameran kostum anime, yukata
+                                            showcase, dan tarian tradisional
+                                            Yosakoi kolaborasi dengan
+                                            ekstrakurikuler tari sekolah.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Timeline Track Item 3 -->
+                                <div
+                                    class="p-space-md rounded-2xl bg-cloud-white shadow-sm flex flex-col sm:flex-row items-start gap-space-md"
+                                >
+                                    <div class="sm:w-44 flex flex-col">
+                                        <span
+                                            class="font-headline-sm text-headline-sm text-primary"
+                                            >10.30 - 12.00</span
+                                        >
+                                        <span
+                                            class="font-label-md text-label-md text-secondary"
+                                            >90 Menit • Ruang Bahasa</span
+                                        >
+                                    </div>
+                                    <div class="flex-1 flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="px-2 py-0.5 rounded bg-secondary-fixed font-label-badge text-label-badge text-primary"
+                                                >WORKSHOP</span
+                                            >
+                                            <h3
+                                                class="font-headline-sm text-headline-sm text-on-surface"
+                                            >
+                                                Workshop Seni Kaligrafi Shodo
+                                                &amp; Seni Lipat Origami 3D
+                                            </h3>
+                                        </div>
+                                        <p
+                                            class="font-body-sm text-body-sm text-on-surface-variant"
+                                        >
+                                            Kelas praktik menulis kanji bersama
+                                            Sensei penutur asli dan pembuatan
+                                            origami 1000 burung bangau
+                                            (Senbazuru).
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Timeline Track Item 4 -->
+                                <div
+                                    class="p-space-md rounded-2xl bg-surface-container-low flex flex-col sm:flex-row items-start gap-space-md"
+                                >
+                                    <div class="sm:w-44 flex flex-col">
+                                        <span
+                                            class="font-headline-sm text-headline-sm text-secondary"
+                                            >12.00 - 13.00</span
+                                        >
+                                        <span
+                                            class="font-label-md text-label-md text-secondary"
+                                            >60 Menit • Seluruh Area</span
+                                        >
+                                    </div>
+                                    <div class="flex-1 flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="px-2 py-0.5 rounded bg-surface-container-high font-label-badge text-label-badge text-secondary"
+                                                >ISTIRAHAT</span
+                                            >
+                                            <h3
+                                                class="font-headline-sm text-headline-sm text-on-surface"
+                                            >
+                                                Istirahat, Sholat Dzuhur &amp;
+                                                Jelajah Kuliner Matsuri
+                                            </h3>
+                                        </div>
+                                        <p
+                                            class="font-body-sm text-body-sm text-on-surface-variant"
+                                        >
+                                            Waktu santap siang di stan Takoyaki,
+                                            Dorayaki, Okonomiyaki, serta ibadah
+                                            di Masjid Baitul Ilmi SMKN 1.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Timeline Track Item 5 -->
+                                <div
+                                    class="p-space-md rounded-2xl bg-cloud-white shadow-sm flex flex-col sm:flex-row items-start gap-space-md"
+                                >
+                                    <div class="sm:w-44 flex flex-col">
+                                        <span
+                                            class="font-headline-sm text-headline-sm text-primary"
+                                            >13.00 - 14.30</span
+                                        >
+                                        <span
+                                            class="font-label-md text-label-md text-secondary"
+                                            >90 Menit • Panggung Utama</span
+                                        >
+                                    </div>
+                                    <div class="flex-1 flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="px-2 py-0.5 rounded bg-secondary-container font-label-badge text-label-badge text-on-secondary-container"
+                                                >KOMPETISI</span
+                                            >
+                                            <h3
+                                                class="font-headline-sm text-headline-sm text-on-surface"
+                                            >
+                                                Lomba Rodoku (Baca Puisi) &amp;
+                                                Cerdas Cermat Nihongo
+                                            </h3>
+                                        </div>
+                                        <p
+                                            class="font-body-sm text-body-sm text-on-surface-variant"
+                                        >
+                                            Babak final cerdas cermat kebudayaan
+                                            Jepang dan pemutaran drama pendek
+                                            berbahasa Jepang karya siswa kelas
+                                            XI.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Timeline Track Item 6 -->
+                                <div
+                                    class="p-space-md rounded-2xl bg-cloud-white shadow-[0_4px_24px_-4px_rgba(232,58,48,0.15)] flex flex-col sm:flex-row items-start gap-space-md"
+                                >
+                                    <div class="sm:w-44 flex flex-col">
+                                        <span
+                                            class="font-headline-sm text-headline-sm text-torii-vermilion"
+                                            >14.30 - 16.00</span
+                                        ><span
+                                            class="font-label-md text-label-md text-secondary"
+                                            >90 Menit • Selasar &amp; Lab</span
+                                        >
+                                    </div>
+                                    <div class="flex-1 flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="px-2 py-0.5 rounded bg-torii-vermilion text-on-primary font-label-badge text-label-badge"
+                                                >PENUTUPAN</span
+                                            >
+                                            <h3
+                                                class="font-headline-sm text-headline-sm text-on-surface"
+                                            >
+                                                Apresiasi Karya Anggota Eskul
+                                                &amp; Sesi Foto Bersama
+                                            </h3>
+                                        </div>
+                                        <p
+                                            class="font-body-sm text-body-sm text-on-surface-variant"
+                                        >
+                                            Penyerahan sertifikat keaktifan bagi
+                                            anggota eskul, apresiasi karya
+                                            kerajinan kanji, serta foto
+                                            dokumentasi kenang-kenangan bersama
+                                            guru pembina.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- TAB 3: STAN KULINER & WORKSHOP -->
+                        <div
+                            class="tab-pane flex flex-col gap-space-xl hidden"
+                            id="tab-booth"
+                        >
+                            <div class="flex flex-col gap-1">
+                                <span
+                                    class="font-label-badge text-label-badge text-primary uppercase tracking-widest"
+                                    >BOOTH &amp; AKTIVITAS MATSURI</span
+                                >
+                                <h2
+                                    class="font-headline-lg text-headline-lg text-indigo-night"
+                                >
+                                    Stan Kuliner Tradisional &amp; Zona
+                                    Interaktif
+                                </h2>
+                                <p
+                                    class="font-body-md text-body-md text-on-surface-variant"
+                                >
+                                    Jelajahi berbagai stan kuliner lezat khas
+                                    pasar malam Jepang yang dikelola langsung
+                                    oleh siswa.
+                                </p>
+                            </div>
+                            <div
+                                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md"
+                            >
+                                <!-- Booth 1 -->
+                                <div
+                                    class="p-space-md rounded-2xl bg-cloud-white shadow-sm flex flex-col gap-space-sm"
+                                >
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-sakura-tint text-torii-vermilion flex items-center justify-center font-headline-sm text-headline-sm"
+                                    >
+                                        🐙
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="font-label-badge text-label-badge text-primary"
+                                            >BOOTH A-01</span
+                                        >
+                                        <h3
+                                            class="font-headline-sm text-headline-sm text-indigo-night"
+                                        >
+                                            Takoyaki Osaka SMECO
+                                        </h3>
+                                        <p
+                                            class="font-body-sm text-body-sm text-on-surface-variant mt-1"
+                                        >
+                                            Takoyaki gurita hangat dengan
+                                            katsuobushi gurih racikan siswa
+                                            Jurusan Boga.
+                                        </p>
+                                    </div>
+                                    <span
+                                        class="mt-auto font-label-md text-label-md text-secondary"
+                                        >Terjual 320 Porsi</span
+                                    >
+                                </div>
+                                <!-- Booth 2 -->
+                                <div
+                                    class="p-space-md rounded-2xl bg-cloud-white shadow-sm flex flex-col gap-space-sm"
+                                >
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-secondary-fixed text-primary flex items-center justify-center font-headline-sm text-headline-sm"
+                                    >
+                                        🍵
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="font-label-badge text-label-badge text-primary"
+                                            >BOOTH A-02</span
+                                        >
+                                        <h3
+                                            class="font-headline-sm text-headline-sm text-indigo-night"
+                                        >
+                                            Kyoto Matcha Cafe
+                                        </h3>
+                                        <p
+                                            class="font-body-sm text-body-sm text-on-surface-variant mt-1"
+                                        >
+                                            Minuman matcha dingin otentik Uji,
+                                            dorayaki anko manis, dan parfait
+                                            stroberi.
+                                        </p>
+                                    </div>
+                                    <span
+                                        class="mt-auto font-label-md text-label-md text-secondary"
+                                        >Terjual 280 Cup</span
+                                    >
+                                </div>
+                                <!-- Booth 3 -->
+                                <div
+                                    class="p-space-md rounded-2xl bg-cloud-white shadow-sm flex flex-col gap-space-sm"
+                                >
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center font-headline-sm text-headline-sm"
+                                    >
+                                        🎯
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="font-label-badge text-label-badge text-primary"
+                                            >BOOTH B-01</span
+                                        >
+                                        <h3
+                                            class="font-headline-sm text-headline-sm text-indigo-night"
+                                        >
+                                            Kingyo Sukui &amp; Permainan
+                                        </h3>
+                                        <p
+                                            class="font-body-sm text-body-sm text-on-surface-variant mt-1"
+                                        >
+                                            Zona permainan tangkap ikan kertas
+                                            tradisional dan lempar gelang
+                                            berhadiah gantungan anime.
+                                        </p>
+                                    </div>
+                                    <span
+                                        class="mt-auto font-label-md text-label-md text-secondary"
+                                        >150+ Peserta Game</span
+                                    >
+                                </div>
+                                <!-- Booth 4 -->
+                                <div
+                                    class="p-space-md rounded-2xl bg-cloud-white shadow-sm flex flex-col gap-space-sm"
+                                >
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center font-headline-sm text-headline-sm"
+                                    >
+                                        🎨
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="font-label-badge text-label-badge text-primary"
+                                            >BOOTH B-02</span
+                                        >
+                                        <h3
+                                            class="font-headline-sm text-headline-sm text-indigo-night"
+                                        >
+                                            Merchandise Aozora Fanart
+                                        </h3>
+                                        <p
+                                            class="font-body-sm text-body-sm text-on-surface-variant mt-1"
+                                        >
+                                            Sticker pack buatan siswa DKV,
+                                            gantungan kunci akrilik maskot
+                                            Sora-chan, dan manga zine.
+                                        </p>
+                                    </div>
+                                    <span
+                                        class="mt-auto font-label-md text-label-md text-secondary"
+                                        >Ludes Terjual</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <!-- TAB 4: DENAH & LOKASI GRAHA -->
+                        <div
+                            class="tab-pane flex flex-col gap-space-xl hidden"
+                            id="tab-denah"
+                        >
+                            <div class="flex flex-col gap-1">
+                                <span
+                                    class="font-label-badge text-label-badge text-primary uppercase tracking-widest"
+                                    >MAP &amp; FASILITAS</span
+                                >
+                                <h2
+                                    class="font-headline-lg text-headline-lg text-indigo-night"
+                                >
+                                    Denah Lokasi Lab Bahasa &amp; Ruang Praktik
+                                    Siswa
+                                </h2>
+                                <p
+                                    class="font-body-md text-body-md text-on-surface-variant"
+                                >
+                                    Informasi tata letak panggung utama, ruang
+                                    ganti cosplay, stan makanan, dan posko medis
+                                    PMR.
+                                </p>
+                            </div>
+                            <div
+                                class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg"
+                            >
+                                <div
+                                    class="lg:col-span-2 rounded-2xl bg-cloud-white p-space-lg shadow-sm flex flex-col gap-space-md"
+                                >
+                                    <!-- Simulated Map Location via Data-Location -->
+                                    <div
+                                        class="w-full h-80 bg-cover bg-center rounded-xl relative overflow-hidden flex items-end p-space-md"
+                                        data-location="SMK Negeri 1 Purwokerto, Jawa Tengah"
+                                        style="
+                                            background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuBgBW2en27zMuNHGIxYjV1mt_nBcZz1OS3bEEvC3T79pps6kzai0C3qYcXAgsZFo3sebDVFU_Dgkk7FQlBCjOn16H4ZG-bZ9aE4FVoLA5rFNH6MzP8KwMsMQSvCYow5GWgk0zMHqizNsYlQDQ4TkrnF2a6nSswNKhSzD2HhORHPYC0KIkQmJiFwIWZfEQKBAHHemdMwZCM0xvUSfur32DjrEbmx0YJ9Wo6u7G6aJ4OdpggdEh5k94Bd&quot;);
+                                        "
+                                    >
+                                        <div
+                                            class="bg-cloud-white/95 backdrop-blur-md p-space-sm rounded-lg shadow-md flex items-center gap-3"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-torii-vermilion"
+                                                >pin_drop</span
+                                            >
+                                            <div class="flex flex-col">
+                                                <span
+                                                    class="font-label-md text-label-md font-bold text-indigo-night"
+                                                    >Graha SMKN 1
+                                                    Purwokerto</span
+                                                >
+                                                <span
+                                                    class="font-body-sm text-body-sm text-on-surface-variant"
+                                                    >Jl. Dr. Soeparno No. 29,
+                                                    Banyumas</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm pt-space-xs text-center"
+                                    >
+                                        <div
+                                            class="p-2 rounded-lg bg-surface-container"
+                                        >
+                                            <span
+                                                class="font-label-badge text-label-badge text-primary block"
+                                                >PANGGUNG</span
+                                            >
+                                            <span
+                                                class="text-xs font-semibold text-on-surface"
+                                                >Sisi Barat Graha</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="p-2 rounded-lg bg-surface-container"
+                                        >
+                                            <span
+                                                class="font-label-badge text-label-badge text-torii-vermilion block"
+                                                >RUANG COSPLAY</span
+                                            >
+                                            <span
+                                                class="text-xs font-semibold text-on-surface"
+                                                >Lab Bahasa 2</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="p-2 rounded-lg bg-surface-container"
+                                        >
+                                            <span
+                                                class="font-label-badge text-label-badge text-gold-shrine block"
+                                                >POSKO PMR</span
+                                            >
+                                            <span
+                                                class="text-xs font-semibold text-on-surface"
+                                                >Selasar Depan UKS</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="p-2 rounded-lg bg-surface-container"
+                                        >
+                                            <span
+                                                class="font-label-badge text-label-badge text-secondary block"
+                                                >MUSALA</span
+                                            >
+                                            <span
+                                                class="text-xs font-semibold text-on-surface"
+                                                >Masjid Baitul Ilmi</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="rounded-2xl bg-cloud-white p-space-lg shadow-sm flex flex-col gap-space-md justify-between"
+                                >
+                                    <div class="flex flex-col gap-space-sm">
+                                        <h3
+                                            class="font-headline-sm text-headline-sm text-indigo-night"
+                                        >
+                                            Petunjuk Akses Pengunjung
+                                        </h3>
+                                        <ul
+                                            class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"
+                                        >
+                                            <li class="flex items-start gap-2">
+                                                <span
+                                                    class="text-primary font-bold"
+                                                    >→</span
+                                                ><span class=""
+                                                    >Kegiatan internal terbuka
+                                                    ramah untuk seluruh siswa,
+                                                    dewan guru, dan alumni SMKN
+                                                    1 Purwokerto.</span
+                                                >
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <span
+                                                    class="text-primary font-bold"
+                                                    >→</span
+                                                ><span class=""
+                                                    >Menjaga kebersihan bersama
+                                                    di area lab bahasa, selasar
+                                                    kelas, serta ruang praktik
+                                                    tata boga.</span
+                                                >
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <span
+                                                    class="text-primary font-bold"
+                                                    >→</span
+                                                ><span class=""
+                                                    >Dihimbau saling menghargai
+                                                    sesama anggota eskul dan
+                                                    menjaga ketertiban suasana
+                                                    sekolah.</span
+                                                >
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div
+                                        class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1"
+                                    >
+                                        <span
+                                            class="font-label-badge text-label-badge text-secondary"
+                                            >BANTUAN LOKASI</span
+                                        >
+                                        <span
+                                            class="font-body-sm text-body-sm text-on-surface font-medium"
+                                            >Koordinator Keamanan OSIS:</span
+                                        >
+                                        <span
+                                            class="font-body-sm text-body-sm text-primary"
+                                            >0812-3456-7890 (Satgas SMECO)</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mascot Sora-Chan Interactive Floating Callout & Testimonials -->
+                        <section
+                            class="rounded-2xl bg-gradient-to-br from-secondary-fixed/40 via-cloud-white to-surface-container p-space-md md:p-space-lg shadow-[0_4px_24px_-4px_rgba(13,89,242,0.06)] relative overflow-hidden"
+                        >
+                            <div
+                                class="flex flex-col md:flex-row items-center gap-space-lg relative z-10"
+                            >
+                                <!-- Mascot Avatar -->
+                                <div
+                                    class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden shadow-md flex-shrink-0 bg-primary-fixed"
+                                >
+                                    <img
+                                        alt="Aozora Mascot Sora-chan"
+                                        class="w-full h-full object-cover"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe_57QRBxcPOxYpvoRkSSUOgH3K1ldKLCAAaYxfqzhuBIlPdMwKPITA2FIlP0xftYt--7X0loUMNwZ3T9pulWmnG7VAMJ8nmf0Mp3aTJ6os01vkE0OvrX_iO1kRs0RDhqlXwPpl4Ml0xCGRXfQS7jdEdDo9TB2Dllwrv5QjGy2VIHvbP1RYVt0cM680j6nLbITW4yZn8WUyuEtBYx5aysZQlq8S0jg7y_N6BRIYSJYRFAStambE6vz"
+                                    />
+                                </div>
+                                <!-- Message Box -->
+                                <div
+                                    class="flex-1 flex flex-col gap-1 text-center md:text-left"
+                                >
+                                    <div
+                                        class="flex flex-wrap items-center justify-center md:justify-start gap-2"
+                                    >
+                                        <span
+                                            class="font-headline-sm text-headline-sm text-indigo-night"
+                                            >Catatan Sora-chan
+                                            (空ちゃんノート)</span
+                                        >
+                                        <span
+                                            class="px-2 py-0.5 rounded-full bg-aozora-sky/20 text-primary font-label-badge text-label-badge"
+                                            >MASKOT RESMI AOZORA</span
+                                        >
+                                    </div>
+                                    <p
+                                        class="font-body-md text-body-md text-on-surface-variant"
+                                    >
+                                        "Arigatou gozaimashita minna-san! Terima
+                                        kasih sudah datang dan memeriahkan
+                                        Bunkasai Haru no Hikari 2026. Jangan
+                                        lupa bagikan foto terbaikmu di Instagram
+                                        dengan tag
+                                        <span class="text-primary font-semibold"
+                                            >@aozora.smecon</span
+                                        >
+                                        dan hashtag
+                                        <span
+                                            class="text-torii-vermilion font-semibold"
+                                            >#HaruNoHikari2026</span
+                                        >
+                                        ya! ✨"
+                                    </p>
+                                </div>
+                                <!-- Quick Actions -->
+                                <div
+                                    class="flex items-center gap-space-xs flex-shrink-0"
+                                >
+                                    <a
+                                        class="inline-flex items-center gap-1.5 px-space-md py-space-sm rounded-lg bg-torii-vermilion hover:bg-tertiary text-on-primary font-label-md text-label-md transition-all shadow-sm"
+                                        href="https://instagram.com"
+                                        target="_blank"
+                                    >
+                                        <span class="">Ikuti di Instagram</span>
+                                        <span
+                                            class="material-symbols-outlined text-sm"
+                                            >open_in_new</span
+                                        >
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Related Events / Rekomendasi Kegiatan Mendatang -->
+                        <section class="flex flex-col gap-space-lg pt-space-md">
+                            <div class="flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span
+                                        class="font-label-badge text-label-badge text-primary uppercase tracking-widest"
+                                        >KEGIATAN SERU BERIKUTNYA</span
+                                    >
+                                    <h2
+                                        class="font-headline-md text-headline-md text-indigo-night"
+                                    >
+                                        Event &amp; Workshop Aozora Mendatang
+                                    </h2>
+                                </div>
+                                <a
+                                    class="font-label-lg text-label-lg text-primary hover:underline flex items-center gap-1"
+                                    href="#"
+                                >
+                                    <span class="">Lihat Kalender Event</span>
+                                    <span
+                                        class="material-symbols-outlined text-sm"
+                                        >arrow_forward</span
+                                    >
+                                </a>
+                            </div>
+                            <div
+                                class="grid grid-cols-1 md:grid-cols-2 gap-space-md"
+                            >
+                                <!-- Card Event 1 -->
+                                <div
+                                    class="p-space-md rounded-2xl bg-cloud-white shadow-sm flex flex-col sm:flex-row gap-space-md group hover:shadow-md transition-shadow"
+                                >
+                                    <div
+                                        class="sm:w-36 h-32 rounded-xl overflow-hidden bg-surface-container flex-shrink-0"
+                                    >
+                                        <img
+                                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                            data-alt="Japanese calligraphy brush and ink set on wooden table with Japanese characters for study and autumn festival workshop"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFjGajhx5t_SvAGBvNvXWxLlN2u_miy8xxk52StL-o_n5hBHcFhI_wVfGE6XGUHwa4QKVGp48IKMoovXU5IiWg2hc1ERGE6lV4A4yFGLZymWzu-ceauwLbOTgIkDaNZ1U6CaHKzONeqH0CCpHeMSICrvHXDM-_z_XmoDUjgFpWZSK2E2XfuwRvGEoGlkBTZ69VQ6zUB-6IEQyKOBorT6gcKuM5Q8w64d_Wj1fHoTNpKRvh5HKRNLL8"
+                                        />
+                                    </div>
+                                    <div
+                                        class="flex flex-col justify-between flex-1"
+                                    >
+                                        <div class="flex flex-col gap-1">
+                                            <span
+                                                class="font-label-badge text-label-badge text-gold-shrine"
+                                                >SEGERA HADIR • JULI 2026</span
+                                            >
+                                            <h3
+                                                class="font-headline-sm text-headline-sm text-indigo-night group-hover:text-primary transition-colors"
+                                            >
+                                                Workshop Shodo Intensif &amp;
+                                                Kaligrafi Kanji
+                                            </h3>
+                                            <p
+                                                class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2"
+                                            >
+                                                Pelatihan mendalam teknik kuas
+                                                kaligrafi tradisional untuk
+                                                persiapan lomba tingkat
+                                                Banyumas.
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="flex items-center justify-between pt-2"
+                                        >
+                                            <span
+                                                class="font-body-sm text-body-sm text-secondary"
+                                                >Ruang Bahasa SMKN 1</span
+                                            >
+                                            <span
+                                                class="text-primary font-label-md text-label-md"
+                                                >Detail Workshop →</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Event 2 -->
+                                <div
+                                    class="p-space-md rounded-2xl bg-cloud-white shadow-sm flex flex-col sm:flex-row gap-space-md group hover:shadow-md transition-shadow"
+                                >
+                                    <div
+                                        class="sm:w-36 h-32 rounded-xl overflow-hidden bg-surface-container flex-shrink-0"
+                                    >
+                                        <img
+                                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                            data-alt="High school speech contest stage with podium, microphone, banner with Japanese text Nihongo Speech Contest in Purwokerto"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-O43azL6AFwJO7uJJXXuHsyH0ygwEMaiLTTvYxbHS6VfjAcJ9PozH82KBJtEuPk3OjzMtgUUTWD7q0Or7jGdicuDpBhL7ZM4GCSFzfdb8ELgh7Vrdbe58nKvh61ekC-3pxqa1dP43GfCWFBCU1bAw6q_gY1PrQ0RknsU2DNAFkqamp4JFO_W3qpTMPHDnQi4DpczG4--gkWk_04AElnFNkNSw0u0-M9OGO0kEafUYhYc5zT2MP6tl"
+                                        />
+                                    </div>
+                                    <div
+                                        class="flex flex-col justify-between flex-1"
+                                    >
+                                        <div class="flex flex-col gap-1">
+                                            <span
+                                                class="font-label-badge text-label-badge text-aozora-sky"
+                                                >KOMPETISI • AGUSTUS 2026</span
+                                            >
+                                            <h3
+                                                class="font-headline-sm text-headline-sm text-indigo-night group-hover:text-primary transition-colors"
+                                            >
+                                                Aozora Nihongo Speech &amp; Quiz
+                                                Contest
+                                            </h3>
+                                            <p
+                                                class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2"
+                                            >
+                                                Ajang kompetisi pidato bahasa
+                                                Jepang dan cerdas cermat
+                                                kebudayaan antar-SMK
+                                                se-Karesidenan Banyumas.
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="flex items-center justify-between pt-2"
+                                        >
+                                            <span
+                                                class="font-body-sm text-body-sm text-secondary"
+                                                >Aula Graha Utama</span
+                                            >
+                                            <span
+                                                class="text-primary font-label-md text-label-md"
+                                                >Detail Kompetisi →</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- Interactive Feedback Toast / Modal Scripts -->
+                <script>
+                    // Tab Switcher
+                    function switchTab(tabId, element) {
+                        document
+                            .querySelectorAll(".tab-pane")
+                            .forEach((el) => el.classList.add("hidden"));
+                        document
+                            .getElementById(tabId)
+                            .classList.remove("hidden");
+
+                        document.querySelectorAll(".tab-btn").forEach((btn) => {
+                            btn.classList.remove(
+                                "bg-primary",
+                                "text-on-primary",
+                                "active",
+                            );
+                            btn.classList.add(
+                                "bg-surface-container",
+                                "text-on-surface-variant",
+                            );
+                        });
+
+                        element.classList.remove(
+                            "bg-surface-container",
+                            "text-on-surface-variant",
+                        );
+                        element.classList.add(
+                            "bg-primary",
+                            "text-on-primary",
+                            "active",
+                        );
+                    }
+
+                    // Gallery Category Filter
+                    function filterGallery(category, btn) {
+                        const cards =
+                            document.querySelectorAll(".gallery-card");
+                        const buttons = document.querySelectorAll(
+                            ".gallery-filter-btn",
+                        );
+
+                        buttons.forEach((b) => {
+                            b.classList.remove(
+                                "bg-primary",
+                                "text-on-primary",
+                                "active",
+                            );
+                            b.classList.add(
+                                "bg-surface-container",
+                                "text-on-surface-variant",
+                            );
+                        });
+                        btn.classList.remove(
+                            "bg-surface-container",
+                            "text-on-surface-variant",
+                        );
+                        btn.classList.add(
+                            "bg-primary",
+                            "text-on-primary",
+                            "active",
+                        );
+
+                        cards.forEach((card) => {
+                            if (
+                                category === "all" ||
+                                card.getAttribute("data-cat") === category
+                            ) {
+                                card.style.display = "flex";
+                            } else {
+                                card.style.display = "none";
+                            }
+                        });
+                    }
+
+                    // Simulated Video Play Action
+                    function playVideoMock(container) {
+                        const overlay = container.querySelector(
+                            ".group-hover\\:scale-110",
+                        );
+                        if (overlay) {
+                            overlay.classList.add("animate-spin");
+                            setTimeout(() => {
+                                overlay.classList.remove("animate-spin");
+                                alert(
+                                    "Memutar Video Official Aftermovie 4K Haru no Hikari SMKN 1 Purwokerto (Simulasi Mode Pemutar).",
+                                );
+                            }, 300);
+                        }
+                    }
+
+                    // Download Archive Action
+                    function downloadArchiveModal() {
+                        alert(
+                            "Tautan Google Drive resmi SMKN 1 Purwokerto dibuka: Mengarahkan ke arsip 180+ foto resolusi penuh (1.8 GB). Arigatou!",
+                        );
+                    }
+
+                    // Upload User Photos Action
+                    function uploadModal() {
+                        alert(
+                            "Formulir Unggah Dokumentasi Siswa: Silakan kirimkan foto hasil jepretan Anda ke tim kurasi Jurnalistik Aozora.",
+                        );
+                    }
+                </script>
+            </div>
+        </main>
+        <footer
+            class="w-full bg-indigo-night text-cloud-white pt-space-2xl pb-space-xl relative overflow-hidden"
+        >
+            <div
+                class="absolute -right-16 -top-16 text-[220px] font-headline-lg font-extrabold text-cloud-white/[0.03] select-none pointer-events-none"
+            >
+                青空
+            </div>
+            <div
+                class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin relative z-10"
+            >
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl pb-space-2xl"
+                >
+                    <div class="flex flex-col gap-space-md">
+                        <div class="flex items-center gap-space-sm">
+                            <div
+                                class="w-9 h-9 rounded-lg bg-cloud-white/10 flex items-center justify-center font-headline-sm text-headline-sm text-aozora-sky"
+                            >
+                                青
+                            </div>
+                            <span
+                                class="font-headline-sm text-headline-sm tracking-tight text-cloud-white"
+                                >Aozora Nihongo</span
+                            >
+                        </div>
+                        <p
+                            class="font-body-sm text-body-sm text-surface-dim leading-relaxed"
+                        >
+                            Ekstrakurikuler Bahasa dan Kebudayaan Jepang di SMKN
+                            1 Purwokerto. Ruang eksplorasi bahasa, anime
+                            culture, kaiwa, cosplay, kaligrafi shodo, dan
+                            matsuri berprestasi.
+                        </p>
+                        <div
+                            class="inline-flex items-center gap-space-xs self-start px-space-sm py-1 rounded-full bg-cloud-white/10 text-aozora-sky font-label-badge text-label-badge"
+                        >
+                            <span class="">🇯🇵 PURWOKERTO JAPANESE CLUB</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-space-sm">
+                        <span
+                            class="font-headline-sm text-headline-sm text-cloud-white flex items-center gap-space-xs"
+                            ><span class="text-torii-vermilion">⛩️</span> Info
+                            Jadwal Rutin</span
+                        >
+                        <div
+                            class="p-space-md rounded-xl bg-cloud-white/5 flex flex-col gap-space-xs"
+                        >
+                            <div
+                                class="flex items-center gap-space-xs text-aozora-sky font-label-md text-label-md"
+                            >
+                                <span
+                                    class="w-2 h-2 rounded-full bg-aozora-sky animate-ping"
+                                ></span
+                                ><span class="">PERTEMUAN MINGGUAN</span>
+                            </div>
+                            <span
+                                class="font-headline-sm text-headline-sm text-cloud-white"
+                                >Setiap Kamis</span
+                            ><span
+                                class="font-body-sm text-body-sm text-surface-dim"
+                                >16.00 - 17.00 WIB</span
+                            >
+                            <div
+                                class="mt-space-xs pt-space-xs text-surface-dim font-body-sm text-body-sm"
+                            >
+                                <span class=""
+                                    >📍 Ruang Bahasa / Lab 2 SMKN 1
+                                    Purwokerto</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-space-sm">
+                        <span
+                            class="font-headline-sm text-headline-sm text-cloud-white"
+                            >Lokasi &amp; Narahubung</span
+                        >
+                        <div
+                            class="flex flex-col gap-space-xs text-surface-dim font-body-sm text-body-sm"
+                        >
+                            <span class="">SMK Negeri 1 Purwokerto</span
+                            ><span class=""
+                                >Jl. Dr. Soeparno No. 29, Karangwangkal</span
+                            ><span class=""
+                                >Purwokerto Timur, Banyumas 53123</span
+                            ><span
+                                class="text-aozora-sky font-label-md text-label-md mt-space-xs"
+                                >Email: aozora@smkn1purwokerto.sch.id</span
+                            >
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-space-sm">
+                        <span
+                            class="font-headline-sm text-headline-sm text-cloud-white"
+                            >Kanal Komunitas</span
+                        >
+                        <p class="font-body-sm text-body-sm text-surface-dim">
+                            Ikuti dokumentasi terkini kegiatan, tutorial
+                            kosakata, dan live event matsuri kami.
+                        </p>
+                        <div
+                            class="flex flex-col gap-space-xs font-label-md text-label-md"
+                        >
+                            <a
+                                class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
+                                href="#"
+                                ><span class="">Instagram @aozora.smecon</span
+                                ><span class="text-aozora-sky font-bold"
+                                    >↗</span
+                                ></a
+                            ><a
+                                class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
+                                href="#"
+                                ><span class="">YouTube Aozora Channel</span
+                                ><span class="text-aozora-sky font-bold"
+                                    >↗</span
+                                ></a
+                            ><a
+                                class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
+                                href="#"
+                                ><span class=""
+                                    >Discord Server Aozora Kaiwa</span
+                                ><span class="text-aozora-sky font-bold"
+                                    >↗</span
+                                ></a
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-surface-dim"
+                >
+                    <div class="flex items-center gap-space-xs">
+                        <span class=""
+                            >© 2025 Aozora Nihongo Club SMKN 1 Purwokerto.</span
+                        ><span class="">Hak Cipta Dilindungi.</span>
+                    </div>
+                    <div
+                        class="flex items-center gap-space-md font-label-md text-label-md"
+                    >
+                        <span class="text-cloud-white/70"
+                            >一期一会 (Ichigo Ichie)</span
+                        ><span class="">•</span
+                        ><span class="text-aozora-sky"
+                            >Aozora Blue Skies Ahead</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
