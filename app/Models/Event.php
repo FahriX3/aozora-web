@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Event extends Model
 {
@@ -19,13 +21,24 @@ class Event extends Model
         'visitor_access_instructions', 'location_assistance'
     ];
 
+    protected $casts = [
+        'is_featured' => 'boolean',
+        'is_aftermovie' => 'boolean',
+    ];
 
     public function getStatusAttribute($value)
     {
-        if ($value !== 'completed' && $this->event_date && $this->end_time) {
-            $endDateTime = \Carbon\Carbon::parse($this->event_date . ' ' . $this->end_time);
-            if (now()->greaterThan($endDateTime)) {
-                return 'completed';
+        if ($value !== 'completed' && ! empty($this->attributes['event_date']) && ! empty($this->attributes['end_time'])) {
+            $rawDate = Str::before((string) $this->attributes['event_date'], ' ');
+            $rawTime = trim((string) $this->attributes['end_time']);
+
+            try {
+                $endDateTime = Carbon::parse($rawDate . ' ' . $rawTime);
+                if (now()->greaterThan($endDateTime)) {
+                    return 'completed';
+                }
+            } catch (\Throwable) {
+                // Fallback safely if date format is invalid
             }
         }
         return $value;
