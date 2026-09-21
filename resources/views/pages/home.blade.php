@@ -760,7 +760,7 @@
                                             AFTERMOVIE {{ $aftermovieEvent->title }}
                                         </span>
                                     </div>
-                                    <a href="{{ $aftermovieEvent->youtube_link }}" target="_blank" class="relative z-20 w-16 h-16 rounded-full bg-cloud-white/90 hover:bg-torii-vermilion text-indigo-night hover:text-cloud-white flex items-center justify-center shadow-2xl transition-all transform group-hover:scale-110">
+                                     <iframe src="{{ str_replace('watch?v=', 'embed/', $aftermovieEvent->youtube_link) }}" class="w-full h-full border-0" allowfullscreen></iframe>
                                         <span class="material-symbols-outlined text-3xl ml-1" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
                                     </a>
                                 </div>
