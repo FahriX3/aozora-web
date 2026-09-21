@@ -243,11 +243,13 @@
                                         </div>
                                         <!-- Interactive Voice Audio Pill -->
                                         <button
-                                            class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-cloud-white/90 hover:bg-cloud-white shadow-md backdrop-blur-md text-indigo-night font-label-badge text-label-badge flex items-center gap-1.5 transition-all transform hover:scale-105 active:scale-95"
+                                            class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-cloud-white/90 hover:bg-cloud-white shadow-md backdrop-blur-md text-indigo-night font-label-badge text-label-badge flex items-center gap-1.5 transition-all transform hover:scale-105 active:scale-95 cursor-pointer select-none"
                                             id="voicePlayBtn"
+                                            type="button"
                                         >
                                             <span
-                                                class="material-symbols-outlined text-torii-vermilion text-base"
+                                                id="voiceIcon"
+                                                class="material-symbols-outlined text-torii-vermilion text-base transition-transform"
                                                 style="
                                                     font-variation-settings: &quot;FILL&quot;
                                                         1;
@@ -1156,48 +1158,61 @@
                 // 1. Interactive Voice Clip on Mascot
                 const voiceBtn = document.getElementById("voicePlayBtn");
                 const voiceText = document.getElementById("voiceStatusText");
-                const speechBubble =
-                    document.getElementById("speechBubbleText");
+                const voiceIcon = document.getElementById("voiceIcon");
+                const speechBubble = document.getElementById("speechBubbleText");
+
+                // Initialize audio clip
+                const ganbatteAudio = new Audio("{{ asset('audio/gambate.mp3') }}");
+                ganbatteAudio.preload = "auto";
 
                 const voiceQuotes = [
                     {
-                        voice: "Voice: Oyasumi~ ✨",
-                        quote: "Jangan lupa istirahat ya! Sampai ketemu di ruang bahasa Kamis sore nanti!",
-                    },
-                    {
                         voice: "Voice: Ganbatte! 🌸",
-                        quote: "Konnichiwa! Belajar bahasa Jepang itu mudah asalkan dinikmati bersama teman satu frekuensi!",
+                        quote: "Ganbatte ne! Belajar bahasa Jepang itu seru asalkan dinikmati bersama teman satu frekuensi!",
                     },
                     {
-                        voice: "Voice: Sugoi ne! ⭐",
-                        quote: "Wah, antusiasmemu keren sekali! Siap tampil di Bunkasai Matsuri tahun ini?",
+                        voice: "Voice: Ganbatte! ✨",
+                        quote: "Ayo asah skill Kaiwa-mu! Petualangan seru kita di Aozora baru saja dimulai!",
                     },
                     {
-                        voice: "Voice: Ikuzo! 🚀",
-                        quote: "Ayo asah skill Kaiwa-mu! Petualangan di Aozora baru saja dimulai!",
+                        voice: "Voice: Ganbatte! ⭐",
+                        quote: "Wah, antusiasmemu keren sekali! Siap tampil percaya diri di Bunkasai Matsuri tahun ini?",
+                    },
+                    {
+                        voice: "Voice: Ganbatte! 🚀",
+                        quote: "Jangan menyerah, tetap semangat! Aozora blue skies are always ahead!",
                     },
                 ];
 
                 let currentQuoteIndex = 0;
                 if (voiceBtn) {
                     voiceBtn.addEventListener("click", () => {
-                        currentQuoteIndex =
-                            (currentQuoteIndex + 1) % voiceQuotes.length;
-                        const target = voiceQuotes[currentQuoteIndex];
-                        voiceText.textContent = target.voice;
-                        speechBubble.textContent = `"${target.quote}"`;
+                        // Play audio
+                        try {
+                            ganbatteAudio.currentTime = 0;
+                            const playPromise = ganbatteAudio.play();
+                            if (playPromise !== undefined) {
+                                playPromise.catch((e) => {
+                                    console.warn("Audio playback issue:", e);
+                                });
+                            }
+                        } catch (err) {
+                            console.error("Audio error:", err);
+                        }
 
-                        // Temporary animation punch
-                        voiceBtn.classList.add(
-                            "bg-sakura-tint",
-                            "text-torii-vermilion",
-                        );
+                        // Cycle quote
+                        currentQuoteIndex = (currentQuoteIndex + 1) % voiceQuotes.length;
+                        const target = voiceQuotes[currentQuoteIndex];
+                        if (voiceText) voiceText.textContent = target.voice;
+                        if (speechBubble) speechBubble.textContent = `"${target.quote}"`;
+
+                        // Animation punch
+                        voiceBtn.classList.add("bg-sakura-tint", "text-torii-vermilion", "scale-105");
+                        if (voiceIcon) voiceIcon.classList.add("scale-125");
                         setTimeout(() => {
-                            voiceBtn.classList.remove(
-                                "bg-sakura-tint",
-                                "text-torii-vermilion",
-                            );
-                        }, 400);
+                            voiceBtn.classList.remove("bg-sakura-tint", "text-torii-vermilion", "scale-105");
+                            if (voiceIcon) voiceIcon.classList.remove("scale-125");
+                        }, 500);
                     });
                 }
 
