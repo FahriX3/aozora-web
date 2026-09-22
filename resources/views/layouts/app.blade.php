@@ -102,6 +102,11 @@
                         href="{{ route('events.index') }}"
                         >Event &amp; Matsuri</a
                     ><a
+                        class="nav-link font-label-lg text-label-lg transition-colors {{ request()->routeIs('pengurus') ? 'active' : 'text-on-surface-variant hover:text-on-surface' }}"
+                        data-target="pengurus"
+                        href="{{ route('pengurus') }}"
+                        >Daftar Pengurus</a
+                    ><a
                         class="nav-link font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
                         data-target="kontak"
                         href="{{ route('home') }}#kontak"
@@ -130,7 +135,7 @@
                     // Helper to set active styling
                     const setActiveLink = (targetId) => {
                         navLinks.forEach(link => {
-                            if (link.getAttribute('data-target') === 'event') return; // Handled by server routing
+                            if (link.getAttribute('data-target') === 'event' || link.getAttribute('data-target') === 'pengurus') return; // Handled by server routing
                             
                             link.classList.remove('active');
                             link.classList.add('text-on-surface-variant', 'hover:text-on-surface');
