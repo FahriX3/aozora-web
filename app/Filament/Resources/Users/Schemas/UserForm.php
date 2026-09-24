@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Users\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -21,6 +22,17 @@ class UserForm
                 DateTimePicker::make('email_verified_at'),
                 TextInput::make('password')
                     ->password()
+                    ->required()
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (string $context): bool => $context === 'create'),
+                Select::make('role')
+                    ->label('Role Akses')
+                    ->options([
+                        'admin' => 'Admin (Panel Penuh)',
+                        'pengurus' => 'Pengurus (Inventaris)',
+                        'user' => 'User Biasa',
+                    ])
+                    ->default('user')
                     ->required(),
             ]);
     }

@@ -19,39 +19,22 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class AdminPanelProvider extends PanelProvider
+class InventarisPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
-            ->id('admin')
-            ->path('admin')
+            ->id('inventaris')
+            ->path('inventaris')
             ->colors([
-                'primary' => Color::hex('#0043c0'),
-                'danger' => Color::hex('#ba1a1a'),
-                'gray' => Color::Slate,
-                'info' => Color::hex('#38BDF8'),
-                'success' => Color::Emerald,
-                'warning' => Color::hex('#F59E0B'),
+                'primary' => Color::Amber,
             ])
-            ->font('Be Vietnam Pro')
-            ->brandLogo(fn () => view('filament.logo'))
-            ->brandLogoHeight('3rem')
-            ->renderHook(
-                \Filament\View\PanelsRenderHook::SIDEBAR_NAV_END,
-                fn () => view('filament.sidebar-footer')
-            )
-            ->renderHook(
-                \Filament\View\PanelsRenderHook::TOPBAR_LOGO_AFTER,
-                fn () => view('filament.topbar-start')
-            )
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
+            ->discoverResources(in: app_path('Filament/Inventaris/Resources'), for: 'App\Filament\Inventaris\Resources')
+            ->discoverPages(in: app_path('Filament/Inventaris/Pages'), for: 'App\Filament\Inventaris\Pages')
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Inventaris/Widgets'), for: 'App\Filament\Inventaris\Widgets')
             ->widgets([
                 AccountWidget::class,
                 FilamentInfoWidget::class,

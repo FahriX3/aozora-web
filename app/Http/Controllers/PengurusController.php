@@ -31,7 +31,7 @@ class PengurusController extends Controller
     private function getPengurusData(): array
     {
         // Fetch all pengurus from database, ordered by urutan
-        $allPengurus = Pengurus::orderBy('urutan')->get();
+        $allPengurus = Pengurus::with('user')->orderBy('urutan')->get();
 
         // Helper: resolve avatar URL
         $resolveAvatar = function (?string $avatar, string $nama): string {
@@ -48,7 +48,7 @@ class PengurusController extends Controller
         // Ketua Umum
         $ketuaRecord = $pengurusIntiRecords->firstWhere('jabatan', 'Ketua Umum');
         $ketua = $ketuaRecord ? [
-            'nama' => $ketuaRecord->nama,
+            'nama' => $ketuaRecord->user ? $ketuaRecord->user->name : $ketuaRecord->nama,
             'jabatan' => $ketuaRecord->jabatan,
             'sub_jabatan' => $ketuaRecord->sub_jabatan ?? 'Leader / 会長',
             'kelas' => $ketuaRecord->kelas,
@@ -62,7 +62,7 @@ class PengurusController extends Controller
         // Wakil Ketua
         $wakilRecord = $pengurusIntiRecords->firstWhere('jabatan', 'Wakil Ketua');
         $wakil = $wakilRecord ? [
-            'nama' => $wakilRecord->nama,
+            'nama' => $wakilRecord->user ? $wakilRecord->user->name : $wakilRecord->nama,
             'jabatan' => $wakilRecord->jabatan,
             'sub_jabatan' => $wakilRecord->sub_jabatan ?? 'Vice Leader / 副部長',
             'kelas' => $wakilRecord->kelas,
@@ -78,7 +78,7 @@ class PengurusController extends Controller
             ->filter(fn ($p) => str_starts_with($p->jabatan, 'Bendahara'))
             ->values()
             ->map(fn ($p) => [
-                'nama' => $p->nama,
+                'nama' => $p->user ? $p->user->name : $p->nama,
                 'jabatan' => $p->jabatan,
                 'kelas' => $p->kelas,
                 'avatar' => $resolveAvatar($p->avatar, $p->nama),
@@ -89,7 +89,7 @@ class PengurusController extends Controller
             ->filter(fn ($p) => str_starts_with($p->jabatan, 'Sekretaris'))
             ->values()
             ->map(fn ($p) => [
-                'nama' => $p->nama,
+                'nama' => $p->user ? $p->user->name : $p->nama,
                 'jabatan' => $p->jabatan,
                 'kelas' => $p->kelas,
                 'avatar' => $resolveAvatar($p->avatar, $p->nama),
@@ -100,7 +100,7 @@ class PengurusController extends Controller
             ->filter(fn ($p) => str_starts_with($p->jabatan, 'Humas'))
             ->values()
             ->map(fn ($p) => [
-                'nama' => $p->nama,
+                'nama' => $p->user ? $p->user->name : $p->nama,
                 'jabatan' => $p->jabatan,
                 'kelas' => $p->kelas,
                 'avatar' => $resolveAvatar($p->avatar, $p->nama),
@@ -121,7 +121,7 @@ class PengurusController extends Controller
             ->values();
 
         $koordinator = $koordinatorRecords->map(fn ($p) => [
-            'nama' => $p->nama,
+            'nama' => $p->user ? $p->user->name : $p->nama,
             'divisi' => $p->divisi,
             'jabatan' => $p->jabatan,
             'kelas' => $p->kelas,
@@ -148,7 +148,7 @@ class PengurusController extends Controller
         foreach (['Pemateri', 'Kegiatan', 'Budaya Bahasa', 'PDD', 'Mediakom', 'Perkap'] as $divisi) {
             $members = $anggotaRecords->where('divisi', $divisi)->values();
             $anggotaDivisi[$divisi] = $members->map(fn ($p) => [
-                'nama' => $p->nama,
+                'nama' => $p->user ? $p->user->name : $p->nama,
                 'kelas' => $p->kelas,
                 'divisi' => $p->divisi,
                 'jabatan' => 'Anggota Divisi',
