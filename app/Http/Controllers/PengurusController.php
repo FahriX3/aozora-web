@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengurus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PengurusController extends Controller
 {
@@ -24,263 +26,149 @@ class PengurusController extends Controller
     }
 
     /**
-     * Get structured organization data.
+     * Get structured organization data from database.
      */
     private function getPengurusData(): array
     {
-        // Foto pengurus (menggunakan asset lokal DSC02070.jpg untuk preview)
-        $avatar = function (string $name, ?string $bg = 'random', ?string $color = 'fff'): string {
+        // Fetch all pengurus from database, ordered by urutan
+        $allPengurus = Pengurus::orderBy('urutan')->get();
+
+        // Helper: resolve avatar URL
+        $resolveAvatar = function (?string $avatar, string $nama): string {
+            if ($avatar && $avatar !== 'default-avatar.png' && Storage::disk('public')->exists($avatar)) {
+                return Storage::url($avatar);
+            }
+            // Fallback: use the local asset photo
             return asset('assets/DSC02070.jpg');
         };
 
-        // 1. PENGURUS INTI (20 Orang)
+        // ---- Pengurus Inti (BPH) ----
+        $pengurusIntiRecords = $allPengurus->where('divisi', 'Pengurus Inti');
+
+        // Ketua Umum
+        $ketuaRecord = $pengurusIntiRecords->firstWhere('jabatan', 'Ketua Umum');
+        $ketua = $ketuaRecord ? [
+            'nama' => $ketuaRecord->nama,
+            'jabatan' => $ketuaRecord->jabatan,
+            'sub_jabatan' => $ketuaRecord->sub_jabatan ?? 'Leader / 会長',
+            'kelas' => $ketuaRecord->kelas,
+            'avatar' => $resolveAvatar($ketuaRecord->avatar, $ketuaRecord->nama),
+            'badge_color' => 'bg-primary text-white',
+        ] : [
+            'nama' => '-', 'jabatan' => 'Ketua Umum', 'sub_jabatan' => 'Leader / 会長',
+            'kelas' => '-', 'avatar' => asset('assets/DSC02070.jpg'), 'badge_color' => 'bg-primary text-white',
+        ];
+
+        // Wakil Ketua
+        $wakilRecord = $pengurusIntiRecords->firstWhere('jabatan', 'Wakil Ketua');
+        $wakil = $wakilRecord ? [
+            'nama' => $wakilRecord->nama,
+            'jabatan' => $wakilRecord->jabatan,
+            'sub_jabatan' => $wakilRecord->sub_jabatan ?? 'Vice Leader / 副部長',
+            'kelas' => $wakilRecord->kelas,
+            'avatar' => $resolveAvatar($wakilRecord->avatar, $wakilRecord->nama),
+            'badge_color' => 'bg-sky-500 text-white',
+        ] : [
+            'nama' => '-', 'jabatan' => 'Wakil Ketua', 'sub_jabatan' => 'Vice Leader / 副部長',
+            'kelas' => '-', 'avatar' => asset('assets/DSC02070.jpg'), 'badge_color' => 'bg-sky-500 text-white',
+        ];
+
+        // Bendahara (1 & 2)
+        $bendahara = $pengurusIntiRecords
+            ->filter(fn ($p) => str_starts_with($p->jabatan, 'Bendahara'))
+            ->values()
+            ->map(fn ($p) => [
+                'nama' => $p->nama,
+                'jabatan' => $p->jabatan,
+                'kelas' => $p->kelas,
+                'avatar' => $resolveAvatar($p->avatar, $p->nama),
+            ])->toArray();
+
+        // Sekretaris (1 & 2)
+        $sekretaris = $pengurusIntiRecords
+            ->filter(fn ($p) => str_starts_with($p->jabatan, 'Sekretaris'))
+            ->values()
+            ->map(fn ($p) => [
+                'nama' => $p->nama,
+                'jabatan' => $p->jabatan,
+                'kelas' => $p->kelas,
+                'avatar' => $resolveAvatar($p->avatar, $p->nama),
+            ])->toArray();
+
+        // Humas (1 & 2)
+        $humas = $pengurusIntiRecords
+            ->filter(fn ($p) => str_starts_with($p->jabatan, 'Humas'))
+            ->values()
+            ->map(fn ($p) => [
+                'nama' => $p->nama,
+                'jabatan' => $p->jabatan,
+                'kelas' => $p->kelas,
+                'avatar' => $resolveAvatar($p->avatar, $p->nama),
+            ])->toArray();
+
+        // ---- Koordinator Divisi (12 Orang) ----
+        $tagColors = [
+            'Pemateri' => 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300',
+            'Kegiatan' => 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300',
+            'Budaya Bahasa' => 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300',
+            'PDD' => 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300',
+            'Mediakom' => 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300',
+            'Perkap' => 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300',
+        ];
+
+        $koordinatorRecords = $allPengurus
+            ->filter(fn ($p) => str_starts_with($p->jabatan, 'Koordinator'))
+            ->values();
+
+        $koordinator = $koordinatorRecords->map(fn ($p) => [
+            'nama' => $p->nama,
+            'divisi' => $p->divisi,
+            'jabatan' => $p->jabatan,
+            'kelas' => $p->kelas,
+            'avatar' => $resolveAvatar($p->avatar, $p->nama),
+            'tag_color' => $tagColors[$p->divisi] ?? 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
+        ])->toArray();
+
         $pengurusInti = [
-            // Baris 1: Ketua
-            'ketua' => [
-                'nama' => 'Tegar Satrio Utomo',
-                'jabatan' => 'Ketua Umum',
-                'sub_jabatan' => 'Leader / 会長',
-                'kelas' => 'XI PPLG 2',
-                'avatar' => $avatar('Tegar Satrio Utomo', '0043c0', 'ffffff'),
-                'badge_color' => 'bg-primary text-white',
-            ],
-
-            // Baris 2: Wakil Ketua
-            'wakil' => [
-                'nama' => 'Deris Novaliza Khusnul Khotimah',
-                'jabatan' => 'Wakil Ketua',
-                'sub_jabatan' => 'Vice Leader / 副部長',
-                'kelas' => 'XI TJKT 1',
-                'avatar' => $avatar('Deris Novaliza Khusnul Khotimah', '38BDF8', '0B1021'),
-                'badge_color' => 'bg-sky-500 text-white',
-            ],
-
-            // Baris 3: Bendahara & Sekretaris
-            'bendahara' => [
-                [
-                    'nama' => 'Zinniroh Al Ashwani',
-                    'jabatan' => 'Bendahara 1',
-                    'kelas' => 'XI AKL 1',
-                    'avatar' => $avatar('Zinniroh Al Ashwani'),
-                ],
-                [
-                    'nama' => 'Fadillah Septi Lintang Ramadhani',
-                    'jabatan' => 'Bendahara 2',
-                    'kelas' => 'XI TF 1',
-                    'avatar' => $avatar('Fadillah Septi Lintang Ramadhani'),
-                ],
-            ],
-
-            'sekretaris' => [
-                [
-                    'nama' => 'Tika Ocha Anindita',
-                    'jabatan' => 'Sekretaris 1',
-                    'kelas' => 'XI AKL 2',
-                    'avatar' => $avatar('Tika Ocha Anindita'),
-                ],
-                [
-                    'nama' => 'Amellia Ramdhan Nelista',
-                    'jabatan' => 'Sekretaris 2',
-                    'kelas' => 'XI MPLB 2',
-                    'avatar' => $avatar('Amellia Ramdhan Nelista'),
-                ],
-            ],
-
-            // Baris 4: Humas
-            'humas' => [
-                [
-                    'nama' => 'Arindhia Syarafana A',
-                    'jabatan' => 'Humas 1',
-                    'kelas' => 'XI TF 1',
-                    'avatar' => $avatar('Arindhia Syarafana A'),
-                ],
-                [
-                    'nama' => 'Nur Ngaisatuzzahro',
-                    'jabatan' => 'Humas 2',
-                    'kelas' => 'XI AKL 2',
-                    'avatar' => $avatar('Nur Ngaisatuzzahro'),
-                ],
-            ],
-
-            // Baris 5: Seluruh Koordinator Divisi (12 Orang)
-            'koordinator' => [
-                [
-                    'nama' => 'Arkazora Abdullah Azzam',
-                    'divisi' => 'Pemateri',
-                    'jabatan' => 'Koordinator Pemateri',
-                    'kelas' => 'XI TJKT 2',
-                    'avatar' => $avatar('Arkazora Abdullah Azzam'),
-                    'tag_color' => 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300',
-                ],
-                [
-                    'nama' => 'Lyana Nur Awaliyah',
-                    'divisi' => 'Pemateri',
-                    'jabatan' => 'Koordinator Pemateri',
-                    'kelas' => 'XI MPLB 2',
-                    'avatar' => $avatar('Lyana Nur Awaliyah'),
-                    'tag_color' => 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300',
-                ],
-                [
-                    'nama' => 'Faris Ammar Yasin',
-                    'divisi' => 'Kegiatan',
-                    'jabatan' => 'Koordinator Kegiatan',
-                    'kelas' => 'XI PPLG 3',
-                    'avatar' => $avatar('Faris Ammar Yasin'),
-                    'tag_color' => 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300',
-                ],
-                [
-                    'nama' => 'Maghiezta Altha Funnisa',
-                    'divisi' => 'Kegiatan',
-                    'jabatan' => 'Koordinator Kegiatan',
-                    'kelas' => 'XI AKL 1',
-                    'avatar' => $avatar('Maghiezta Altha Funnisa'),
-                    'tag_color' => 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300',
-                ],
-                [
-                    'nama' => 'Naila Ajizah',
-                    'divisi' => 'Budaya Bahasa',
-                    'jabatan' => 'Koordinator Budaya Bahasa',
-                    'kelas' => 'XI TF 1',
-                    'avatar' => $avatar('Naila Ajizah'),
-                    'tag_color' => 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300',
-                ],
-                [
-                    'nama' => 'Zakia Sultonah',
-                    'divisi' => 'Budaya Bahasa',
-                    'jabatan' => 'Koordinator Budaya Bahasa',
-                    'kelas' => 'XI PM 2',
-                    'avatar' => $avatar('Zakia Sultonah'),
-                    'tag_color' => 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300',
-                ],
-                [
-                    'nama' => 'Abiyyu Arma Wijaya',
-                    'divisi' => 'PDD',
-                    'jabatan' => 'Koordinator PDD',
-                    'kelas' => 'XI PM 2',
-                    'avatar' => $avatar('Abiyyu Arma Wijaya'),
-                    'tag_color' => 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300',
-                ],
-                [
-                    'nama' => 'Damara Ghivary Abrar',
-                    'divisi' => 'PDD',
-                    'jabatan' => 'Koordinator PDD',
-                    'kelas' => 'XI PPLG 3',
-                    'avatar' => $avatar('Damara Ghivary Abrar'),
-                    'tag_color' => 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300',
-                ],
-                [
-                    'nama' => 'Kayla Sandrina H',
-                    'divisi' => 'Mediakom',
-                    'jabatan' => 'Koordinator Mediakom',
-                    'kelas' => 'XI DKV 2',
-                    'avatar' => $avatar('Kayla Sandrina H'),
-                    'tag_color' => 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300',
-                ],
-                [
-                    'nama' => 'Queena Eksha Putri',
-                    'divisi' => 'Mediakom',
-                    'jabatan' => 'Koordinator Mediakom',
-                    'kelas' => 'XI DKV 1',
-                    'avatar' => $avatar('Queena Eksha Putri'),
-                    'tag_color' => 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300',
-                ],
-                [
-                    'nama' => 'Kayravinnia Secha Putri',
-                    'divisi' => 'Perkap',
-                    'jabatan' => 'Koordinator Perkap',
-                    'kelas' => 'XI PM 2',
-                    'avatar' => $avatar('Kayravinnia Secha Putri'),
-                    'tag_color' => 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300',
-                ],
-                [
-                    'nama' => 'Muhammad Fikri Arrasyid',
-                    'divisi' => 'Perkap',
-                    'jabatan' => 'Koordinator Perkap',
-                    'kelas' => 'XI TJKT 2',
-                    'avatar' => $avatar('Muhammad Fikri Arrasyid'),
-                    'tag_color' => 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300',
-                ],
-            ],
+            'ketua' => $ketua,
+            'wakil' => $wakil,
+            'bendahara' => $bendahara,
+            'sekretaris' => $sekretaris,
+            'humas' => $humas,
+            'koordinator' => $koordinator,
         ];
 
-        // 2. ANGGOTA DIVISI (32 Orang)
-        $rawAnggota = [
-            'Pemateri' => [
-                ['nama' => 'Nailul Luna', 'kelas' => 'XI MPLB 3'],
-                ['nama' => 'Diandrasadhya Pramesti', 'kelas' => 'XI PPLG 3'],
-                ['nama' => 'Durotusalisah', 'kelas' => 'XI MPLB 3'],
-                ['nama' => 'Angga Riski Adi Pratama', 'kelas' => 'XI TJKT 1'],
-                ['nama' => 'Isnaini Ramadani Saputri', 'kelas' => 'XI MPLB 3'],
-                ['nama' => 'Hafidz Izaar Wiraaji', 'kelas' => 'XI AKL 5'],
-            ],
-            'Kegiatan' => [
-                ['nama' => 'Anisa Nur Hidayah', 'kelas' => 'XI PM 1'],
-                ['nama' => 'Ajeng Aditiya Falsafah', 'kelas' => 'XI AKL 2'],
-                ['nama' => 'Aini Eka Ramadhani', 'kelas' => 'XI MPLB 3'],
-                ['nama' => 'Thaleta Indah Antari', 'kelas' => 'XI AKL 2'],
-                ['nama' => 'Andhika Atha Pramoedya', 'kelas' => 'XI MPLB 1'],
-                ['nama' => 'Reyshafa Armelia Rochmanto', 'kelas' => 'XI MPLB 3'],
-            ],
-            'Budaya Bahasa' => [
-                ['nama' => 'Nezya Eka Aulia', 'kelas' => 'XI PM 1'],
-                ['nama' => 'Nabila Putri Shira Nirbana', 'kelas' => 'XI PM 2'],
-                ['nama' => 'Anggi Novanda Restianti', 'kelas' => 'XI MPLB 3'],
-                ['nama' => 'Khairatul Kantika M', 'kelas' => 'XI MPLB 3'],
-                ['nama' => 'Bilqist Ainur Rokhman', 'kelas' => 'XI AKL 1'],
-            ],
-            'PDD' => [
-                ['nama' => 'Rifki Putra P.', 'kelas' => 'XI PPLG 1'],
-                ['nama' => 'Alinda Salsabila Nadhifah', 'kelas' => 'XI PM 2'],
-                ['nama' => 'Khayati Juliana Putri', 'kelas' => 'XI PM 2'],
-                ['nama' => 'Alfino Nur Rafata', 'kelas' => 'XI TJKT 2'],
-            ],
-            'Mediakom' => [
-                ['nama' => 'Ghaitsa Anika Zhaiyan', 'kelas' => 'XI MPLB 3'],
-                ['nama' => 'Mevin Saktia Ramadhan', 'kelas' => 'XI DKV 2'],
-                ['nama' => 'Belinda Jacellyne Queenshaina Indra', 'kelas' => 'XI MPLB 2'],
-                ['nama' => 'Thalita Aurelia Shalsavarella', 'kelas' => 'XI DKV'],
-                ['nama' => 'Ardyta Weningtyas Syahrien', 'kelas' => 'XI MPLB 3'],
-            ],
-            'Perkap' => [
-                ['nama' => 'Rafandi Ardiansyah', 'kelas' => 'XI PPLG 1'],
-                ['nama' => 'Alfeda Faith Manggala Wijaya', 'kelas' => 'XI PPLG 1'],
-                ['nama' => 'Devita Alviana', 'kelas' => 'XI PM 1'],
-                ['nama' => 'Fairus Raditya Dananjaya', 'kelas' => 'XI AKL 5'],
-                ['nama' => 'Deven Hawwary Raysha', 'kelas' => 'XI PPLG 1'],
-                ['nama' => 'Akhyar Radithya Cahyadi', 'kelas' => 'XI TJKT 1'],
-            ],
-        ];
+        // ---- Anggota Divisi ----
+        $anggotaRecords = $allPengurus
+            ->filter(fn ($p) => $p->jabatan === 'Anggota' && $p->divisi !== 'Pengurus Inti');
 
-        // Format Anggota Divisi with avatar and metadata
         $anggotaDivisi = [];
         $totalAnggota = 0;
 
-        foreach ($rawAnggota as $divisi => $members) {
-            $anggotaDivisi[$divisi] = [];
-            foreach ($members as $member) {
-                $anggotaDivisi[$divisi][] = [
-                    'nama' => $member['nama'],
-                    'kelas' => $member['kelas'],
-                    'divisi' => $divisi,
-                    'jabatan' => 'Anggota Divisi',
-                    'avatar' => $avatar($member['nama']),
-                ];
-                $totalAnggota++;
-            }
+        foreach (['Pemateri', 'Kegiatan', 'Budaya Bahasa', 'PDD', 'Mediakom', 'Perkap'] as $divisi) {
+            $members = $anggotaRecords->where('divisi', $divisi)->values();
+            $anggotaDivisi[$divisi] = $members->map(fn ($p) => [
+                'nama' => $p->nama,
+                'kelas' => $p->kelas,
+                'divisi' => $p->divisi,
+                'jabatan' => 'Anggota Divisi',
+                'avatar' => $resolveAvatar($p->avatar, $p->nama),
+            ])->toArray();
+            $totalAnggota += count($anggotaDivisi[$divisi]);
         }
 
-        // 3. SEMUA PENGURUS (FLATTENED 52 ORANG UNTUK GLOBAL FILTER & SEARCH)
+        // ---- All Members (Flat list for search/filter) ----
         $allMembers = [];
 
         // Ketua
         $allMembers[] = [
-            'nama' => $pengurusInti['ketua']['nama'],
-            'jabatan' => $pengurusInti['ketua']['jabatan'],
+            'nama' => $ketua['nama'],
+            'jabatan' => $ketua['jabatan'],
             'sub_jabatan' => 'Ketua Umum • Leader / 会長',
             'divisi' => 'Pengurus Inti',
             'kategori' => 'inti',
-            'kelas' => $pengurusInti['ketua']['kelas'],
-            'avatar' => $pengurusInti['ketua']['avatar'],
+            'kelas' => $ketua['kelas'],
+            'avatar' => $ketua['avatar'],
             'role_badge' => 'Ketua Umum',
             'badge_bg' => 'bg-blue-600',
             'tag_color' => 'bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300',
@@ -289,21 +177,21 @@ class PengurusController extends Controller
 
         // Wakil
         $allMembers[] = [
-            'nama' => $pengurusInti['wakil']['nama'],
-            'jabatan' => $pengurusInti['wakil']['jabatan'],
+            'nama' => $wakil['nama'],
+            'jabatan' => $wakil['jabatan'],
             'sub_jabatan' => 'Wakil Ketua • Vice Leader / 副部長',
             'divisi' => 'Pengurus Inti',
             'kategori' => 'inti',
-            'kelas' => $pengurusInti['wakil']['kelas'],
-            'avatar' => $pengurusInti['wakil']['avatar'],
+            'kelas' => $wakil['kelas'],
+            'avatar' => $wakil['avatar'],
             'role_badge' => 'Wakil Ketua',
             'badge_bg' => 'bg-sky-600',
             'tag_color' => 'bg-sky-100 text-sky-700 dark:bg-sky-950 dark:text-sky-300',
             'order' => 2,
         ];
 
-        // Sekretaris (2)
-        foreach ($pengurusInti['sekretaris'] as $sek) {
+        // Sekretaris
+        foreach ($sekretaris as $sek) {
             $allMembers[] = [
                 'nama' => $sek['nama'],
                 'jabatan' => $sek['jabatan'],
@@ -319,8 +207,8 @@ class PengurusController extends Controller
             ];
         }
 
-        // Bendahara (2)
-        foreach ($pengurusInti['bendahara'] as $ben) {
+        // Bendahara
+        foreach ($bendahara as $ben) {
             $allMembers[] = [
                 'nama' => $ben['nama'],
                 'jabatan' => $ben['jabatan'],
@@ -336,8 +224,8 @@ class PengurusController extends Controller
             ];
         }
 
-        // Humas (2)
-        foreach ($pengurusInti['humas'] as $hum) {
+        // Humas
+        foreach ($humas as $hum) {
             $allMembers[] = [
                 'nama' => $hum['nama'],
                 'jabatan' => $hum['jabatan'],
@@ -353,8 +241,8 @@ class PengurusController extends Controller
             ];
         }
 
-        // Koordinator Divisi (12)
-        foreach ($pengurusInti['koordinator'] as $koor) {
+        // Koordinator
+        foreach ($koordinator as $koor) {
             $allMembers[] = [
                 'nama' => $koor['nama'],
                 'jabatan' => $koor['jabatan'],
@@ -370,7 +258,7 @@ class PengurusController extends Controller
             ];
         }
 
-        // Anggota Divisi (32)
+        // Anggota Divisi
         foreach ($anggotaDivisi as $divisi => $members) {
             foreach ($members as $member) {
                 $allMembers[] = [
@@ -389,8 +277,8 @@ class PengurusController extends Controller
             }
         }
 
-        $totalInti = 1 + 1 + count($pengurusInti['bendahara']) + count($pengurusInti['sekretaris']) + count($pengurusInti['humas']) + count($pengurusInti['koordinator']); // 20
-        $totalPengurus = $totalInti + $totalAnggota; // 52
+        $totalInti = count($pengurusIntiRecords) + count($koordinatorRecords);
+        $totalPengurus = $totalInti + $totalAnggota;
 
         return [
             'pengurusInti' => $pengurusInti,
