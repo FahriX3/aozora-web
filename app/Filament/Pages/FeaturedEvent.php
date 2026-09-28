@@ -6,12 +6,15 @@ use App\Models\Event;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
+use UnitEnum;
 
 class FeaturedEvent extends Page
 {
     protected string $view = 'filament.pages.featured-event';
 
     protected static ?string $navigationLabel = 'Event Unggulan';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Manajemen Konten';
 
     protected static ?string $title = 'Event Unggulan & Aftermovie';
 

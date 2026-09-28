@@ -24,11 +24,78 @@
   display: none;
 }
 
-@layer components {
-  .nav-link.active {
-    @apply text-primary font-semibold relative;
-  }
-  .nav-link.active::after {
-    @apply content-[''] absolute -bottom-2 left-0 w-full h-0.5 bg-primary;
-  }
+/* ===== Interactive Modern Navbar ===== */
+.nav-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  color: #434655;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  color: #0043c0;
+  background-color: rgba(13, 89, 242, 0.08);
+  transform: translateY(-1px);
+}
+
+.nav-item.active {
+  color: #0043c0;
+  font-weight: 600;
+  background-color: rgba(13, 89, 242, 0.12);
+  box-shadow: 0 2px 8px rgba(13, 89, 242, 0.08);
+}
+
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #38BDF8, #0043c0);
+}
+
+/* Subtle glowing logo interaction */
+.brand-logo-hover {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.brand-logo-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(13, 89, 242, 0.25);
+}
+
+/* Livewire navigation indicator */
+[wire\:loading],
+.wire-loading-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #38BDF8, #0D59F2, #E83A30);
+  z-index: 99999;
+  animation: loadingSlide 1.5s ease-in-out infinite;
+}
+
+@keyframes loadingSlide {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-modal-in {
+  animation: modalFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

@@ -46,91 +46,260 @@
         </style>
         
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @livewireStyles
         @stack('styles')
 </head>
 <body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-aozora-sky selection:text-indigo-night">
-    <header
-            class="fixed top-0 left-0 w-full z-50 bg-cloud-white/90 backdrop-blur-xl shadow-[0_4px_20px_-2px_rgba(13,89,242,0.06)]"
-        >
-            <div
-                class="h-20 max-w-[1280px] mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-md"
-            >
-                <div class="flex items-center gap-space-md">
-                    <a
-                        class="flex items-center gap-space-sm group"
-                        data-path="beranda"
-                        href="{{ route('home') }}"
-                        ><div
-                            class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary font-headline-md text-headline-md shadow-[0_2px_10px_rgba(13,89,242,0.12)] group-hover:scale-105 transition-transform"
-                        >
-                            <span class="text-torii-vermilion">青</span
-                            ><span class="text-aozora-sky">空</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <div class="flex items-center gap-space-xs">
-                                <span
-                                    class="font-headline-sm text-headline-sm tracking-tight text-indigo-night"
-                                    >Aozora</span
-                                ><span
-                                    class="font-label-badge text-label-badge px-1.5 py-0.5 rounded-full bg-sakura-tint text-torii-vermilion"
-                                    >日本語部</span
-                                >
-                            </div>
-                            <span
-                                class="font-label-md text-label-md text-secondary tracking-wider uppercase"
-                                >SMKN 1 Purwokerto</span
-                            >
-                        </div></a
-                    >
-                </div>
-                <nav
-                    class="hidden lg:flex items-center gap-space-lg"
-                    data-active-classes="text-primary font-semibold relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary"
+    {{-- Top Livewire Loading Indicator --}}
+    <div wire:loading class="wire-loading-indicator"></div>
+
+    <header class="fixed top-0 left-0 w-full z-50 bg-cloud-white/95 backdrop-blur-xl border-b border-surface-container-high/60 shadow-[0_4px_24px_-4px_rgba(13,89,242,0.08)]">
+        <div class="h-20 max-w-[1280px] mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-md">
+            {{-- Brand Logo --}}
+            <div class="flex items-center gap-space-md">
+                <a
+                    class="flex items-center gap-space-sm group"
+                    href="{{ route('home') }}"
+                    wire:navigate.hover
+                    title="Aozora Nihongo Club Purwokerto"
                 >
-                    <a
-                        class="nav-link transition-colors {{ request()->routeIs('home') ? 'active' : 'text-on-surface-variant hover:text-on-surface' }}"
-                        data-target="beranda"
-                        href="{{ route('home') }}"
-                        >Beranda</a
-                    ><a
-                        class="nav-link font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
-                        data-target="tentang"
-                        href="{{ route('home') }}#tentang"
-                        >Tentang Kami</a
-                    ><a
-                        class="nav-link font-label-lg text-label-lg transition-colors {{ request()->routeIs('events.*') ? 'active' : 'text-on-surface-variant hover:text-on-surface' }}"
-                        data-target="event"
-                        href="{{ route('events.index') }}"
-                        >Event &amp; Matsuri</a
-                    ><a
-                        class="nav-link font-label-lg text-label-lg transition-colors {{ request()->routeIs('pengurus') ? 'active' : 'text-on-surface-variant hover:text-on-surface' }}"
-                        data-target="pengurus"
-                        href="{{ route('pengurus') }}"
-                        >Daftar Pengurus</a
-                    ><a
-                        class="nav-link font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
-                        data-target="kontak"
-                        href="{{ route('home') }}#kontak"
-                        >Kontak</a
-                    >
-                </nav>
-                <div class="flex items-center gap-space-md">
+                    <div class="w-11 h-11 rounded-2xl bg-sakura-tint border border-torii-vermilion/20 flex items-center justify-center font-headline-md text-headline-md tracking-tighter shadow-sm brand-logo-hover">
+                        <span class="text-torii-vermilion">青</span><span class="text-aozora-sky">空</span>
+                    </div>
+                    <div class="flex flex-col leading-tight">
+                        <div class="flex items-center gap-space-xs">
+                            <span class="font-headline-sm text-headline-sm tracking-tight text-indigo-night font-bold">Aozora</span>
+                            <span class="font-label-badge text-label-badge px-2 py-0.5 rounded-full bg-sakura-tint text-torii-vermilion font-bold">日本語部</span>
+                        </div>
+                        <span class="font-label-md text-xs text-secondary tracking-wider uppercase font-semibold">SMKN 1 Purwokerto</span>
+                    </div>
+                </a>
+            </div>
+
+            {{-- Desktop Navigation (Interactive Pills with Hover & Active Indicators) --}}
+            <nav class="hidden lg:flex items-center p-1.5 rounded-full bg-surface-container-low/80 border border-surface-container-high/60 shadow-inner">
+                <a
+                    class="nav-item nav-link {{ request()->routeIs('home') && !request()->has('tentang') ? 'active' : '' }}"
+                    data-target="beranda"
+                    href="{{ route('home') }}"
+                    wire:navigate.hover
+                >
+                    <span class="material-symbols-outlined text-lg mr-1.5 opacity-70">home</span>
+                    Beranda
+                </a>
+                <a
+                    class="nav-item nav-link"
+                    data-target="tentang"
+                    href="{{ route('home') }}#tentang"
+                >
+                    Tentang Kami
+                </a>
+                <a
+                    class="nav-item nav-link {{ request()->routeIs('events.*') ? 'active' : '' }}"
+                    data-target="event"
+                    href="{{ route('events.index') }}"
+                    wire:navigate.hover
+                >
+                    <span class="material-symbols-outlined text-lg mr-1.5 opacity-70">celebration</span>
+                    Event &amp; Matsuri
+                </a>
+                <a
+                    class="nav-item nav-link {{ request()->routeIs('pengurus') ? 'active' : '' }}"
+                    data-target="pengurus"
+                    href="{{ route('pengurus') }}"
+                    wire:navigate.hover
+                >
+                    <span class="material-symbols-outlined text-lg mr-1.5 opacity-70">groups</span>
+                    Daftar Pengurus
+                </a>
+                <a
+                    class="nav-item nav-link"
+                    data-target="kontak"
+                    href="{{ route('home') }}#kontak"
+                >
+                    Kontak
+                </a>
+            </nav>
+
+            {{-- Right Header Actions (Auth / Portal / Mobile Menu) --}}
+            <div class="flex items-center gap-space-sm">
+                @guest
+                    {{-- Tombol Buka Portal Login --}}
                     <button
                         id="btn-open-login-modal"
-                        onclick="document.getElementById('login-modal').classList.remove('hidden'); document.getElementById('login-modal').classList.add('flex');"
-                        class="w-9 h-9 rounded-full overflow-hidden shadow-[0_2px_8px_rgba(13,89,242,0.20)] hover:scale-110 hover:shadow-[0_4px_16px_rgba(13,89,242,0.30)] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/60 cursor-pointer"
-                        title="Login Admin"
-                        aria-label="Buka form login admin"
+                        type="button"
+                        onclick="openLoginModal()"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cloud-white hover:bg-primary/5 text-primary border border-primary/20 hover:border-primary/50 shadow-sm hover:shadow transition-all duration-200 cursor-pointer group"
+                        title="Portal Internal Aozora (Admin, Inventaris, Anggota)"
                     >
-                        <img
-                            alt="ANC Icon"
-                            class="w-full h-full object-cover"
-                            src="{{ asset('assets/ANC_icon.jpg') }}"
-                        />
+                        <div class="w-7 h-7 rounded-full overflow-hidden shadow-xs ring-2 ring-primary/20 group-hover:scale-105 transition-transform">
+                            <img alt="ANC Icon" class="w-full h-full object-cover" src="{{ asset('assets/ANC_icon.jpg') }}" />
+                        </div>
+                        <span class="font-label-md text-sm font-bold text-indigo-night group-hover:text-primary">Portal Masuk</span>
+                        <span class="material-symbols-outlined text-base text-primary/70 group-hover:translate-x-0.5 transition-transform">login</span>
                     </button>
-                </div>
+                @else
+                    {{-- User Authenticated Chip & Dropdown --}}
+                    <div class="relative" id="user-menu-container">
+                        @php
+                            $user = Auth::user();
+                            $roleLabel = 'Anggota';
+                            $roleBadgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+                            $panelUrl = '/anggota';
+
+                            if ($user->hasRole('super_admin')) {
+                                $roleLabel = '👑 Super Admin';
+                                $roleBadgeColor = 'bg-rose-100 text-rose-800 border-rose-300';
+                                $panelUrl = '/admin';
+                            } elseif ($user->hasRole('admin')) {
+                                $roleLabel = '⭐ Admin Konten';
+                                $roleBadgeColor = 'bg-blue-100 text-blue-800 border-blue-300';
+                                $panelUrl = '/admin';
+                            } elseif ($user->hasRole('koordinator_inventaris')) {
+                                $roleLabel = '📦 Koord. Inventaris';
+                                $roleBadgeColor = 'bg-amber-100 text-amber-800 border-amber-300';
+                                $panelUrl = '/inventaris';
+                            } elseif ($user->hasRole('anggota')) {
+                                $roleLabel = '👤 Anggota';
+                                $roleBadgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+                                $panelUrl = '/anggota';
+                            }
+                        @endphp
+
+                        <button
+                            type="button"
+                            onclick="toggleUserMenu()"
+                            class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-cloud-white border border-outline-variant/60 shadow-sm hover:shadow hover:border-primary/40 transition-all cursor-pointer"
+                            id="btn-user-menu"
+                        >
+                            <div class="w-8 h-8 rounded-full bg-primary text-cloud-white flex items-center justify-center font-bold text-sm shadow-xs">
+                                {{ strtoupper(substr($user->name, 0, 1)) }}
+                            </div>
+                            <div class="hidden sm:flex flex-col text-left">
+                                <span class="font-label-md text-xs font-bold text-indigo-night truncate max-w-[120px]">{{ $user->name }}</span>
+                                <span class="text-[10px] text-secondary font-medium">{{ $roleLabel }}</span>
+                            </div>
+                            <span class="material-symbols-outlined text-sm text-secondary">expand_more</span>
+                        </button>
+
+                        {{-- User Dropdown Card --}}
+                        <div
+                            id="user-dropdown-menu"
+                            class="hidden absolute right-0 mt-2 w-64 rounded-2xl bg-cloud-white border border-surface-container-high/80 shadow-2xl p-4 z-50 animate-modal-in"
+                        >
+                            <div class="pb-3 border-b border-surface-container-high/60">
+                                <p class="font-bold text-indigo-night text-sm">{{ $user->name }}</p>
+                                <p class="text-xs text-secondary truncate">{{ $user->email }}</p>
+                                <span class="inline-block mt-2 px-2.5 py-0.5 rounded-full text-[11px] font-bold border {{ $roleBadgeColor }}">
+                                    {{ $roleLabel }}
+                                </span>
+                            </div>
+
+                            <div class="py-2.5 flex flex-col gap-1">
+                                <a
+                                    href="{{ url($panelUrl) }}"
+                                    class="w-full px-3 py-2 rounded-xl bg-primary text-cloud-white text-xs font-bold hover:bg-primary/90 flex items-center justify-between shadow-sm transition-colors"
+                                >
+                                    <span>🚀 Buka Dashboard Panel</span>
+                                    <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                </a>
+
+                                @if($user->hasRole('super_admin'))
+                                    <div class="pt-2 text-[10px] font-bold text-secondary uppercase tracking-wider">Akses Panel Lain:</div>
+                                    <div class="grid grid-cols-2 gap-1.5">
+                                        <a href="{{ url('/admin') }}" class="px-2 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-indigo-night text-[11px] font-semibold text-center">
+                                            Admin
+                                        </a>
+                                        <a href="{{ url('/inventaris') }}" class="px-2 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-indigo-night text-[11px] font-semibold text-center">
+                                            Inventaris
+                                        </a>
+                                    </div>
+                                    <a href="{{ url('/anggota') }}" class="px-2 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-indigo-night text-[11px] font-semibold text-center">
+                                        Panel Anggota
+                                    </a>
+                                @endif
+                            </div>
+
+                            <div class="pt-2 border-t border-surface-container-high/60">
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button
+                                        type="submit"
+                                        class="w-full px-3 py-1.5 rounded-lg text-xs font-bold text-torii-vermilion hover:bg-torii-vermilion/10 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                                    >
+                                        <span class="material-symbols-outlined text-sm">logout</span>
+                                        Keluar (Logout)
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endguest
+
+                {{-- Mobile Menu Hamburger --}}
+                <button
+                    type="button"
+                    onclick="toggleMobileDrawer()"
+                    class="lg:hidden w-10 h-10 rounded-xl bg-surface-container-low border border-surface-container-high flex items-center justify-center text-indigo-night hover:text-primary transition-colors focus:outline-none"
+                    aria-label="Buka menu navigasi"
+                >
+                    <span class="material-symbols-outlined text-2xl" id="icon-mobile-menu">menu</span>
+                </button>
             </div>
-        </header>
+        </div>
+
+        {{-- Mobile Drawer Navigation --}}
+        <div
+            id="mobile-drawer"
+            class="hidden lg:hidden border-t border-surface-container-high/60 bg-cloud-white/98 backdrop-blur-xl px-margin-mobile py-4 shadow-xl"
+        >
+            <nav class="flex flex-col gap-1.5">
+                <a
+                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-indigo-night hover:bg-primary/8 hover:text-primary flex items-center gap-2.5 transition-colors {{ request()->routeIs('home') ? 'bg-primary/10 text-primary font-bold' : '' }}"
+                    href="{{ route('home') }}"
+                    wire:navigate.hover
+                    onclick="toggleMobileDrawer()"
+                >
+                    <span class="material-symbols-outlined text-lg">home</span>
+                    Beranda
+                </a>
+                <a
+                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-indigo-night hover:bg-primary/8 hover:text-primary flex items-center gap-2.5 transition-colors"
+                    href="{{ route('home') }}#tentang"
+                    onclick="toggleMobileDrawer()"
+                >
+                    <span class="material-symbols-outlined text-lg">info</span>
+                    Tentang Kami
+                </a>
+                <a
+                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-indigo-night hover:bg-primary/8 hover:text-primary flex items-center gap-2.5 transition-colors {{ request()->routeIs('events.*') ? 'bg-primary/10 text-primary font-bold' : '' }}"
+                    href="{{ route('events.index') }}"
+                    wire:navigate.hover
+                    onclick="toggleMobileDrawer()"
+                >
+                    <span class="material-symbols-outlined text-lg">celebration</span>
+                    Event &amp; Matsuri
+                </a>
+                <a
+                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-indigo-night hover:bg-primary/8 hover:text-primary flex items-center gap-2.5 transition-colors {{ request()->routeIs('pengurus') ? 'bg-primary/10 text-primary font-bold' : '' }}"
+                    href="{{ route('pengurus') }}"
+                    wire:navigate.hover
+                    onclick="toggleMobileDrawer()"
+                >
+                    <span class="material-symbols-outlined text-lg">groups</span>
+                    Daftar Pengurus
+                </a>
+                <a
+                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-indigo-night hover:bg-primary/8 hover:text-primary flex items-center gap-2.5 transition-colors"
+                    href="{{ route('home') }}#kontak"
+                    onclick="toggleMobileDrawer()"
+                >
+                    <span class="material-symbols-outlined text-lg">alternate_email</span>
+                    Kontak
+                </a>
+            </nav>
+        </div>
+    </header>
 
 
     <main class="w-full pt-20 bg-surface min-h-screen">
@@ -348,7 +517,7 @@
         </footer>
     @stack('scripts')
 
-    {{-- ===== MODAL LOGIN (di luar semua stacking context) ===== --}}
+    {{-- ===== MODAL LOGIN INTERNAL (Multi-Role Portal) ===== --}}
     <div
         id="login-modal"
         style="position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:1rem;"
@@ -358,27 +527,57 @@
     >
         {{-- Backdrop --}}
         <div
-            style="position:absolute;inset:0;background:rgba(10,18,41,0.65);backdrop-filter:blur(6px);"
+            style="position:absolute;inset:0;background:rgba(11,16,33,0.72);backdrop-filter:blur(8px);"
             onclick="closeLoginModal()"
         ></div>
 
         {{-- Panel --}}
-        <div style="position:relative;width:100%;max-width:28rem;background:var(--color-surface-container-lowest,#fff);border-radius:1rem;box-shadow:0 25px 60px rgba(0,0,0,0.3);overflow:hidden;animation:fadeInUp 0.25s ease;">
-            {{-- Header panel --}}
-            <div class="bg-primary p-6 text-center">
-                <img src="{{ asset('assets/ANC_icon.jpg') }}" alt="ANC Icon" class="w-14 h-14 rounded-full mx-auto mb-3 shadow-lg border-2 border-on-primary/20" />
-                <h2 id="login-modal-title" class="text-2xl font-bold text-on-primary font-headline-md tracking-tight">Portal Admin Aozora</h2>
-                <p class="text-on-primary/80 text-sm mt-1">Masuk untuk mengelola event &amp; dokumentasi.</p>
+        <div class="relative w-full max-w-md bg-cloud-white rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.35)] overflow-hidden border border-surface-container-high animate-modal-in z-10">
+            {{-- Header panel with Gradient & Japanese Pattern --}}
+            <div class="relative bg-gradient-to-br from-indigo-night via-[#003cad] to-primary p-6 text-center text-cloud-white overflow-hidden">
+                <div class="absolute -right-6 -bottom-6 text-8xl font-black text-cloud-white/[0.06] select-none pointer-events-none">
+                    青空
+                </div>
+
+                {{-- Close Button --}}
+                <button
+                    type="button"
+                    onclick="closeLoginModal()"
+                    class="absolute top-4 right-4 w-8 h-8 rounded-full bg-cloud-white/10 hover:bg-cloud-white/20 text-cloud-white flex items-center justify-center transition-colors focus:outline-none cursor-pointer"
+                    aria-label="Tutup popup"
+                >
+                    <span class="material-symbols-outlined text-lg">close</span>
+                </button>
+
+                <div class="w-14 h-14 rounded-2xl bg-sakura-tint/15 border border-cloud-white/20 flex items-center justify-center mx-auto mb-3 shadow-lg">
+                    <img src="{{ asset('assets/ANC_icon.jpg') }}" alt="ANC Icon" class="w-12 h-12 rounded-xl object-cover" />
+                </div>
+                <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-sakura-tint text-torii-vermilion text-[11px] font-bold tracking-wider uppercase mb-1">
+                    <span>🌸 ログインポータル</span>
+                </div>
+                <h2 id="login-modal-title" class="text-xl font-bold font-headline-md tracking-tight">Portal Internal Aozora</h2>
+                <p class="text-cloud-white/80 text-xs mt-1">Masuk untuk mengakses panel kerja sesuai hak akses Anda.</p>
             </div>
 
-            {{-- Form --}}
-            <div class="p-8">
-                <form action="{{ route('login.post') }}" method="POST" class="flex flex-col gap-5">
+            {{-- Role Preview Strip --}}
+            <div class="bg-surface-container-low px-5 py-2.5 border-b border-surface-container-high/80 flex items-center justify-between overflow-x-auto text-[11px]">
+                <span class="font-bold text-secondary text-[10px] uppercase tracking-wider">Akses:</span>
+                <div class="flex items-center gap-1.5">
+                    <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 font-semibold">👑 Admin</span>
+                    <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold">📦 Inventaris</span>
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold">👤 Anggota</span>
+                </div>
+            </div>
+
+            {{-- Form Body --}}
+            <div class="p-6 md:p-7">
+                <form action="{{ route('login.post') }}" method="POST" class="flex flex-col gap-4">
                     @csrf
 
                     @if ($errors->any())
-                        <div class="bg-error-container text-on-error-container p-3 rounded-lg text-sm">
-                            <ul class="list-disc pl-5">
+                        <div class="bg-error-container text-on-error-container p-3 rounded-xl text-xs flex items-start gap-2">
+                            <span class="material-symbols-outlined text-base shrink-0 mt-0.5">error</span>
+                            <ul class="list-disc pl-4 space-y-0.5">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
@@ -386,86 +585,156 @@
                         </div>
                     @endif
 
-                    <div class="flex flex-col gap-1">
-                        <label for="modal-email" class="text-sm font-semibold text-on-surface">Email Administrator</label>
+                    <div class="flex flex-col gap-1.5">
+                        <label for="modal-email" class="text-xs font-bold text-on-surface uppercase tracking-wider">Email Akun</label>
                         <div class="relative">
-                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl">mail</span>
-                            <input type="email" name="email" id="modal-email" value="{{ old('email') }}" required
-                                class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-                                placeholder="admin@aozora.local">
+                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">mail</span>
+                            <input
+                                type="email"
+                                name="email"
+                                id="modal-email"
+                                value="{{ old('email') }}"
+                                required
+                                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-outline-variant bg-surface text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                placeholder="email@aozora.local"
+                            >
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-1">
-                        <label for="modal-password" class="text-sm font-semibold text-on-surface">Kata Sandi</label>
+                    <div class="flex flex-col gap-1.5">
+                        <label for="modal-password" class="text-xs font-bold text-on-surface uppercase tracking-wider">Kata Sandi</label>
                         <div class="relative">
-                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl">lock</span>
-                            <input type="password" name="password" id="modal-password" required
-                                class="w-full pl-10 pr-11 py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-                                placeholder="••••••••">
+                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">lock</span>
+                            <input
+                                type="password"
+                                name="password"
+                                id="modal-password"
+                                required
+                                class="w-full pl-10 pr-11 py-2.5 rounded-xl border border-outline-variant bg-surface text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                placeholder="••••••••"
+                            >
                             <button
                                 type="button"
                                 onclick="toggleModalPassword()"
                                 id="btn-toggle-password"
-                                class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors focus:outline-none"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors focus:outline-none cursor-pointer"
                                 aria-label="Toggle tampilkan password"
                                 tabindex="-1"
                             >
-                                <span class="material-symbols-outlined text-xl" id="icon-toggle-password">visibility</span>
+                                <span class="material-symbols-outlined text-lg" id="icon-toggle-password">visibility</span>
                             </button>
                         </div>
                     </div>
 
-                    <button type="submit" class="mt-2 w-full py-3 px-4 bg-primary hover:bg-primary/90 text-on-primary font-bold rounded-lg transition-colors flex items-center justify-center gap-2">
-                        Masuk ke Dashboard
+                    <button
+                        type="submit"
+                        class="mt-2 w-full py-3 px-4 bg-primary hover:bg-primary/90 text-cloud-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                        <span>Masuk ke Panel Kerja</span>
                         <span class="material-symbols-outlined text-base">arrow_forward</span>
                     </button>
                 </form>
 
-                <button onclick="closeLoginModal()" class="mt-5 w-full text-center text-sm font-semibold text-secondary hover:text-primary transition-colors">
-                    &larr; Tutup
-                </button>
+                {{-- Hint Akun Seeder --}}
+                <div class="mt-4 p-3 rounded-xl bg-surface-container-low border border-surface-container-high/60 text-[11px] text-secondary">
+                    <p class="font-bold text-indigo-night mb-1 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm text-gold-shrine">lightbulb</span>
+                        Akun Tersedia untuk Pengujian:
+                    </p>
+                    <ul class="space-y-0.5">
+                        <li>• <strong>Admin:</strong> <code class="text-primary font-mono">admin@aozora.local</code></li>
+                        <li>• <strong>Inventaris:</strong> <code class="text-primary font-mono">inventaris@aozora.local</code></li>
+                        <li>• <strong>Anggota:</strong> <code class="text-primary font-mono">anggota@aozora.local</code></li>
+                        <li>• Password semua akun: <code class="text-indigo-night font-mono font-bold">password</code></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 
-    <style>
-        @keyframes fadeInUp {
-            from { opacity:0; transform:translateY(24px) scale(0.97); }
-            to   { opacity:1; transform:translateY(0) scale(1); }
-        }
-    </style>
+    @livewireScripts
 
     <script>
-        function openLoginModal()  { var m=document.getElementById('login-modal'); m.style.display='flex'; document.body.style.overflow='hidden'; }
-        function closeLoginModal() { var m=document.getElementById('login-modal'); m.style.display='none'; document.body.style.overflow=''; }
-        function toggleModalPassword() {
-            var input = document.getElementById('modal-password');
-            var icon  = document.getElementById('icon-toggle-password');
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.textContent = 'visibility_off';
-            } else {
-                input.type = 'password';
-                icon.textContent = 'visibility';
+        function openLoginModal() {
+            var m = document.getElementById('login-modal');
+            if (m) {
+                m.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
             }
         }
 
-        // Tombol buka modal di navbar
-        document.addEventListener('DOMContentLoaded', function () {
+        function closeLoginModal() {
+            var m = document.getElementById('login-modal');
+            if (m) {
+                m.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleModalPassword() {
+            var input = document.getElementById('modal-password');
+            var icon  = document.getElementById('icon-toggle-password');
+            if (input && icon) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.textContent = 'visibility_off';
+                } else {
+                    input.type = 'password';
+                    icon.textContent = 'visibility';
+                }
+            }
+        }
+
+        function toggleUserMenu() {
+            var menu = document.getElementById('user-dropdown-menu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
+
+        function toggleMobileDrawer() {
+            var drawer = document.getElementById('mobile-drawer');
+            var icon = document.getElementById('icon-mobile-menu');
+            if (drawer) {
+                drawer.classList.toggle('hidden');
+                if (icon) {
+                    icon.textContent = drawer.classList.contains('hidden') ? 'menu' : 'close';
+                }
+            }
+        }
+
+        // Close user dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            var container = document.getElementById('user-menu-container');
+            var menu = document.getElementById('user-dropdown-menu');
+            if (container && menu && !container.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        // Setup handlers on page ready and Livewire navigation
+        function initAppInteractions() {
             var btn = document.getElementById('btn-open-login-modal');
-            if (btn) btn.addEventListener('click', openLoginModal);
+            if (btn) {
+                btn.onclick = openLoginModal;
+            }
 
             @if ($errors->any())
             openLoginModal();
             @endif
-        });
+        }
 
-        // Tutup dengan Escape
+        document.addEventListener('DOMContentLoaded', initAppInteractions);
+        document.addEventListener('livewire:navigated', initAppInteractions);
+
+        // Tutup modal dengan tombol Escape
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeLoginModal();
+            if (e.key === 'Escape') {
+                closeLoginModal();
+                var menu = document.getElementById('user-dropdown-menu');
+                if (menu) menu.classList.add('hidden');
+            }
         });
     </script>
-
 </body>
 </html>
