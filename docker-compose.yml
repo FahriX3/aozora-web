@@ -1,0 +1,51 @@
+services:
+  aozora-app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: aozora-app
+    restart: unless-stopped
+    working_dir: /var/www/aozora
+    volumes:
+      - ./:/var/www/aozora
+    depends_on:
+      - aozora-db
+    networks:
+      - aozora-net
+
+  aozora-web:
+    image: nginx:alpine
+    container_name: aozora-web
+    restart: unless-stopped
+    volumes:
+      - ./:/var/www/aozora:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - aozora-app
+    networks:
+      - aozora-net
+      - proxy-net
+
+  aozora-db:
+    image: mariadb:11
+    container_name: aozora-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-aozora_db}
+      MYSQL_USER: ${DB_USERNAME:-aozora_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-aozora_secret_2026}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-aozora_root_secret_2026}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - aozora-net
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  aozora-net:
+    driver: bridge
+  proxy-net:
+    external: true
