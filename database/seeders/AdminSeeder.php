@@ -34,6 +34,16 @@ class AdminSeeder extends Seeder
         );
         $admin->syncRoles(['admin']);
 
+        // 2b. Admin Biasa
+        $adminBiasa = User::updateOrCreate(
+            ['email' => 'admin.biasa@aozora.local'],
+            [
+                'name' => 'Admin Biasa',
+                'password' => Hash::make('password'),
+            ]
+        );
+        $adminBiasa->syncRoles(['admin']);
+
         // 3. Koordinator Inventaris
         $koor = User::updateOrCreate(
             ['email' => 'inventaris@aozora.local'],

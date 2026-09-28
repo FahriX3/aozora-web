@@ -13,7 +13,7 @@ class PengurusController extends Controller
      */
     public function index()
     {
-        $data = $this->getPengurusData();
+        $data = self::getPengurusData();
 
         return view('pages.pengurus', [
             'pengurusInti' => $data['pengurusInti'],
@@ -28,7 +28,7 @@ class PengurusController extends Controller
     /**
      * Get structured organization data from database.
      */
-    private function getPengurusData(): array
+    public static function getPengurusData(): array
     {
         // Fetch all pengurus from database, ordered by urutan
         $allPengurus = Pengurus::orderBy('urutan')->get();

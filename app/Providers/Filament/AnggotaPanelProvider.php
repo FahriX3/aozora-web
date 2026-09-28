@@ -34,6 +34,7 @@ class AnggotaPanelProvider extends PanelProvider
                 'warning' => Color::hex('#F59E0B'),
             ])
             ->font('Be Vietnam Pro')
+            ->favicon(asset('assets/ANC_icon.jpg'))
             ->brandLogo(fn () => view('filament.logo-anggota'))
             ->brandLogoHeight('3rem')
             ->renderHook(

@@ -20,8 +20,13 @@ class EventController extends Controller
                                ->get();
                                
         $aftermovieEvent = Event::with('documentations')->where('is_aftermovie', true)->first();
+        $pengurusData = PengurusController::getPengurusData();
 
-        return view('pages.home', compact('upcomingEvents', 'featuredEvents', 'aftermovieEvent'));
+        return view('pages.home', array_merge([
+            'upcomingEvents' => $upcomingEvents,
+            'featuredEvents' => $featuredEvents,
+            'aftermovieEvent' => $aftermovieEvent,
+        ], $pengurusData));
     }
 
     public function list(Request $request)

@@ -18,6 +18,7 @@
                     </div>
                     <!-- HERO SECTION -->
                     <section
+                        id="beranda"
                         class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin pt-space-lg md:pt-space-xl pb-space-2xl"
                     >
                         <div
@@ -32,20 +33,18 @@
                                     class="flex flex-wrap items-center gap-space-xs"
                                 >
                                     <div
-                                        class="inline-flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-primary/10 text-primary shadow-sm backdrop-blur-md"
+                                        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 border border-gray-200/80 shadow-xs backdrop-blur-md"
                                     >
+                                        <img src="{{ asset('assets/ANC_icon.jpg') }}" alt="ANC Logo" class="w-5 h-5 rounded-full object-cover ring-1 ring-primary/20 shrink-0" />
                                         <span
-                                            class="w-2 h-2 rounded-full bg-torii-vermilion animate-ping"
-                                        ></span>
-                                        <span
-                                            class="font-label-badge text-label-badge tracking-widest text-torii-vermilion font-bold"
+                                            class="text-xs tracking-wider text-torii-vermilion font-bold"
                                             >青空部</span
                                         >
-                                        <span class="text-secondary text-xs"
+                                        <span class="text-gray-300 text-xs"
                                             >•</span
                                         >
                                         <span
-                                            class="font-label-badge text-label-badge text-primary uppercase"
+                                            class="text-xs text-primary font-bold uppercase tracking-wide"
                                             >SMKN 1 Purwokerto</span
                                         >
                                     </div>
@@ -175,20 +174,12 @@
                                         class="flex items-center justify-between pb-space-sm"
                                     >
                                         <div
-                                            class="flex items-center gap-space-xs"
+                                            class="flex items-center gap-2"
                                         >
+                                            <img src="{{ asset('assets/ANC_icon.jpg') }}" alt="ANC Logo" class="w-4 h-4 rounded-full object-cover ring-1 ring-primary/20 shrink-0" />
                                             <span
-                                                class="w-3 h-3 rounded-full bg-torii-vermilion inline-block"
-                                            ></span>
-                                            <span
-                                                class="w-3 h-3 rounded-full bg-gold-shrine inline-block"
-                                            ></span>
-                                            <span
-                                                class="w-3 h-3 rounded-full bg-aozora-sky inline-block"
-                                            ></span>
-                                            <span
-                                                class="font-label-badge text-label-badge text-indigo-night ml-2 uppercase font-bold"
-                                                >CLUB AMBASSADOR</span
+                                                class="font-label-badge text-label-badge text-indigo-night uppercase font-bold"
+                                                >AOZORA NIHONGO CLUB</span
                                             >
                                         </div>
                                         <div
@@ -300,11 +291,12 @@
                             class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-xl"
                         >
                             <div
-                                class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-sakura-tint text-torii-vermilion font-label-badge text-label-badge mb-space-xs font-bold"
+                                class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200/80 shadow-xs text-xs font-bold uppercase tracking-wider mb-space-xs"
                             >
-                                <span class="">🌸 KEUNGGULAN KAMI</span>
-                                <span class="">•</span>
-                                <span class="">私たちについて</span>
+                                <img src="{{ asset('assets/ANC_icon.jpg') }}" alt="ANC Logo" class="w-4 h-4 rounded-full object-cover ring-1 ring-rose-200 shrink-0" />
+                                <span class="text-torii-vermilion">🌸 KEUNGGULAN KAMI</span>
+                                <span class="text-gray-300">•</span>
+                                <span class="text-gray-600">私たちについて</span>
                             </div>
                             <h2
                                 class="font-headline-lg text-headline-lg text-indigo-night tracking-tight"
@@ -581,13 +573,12 @@
                         >
                             <div class="flex flex-col">
                                 <div
-                                    class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-primary/10 text-primary font-label-badge text-label-badge mb-space-xs font-bold self-start"
+                                    class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200/80 shadow-xs text-xs font-bold uppercase tracking-wider mb-space-xs self-start"
                                 >
-                                    <span class=""
-                                        >⛩️ JADWAL &amp; DOKUMENTASI</span
-                                    >
-                                    <span class="">•</span>
-                                    <span class="">催し物</span>
+                                    <img src="{{ asset('assets/ANC_icon.jpg') }}" alt="ANC Logo" class="w-4 h-4 rounded-full object-cover ring-1 ring-primary/20 shrink-0" />
+                                    <span class="text-primary font-bold">⛩️ JADWAL &amp; DOKUMENTASI</span>
+                                    <span class="text-gray-300">•</span>
+                                    <span class="text-gray-600">催し物</span>
                                 </div>
                                 <h2
                                     class="font-headline-lg text-headline-lg text-indigo-night tracking-tight"
@@ -858,7 +849,11 @@
                         </div>
                     </div>
                 </section>
-                <!-- SECTION 4: KONTAK, JADWAL & REGISTRASI CEPAT -->
+
+                {{-- SECTION 4: DAFTAR PENGURUS & ANGGOTA --}}
+                @include('pages.partials.pengurus-section')
+
+                <!-- SECTION 5: KONTAK, JADWAL & REGISTRASI CEPAT -->
                 <section
                     class="w-full bg-surface-container-low/80 py-space-2xl relative"
                     id="kontak"
@@ -874,13 +869,12 @@
                                 class="lg:col-span-6 flex flex-col gap-space-md"
                             >
                                 <div
-                                    class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-torii-vermilion/10 text-torii-vermilion font-label-badge text-label-badge self-start font-bold"
+                                    class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200/80 shadow-xs text-xs font-bold uppercase tracking-wider mb-space-xs self-start"
                                 >
-                                    <span class=""
-                                        >⛩️ JADWAL &amp; SEKRETARIAT</span
-                                    >
-                                    <span class="">•</span>
-                                    <span class="">連絡先</span>
+                                    <img src="{{ asset('assets/ANC_icon.jpg') }}" alt="ANC Logo" class="w-4 h-4 rounded-full object-cover ring-1 ring-rose-200 shrink-0" />
+                                    <span class="text-torii-vermilion font-bold">⛩️ JADWAL &amp; SEKRETARIAT</span>
+                                    <span class="text-gray-300">•</span>
+                                    <span class="text-gray-600">連絡先</span>
                                 </div>
                                 <h2
                                     class="font-headline-lg text-headline-lg text-indigo-night tracking-tight"
@@ -905,11 +899,11 @@
                                     <div
                                         class="flex items-center gap-space-sm mb-space-md"
                                     >
-                                        <div
-                                            class="w-10 h-10 rounded-lg bg-torii-vermilion text-on-primary flex items-center justify-center font-headline-sm"
-                                        >
-                                            木
-                                        </div>
+                                        <img
+                                            src="{{ asset('assets/ANC_icon.jpg') }}"
+                                            alt="ANC Logo"
+                                            class="w-11 h-11 rounded-xl object-cover ring-1 ring-black/10 shrink-0 shadow-xs"
+                                        />
                                         <div class="flex flex-col">
                                             <span
                                                 class="font-label-badge text-label-badge text-torii-vermilion font-bold"

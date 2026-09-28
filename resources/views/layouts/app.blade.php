@@ -4,7 +4,10 @@
 
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Aozora Nihongo Club - SMKN 1 Purwokerto</title>
         <link rel="icon" type="image/jpeg" href="{{ asset('assets/ANC_icon.jpg') }}" />
+        <link rel="shortcut icon" href="{{ asset('assets/ANC_icon.jpg') }}" />
+        <link rel="apple-touch-icon" href="{{ asset('assets/ANC_icon.jpg') }}" />
         <link
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
             rel="stylesheet"
@@ -53,90 +56,75 @@
     {{-- Top Livewire Loading Indicator --}}
     <div wire:loading class="wire-loading-indicator"></div>
 
-    <header class="fixed top-0 left-0 w-full z-50 bg-cloud-white/95 backdrop-blur-xl border-b border-surface-container-high/60 shadow-[0_4px_24px_-4px_rgba(13,89,242,0.08)]">
-        <div class="h-20 max-w-[1280px] mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-md">
-            {{-- Brand Logo --}}
-            <div class="flex items-center gap-space-md">
-                <a
-                    class="flex items-center gap-space-sm group"
-                    href="{{ route('home') }}"
-                    wire:navigate.hover
-                    title="Aozora Nihongo Club Purwokerto"
-                >
-                    <div class="w-11 h-11 rounded-2xl bg-sakura-tint border border-torii-vermilion/20 flex items-center justify-center font-headline-md text-headline-md tracking-tighter shadow-sm brand-logo-hover">
-                        <span class="text-torii-vermilion">青</span><span class="text-aozora-sky">空</span>
+    <header class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-xs transition-all duration-200">
+        <div class="h-20 max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between gap-4">
+            {{-- Brand Logo with Official ANC Image --}}
+            <a
+                class="flex items-center gap-3 group"
+                href="/#beranda"
+                title="Aozora Nihongo Club Purwokerto"
+            >
+                <img
+                    src="{{ asset('assets/ANC_icon.jpg') }}"
+                    alt="ANC Logo"
+                    class="w-10 h-10 rounded-xl object-cover shadow-sm ring-1 ring-black/5 group-hover:scale-105 transition-transform"
+                />
+                <div class="flex flex-col leading-tight">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-lg font-bold text-gray-900 tracking-tight">Aozora</span>
+                        <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 border border-rose-100">日本語部</span>
                     </div>
-                    <div class="flex flex-col leading-tight">
-                        <div class="flex items-center gap-space-xs">
-                            <span class="font-headline-sm text-headline-sm tracking-tight text-indigo-night font-bold">Aozora</span>
-                            <span class="font-label-badge text-label-badge px-2 py-0.5 rounded-full bg-sakura-tint text-torii-vermilion font-bold">日本語部</span>
-                        </div>
-                        <span class="font-label-md text-xs text-secondary tracking-wider uppercase font-semibold">SMKN 1 Purwokerto</span>
-                    </div>
-                </a>
-            </div>
+                    <span class="text-xs text-gray-500 font-medium tracking-wide">SMKN 1 Purwokerto</span>
+                </div>
+            </a>
 
-            {{-- Desktop Navigation (Interactive Pills with Hover & Active Indicators) --}}
-            <nav class="hidden lg:flex items-center p-1.5 rounded-full bg-surface-container-low/80 border border-surface-container-high/60 shadow-inner">
+            {{-- Desktop Navigation (Simple, clean, consistent) --}}
+            <nav class="hidden lg:flex items-center gap-8">
                 <a
-                    class="nav-item nav-link {{ request()->routeIs('home') && !request()->has('tentang') ? 'active' : '' }}"
-                    data-target="beranda"
-                    href="{{ route('home') }}"
-                    wire:navigate.hover
+                    class="nav-anchor text-sm font-medium text-gray-600 hover:text-primary transition-colors cursor-pointer"
+                    href="/#beranda"
                 >
-                    <span class="material-symbols-outlined text-lg mr-1.5 opacity-70">home</span>
                     Beranda
                 </a>
                 <a
-                    class="nav-item nav-link"
-                    data-target="tentang"
-                    href="{{ route('home') }}#tentang"
+                    class="nav-anchor text-sm font-medium text-gray-600 hover:text-primary transition-colors cursor-pointer"
+                    href="/#tentang"
                 >
                     Tentang Kami
                 </a>
                 <a
-                    class="nav-item nav-link {{ request()->routeIs('events.*') ? 'active' : '' }}"
-                    data-target="event"
-                    href="{{ route('events.index') }}"
-                    wire:navigate.hover
+                    class="nav-anchor text-sm font-medium text-gray-600 hover:text-primary transition-colors cursor-pointer"
+                    href="/#event"
                 >
-                    <span class="material-symbols-outlined text-lg mr-1.5 opacity-70">celebration</span>
                     Event &amp; Matsuri
                 </a>
                 <a
-                    class="nav-item nav-link {{ request()->routeIs('pengurus') ? 'active' : '' }}"
-                    data-target="pengurus"
-                    href="{{ route('pengurus') }}"
-                    wire:navigate.hover
+                    class="nav-anchor text-sm font-medium text-gray-600 hover:text-primary transition-colors cursor-pointer"
+                    href="/#pengurus"
                 >
-                    <span class="material-symbols-outlined text-lg mr-1.5 opacity-70">groups</span>
                     Daftar Pengurus
                 </a>
                 <a
-                    class="nav-item nav-link"
-                    data-target="kontak"
-                    href="{{ route('home') }}#kontak"
+                    class="nav-anchor text-sm font-medium text-gray-600 hover:text-primary transition-colors cursor-pointer"
+                    href="/#kontak"
                 >
                     Kontak
                 </a>
             </nav>
 
             {{-- Right Header Actions (Auth / Portal / Mobile Menu) --}}
-            <div class="flex items-center gap-space-sm">
+            <div class="flex items-center gap-3">
                 @guest
                     {{-- Tombol Buka Portal Login --}}
                     <button
                         id="btn-open-login-modal"
                         type="button"
                         onclick="openLoginModal()"
-                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cloud-white hover:bg-primary/5 text-primary border border-primary/20 hover:border-primary/50 shadow-sm hover:shadow transition-all duration-200 cursor-pointer group"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-white font-medium text-sm shadow-sm hover:shadow transition-all cursor-pointer"
                         title="Portal Internal Aozora (Admin, Inventaris, Anggota)"
                     >
-                        <div class="w-7 h-7 rounded-full overflow-hidden shadow-xs ring-2 ring-primary/20 group-hover:scale-105 transition-transform">
-                            <img alt="ANC Icon" class="w-full h-full object-cover" src="{{ asset('assets/ANC_icon.jpg') }}" />
-                        </div>
-                        <span class="font-label-md text-sm font-bold text-indigo-night group-hover:text-primary">Portal Masuk</span>
-                        <span class="material-symbols-outlined text-base text-primary/70 group-hover:translate-x-0.5 transition-transform">login</span>
+                        <span class="material-symbols-outlined text-base">login</span>
+                        <span>Portal Masuk</span>
                     </button>
                 @else
                     {{-- User Authenticated Chip & Dropdown --}}
@@ -251,119 +239,67 @@
         {{-- Mobile Drawer Navigation --}}
         <div
             id="mobile-drawer"
-            class="hidden lg:hidden border-t border-surface-container-high/60 bg-cloud-white/98 backdrop-blur-xl px-margin-mobile py-4 shadow-xl"
+            class="hidden lg:hidden border-t border-gray-100 bg-white/98 backdrop-blur-xl px-4 py-4 shadow-xl"
         >
-            <nav class="flex flex-col gap-1.5">
+            <div class="flex items-center gap-3 px-3 py-2.5 mb-3 rounded-xl bg-gray-50 border border-gray-100">
+                <img
+                    src="{{ asset('assets/ANC_icon.jpg') }}"
+                    alt="ANC Logo"
+                    class="w-10 h-10 rounded-xl object-cover ring-1 ring-black/5"
+                />
+                <div class="flex flex-col">
+                    <span class="text-sm font-bold text-gray-900">Aozora Nihongo Club</span>
+                    <span class="text-xs text-gray-500">SMKN 1 Purwokerto</span>
+                </div>
+            </div>
+            <nav class="flex flex-col gap-1">
                 <a
-                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-indigo-night hover:bg-primary/8 hover:text-primary flex items-center gap-2.5 transition-colors {{ request()->routeIs('home') ? 'bg-primary/10 text-primary font-bold' : '' }}"
-                    href="{{ route('home') }}"
-                    wire:navigate.hover
+                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2.5 transition-colors"
+                    href="/#beranda"
                     onclick="toggleMobileDrawer()"
                 >
                     <span class="material-symbols-outlined text-lg">home</span>
                     Beranda
                 </a>
                 <a
-                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-indigo-night hover:bg-primary/8 hover:text-primary flex items-center gap-2.5 transition-colors"
-                    href="{{ route('home') }}#tentang"
+                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2.5 transition-colors"
+                    href="/#tentang"
                     onclick="toggleMobileDrawer()"
                 >
                     <span class="material-symbols-outlined text-lg">info</span>
                     Tentang Kami
                 </a>
                 <a
-                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-indigo-night hover:bg-primary/8 hover:text-primary flex items-center gap-2.5 transition-colors {{ request()->routeIs('events.*') ? 'bg-primary/10 text-primary font-bold' : '' }}"
-                    href="{{ route('events.index') }}"
-                    wire:navigate.hover
+                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2.5 transition-colors"
+                    href="/#event"
                     onclick="toggleMobileDrawer()"
                 >
                     <span class="material-symbols-outlined text-lg">celebration</span>
                     Event &amp; Matsuri
                 </a>
                 <a
-                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-indigo-night hover:bg-primary/8 hover:text-primary flex items-center gap-2.5 transition-colors {{ request()->routeIs('pengurus') ? 'bg-primary/10 text-primary font-bold' : '' }}"
-                    href="{{ route('pengurus') }}"
-                    wire:navigate.hover
+                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2.5 transition-colors"
+                    href="/#pengurus"
                     onclick="toggleMobileDrawer()"
                 >
                     <span class="material-symbols-outlined text-lg">groups</span>
                     Daftar Pengurus
                 </a>
                 <a
-                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-indigo-night hover:bg-primary/8 hover:text-primary flex items-center gap-2.5 transition-colors"
-                    href="{{ route('home') }}#kontak"
+                    class="px-4 py-2.5 rounded-xl font-medium text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2.5 transition-colors"
+                    href="/#kontak"
                     onclick="toggleMobileDrawer()"
                 >
-                    <span class="material-symbols-outlined text-lg">alternate_email</span>
+                    <span class="material-symbols-outlined text-lg">call</span>
                     Kontak
                 </a>
             </nav>
         </div>
     </header>
 
-
     <main class="w-full pt-20 bg-surface min-h-screen">
         @yield('content')
     </main>
-    <!-- CLIENT INTERACTIVE SCRIPT -->
-            <script>
-                // 1. ScrollSpy & Active Link Manager
-                document.addEventListener("DOMContentLoaded", () => {
-                    const navLinks = document.querySelectorAll('.nav-link');
-                    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.php';
-                    
-                    // Helper to set active styling
-                    const setActiveLink = (targetId) => {
-                        navLinks.forEach(link => {
-                            if (link.getAttribute('data-target') === 'event' || link.getAttribute('data-target') === 'pengurus') return; // Handled by server routing
-                            
-                            link.classList.remove('active');
-                            link.classList.add('text-on-surface-variant', 'hover:text-on-surface');
-                            
-                            if (link.getAttribute('data-target') === targetId) {
-                                link.classList.remove('text-on-surface-variant', 'hover:text-on-surface');
-                                link.classList.add('active');
-                            }
-                        });
-                    };
-
-                    if (isHomePage) {
-                        // Handle scroll spy manually to support tall sections
-                        const sections = ['beranda-hero', 'tentang', 'kontak'].map(id => document.getElementById(id)).filter(el => el);
-                        
-                        const onScroll = () => {
-                            let current = 'beranda';
-                            if (window.scrollY < 200) {
-                                current = 'beranda';
-                            } else {
-                                sections.forEach(sec => {
-                                    if (sec && window.scrollY >= (sec.offsetTop - 150)) {
-                                        current = sec.id === 'beranda-hero' ? 'beranda' : sec.id;
-                                    }
-                                });
-                            }
-                            setActiveLink(current);
-                        };
-
-                        window.addEventListener('scroll', onScroll);
-                        
-                        // Handle initial load and manual clicks
-                        const currentHash = window.location.hash.substring(1);
-                        if (currentHash) {
-                            setActiveLink(currentHash);
-                        } else {
-                            onScroll();
-                        }
-
-                        window.addEventListener('hashchange', () => {
-                            setActiveLink(window.location.hash.substring(1));
-                        });
-                    } else {
-                        // Not home page, so highlight Beranda if they came from it? No, if it's not home, and not events, just leave it.
-                    }
-                });
-            </script>
-        </main>
         <footer
             class="w-full bg-indigo-night text-cloud-white pt-space-2xl pb-space-xl relative overflow-hidden"
         >
@@ -380,14 +316,14 @@
                 >
                     <div class="flex flex-col gap-space-md">
                         <div class="flex items-center gap-space-sm">
-                            <div
-                                class="w-9 h-9 rounded-lg bg-cloud-white/10 flex items-center justify-center font-headline-sm text-headline-sm text-aozora-sky"
-                            >
-                                青
-                            </div>
+                            <img
+                                src="{{ asset('assets/ANC_icon.jpg') }}"
+                                alt="ANC Logo"
+                                class="w-9 h-9 rounded-lg object-cover ring-1 ring-white/20 shrink-0"
+                            />
                             <span
                                 class="font-headline-sm text-headline-sm tracking-tight text-cloud-white"
-                                >Aozora Nihongo</span
+                                >Aozora Nihongo Club</span
                             >
                         </div>
                         <p
@@ -634,20 +570,6 @@
                         <span class="material-symbols-outlined text-base">arrow_forward</span>
                     </button>
                 </form>
-
-                {{-- Hint Akun Seeder --}}
-                <div class="mt-4 p-3 rounded-xl bg-surface-container-low border border-surface-container-high/60 text-[11px] text-secondary">
-                    <p class="font-bold text-indigo-night mb-1 flex items-center gap-1">
-                        <span class="material-symbols-outlined text-sm text-gold-shrine">lightbulb</span>
-                        Akun Tersedia untuk Pengujian:
-                    </p>
-                    <ul class="space-y-0.5">
-                        <li>• <strong>Admin:</strong> <code class="text-primary font-mono">admin@aozora.local</code></li>
-                        <li>• <strong>Inventaris:</strong> <code class="text-primary font-mono">inventaris@aozora.local</code></li>
-                        <li>• <strong>Anggota:</strong> <code class="text-primary font-mono">anggota@aozora.local</code></li>
-                        <li>• Password semua akun: <code class="text-indigo-night font-mono font-bold">password</code></li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
