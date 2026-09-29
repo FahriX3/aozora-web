@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/jpeg" href="{{ asset('assets/ANC_icon.jpg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/ANC_icon.png') }}">
     <title>Struktur Pengurus Organisasi - Aozora Nihongo Club</title>
 
     <!-- Google Fonts & Material Symbols -->

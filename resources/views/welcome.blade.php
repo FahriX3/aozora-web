@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/jpeg" href="{{ asset('assets/ANC_icon.jpg') }}">
+        <link rel="icon" type="image/png" href="{{ asset('assets/ANC_icon.png') }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 

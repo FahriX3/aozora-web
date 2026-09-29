@@ -9,7 +9,7 @@
         {{-- Section Header --}}
         <div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-12">
             <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-rose-100 shadow-xs text-xs font-bold uppercase tracking-wider mb-3">
-                <img src="{{ asset('assets/ANC_icon.jpg') }}" alt="ANC Logo" class="w-4 h-4 rounded-full object-cover ring-1 ring-rose-200" />
+                <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Logo" class="w-4 h-4 rounded-full object-cover ring-1 ring-rose-200" />
                 <span class="text-rose-600">STRUKTUR ORGANISASI ANC</span>
                 <span class="text-gray-300">•</span>
                 <span class="text-gray-500">2026/2027</span>

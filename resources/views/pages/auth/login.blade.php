@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/jpeg" href="{{ asset('assets/ANC_icon.jpg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/ANC_icon.png') }}">
     <title>Login Admin - Aozora Nihongo Club</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
@@ -16,7 +16,7 @@
 <body class="bg-surface-container-low min-h-screen flex items-center justify-center p-4">
     <div class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-xl overflow-hidden">
         <div class="bg-primary p-6 text-center flex flex-col items-center">
-            <img src="{{ asset('assets/ANC_icon.jpg') }}" alt="ANC Logo" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-white/30 shadow-md mb-3" />
+            <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Logo" class="w-16 h-16 rounded-full object-cover ring-2 ring-white/30 shadow-md mb-3" />
             <h2 class="text-2xl font-bold text-on-primary font-headline-md tracking-tight">Portal Admin Aozora</h2>
             <p class="text-on-primary-container text-sm mt-1">Masuk untuk mengelola event &amp; dokumentasi.</p>
         </div>
