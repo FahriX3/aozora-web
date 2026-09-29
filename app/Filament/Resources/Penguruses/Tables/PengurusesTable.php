@@ -18,6 +18,7 @@ class PengurusesTable
             ->columns([
                 ImageColumn::make('avatar')
                     ->label('Foto')
+                    ->disk('public')
                     ->circular(),
                 TextColumn::make('nama')
                     ->label('Nama')

@@ -20,7 +20,7 @@ class LoanForm
                     ->numeric(),
                 TextInput::make('external_borrower_name'),
                 TextInput::make('external_borrower_origin'),
-                TextInput::make('item_id')
+                TextInput::make('inventaris_item_id')
                     ->required()
                     ->numeric(),
                 TextInput::make('quantity')
@@ -51,3 +51,4 @@ class LoanForm
             ]);
     }
 }
+

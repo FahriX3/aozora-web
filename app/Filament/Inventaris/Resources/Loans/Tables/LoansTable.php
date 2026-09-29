@@ -16,13 +16,14 @@ class LoansTable
             ->columns([
                 \Filament\Tables\Columns\ImageColumn::make('borrow_proof_image')
                     ->label('Bukti')
+                    ->disk('public')
                     ->circular(),
                 TextColumn::make('borrower_name')
                     ->label('Peminjam')
                     ->getStateUsing(fn ($record) => $record->borrower_type === 'internal' ? $record->user?->name : $record->external_borrower_name . ' (Eksternal)')
                     ->searchable(['external_borrower_name'])
                     ->sortable(),
-                TextColumn::make('item.name')
+                TextColumn::make('inventarisItem.nama_barang')
                     ->label('Barang')
                     ->searchable()
                     ->sortable(),
@@ -78,3 +79,4 @@ class LoansTable
             ]);
     }
 }
+

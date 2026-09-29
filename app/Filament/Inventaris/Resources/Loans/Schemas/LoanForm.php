@@ -45,8 +45,8 @@ class LoanForm
                                 ->label('Asal / Instansi / Kelas (Bebas)')
                                 ->hidden(fn ($get) => $get('borrower_type') === 'internal'),
 
-                            \Filament\Forms\Components\Select::make('item_id')
-                                ->relationship('item', 'name')
+                            \Filament\Forms\Components\Select::make('inventaris_item_id')
+                                ->relationship('inventarisItem', 'nama_barang')
                                 ->searchable()
                                 ->preload()
                                 ->label('Barang')
@@ -80,6 +80,8 @@ class LoanForm
                                 ->image()
                                 ->imageEditor()
                                 ->directory('proofs')
+                                ->disk('public')
+                                ->visibility('public')
                                 ->required(),
                             \Filament\Forms\Components\Hidden::make('recorded_by_id')
                                 ->default(fn () => auth()->id()),
@@ -102,3 +104,4 @@ class LoanForm
             ]);
     }
 }
+

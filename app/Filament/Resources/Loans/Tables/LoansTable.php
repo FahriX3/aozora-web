@@ -28,7 +28,7 @@ class LoansTable
                 TextColumn::make('external_borrower_origin')
                     ->label('External Origin')
                     ->searchable(),
-                TextColumn::make('item.name')
+                TextColumn::make('inventarisItem.nama_barang')
                     ->label('Item')
                     ->searchable()
                     ->sortable(),
@@ -47,8 +47,10 @@ class LoansTable
                     ->searchable(),
                 TextColumn::make('condition_when_returned')
                     ->searchable(),
-                ImageColumn::make('borrow_proof_image'),
-                ImageColumn::make('return_proof_image'),
+                ImageColumn::make('borrow_proof_image')
+                    ->disk('public'),
+                ImageColumn::make('return_proof_image')
+                    ->disk('public'),
                 TextColumn::make('recordedBy.name')
                     ->label('Borrow Recorded By')
                     ->searchable()
@@ -88,3 +90,4 @@ class LoansTable
             ]);
     }
 }
+

@@ -4,7 +4,6 @@ namespace App\Filament\Inventaris\Resources;
 
 use App\Filament\Inventaris\Resources\ReturnResource\Pages;
 use App\Models\Loan;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
@@ -16,9 +15,9 @@ class ReturnResource extends Resource
     protected static ?string $model = Loan::class;
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-arrow-path-rounded-square';
-    
+
     protected static ?string $navigationLabel = 'Pengembalian';
-    
+
     protected static ?string $pluralModelLabel = 'Pengembalian';
 
     public static function table(Table $table): Table
@@ -28,15 +27,16 @@ class ReturnResource extends Resource
             ->columns([
                 ImageColumn::make('borrow_proof_image')
                     ->label('Bukti Pinjam')
+                    ->disk('public')
                     ->circular(),
                 TextColumn::make('borrower_name')
                     ->label('Peminjam')
                     ->getStateUsing(fn ($record) => $record->borrower_type === 'internal' ? $record->user?->name : $record->external_borrower_name . ' (Eksternal)')
                     ->searchable(['external_borrower_name']),
-                TextColumn::make('item.name')
+                TextColumn::make('inventarisItem.nama_barang')
                     ->label('Barang'),
                 TextColumn::make('quantity')
-                    ->label('Jml')
+                    ->label('Jml Dipinjam')
                     ->numeric(),
                 TextColumn::make('borrow_date')
                     ->label('Tgl Pinjam')
@@ -51,37 +51,82 @@ class ReturnResource extends Resource
                         \Filament\Forms\Components\Select::make('status')
                             ->label('Status Pengembalian')
                             ->options([
-                                'returned' => 'Sudah Dikembalikan (Normal)',
+                                'returned' => 'Sudah Dikembalikan',
                                 'late' => 'Terlambat',
-                                'damaged' => 'Rusak',
-                                'lost' => 'Hilang',
                             ])
                             ->default('returned')
                             ->required(),
+
+                        \Filament\Forms\Components\TextInput::make('returned_quantity_damaged')
+                            ->label('Jml Kembali Rusak')
+                            ->numeric()
+                            ->default(0)
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function ($set, $get, $record, $state) {
+                                $damaged = (int) $state;
+                                $lost = (int) $get('returned_quantity_lost');
+                                $normal = $record->quantity - $damaged - $lost;
+                                if ($normal < 0) {
+                                    $normal = 0;
+                                }
+                                $set('returned_quantity_normal', $normal);
+                            })
+                            ->required(),
+
+                        \Filament\Forms\Components\TextInput::make('returned_quantity_lost')
+                            ->label('Jml Hilang')
+                            ->numeric()
+                            ->default(0)
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function ($set, $get, $record, $state) {
+                                $lost = (int) $state;
+                                $damaged = (int) $get('returned_quantity_damaged');
+                                $normal = $record->quantity - $damaged - $lost;
+                                if ($normal < 0) {
+                                    $normal = 0;
+                                }
+                                $set('returned_quantity_normal', $normal);
+                            })
+                            ->required(),
+
+                        \Filament\Forms\Components\TextInput::make('returned_quantity_normal')
+                            ->label('Jml Kembali Normal')
+                            ->numeric()
+                            ->default(fn ($record) => $record->quantity)
+                            ->readOnly()
+                            ->required()
+                            ->rules([
+                                fn ($get, $record) => function (string $attribute, $value, \Closure $fail) use ($get, $record) {
+                                    $total = (int) $value + (int) $get('returned_quantity_damaged') + (int) $get('returned_quantity_lost');
+                                    if ($total !== $record->quantity) {
+                                        $fail("Total keseluruhan (Normal + Rusak + Hilang) harus sama dengan jumlah yang dipinjam ({$record->quantity} unit).");
+                                    }
+                                },
+                            ]),
+
+                        \Filament\Forms\Components\Textarea::make('return_notes')
+                            ->label('Catatan & Deskripsi Kerusakan')
+                            ->helperText('Wajib diisi jika ada barang rusak atau hilang.')
+                            ->required(fn ($get) => (int) $get('returned_quantity_damaged') > 0 || (int) $get('returned_quantity_lost') > 0),
+
                         \Filament\Forms\Components\DateTimePicker::make('return_date')
                             ->label('Waktu Pengembalian')
                             ->default(now())
                             ->required(),
-                        \Filament\Forms\Components\Select::make('condition_when_returned')
-                            ->label('Kondisi Saat Dikembalikan')
-                            ->options([
-                                'Sangat Baik' => 'Sangat Baik',
-                                'Baik' => 'Baik',
-                                'Kurang Baik' => 'Kurang Baik',
-                                'Rusak' => 'Rusak',
-                            ])
-                            ->default('Baik')
-                            ->required(),
+
                         \Filament\Forms\Components\FileUpload::make('return_proof_image')
-                            ->label('Foto Bukti Pengembalian')
+                            ->label('Foto Bukti Pengembalian & Kondisi Barang')
                             ->image()
                             ->imageEditor()
                             ->directory('proofs')
+                            ->disk('public')
+                            ->visibility('public')
                             ->required(),
+
                         \Filament\Forms\Components\Hidden::make('return_recorded_by_id')
-                            ->default(fn() => auth()->id()),
+                            ->default(fn () => auth()->id()),
                         \Filament\Forms\Components\Hidden::make('return_recorder_ip')
-                            ->default(fn() => request()->ip()),
+                            ->default(fn () => request()->ip()),
                         \Filament\Forms\Components\Hidden::make('return_recorder_location')
                             ->extraAttributes([
                                 'x-data' => '{}',
@@ -91,7 +136,7 @@ class ReturnResource extends Resource
                                             $wire.set("mountedTableActionsData.0.return_recorder_location", pos.coords.latitude + "," + pos.coords.longitude);
                                         });
                                     }
-                                })'
+                                })',
                             ]),
                     ])
                     ->action(function ($record, array $data): void {

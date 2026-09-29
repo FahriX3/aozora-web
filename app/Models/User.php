@@ -13,10 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
-
-#[Fillable(['name', 'email', 'password', 'role'])]
+#[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements FilamentUser
 {
@@ -56,17 +53,6 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasOne(Pengurus::class);
     }
-
-    public function canAccessPanel(Panel $panel): bool
-    {
-        if ($panel->getId() === 'admin') {
-            return $this->role === 'admin';
-        }
-
-        if ($panel->getId() === 'inventaris') {
-            return in_array($this->role, ['admin', 'pengurus']);
-        }
-
-        return true;
-    }
 }
+
+
