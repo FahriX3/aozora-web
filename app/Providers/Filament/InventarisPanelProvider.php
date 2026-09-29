@@ -10,8 +10,6 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -26,9 +24,27 @@ class InventarisPanelProvider extends PanelProvider
         return $panel
             ->id('inventaris')
             ->path('inventaris')
+            ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::hex('#0F766E'), // Teal
+                'danger' => Color::hex('#D32F2F'),  // Vermilion
+                'gray' => Color::Slate,
+                'info' => Color::hex('#0284C7'),
+                'success' => Color::hex('#10B981'),
+                'warning' => Color::hex('#F59E0B'),
             ])
+            ->font('Be Vietnam Pro')
+            ->favicon(asset('assets/ANC_icon.jpg'))
+            ->brandLogo(fn () => view('filament.logo-inventaris'))
+            ->brandLogoHeight('3rem')
+            ->renderHook(
+                \Filament\View\PanelsRenderHook::SIDEBAR_NAV_END,
+                fn () => view('filament.sidebar-footer')
+            )
+            ->renderHook(
+                \Filament\View\PanelsRenderHook::TOPBAR_LOGO_AFTER,
+                fn () => view('filament.topbar-start')
+            )
             ->discoverResources(in: app_path('Filament/Inventaris/Resources'), for: 'App\Filament\Inventaris\Resources')
             ->discoverPages(in: app_path('Filament/Inventaris/Pages'), for: 'App\Filament\Inventaris\Pages')
             ->pages([
@@ -36,8 +52,8 @@ class InventarisPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Inventaris/Widgets'), for: 'App\Filament\Inventaris\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                \App\Filament\Inventaris\Widgets\InventarisStatsOverview::class,
+                \App\Filament\Inventaris\Widgets\RecentTransaksiWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

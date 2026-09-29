@@ -15,10 +15,10 @@
 </head>
 <body class="bg-surface-container-low min-h-screen flex items-center justify-center p-4">
     <div class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-xl overflow-hidden">
-        <div class="bg-primary p-6 text-center">
-            <span class="material-symbols-outlined text-on-primary text-5xl mb-2">cyclone</span>
+        <div class="bg-primary p-6 text-center flex flex-col items-center">
+            <img src="{{ asset('assets/ANC_icon.jpg') }}" alt="ANC Logo" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-white/30 shadow-md mb-3" />
             <h2 class="text-2xl font-bold text-on-primary font-headline-md tracking-tight">Portal Admin Aozora</h2>
-            <p class="text-on-primary-container text-sm mt-1">Masuk untuk mengelola event & dokumentasi.</p>
+            <p class="text-on-primary-container text-sm mt-1">Masuk untuk mengelola event &amp; dokumentasi.</p>
         </div>
         
         <div class="p-8">

@@ -22,15 +22,22 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
+            /** @var \App\Models\User $user */
             $user = Auth::user();
-            
-            if ($user->role === 'admin') {
-                return redirect('/admin');
-            } elseif ($user->role === 'pengurus') {
-                return redirect('/inventaris');
+
+            if ($user->hasRole('super_admin') || $user->hasRole('admin')) {
+                return redirect()->intended('/admin');
             }
 
-            return redirect('/');
+            if ($user->hasRole('koordinator_inventaris')) {
+                return redirect()->intended('/inventaris');
+            }
+
+            if ($user->hasRole('anggota')) {
+                return redirect()->intended('/anggota');
+            }
+
+            return redirect()->intended('/admin');
         }
 
         return back()->withErrors([

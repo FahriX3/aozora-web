@@ -22,13 +22,13 @@
     <section class="w-full pb-8 relative z-10">
         <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin flex justify-center">
             <div class="inline-flex p-1 rounded-xl bg-surface-container shadow-inner">
-                <a href="{{ route('events.index') }}" class="px-6 py-2.5 rounded-lg font-label-md text-label-md transition-all {{ !request('filter') ? 'bg-cloud-white text-primary shadow-sm font-bold' : 'text-secondary hover:text-indigo-night' }}">
+                <a href="{{ route('events.index') }}" wire:navigate.hover class="px-6 py-2.5 rounded-lg font-label-md text-label-md transition-all {{ !request('filter') ? 'bg-cloud-white text-primary shadow-sm font-bold' : 'text-secondary hover:text-indigo-night' }}">
                     Semua Agenda
                 </a>
-                <a href="{{ route('events.index', ['filter' => 'upcoming']) }}" class="px-6 py-2.5 rounded-lg font-label-md text-label-md transition-all {{ request('filter') === 'upcoming' ? 'bg-cloud-white text-primary shadow-sm font-bold' : 'text-secondary hover:text-indigo-night' }}">
+                <a href="{{ route('events.index', ['filter' => 'upcoming']) }}" wire:navigate.hover class="px-6 py-2.5 rounded-lg font-label-md text-label-md transition-all {{ request('filter') === 'upcoming' ? 'bg-cloud-white text-primary shadow-sm font-bold' : 'text-secondary hover:text-indigo-night' }}">
                     Mendatang (Upcoming)
                 </a>
-                <a href="{{ route('events.index', ['filter' => 'completed']) }}" class="px-6 py-2.5 rounded-lg font-label-md text-label-md transition-all {{ request('filter') === 'completed' ? 'bg-cloud-white text-primary shadow-sm font-bold' : 'text-secondary hover:text-indigo-night' }}">
+                <a href="{{ route('events.index', ['filter' => 'completed']) }}" wire:navigate.hover class="px-6 py-2.5 rounded-lg font-label-md text-label-md transition-all {{ request('filter') === 'completed' ? 'bg-cloud-white text-primary shadow-sm font-bold' : 'text-secondary hover:text-indigo-night' }}">
                     Selesai (Completed)
                 </a>
             </div>
@@ -101,7 +101,7 @@
                         @endif
                     </div>
                     <div class="px-space-lg pb-space-lg">
-                        <a href="{{ route('event.detail', $event->slug) }}" class="w-full py-2.5 rounded-lg {{ $event->status === 'completed' ? 'bg-surface-container hover:bg-torii-vermilion hover:text-cloud-white' : 'bg-surface-container hover:bg-gold-shrine hover:text-indigo-night' }} text-indigo-night font-label-md text-label-md font-bold transition-colors flex items-center justify-center gap-space-xs">
+                        <a href="{{ route('event.detail', $event->slug) }}" wire:navigate.hover class="w-full py-2.5 rounded-lg {{ $event->status === 'completed' ? 'bg-surface-container hover:bg-torii-vermilion hover:text-cloud-white' : 'bg-surface-container hover:bg-gold-shrine hover:text-indigo-night' }} text-indigo-night font-label-md text-label-md font-bold transition-colors flex items-center justify-center gap-space-xs">
                             <span class="">{{ $event->status === 'completed' ? 'Lihat Dokumentasi' : 'Registrasi / Detail' }}</span>
                             <span class="material-symbols-outlined text-sm">arrow_forward</span>
                         </a>

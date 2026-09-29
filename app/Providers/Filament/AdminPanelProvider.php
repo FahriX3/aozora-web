@@ -28,14 +28,15 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->colors([
-                'primary' => Color::hex('#0043c0'),
-                'danger' => Color::hex('#ba1a1a'),
+                'primary' => Color::hex('#0D59F2'),
+                'danger' => Color::hex('#D32F2F'),
                 'gray' => Color::Slate,
-                'info' => Color::hex('#38BDF8'),
-                'success' => Color::Emerald,
+                'info' => Color::hex('#0284C7'),
+                'success' => Color::hex('#10B981'),
                 'warning' => Color::hex('#F59E0B'),
             ])
             ->font('Be Vietnam Pro')
+            ->favicon(asset('assets/ANC_icon.jpg'))
             ->brandLogo(fn () => view('filament.logo'))
             ->brandLogoHeight('3rem')
             ->renderHook(
@@ -53,8 +54,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                \App\Filament\Widgets\StatsOverview::class,
+                \App\Filament\Widgets\LatestEventsWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
