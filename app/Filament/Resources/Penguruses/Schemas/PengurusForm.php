@@ -19,6 +19,11 @@ class PengurusForm
                     ->description('Kelola detail identitas dan posisi pengurus organisasi.')
                     ->schema([
                         Grid::make(2)->schema([
+                            Select::make('user_id')
+                                ->label('Akun User (Opsional)')
+                                ->relationship('user', 'name')
+                                ->searchable()
+                                ->preload(),
                             TextInput::make('nama')
                                 ->label('Nama Lengkap')
                                 ->required()
