@@ -1,9 +1,9 @@
 <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; min-width: 220px;">
     <div style="display: flex; align-items: center; gap: 0.75rem;">
         <img
-            src="{{ asset('assets/ANC_icon.jpg') }}"
+            src="{{ asset('assets/ANC_icon.png') }}"
             alt="ANC Logo"
-            style="width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; object-fit: cover; box-shadow: 0 4px 14px rgba(15,118,110,0.25); border: 1.5px solid rgba(15,118,110,0.2); flex-shrink: 0;"
+            style="width: 2.5rem; height: 2.5rem; border-radius: 9999px; object-fit: cover; box-shadow: 0 4px 14px rgba(15,118,110,0.25); border: 1.5px solid rgba(15,118,110,0.2); flex-shrink: 0;"
         />
         <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2;">
             <div style="display: flex; align-items: center; gap: 0.375rem;">
