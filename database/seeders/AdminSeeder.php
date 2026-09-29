@@ -54,7 +54,17 @@ class AdminSeeder extends Seeder
         );
         $koor->syncRoles(['koordinator_inventaris']);
 
-        // 4. Anggota
+        // 4. PDD (Publikasi & Dokumentasi)
+        $pdd = User::updateOrCreate(
+            ['email' => 'pdd@aozora.local'],
+            [
+                'name' => 'Koordinator PDD',
+                'password' => Hash::make('password'),
+            ]
+        );
+        $pdd->syncRoles(['pdd']);
+
+        // 5. Anggota
         $anggota = User::updateOrCreate(
             ['email' => 'anggota@aozora.local'],
             [

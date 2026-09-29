@@ -34,9 +34,15 @@ class InventarisPanelProvider extends PanelProvider
                 'warning' => Color::hex('#F59E0B'),
             ])
             ->font('Be Vietnam Pro')
-            ->favicon(asset('assets/ANC_icon.jpg'))
+            ->favicon(asset('assets/ANC_icon.png'))
             ->brandLogo(fn () => view('filament.logo-inventaris'))
             ->brandLogoHeight('3rem')
+            ->userMenuItems([
+                'home' => \Filament\Navigation\MenuItem::make()
+                    ->label('Buka Website Utama')
+                    ->url('/')
+                    ->icon('heroicon-o-arrow-top-right-on-square'),
+            ])
             ->renderHook(
                 \Filament\View\PanelsRenderHook::SIDEBAR_NAV_END,
                 fn () => view('filament.sidebar-footer')
@@ -53,7 +59,7 @@ class InventarisPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Inventaris/Widgets'), for: 'App\Filament\Inventaris\Widgets')
             ->widgets([
                 \App\Filament\Inventaris\Widgets\InventarisStatsOverview::class,
-                
+                \App\Filament\Inventaris\Widgets\InventarisConditionChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,

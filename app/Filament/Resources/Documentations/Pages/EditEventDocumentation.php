@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Filament\Resources\Documentations\Pages;
+
+use App\Filament\Resources\Documentations\EventDocumentationResource;
+use Filament\Actions\DeleteAction;
+use Filament\Resources\Pages\EditRecord;
+
+class EditEventDocumentation extends EditRecord
+{
+    protected static string $resource = EventDocumentationResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            DeleteAction::make(),
+        ];
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+}

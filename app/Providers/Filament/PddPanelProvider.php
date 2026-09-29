@@ -2,16 +2,18 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\Documentations\EventDocumentationResource;
+use App\Filament\Resources\Events\EventResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -19,16 +21,16 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class AdminPanelProvider extends PanelProvider
+class PddPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
-            ->id('admin')
-            ->path('admin')
+            ->id('pdd')
+            ->path('pdd')
+            ->login()
             ->colors([
-                'primary' => Color::hex('#0D59F2'),
+                'primary' => Color::hex('#7C3AED'), // Creative Purple / Violet
                 'danger' => Color::hex('#D32F2F'),
                 'gray' => Color::Slate,
                 'info' => Color::hex('#0284C7'),
@@ -37,32 +39,33 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->font('Be Vietnam Pro')
             ->favicon(asset('assets/ANC_icon.png'))
-            ->brandLogo(fn () => view('filament.logo'))
+            ->brandLogo(fn () => view('filament.logo-pdd'))
             ->brandLogoHeight('3rem')
             ->userMenuItems([
-                'home' => \Filament\Navigation\MenuItem::make()
+                'home' => MenuItem::make()
                     ->label('Buka Website Utama')
                     ->url('/')
                     ->icon('heroicon-o-arrow-top-right-on-square'),
             ])
             ->renderHook(
-                \Filament\View\PanelsRenderHook::SIDEBAR_NAV_END,
+                PanelsRenderHook::SIDEBAR_NAV_END,
                 fn () => view('filament.sidebar-footer')
             )
             ->renderHook(
-                \Filament\View\PanelsRenderHook::TOPBAR_LOGO_AFTER,
+                PanelsRenderHook::TOPBAR_LOGO_AFTER,
                 fn () => view('filament.topbar-start')
             )
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
+            ->resources([
+                EventResource::class,
+                EventDocumentationResource::class,
+            ])
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Pdd/Widgets'), for: 'App\Filament\Pdd\Widgets')
             ->widgets([
-                \App\Filament\Widgets\StatsOverview::class,
-                \App\Filament\Widgets\AdminActivityChart::class,
-                \App\Filament\Widgets\LatestEventsWidget::class,
+                \App\Filament\Pdd\Widgets\PddStatsOverview::class,
+                \App\Filament\Pdd\Widgets\PddEventsChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,

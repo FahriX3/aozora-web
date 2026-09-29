@@ -29,6 +29,10 @@ class AuthController extends Controller
                 return redirect()->intended('/admin');
             }
 
+            if ($user->hasRole('pdd')) {
+                return redirect()->intended('/pdd');
+            }
+
             if ($user->hasRole('koordinator_inventaris')) {
                 return redirect()->intended('/inventaris');
             }

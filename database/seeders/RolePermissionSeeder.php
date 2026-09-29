@@ -57,6 +57,12 @@ class RolePermissionSeeder extends Seeder
             'view_laporan',
             'create_laporan',
             'update_status_laporan',
+
+            // Dokumentasi & Galeri (PDD)
+            'view_documentation',
+            'create_documentation',
+            'edit_documentation',
+            'delete_documentation',
         ];
 
         foreach ($permissions as $permissionName) {
@@ -68,23 +74,37 @@ class RolePermissionSeeder extends Seeder
         $superAdmin = Role::firstOrCreate(['name' => 'super_admin', 'guard_name' => 'web']);
         $superAdmin->syncPermissions(Permission::all());
 
-        // 2. Admin: manajemen event, pengurus, user
+        // 2. Admin: manajemen event, pengurus, dokumentasi (TIDAK BISA KELOLA USER & ROLE)
         $admin = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
         $admin->syncPermissions([
             'view_event',
             'create_event',
             'edit_event',
             'delete_event',
-            'view_user',
-            'create_user',
-            'edit_user',
             'view_pengurus',
             'create_pengurus',
             'edit_pengurus',
             'delete_pengurus',
+            'view_documentation',
+            'create_documentation',
+            'edit_documentation',
+            'delete_documentation',
         ]);
 
-        // 3. Koordinator Inventaris
+        // 3. PDD (Publikasi & Dokumentasi): manajemen event & dokumentasi media
+        $pdd = Role::firstOrCreate(['name' => 'pdd', 'guard_name' => 'web']);
+        $pdd->syncPermissions([
+            'view_event',
+            'create_event',
+            'edit_event',
+            'delete_event',
+            'view_documentation',
+            'create_documentation',
+            'edit_documentation',
+            'delete_documentation',
+        ]);
+
+        // 4. Koordinator Inventaris
         $koorInventaris = Role::firstOrCreate(['name' => 'koordinator_inventaris', 'guard_name' => 'web']);
         $koorInventaris->syncPermissions([
             'view_inventaris',
@@ -98,7 +118,7 @@ class RolePermissionSeeder extends Seeder
             'update_status_laporan',
         ]);
 
-        // 4. Anggota
+        // 5. Anggota
         $anggota = Role::firstOrCreate(['name' => 'anggota', 'guard_name' => 'web']);
         $anggota->syncPermissions([
             'view_inventaris',
