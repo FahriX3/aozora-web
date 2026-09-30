@@ -48,6 +48,10 @@ class PddPanelProvider extends PanelProvider
                     ->icon('heroicon-o-arrow-top-right-on-square'),
             ])
             ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn () => view('filament.custom-styles')
+            )
+            ->renderHook(
                 PanelsRenderHook::SIDEBAR_NAV_END,
                 fn () => view('filament.sidebar-footer')
             )

@@ -44,6 +44,10 @@ class AnggotaPanelProvider extends PanelProvider
                     ->icon('heroicon-o-arrow-top-right-on-square'),
             ])
             ->renderHook(
+                \Filament\View\PanelsRenderHook::HEAD_END,
+                fn () => view('filament.custom-styles')
+            )
+            ->renderHook(
                 \Filament\View\PanelsRenderHook::SIDEBAR_NAV_END,
                 fn () => view('filament.sidebar-footer')
             )
