@@ -21,16 +21,16 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class PddPanelProvider extends PanelProvider
+class EventsPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->id('pdd')
-            ->path('pdd')
+            ->id('events')
+            ->path('events')
             ->login()
             ->colors([
-                'primary' => Color::hex('#7C3AED'), // Creative Purple / Violet
+                'primary' => Color::hex('#6366F1'), // Indigo / Vibrant Event
                 'danger' => Color::hex('#D32F2F'),
                 'gray' => Color::Slate,
                 'info' => Color::hex('#0284C7'),
@@ -39,7 +39,7 @@ class PddPanelProvider extends PanelProvider
             ])
             ->font('Be Vietnam Pro')
             ->favicon(asset('assets/ANC_icon.png'))
-            ->brandLogo(fn () => view('filament.logo-pdd'))
+            ->brandLogo(fn () => view('filament.logo-events'))
             ->brandLogoHeight('3rem')
             ->userMenuItems([
                 'home' => MenuItem::make()

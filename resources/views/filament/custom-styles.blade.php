@@ -39,6 +39,9 @@
     .anc-logo-img.ring-pdd {
         box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.25) !important;
     }
+    .anc-logo-img.ring-events {
+        box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3) !important;
+    }
     .anc-logo-img.ring-anggota {
         box-shadow: 0 0 0 2px rgba(225, 29, 72, 0.25) !important;
     }
@@ -78,6 +81,8 @@
     .dark .text-inventaris { color: #2dd4bf !important; }
     .text-pdd { color: #7c3aed !important; }
     .dark .text-pdd { color: #c084fc !important; }
+    .text-events { color: #4f46e5 !important; }
+    .dark .text-events { color: #818cf8 !important; }
     .text-anggota { color: #e11d48 !important; }
     .dark .text-anggota { color: #fb7185 !important; }
 
@@ -133,6 +138,17 @@
         background-color: rgba(88, 28, 135, 0.45) !important;
         color: #d8b4fe !important;
         border: 1px solid rgba(168, 85, 247, 0.35) !important;
+    }
+
+    .badge-events {
+        background-color: #eef2ff !important;
+        color: #4f46e5 !important;
+        border: 1px solid #c7d2fe !important;
+    }
+    .dark .badge-events {
+        background-color: rgba(67, 56, 202, 0.45) !important;
+        color: #a5b4fc !important;
+        border: 1px solid rgba(99, 102, 241, 0.35) !important;
     }
 
     .badge-anggota {
@@ -217,16 +233,38 @@
         box-shadow: 0 1px 3px rgba(0,0,0,0.3) !important;
     }
 
-    .anc-nav-pill.active-pdd {
+    .anc-nav-pill.active-pdd,
+    .anc-nav-pill.active-events {
         background-color: #ffffff !important;
-        color: #7c3aed !important;
+        color: #4f46e5 !important;
         box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
         font-weight: 700 !important;
     }
-    .dark .anc-nav-pill.active-pdd {
+    .dark .anc-nav-pill.active-pdd,
+    .dark .anc-nav-pill.active-events {
         background-color: #0f172a !important;
-        color: #c084fc !important;
+        color: #818cf8 !important;
         box-shadow: 0 1px 3px rgba(0,0,0,0.3) !important;
+    }
+
+    /* ===== Sleek Drag & Drop Zone Styling (Matching Reference) ===== */
+    .filepond--panel-root {
+        border: 2px dashed rgba(99, 102, 241, 0.45) !important;
+        border-radius: 16px !important;
+        background-color: rgba(248, 250, 252, 0.7) !important;
+        transition: all 0.2s ease !important;
+    }
+    .dark .filepond--panel-root {
+        border-color: rgba(129, 140, 248, 0.35) !important;
+        background-color: rgba(30, 41, 59, 0.5) !important;
+    }
+    .filepond--root:hover .filepond--panel-root {
+        border-color: #4f46e5 !important;
+        background-color: rgba(238, 242, 255, 0.4) !important;
+    }
+    .dark .filepond--root:hover .filepond--panel-root {
+        border-color: #818cf8 !important;
+        background-color: rgba(49, 46, 129, 0.25) !important;
     }
 
     .anc-web-link {

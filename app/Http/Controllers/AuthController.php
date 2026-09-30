@@ -25,12 +25,12 @@ class AuthController extends Controller
             /** @var \App\Models\User $user */
             $user = Auth::user();
 
-            if ($user->hasRole('super_admin') || $user->hasRole('admin')) {
+            if ($user->hasAnyRole(['super_admin', 'admin', 'pengurus'])) {
                 return redirect()->intended('/admin');
             }
 
-            if ($user->hasRole('pdd')) {
-                return redirect()->intended('/pdd');
+            if ($user->hasAnyRole(['koordinator_kegiatan', 'pdd'])) {
+                return redirect()->intended('/events');
             }
 
             if ($user->hasRole('koordinator_inventaris')) {
@@ -41,7 +41,7 @@ class AuthController extends Controller
                 return redirect()->intended('/anggota');
             }
 
-            return redirect()->intended('/admin');
+            return redirect()->intended('/events');
         }
 
         return back()->withErrors([

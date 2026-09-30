@@ -4,7 +4,7 @@
 
     $canAdmin = $user && $user->canAccessPanel(filament()->getPanel('admin'));
     $canInventaris = $user && $user->canAccessPanel(filament()->getPanel('inventaris'));
-    $canPdd = $user && $user->canAccessPanel(filament()->getPanel('pdd'));
+    $canEvents = $user && $user->canAccessPanel(filament()->getPanel('events'));
 @endphp
 
 <div class="anc-topbar-wrapper" style="display: flex; align-items: center; gap: 8px; margin-left: 8px;">
@@ -28,12 +28,12 @@
             </a>
         @endif
 
-        @if($canPdd)
-            <a href="{{ url('/pdd') }}"
-               title="Masuk ke Panel Publikasi &amp; Dokumentasi (PDD)"
-               class="anc-nav-pill {{ $currentPanel === 'pdd' ? 'active-pdd' : '' }}">
-                <span style="font-size: 13px; line-height: 1;">📸</span>
-                <span>PDD Studio</span>
+        @if($canEvents)
+            <a href="{{ url('/events') }}"
+               title="Masuk ke Panel Event &amp; Dokumentasi"
+               class="anc-nav-pill {{ $currentPanel === 'events' ? 'active-events' : '' }}">
+                <span style="font-size: 13px; line-height: 1;">🎪</span>
+                <span>Events</span>
             </a>
         @endif
     </div>

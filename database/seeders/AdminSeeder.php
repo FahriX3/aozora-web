@@ -64,7 +64,27 @@ class AdminSeeder extends Seeder
         );
         $pdd->syncRoles(['pdd']);
 
-        // 5. Anggota
+        // 5. Koordinator Kegiatan
+        $kegiatan = User::updateOrCreate(
+            ['email' => 'kegiatan@aozora.local'],
+            [
+                'name' => 'Koordinator Kegiatan',
+                'password' => Hash::make('password'),
+            ]
+        );
+        $kegiatan->syncRoles(['koordinator_kegiatan']);
+
+        // 6. Pengurus Inti
+        $pengurusUser = User::updateOrCreate(
+            ['email' => 'pengurus@aozora.local'],
+            [
+                'name' => 'Pengurus Aozora',
+                'password' => Hash::make('password'),
+            ]
+        );
+        $pengurusUser->syncRoles(['pengurus']);
+
+        // 7. Anggota
         $anggota = User::updateOrCreate(
             ['email' => 'anggota@aozora.local'],
             [

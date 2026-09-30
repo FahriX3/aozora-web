@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Events\RelationManagers;
 
+use App\Models\EventDocumentation;
+use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -9,6 +11,7 @@ use Filament\Actions\EditAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\ImageColumn;
@@ -28,11 +31,13 @@ class DocumentationsRelationManager extends RelationManager
         return $schema
             ->components([
                 FileUpload::make('file_path')
-                    ->label('File Foto / Media')
-                    ->image()
+                    ->label('Tap atau drag file di sini')
+                    ->helperText('Foto & video • Maks. ukuran per file: 50MB')
                     ->disk('public')
                     ->directory('event-documentations')
                     ->visibility('public')
+                    ->maxSize(51200)
+                    ->acceptedFileTypes(['image/*', 'video/*'])
                     ->required()
                     ->columnSpanFull(),
                 TextInput::make('caption')
@@ -79,8 +84,57 @@ class DocumentationsRelationManager extends RelationManager
                     ->sortable(),
             ])
             ->headerActions([
+                Action::make('batch_upload')
+                    ->label('+ Upload Banyak (Drag & Drop)')
+                    ->icon('heroicon-o-arrow-up-tray')
+                    ->color('primary')
+                    ->modalHeading('Upload Batch Dokumentasi Kegiatan')
+                    ->modalDescription('Pilih atau tarik & lepas beberapa foto/video sekaligus untuk kegiatan ini.')
+                    ->modalWidth('2xl')
+                    ->form([
+                        FileUpload::make('files')
+                            ->label('Tap atau drag file di sini')
+                            ->helperText('Foto & video • Maks. ukuran per file: 50MB')
+                            ->multiple()
+                            ->reorderable()
+                            ->disk('public')
+                            ->directory('event-documentations')
+                            ->visibility('public')
+                            ->maxSize(51200)
+                            ->acceptedFileTypes(['image/*', 'video/*'])
+                            ->required()
+                            ->columnSpanFull(),
+                        TextInput::make('batch_caption')
+                            ->label('Keterangan / Caption Bersama (Opsional)')
+                            ->placeholder('Contoh: Suasana Lomba Matsuri, Stand Kuliner, Cosplay')
+                            ->helperText('Jika diisi, keterangan ini akan diterapkan ke seluruh file yang diunggah.')
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+                    ])
+                    ->action(function (array $data, RelationManager $livewire): void {
+                        $event = $livewire->getOwnerRecord();
+                        $files = (array) ($data['files'] ?? []);
+                        $count = 0;
+
+                        foreach ($files as $filePath) {
+                            $ext = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+                            $isVideo = in_array($ext, ['mp4', 'mov', 'avi', 'mkv', 'webm']);
+
+                            $event->documentations()->create([
+                                'file_path' => $filePath,
+                                'file_type' => $isVideo ? 'video' : 'image',
+                                'caption' => !empty($data['batch_caption']) ? $data['batch_caption'] : null,
+                            ]);
+                            $count++;
+                        }
+
+                        Notification::make()
+                            ->title("Berhasil mengunggah {$count} dokumentasi!")
+                            ->success()
+                            ->send();
+                    }),
                 CreateAction::make()
-                    ->label('+ Upload Dokumentasi'),
+                    ->label('+ Upload Tunggal'),
             ])
             ->actions([
                 EditAction::make(),
@@ -91,3 +145,4 @@ class DocumentationsRelationManager extends RelationManager
             ]);
     }
 }
+
