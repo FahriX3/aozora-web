@@ -53,6 +53,12 @@ class AdminPanelProvider extends PanelProvider
                 \Filament\View\PanelsRenderHook::TOPBAR_LOGO_AFTER,
                 fn () => view('filament.topbar-start')
             )
+            ->resources([
+                \App\Filament\Inventaris\Resources\InventarisItems\InventarisItemResource::class,
+                \App\Filament\Inventaris\Resources\Loans\LoanResource::class,
+                \App\Filament\Inventaris\Resources\ReturnResource::class,
+                \App\Filament\Inventaris\Resources\LaporanKerusakan\LaporanKerusakanResource::class,
+            ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

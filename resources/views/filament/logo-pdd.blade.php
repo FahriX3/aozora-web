@@ -1,17 +1,20 @@
-<div style="display: flex; align-items: center; justify-content: space-between; width: 100%; min-width: 220px;">
-    <div style="display: flex; align-items: center; gap: 0.75rem;">
+<div class="flex items-center justify-between w-full min-w-[210px]">
+    <div class="flex items-center gap-3">
         <img
             src="{{ asset('assets/ANC_icon.png') }}"
             alt="ANC Logo"
-            style="width: 2.5rem; height: 2.5rem; border-radius: 9999px; object-fit: cover; box-shadow: 0 4px 14px rgba(124,58,237,0.25); border: 1.5px solid rgba(124,58,237,0.2); flex-shrink: 0;"
+            class="w-10 h-10 rounded-full object-cover ring-2 ring-purple-500/25 dark:ring-purple-400/30 shadow-xs shrink-0"
         />
-        <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2;">
-            <div style="display: flex; align-items: center; gap: 0.375rem;">
-                <span style="font-size: 1.25rem; font-weight: 700; letter-spacing: -0.025em; font-family: 'Plus Jakarta Sans', sans-serif; color: #0f172a;">青空</span>
-                <span style="font-size: 1.25rem; font-weight: 700; letter-spacing: -0.025em; color: #7C3AED; font-family: 'Plus Jakarta Sans', sans-serif;">PDD STUDIO</span>
+        <div class="flex flex-col leading-tight">
+            <div class="flex items-center gap-1.5">
+                <span class="text-lg font-bold tracking-tight text-gray-950 dark:text-white font-headline">青空</span>
+                <span class="text-base font-extrabold tracking-tight text-purple-600 dark:text-purple-400 font-headline">PDD STUDIO</span>
             </div>
-            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; font-family: 'Space Grotesk', sans-serif; margin-top: 2px;">Publikasi &amp; Dokumentasi</span>
+            <span class="text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Publikasi &amp; Dokumentasi</span>
         </div>
     </div>
-    <span style="padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 11px; font-weight: 700; background-color: #F5F3FF; color: #7C3AED; margin-left: 0.5rem; border: 1px solid #DDD6FE;">広報</span>
+    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-200/80 dark:border-purple-800/60 ml-2">
+        広報
+    </span>
 </div>
+

@@ -16,9 +16,15 @@ class ReturnResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-arrow-path-rounded-square';
 
-    protected static ?string $navigationLabel = 'Pengembalian';
+    protected static string|\UnitEnum|null $navigationGroup = 'Manajemen Inventaris';
 
-    protected static ?string $pluralModelLabel = 'Pengembalian';
+    protected static ?string $navigationLabel = 'Pengembalian Barang';
+
+    protected static ?string $pluralModelLabel = 'Pengembalian Barang';
+
+    protected static ?string $modelLabel = 'Pengembalian';
+
+    protected static ?int $navigationSort = 3;
 
     public static function table(Table $table): Table
     {
