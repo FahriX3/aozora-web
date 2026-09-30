@@ -15,6 +15,16 @@ class PengurusSeeder extends Seeder
         Pengurus::truncate();
 
         $data = [
+            // ===== PEMBINA EKSTRAKURIKULER =====
+            [
+                'nama' => 'Kikie Astri Mahdalika S.Pd',
+                'kelas' => 'Guru Pembina',
+                'jabatan' => 'Pembina Ekstrakurikuler',
+                'sub_jabatan' => 'Advisor / 顧問',
+                'divisi' => 'Pembina',
+                'urutan' => 0,
+            ],
+
             // ===== PENGURUS INTI (BPH) - 8 Orang =====
             [
                 'nama' => 'Tegar Satrio Utomo',

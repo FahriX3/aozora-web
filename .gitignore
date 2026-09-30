@@ -30,3 +30,6 @@ Homestead.yaml
 Thumbs.db
 
 kunci.key
+
+/.agents
+/DESIGN.md

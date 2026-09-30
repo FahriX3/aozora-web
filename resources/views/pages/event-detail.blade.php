@@ -60,7 +60,7 @@
                                     <span
                                         class="w-2 h-2 rounded-full bg-torii-vermilion animate-pulse"
                                     ></span>
-                                    ANNUAL MATSURI • ARSIP DOKUMENTASI LENGKAP
+                                    ANNUAL MATSURI  ARSIP DOKUMENTASI LENGKAP
                                 </span>
                                 <span
                                     class="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-badge text-label-badge"
@@ -95,7 +95,7 @@
                                         <span
                                             class="px-3 py-1 rounded-md bg-sakura-tint text-torii-vermilion font-label-badge text-label-badge"
                                         >
-                                            🌸 {{ $event->title }}
+                                             {{ $event->title }}
                                         </span>
                                         <span
                                             class="px-3 py-1 rounded-md bg-secondary-fixed text-primary font-label-badge text-label-badge"
