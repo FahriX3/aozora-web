@@ -1,69 +1,67 @@
 <x-filament-panels::page>
-    <div style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 56rem;">
+    <div class="flex flex-col gap-6 max-w-4xl">
         
         {{-- Section 1: Event Unggulan Aktif Saat Ini --}}
-        <div style="background-color: #ffffff; border-radius: 1rem; border: 1px solid #e5e7eb; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background-color: #fef3c7; display: flex; align-items: center; justify-content: center; color: #d97706;">
-                        <svg style="width: 1.25rem; height: 1.25rem;" fill="currentColor" viewBox="0 0 20 20">
+        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200/90 dark:border-gray-800 p-6 shadow-xs transition-colors">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/50 flex items-center justify-center text-amber-600 dark:text-amber-400 border border-amber-200/80 dark:border-amber-800/60">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                     </div>
                     <div>
-                        <h3 style="font-size: 1.125rem; font-weight: 700; color: #111827; margin: 0;">Event Unggulan Saat Ini</h3>
-                        <p style="font-size: 0.8125rem; color: #6b7280; margin: 0;">Event ini aktif tampil di section Aftermovie / Highlight halaman utama</p>
+                        <h3 class="text-base font-bold text-gray-900 dark:text-white m-0">Event Unggulan Saat Ini</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 m-0">Event ini aktif tampil di section Aftermovie / Highlight halaman utama website</p>
                     </div>
                 </div>
 
                 @if($currentFeatured)
-                    <span style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; background-color: #ecfdf5; color: #059669; border: 1px solid #a7f3d0;">
-                        <span style="width: 0.5rem; height: 0.5rem; border-radius: 9999px; background-color: #10b981;"></span>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/60">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                         Tayang di Beranda
                     </span>
                 @endif
             </div>
 
             @if($currentFeatured)
-                <div style="background-color: #f9fafb; border-radius: 0.75rem; border: 1px solid #f3f4f6; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;">
-                    <div style="display: flex; gap: 1.25rem; align-items: flex-start;">
+                <div class="bg-gray-50/80 dark:bg-gray-800/60 rounded-xl border border-gray-200/70 dark:border-gray-700/60 p-5 flex flex-col gap-4">
+                    <div class="flex gap-5 items-start">
                         @if($currentFeatured->poster_path)
-                            <img src="{{ Storage::url($currentFeatured->poster_path) }}" alt="{{ $currentFeatured->title }}" style="width: 7rem; height: 7rem; object-fit: cover; border-radius: 0.75rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); flex-shrink: 0;" />
+                            <img src="{{ Storage::url($currentFeatured->poster_path) }}" alt="{{ $currentFeatured->title }}" class="rounded-xl shadow-xs shrink-0 border border-gray-200 dark:border-gray-700" style="width: 100px; height: 100px; min-width: 100px; max-width: 100px; object-fit: cover;" />
                         @else
-                            <div style="width: 7rem; height: 7rem; border-radius: 0.75rem; background-color: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 0.75rem; font-weight: 600; flex-shrink: 0;">
+                            <div class="rounded-xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-400 text-xs font-semibold shrink-0" style="width: 100px; height: 100px; min-width: 100px; max-width: 100px;">
                                 No Image
                             </div>
                         @endif
 
-                        <div style="flex: 1; min-width: 0;">
-                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
-                                <h4 style="font-size: 1.125rem; font-weight: 700; color: #111827; margin: 0; line-height: 1.3;">{{ $currentFeatured->title }}</h4>
-                            </div>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-base font-bold text-gray-900 dark:text-white m-0 mb-1 leading-snug">{{ $currentFeatured->title }}</h4>
                             @if($currentFeatured->subtitle)
-                                <span style="display: inline-block; font-size: 0.75rem; font-weight: 700; color: #0043c0; background-color: #e0e7ff; padding: 0.125rem 0.5rem; border-radius: 0.375rem; margin-bottom: 0.5rem;">
+                                <span class="inline-block text-xs font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded-md mb-2 border border-indigo-200/60 dark:border-indigo-800/40">
                                     {{ $currentFeatured->subtitle }}
                                 </span>
                             @endif
 
-                            <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.8125rem; color: #4b5563; margin-top: 0.5rem;">
+                            <div class="flex flex-wrap gap-4 text-xs text-gray-600 dark:text-gray-300 mt-2">
                                 <div>
-                                    <span style="font-weight: 600;">📅 Tanggal:</span> {{ $currentFeatured->event_date ? \Carbon\Carbon::parse($currentFeatured->event_date)->translatedFormat('d M Y') : '-' }}
+                                    <span class="font-bold text-gray-800 dark:text-gray-200">📅 Tanggal:</span> {{ $currentFeatured->event_date ? \Carbon\Carbon::parse($currentFeatured->event_date)->translatedFormat('d M Y') : '-' }}
                                 </div>
                                 <div>
-                                    <span style="font-weight: 600;">📍 Lokasi:</span> {{ $currentFeatured->location ?? '-' }}
+                                    <span class="font-bold text-gray-800 dark:text-gray-200">📍 Lokasi:</span> {{ $currentFeatured->location ?? '-' }}
                                 </div>
                                 <div>
-                                    <span style="font-weight: 600;">🏷️ Status:</span> 
-                                    <span style="font-weight: 600; color: {{ $currentFeatured->status === 'completed' ? '#059669' : '#0284c7' }};">
+                                    <span class="font-bold text-gray-800 dark:text-gray-200">🏷️ Status:</span> 
+                                    <span class="font-semibold px-2 py-0.5 rounded text-[11px] {{ $currentFeatured->status === 'completed' ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400' : 'bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400' }}">
                                         {{ ucfirst($currentFeatured->status) }}
                                     </span>
                                 </div>
                             </div>
 
                             @if($currentFeatured->youtube_link)
-                                <div style="margin-top: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-                                    <span style="color: #dc2626; font-size: 1rem;">▶️</span>
-                                    <a href="{{ $currentFeatured->youtube_link }}" target="_blank" style="font-size: 0.8125rem; color: #0043c0; text-decoration: underline; font-weight: 600; word-break: break-all;">
+                                <div class="mt-3 flex items-center gap-2 text-xs">
+                                    <span class="text-red-600">▶️</span>
+                                    <a href="{{ $currentFeatured->youtube_link }}" target="_blank" class="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold break-all">
                                         {{ $currentFeatured->youtube_link }}
                                     </a>
                                 </div>
@@ -72,29 +70,29 @@
                     </div>
                 </div>
             @else
-                <div style="padding: 2rem; text-align: center; background-color: #f9fafb; border-radius: 0.75rem; border: 1px dashed #d1d5db; color: #6b7280; font-size: 0.875rem;">
-                    <p style="margin: 0;">Belum ada event unggulan yang dipilih saat ini. Silakan pilih event melalui form di bawah.</p>
+                <div class="p-8 text-center bg-gray-50/80 dark:bg-gray-800/40 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 text-gray-500 dark:text-gray-400 text-sm">
+                    <p class="m-0">Belum ada event unggulan yang dipilih saat ini. Silakan pilih event melalui form di bawah.</p>
                 </div>
             @endif
         </div>
 
         {{-- Section 2: Form Ganti Event Unggulan --}}
-        <div style="background-color: #ffffff; border-radius: 1rem; border: 1px solid #e5e7eb; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-            <div style="margin-bottom: 1.25rem;">
-                <h3 style="font-size: 1.125rem; font-weight: 700; color: #111827; margin: 0 0 0.25rem 0;">Pilih / Perbarui Event Unggulan</h3>
-                <p style="font-size: 0.8125rem; color: #6b7280; margin: 0;">Pilih event dari daftar database dan cantumkan link video YouTube untuk dijadikan highlight di beranda.</p>
+        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200/90 dark:border-gray-800 p-6 shadow-xs transition-colors">
+            <div class="mb-5">
+                <h3 class="text-base font-bold text-gray-900 dark:text-white m-0 mb-1">Pilih / Perbarui Event Unggulan</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400 m-0">Pilih event dari database dan cantumkan link video YouTube untuk dijadikan highlight utama di beranda.</p>
             </div>
 
-            <form wire:submit="save" style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <form wire:submit="save" class="flex flex-col gap-5">
                 {{-- Dropdown Event --}}
-                <div style="display: flex; flex-direction: column; gap: 0.375rem;">
-                    <label for="event_id" style="font-size: 0.875rem; font-weight: 600; color: #374151;">
-                        Pilih Event <span style="color: #ef4444;">*</span>
+                <div class="flex flex-col gap-1.5">
+                    <label for="event_id" class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                        Pilih Event <span class="text-rose-500">*</span>
                     </label>
                     <select 
                         wire:model="event_id" 
                         id="event_id"
-                        style="width: 100%; padding: 0.625rem 0.875rem; border-radius: 0.5rem; border: 1px solid #d1d5db; background-color: #ffffff; font-size: 0.875rem; color: #111827; outline: none; transition: border-color 0.15s;"
+                        class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
                     >
                         <option value="">-- Pilih Salah Satu Event --</option>
                         @foreach($events as $event)
@@ -104,40 +102,38 @@
                         @endforeach
                     </select>
                     @error('event_id')
-                        <span style="font-size: 0.75rem; color: #ef4444;">{{ $message }}</span>
+                        <span class="text-xs text-rose-500 font-medium">{{ $message }}</span>
                     @enderror
                 </div>
 
                 {{-- Input YouTube Link --}}
-                <div style="display: flex; flex-direction: column; gap: 0.375rem;">
-                    <label for="youtube_link" style="font-size: 0.875rem; font-weight: 600; color: #374151;">
-                        Link Video YouTube (Aftermovie / Highlight) <span style="color: #ef4444;">*</span>
+                <div class="flex flex-col gap-1.5">
+                    <label for="youtube_link" class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                        Link Video YouTube (Aftermovie / Highlight) <span class="text-rose-500">*</span>
                     </label>
-                    <div style="position: relative;">
-                        <input 
-                            wire:model="youtube_link" 
-                            type="url" 
-                            id="youtube_link" 
-                            placeholder="https://www.youtube.com/watch?v=... atau https://youtu.be/..." 
-                            style="width: 100%; padding: 0.625rem 0.875rem; border-radius: 0.5rem; border: 1px solid #d1d5db; background-color: #ffffff; font-size: 0.875rem; color: #111827; outline: none; transition: border-color 0.15s;"
-                        />
-                    </div>
-                    <span style="font-size: 0.75rem; color: #6b7280;">Video ini akan dimainkan langsung di section Aftermovie Beranda saat tombol play ditekan.</span>
+                    <input 
+                        wire:model="youtube_link" 
+                        type="url" 
+                        id="youtube_link" 
+                        placeholder="https://www.youtube.com/watch?v=... atau https://youtu.be/..." 
+                        class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-mono"
+                    />
+                    <span class="text-[11px] text-gray-500 dark:text-gray-400">Video ini akan dimainkan langsung di section Aftermovie Beranda saat pengunjung menekan tombol play.</span>
                     @error('youtube_link')
-                        <span style="font-size: 0.75rem; color: #ef4444;">{{ $message }}</span>
+                        <span class="text-xs text-rose-500 font-medium">{{ $message }}</span>
                     @enderror
                 </div>
 
                 {{-- Action Button --}}
-                <div style="display: flex; justify-content: flex-end; padding-top: 0.5rem;">
+                <div class="flex justify-end pt-2">
                     <button 
                         type="submit" 
-                        style="padding: 0.625rem 1.5rem; border-radius: 0.5rem; background-color: #0043c0; color: #ffffff; font-size: 0.875rem; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 2px 6px rgba(0,67,192,0.3); transition: background-color 0.15s;"
+                        class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold cursor-pointer inline-flex items-center gap-2 shadow-xs transition-all"
                     >
-                        <svg style="width: 1rem; height: 1rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
-                        Simpan Event Unggulan
+                        <span>Simpan Event Unggulan</span>
                     </button>
                 </div>
             </form>

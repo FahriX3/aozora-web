@@ -65,6 +65,7 @@ class EventsPanelProvider extends PanelProvider
             ])
             ->pages([
                 Dashboard::class,
+                \App\Filament\Pages\FeaturedEvent::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Pdd/Widgets'), for: 'App\Filament\Pdd\Widgets')
             ->widgets([

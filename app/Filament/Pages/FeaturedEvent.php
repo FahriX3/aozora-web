@@ -22,6 +22,17 @@ class FeaturedEvent extends Page
 
     protected static ?int $navigationSort = 2;
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->hasAnyRole([
+            'super_admin',
+            'admin',
+            'pengurus',
+            'koordinator_kegiatan',
+            'pdd',
+        ]) ?? false;
+    }
+
     public ?int $event_id = null;
 
     public ?string $youtube_link = null;
