@@ -53,7 +53,7 @@ class InventarisPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Inventaris/Widgets'), for: 'App\Filament\Inventaris\Widgets')
             ->widgets([
                 \App\Filament\Inventaris\Widgets\InventarisStatsOverview::class,
-                
+                \App\Filament\Inventaris\Widgets\RecentTransaksiWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -71,4 +71,3 @@ class InventarisPanelProvider extends PanelProvider
             ]);
     }
 }
-

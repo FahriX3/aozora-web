@@ -40,7 +40,7 @@ class LoanInfolist
 
                         Section::make('Informasi Barang')
                             ->schema([
-                                TextEntry::make('inventarisItem.nama_barang')
+                                TextEntry::make('item.name')
                                     ->label('Nama Barang')
                                     ->weight('bold'),
                                 TextEntry::make('quantity')
@@ -66,7 +66,6 @@ class LoanInfolist
                                     ->label('Kondisi Saat Dipinjam'),
                                 ImageEntry::make('borrow_proof_image')
                                     ->label('Bukti Peminjaman')
-                                    ->disk('public')
                                     ->columnSpanFull(),
                             ])->columns(2),
 
@@ -79,26 +78,8 @@ class LoanInfolist
                                 TextEntry::make('condition_when_returned')
                                     ->label('Kondisi Saat Dikembalikan')
                                     ->placeholder('-'),
-                                TextEntry::make('returned_quantity_normal')
-                                    ->label('Jml Normal')
-                                    ->numeric()
-                                    ->visible(fn ($record) => $record->status !== 'dipinjam'),
-                                TextEntry::make('returned_quantity_damaged')
-                                    ->label('Jml Rusak')
-                                    ->numeric()
-                                    ->visible(fn ($record) => $record->status !== 'dipinjam'),
-                                TextEntry::make('returned_quantity_lost')
-                                    ->label('Jml Hilang')
-                                    ->numeric()
-                                    ->visible(fn ($record) => $record->status !== 'dipinjam'),
-                                TextEntry::make('return_notes')
-                                    ->label('Catatan Tambahan')
-                                    ->columnSpanFull()
-                                    ->placeholder('-')
-                                    ->visible(fn ($record) => $record->status !== 'dipinjam'),
                                 ImageEntry::make('return_proof_image')
                                     ->label('Bukti Pengembalian')
-                                    ->disk('public')
                                     ->columnSpanFull()
                                     ->placeholder('Belum ada bukti'),
                             ])->columns(2),
@@ -117,7 +98,6 @@ class LoanInfolist
                                 TextEntry::make('recorder_location')
                                     ->label('GPS Location')
                                     ->icon('heroicon-m-map-pin')
-                                    ->placeholder('Lokasi tidak tersedia')
                                     ->copyable()
                                     ->url(fn ($record) => $record->recorder_location ? 'https://maps.google.com/?q=' . $record->recorder_location : null)
                                     ->openUrlInNewTab(),
@@ -137,7 +117,7 @@ class LoanInfolist
                                 TextEntry::make('return_recorder_location')
                                     ->label('GPS Location')
                                     ->icon('heroicon-m-map-pin')
-                                    ->placeholder('Lokasi tidak tersedia')
+                                    ->placeholder('-')
                                     ->copyable()
                                     ->url(fn ($record) => $record->return_recorder_location ? 'https://maps.google.com/?q=' . $record->return_recorder_location : null)
                                     ->openUrlInNewTab(),
@@ -148,4 +128,3 @@ class LoanInfolist
             ]);
     }
 }
-
