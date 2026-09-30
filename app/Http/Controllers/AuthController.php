@@ -30,7 +30,7 @@ class AuthController extends Controller
             }
 
             if ($user->hasAnyRole(['koordinator_kegiatan', 'pdd'])) {
-                return redirect()->intended('/events');
+                return redirect()->intended('/events-hub');
             }
 
             if ($user->hasRole('koordinator_inventaris')) {
@@ -41,7 +41,7 @@ class AuthController extends Controller
                 return redirect()->intended('/anggota');
             }
 
-            return redirect()->intended('/events');
+            return redirect()->intended('/events-hub');
         }
 
         return back()->withErrors([

@@ -27,7 +27,7 @@ class EventsPanelProvider extends PanelProvider
     {
         return $panel
             ->id('events')
-            ->path('events')
+            ->path('events-hub')
             ->login()
             ->colors([
                 'primary' => Color::hex('#6366F1'), // Indigo / Vibrant Event

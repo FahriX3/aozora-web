@@ -29,11 +29,11 @@
         @endif
 
         @if($canEvents)
-            <a href="{{ url('/events') }}"
+            <a href="{{ url('/events-hub') }}"
                title="Masuk ke Panel Event &amp; Dokumentasi"
                class="anc-nav-pill {{ $currentPanel === 'events' ? 'active-events' : '' }}">
                 <span style="font-size: 13px; line-height: 1;">🎪</span>
-                <span>Events</span>
+                <span>Events Hub</span>
             </a>
         @endif
     </div>
