@@ -43,7 +43,9 @@ return [
 
     'ai' => [
         'url' => env('AI_API_URL', 'http://ai.api.fahrimandriva.web.id/api/generate'),
-        'model' => env('AI_MODEL', 'qwen2.5:3b'),
+        'model' => env('AI_MODEL', 'qwen2.5:1.5b'),
+        'max_tokens' => (int) env('AI_MAX_TOKENS', 350),
+        'daily_token_limit' => (int) env('AI_DAILY_TOKEN_LIMIT', 5000),
     ],
 
 ];

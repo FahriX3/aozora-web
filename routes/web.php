@@ -25,5 +25,6 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleC
 // Chatbot Sora AI API
 Route::get('/api/chat/history', [ChatController::class, 'history'])->name('chat.history');
 Route::post('/api/chat/send', [ChatController::class, 'send'])->name('chat.send');
+Route::post('/api/chat/stream', [ChatController::class, 'sendStream'])->name('chat.stream');
 Route::post('/api/chat/clear', [ChatController::class, 'clear'])->name('chat.clear');
 
