@@ -9,7 +9,7 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('pages.auth.login');
+        return redirect('/?login=modal');
     }
 
     public function login(Request $request)
@@ -38,7 +38,7 @@ class AuthController extends Controller
             }
 
             if ($user->hasRole('anggota')) {
-                return redirect()->intended('/anggota');
+                return redirect()->intended('/?chat=open');
             }
 
             return redirect()->intended('/events-hub');

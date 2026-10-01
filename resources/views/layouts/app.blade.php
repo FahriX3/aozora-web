@@ -117,11 +117,11 @@
                             $panelUrl = '/anggota';
 
                             if ($user->hasRole('super_admin')) {
-                                $roleLabel = ' Super Admin';
+                                $roleLabel = '👑 Super Admin';
                                 $roleBadgeColor = 'bg-rose-100 text-rose-800 border-rose-300';
                                 $panelUrl = '/admin';
                             } elseif ($user->hasRole('admin')) {
-                                $roleLabel = ' Admin Konten';
+                                $roleLabel = '⭐ Admin Konten';
                                 $roleBadgeColor = 'bg-blue-100 text-blue-800 border-blue-300';
                                 $panelUrl = '/admin';
                             } elseif ($user->hasRole('koordinator_inventaris')) {
@@ -165,7 +165,7 @@
                             <div class="py-2.5 flex flex-col gap-1">
                                 <a href="{{ url($panelUrl) }}"
                                     class="w-full px-3 py-2 rounded-xl bg-primary text-cloud-white text-xs font-bold hover:bg-primary/90 flex items-center justify-between shadow-sm transition-colors">
-                                    <span> Buka Dashboard Panel</span>
+                                    <span>🚀 Buka Dashboard Panel</span>
                                     <span class="material-symbols-outlined text-sm">open_in_new</span>
                                 </a>
 
@@ -257,6 +257,10 @@
         @yield('content')
     </main>
     <footer class="w-full bg-indigo-night text-cloud-white pt-space-2xl pb-space-xl relative overflow-hidden">
+        <div
+            class="absolute -right-16 -top-16 text-[220px] font-headline-lg font-extrabold text-cloud-white/[0.03] select-none pointer-events-none">
+            青空
+        </div>
         <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl pb-space-2xl">
                 <div class="flex flex-col gap-space-md">
@@ -274,13 +278,13 @@
                     </p>
                     <div
                         class="inline-flex items-center gap-space-xs self-start px-space-sm py-1 rounded-full bg-cloud-white/10 text-aozora-sky font-label-badge text-label-badge">
-                        <span class="">PURWOKERTO JAPANESE CLUB</span>
+                        <span class="">🇯🇵 PURWOKERTO JAPANESE CLUB</span>
                     </div>
                 </div>
                 <div class="flex flex-col gap-space-sm">
                     <span
                         class="font-headline-sm text-headline-sm text-cloud-white flex items-center gap-space-xs"><span
-                            class="text-torii-vermilion"></span> Info
+                            class="text-torii-vermilion">⛩️</span> Info
                         Jadwal Rutin</span>
                     <div class="p-space-md rounded-xl bg-cloud-white/5 flex flex-col gap-space-xs">
                         <div class="flex items-center gap-space-xs text-aozora-sky font-label-md text-label-md">
@@ -290,7 +294,7 @@
                         <span class="font-headline-sm text-headline-sm text-cloud-white">Setiap Kamis</span><span
                             class="font-body-sm text-body-sm text-surface-dim">16.00 - 17.00 WIB</span>
                         <div class="mt-space-xs pt-space-xs text-surface-dim font-body-sm text-body-sm">
-                            <span class="">Ruang Kelas SMKN 1 Purwokerto</span>
+                            <span class="">📍 Ruang Kelas SMKN 1 Purwokerto</span>
                         </div>
                     </div>
                 </div>
@@ -300,7 +304,7 @@
                         <span class="">SMK Negeri 1 Purwokerto</span><span class="">Jl. Dr. Soeparno No. 29,
                             Karangwangkal</span><span class="">Purwokerto Timur, Banyumas 53123</span><span
                             class="text-aozora-sky font-label-md text-label-md mt-space-xs">Email:
-                            aozora@smkn1purwokerto.sch.id</span>
+                            noreplyaozora@gmail.com</span>
                     </div>
                 </div>
                 <div class="flex flex-col gap-space-sm">
@@ -311,13 +315,13 @@
                     </p>
                     <div class="flex flex-col gap-space-xs font-label-md text-label-md">
                         <a class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
-                            href="https://www.instagram.com/ancsmecone/" target="_blank"><span class="">Instagram @ancsmecone</span><span
-                                class="text-aozora-sky font-bold">↗</span></a>
-                        <a class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
-                            href="https://www.tiktok.com/@ancsmecone?_r=1" target="_blank"><span class="">TikTok @ancsmecone</span><span
-                                class="text-aozora-sky font-bold">↗</span></a>
-                        <a class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
-                            href="https://youtube.com/@ancsmecone?si=nKhw3-a3dhE1bvYF" target="_blank"><span class="">YouTube @ancsmecone</span><span
+                            href="#"><span class="">Instagram @aozora.smecon</span><span
+                                class="text-aozora-sky font-bold">↗</span></a><a
+                            class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
+                            href="#"><span class="">YouTube Aozora Channel</span><span
+                                class="text-aozora-sky font-bold">↗</span></a><a
+                            class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
+                            href="#"><span class="">Discord Server Aozora Kaiwa</span><span
                                 class="text-aozora-sky font-bold">↗</span></a>
                     </div>
                 </div>
@@ -325,120 +329,134 @@
             <div
                 class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-surface-dim">
                 <div class="flex items-center gap-space-xs">
-                    <span>© {{ date('Y') }} Aozora Nihongo Club SMKN 1 Purwokerto.</span>
-                    <span>Hak Cipta Dilindungi.</span>
+                    <span class="">© 2025 Aozora Nihongo Club SMKN 1 Purwokerto.</span><span class="">Hak Cipta
+                        Dilindungi.</span>
+                </div>
+                <div class="flex items-center gap-space-md font-label-md text-label-md">
+                    <span class="text-cloud-white/70">一期一会 (Ichigo Ichie)</span><span class="">•</span><span
+                        class="text-aozora-sky">Aozora Blue Skies Ahead</span>
                 </div>
             </div>
         </div>
     </footer>
     @stack('scripts')
 
-    {{-- ===== MODAL LOGIN INTERNAL (Multi-Role Portal) ===== --}}
+    {{-- ===== MODAL LOGIN RESIK & MINIMALIS (Google OAuth + Email) ===== --}}
     <div id="login-modal"
         style="position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:1rem;"
         aria-modal="true" role="dialog" aria-labelledby="login-modal-title">
         {{-- Backdrop --}}
-        <div style="position:absolute;inset:0;background:rgba(11,16,33,0.72);backdrop-filter:blur(8px);"
+        <div style="position:absolute;inset:0;background:rgba(11,16,33,0.65);backdrop-filter:blur(6px);"
             onclick="closeLoginModal()"></div>
 
-        {{-- Panel --}}
+        {{-- Panel Card --}}
         <div
-            class="relative w-full max-w-md bg-cloud-white rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.35)] overflow-hidden border border-surface-container-high animate-modal-in z-10">
-            {{-- Header panel with Gradient & Japanese Pattern --}}
-            <div
-                class="relative bg-gradient-to-br from-indigo-night via-[#003cad] to-primary p-6 text-center text-cloud-white overflow-hidden">
-                <div
-                    class="absolute -right-6 -bottom-6 text-8xl font-black text-cloud-white/[0.06] select-none pointer-events-none">
-                    青空
+            class="relative w-full max-w-[420px] bg-white rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.28)] overflow-hidden border border-gray-100 animate-modal-in z-10 p-6 sm:p-8">
+            
+            {{-- Close Button --}}
+            <button type="button" onclick="closeLoginModal()"
+                class="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-800 flex items-center justify-center transition-colors focus:outline-none cursor-pointer"
+                aria-label="Tutup popup">
+                <span class="material-symbols-outlined text-lg">close</span>
+            </button>
+
+            {{-- Top Branding --}}
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-3 shadow-inner">
+                    <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Icon" class="w-11 h-11 rounded-full object-cover" />
+                </div>
+                <h2 id="login-modal-title" class="text-xl font-bold font-headline-md tracking-tight text-gray-900">
+                    Masuk ke Aozora
+                </h2>
+                <p class="text-gray-500 text-xs mt-1">
+                    Masuk untuk ngobrol dengan Sora AI atau kelola kegiatan klub.
+                </p>
+            </div>
+
+            {{-- Flash Messages --}}
+            @if (session('auth_success'))
+                <div class="mb-4 bg-emerald-50 text-emerald-800 border border-emerald-200 p-3 rounded-xl text-xs flex items-center gap-2">
+                    <span class="material-symbols-outlined text-base text-emerald-600 shrink-0">check_circle</span>
+                    <span>{{ session('auth_success') }}</span>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="mb-4 bg-rose-50 text-rose-800 border border-rose-200 p-3 rounded-xl text-xs flex items-center gap-2">
+                    <span class="material-symbols-outlined text-base text-rose-600 shrink-0">error</span>
+                    <span>{{ session('error') }}</span>
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="mb-4 bg-rose-50 text-rose-800 border border-rose-200 p-3 rounded-xl text-xs flex items-start gap-2">
+                    <span class="material-symbols-outlined text-base text-rose-600 shrink-0 mt-0.5">error</span>
+                    <ul class="list-disc pl-4 space-y-0.5">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            {{-- Google OAuth Button --}}
+            <a href="{{ route('auth.google') }}"
+                class="w-full py-2.5 px-4 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded-xl border border-gray-300 shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-3 text-sm group cursor-pointer">
+                <svg class="w-4 h-4 shrink-0 transition-transform group-hover:scale-105" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.665-5.17 3.665-9.12z"/>
+                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.13C3.27 21.36 7.35 24 12 24z"/>
+                    <path fill="#FBBC05" d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.13z"/>
+                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.35 0 3.27 2.64 1.25 6.58l4.03 3.13c.95-2.83 3.6-4.96 6.72-4.96z"/>
+                </svg>
+                <span>Masuk dengan Google</span>
+            </a>
+
+            {{-- Divider --}}
+            <div class="relative flex items-center justify-center my-4">
+                <div class="border-t border-gray-200 w-full"></div>
+                <span class="bg-white px-3 text-xs text-gray-400 font-medium">atau gunakan email</span>
+            </div>
+
+            {{-- Email Form --}}
+            <form action="{{ route('login.post') }}" method="POST" class="flex flex-col gap-3.5">
+                @csrf
+
+                <div class="flex flex-col gap-1">
+                    <label for="modal-email" class="text-xs font-semibold text-gray-700">Email Akun</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">mail</span>
+                        <input type="email" name="email" id="modal-email" value="{{ old('email') }}" required
+                            class="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-gray-200 bg-gray-50 focus:bg-white text-gray-800 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-gray-400"
+                            placeholder="nama@email.com">
+                    </div>
                 </div>
 
-                {{-- Close Button --}}
-                <button type="button" onclick="closeLoginModal()"
-                    class="absolute top-4 right-4 w-8 h-8 rounded-full bg-cloud-white/10 hover:bg-cloud-white/20 text-cloud-white flex items-center justify-center transition-colors focus:outline-none cursor-pointer"
-                    aria-label="Tutup popup">
-                    <span class="material-symbols-outlined text-lg">close</span>
+                <div class="flex flex-col gap-1">
+                    <label for="modal-password" class="text-xs font-semibold text-gray-700">Kata Sandi</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">lock</span>
+                        <input type="password" name="password" id="modal-password" required
+                            class="w-full pl-9 pr-10 py-2 text-sm rounded-xl border border-gray-200 bg-gray-50 focus:bg-white text-gray-800 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-gray-400"
+                            placeholder="••••••••">
+                        <button type="button" onclick="toggleModalPassword()" id="btn-toggle-password"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary transition-colors focus:outline-none cursor-pointer"
+                            aria-label="Toggle tampilkan password" tabindex="-1">
+                            <span class="material-symbols-outlined text-lg" id="icon-toggle-password">visibility</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="mt-1 w-full py-2.5 px-4 bg-primary hover:bg-[#003099] text-white font-semibold text-sm rounded-xl shadow-xs hover:shadow transition-all flex items-center justify-center gap-2 cursor-pointer">
+                    <span>Masuk ke Akun</span>
+                    <span class="material-symbols-outlined text-base">arrow_forward</span>
                 </button>
+            </form>
 
-                <div
-                    class="w-14 h-14 rounded-full bg-sakura-tint/15 border border-cloud-white/20 flex items-center justify-center mx-auto mb-3 shadow-lg">
-                    <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Icon"
-                        class="w-12 h-12 rounded-full object-cover" />
-                </div>
-                <div
-                    class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-sakura-tint text-torii-vermilion text-[11px] font-bold tracking-wider uppercase mb-1">
-                    <span> ログインポータル</span>
-                </div>
-                <h2 id="login-modal-title" class="text-xl font-bold font-headline-md tracking-tight">Portal Internal
-                    Aozora</h2>
-                <p class="text-cloud-white/80 text-xs mt-1">Masuk untuk mengakses panel kerja sesuai hak akses Anda.</p>
-            </div>
-
-            {{-- Role Preview Strip --}}
-            <div
-                class="bg-surface-container-low px-5 py-2.5 border-b border-surface-container-high/80 flex items-center justify-between overflow-x-auto text-[11px]">
-                <span class="font-bold text-secondary text-[10px] uppercase tracking-wider">Akses:</span>
-                <div class="flex items-center gap-1.5">
-                    <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 font-semibold"> Admin</span>
-                    <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold">📦
-                        Inventaris</span>
-                    <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold">👤
-                        Anggota</span>
-                </div>
-            </div>
-
-            {{-- Form Body --}}
-            <div class="p-6 md:p-7">
-                <form action="{{ route('login.post') }}" method="POST" class="flex flex-col gap-4">
-                    @csrf
-
-                    @if ($errors->any())
-                        <div
-                            class="bg-error-container text-on-error-container p-3 rounded-xl text-xs flex items-start gap-2">
-                            <span class="material-symbols-outlined text-base shrink-0 mt-0.5">error</span>
-                            <ul class="list-disc pl-4 space-y-0.5">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <div class="flex flex-col gap-1.5">
-                        <label for="modal-email"
-                            class="text-xs font-bold text-on-surface uppercase tracking-wider">Email Akun</label>
-                        <div class="relative">
-                            <span
-                                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">mail</span>
-                            <input type="email" name="email" id="modal-email" value="{{ old('email') }}" required
-                                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-outline-variant bg-surface text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                                placeholder="email@aozora.local">
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col gap-1.5">
-                        <label for="modal-password"
-                            class="text-xs font-bold text-on-surface uppercase tracking-wider">Kata Sandi</label>
-                        <div class="relative">
-                            <span
-                                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">lock</span>
-                            <input type="password" name="password" id="modal-password" required
-                                class="w-full pl-10 pr-11 py-2.5 rounded-xl border border-outline-variant bg-surface text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                                placeholder="">
-                            <button type="button" onclick="toggleModalPassword()" id="btn-toggle-password"
-                                class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors focus:outline-none cursor-pointer"
-                                aria-label="Toggle tampilkan password" tabindex="-1">
-                                <span class="material-symbols-outlined text-lg"
-                                    id="icon-toggle-password">visibility</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <button type="submit"
-                        class="mt-2 w-full py-3 px-4 bg-primary hover:bg-primary/90 text-cloud-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
-                        <span>Masuk ke Panel Kerja</span>
-                        <span class="material-symbols-outlined text-base">arrow_forward</span>
-                    </button>
-                </form>
+            <div class="mt-4 pt-3 border-t border-gray-100 text-center">
+                <p class="text-[11px] text-gray-400">
+                    Masuk dengan Google otomatis terhubung sebagai anggota Aozora 🌸
+                </p>
             </div>
         </div>
     </div>
@@ -510,7 +528,12 @@
                 btn.onclick = openLoginModal;
             }
 
-            @if ($errors->any())
+            var urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('login') === '1' || urlParams.get('login') === 'modal') {
+                openLoginModal();
+            }
+
+            @if ($errors->any() || session('error'))
                 openLoginModal();
             @endif
         }
@@ -527,6 +550,9 @@
             }
         });
     </script>
+
+    {{-- Chatbot Sora (AI Assistant) Floating Widget --}}
+    <x-chat-widget />
 </body>
 
 </html>

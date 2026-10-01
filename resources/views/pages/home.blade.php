@@ -11,7 +11,10 @@
             <div
                 class="absolute top-32 right-10 w-80 h-80 bg-torii-vermilion/10 rounded-full blur-3xl pointer-events-none -z-10">
             </div>
-            
+            <div
+                class="absolute -top-12 right-1/3 text-[140px] font-headline-lg font-extrabold text-primary-container/[0.03] select-none pointer-events-none -z-10 tracking-widest">
+                青空文化
+            </div>
             <!-- HERO SECTION -->
             <section id="beranda"
                 class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin pt-space-lg md:pt-space-xl pb-space-2xl">
@@ -25,7 +28,7 @@
                                 <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Logo"
                                     class="w-5 h-5 rounded-full object-cover ring-1 ring-primary/20 shrink-0" />
                                 <span class="text-xs tracking-wider text-torii-vermilion font-bold">青空部</span>
-                                <span class="text-gray-300 text-xs"></span>
+                                <span class="text-gray-300 text-xs">•</span>
                                 <span class="text-xs text-primary font-bold uppercase tracking-wide">SMKN 1
                                     Purwokerto</span>
                             </div>
@@ -37,7 +40,7 @@
                         <!-- Bold Display Typography -->
                         <h1
                             class="font-display-hero text-display-hero text-indigo-night tracking-tight leading-[1.08] mt-space-xs">
-                            Belajar Bahasa & Budaya
+                            Jelajahi Bahasa &amp; Pesona
                             <span class="relative inline-block text-primary">
                                 Budaya Jepang
                                 <svg class="absolute -bottom-2 left-0 w-full h-3 text-aozora-sky/70" fill="none"
@@ -46,24 +49,24 @@
                                         stroke-width="4"></path>
                                 </svg>
                             </span>
-                            di Aozora
+                            Bersama Aozora!
                         </h1>
                         <!-- Subtitle -->
                         <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mt-space-xs leading-relaxed">
-                            Ekstrakurikuler bahasa Jepang, anime,
-                            manga, festival, serta persiapan
-                            sertifikasi JLPT untuk siswa
-                            SMKN 1
+                            Wadah eksplorasi bahasa Jepang, anime &amp;
+                            manga, festival matsuri, hingga persiapan
+                            sertifikasi JLPT yang seru, interaktif, dan
+                            penuh persahabatan bagi siswa-siswi SMKN 1
                             Purwokerto.
                         </p>
                         <!-- Quick Action Buttons -->
                         <div class="flex flex-wrap items-center gap-space-md pt-space-sm">
-                            <a class="inline-flex items-center gap-space-sm bg-cloud-white hover:bg-white text-primary font-label-lg text-label-lg px-space-lg py-space-md rounded-lg shadow-md hover:shadow-lg transition-all group"
+                            <a class="inline-flex items-center gap-space-sm bg-cloud-white hover:bg-surface-container-low text-primary font-label-lg text-label-lg px-space-lg py-space-md rounded-lg shadow-md hover:shadow-lg transition-all group"
                                 href="#event">
                                 <span
                                     class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">calendar_month</span>
                                 <span class="font-bold">Lihat Agenda Event</span>
-                                <span class="text-aozora-sky"></span>
+                                <span class="text-aozora-sky">✨</span>
                             </a>
                         </div>
                         <!-- Quick Stat Badges Strip -->
@@ -87,15 +90,15 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Right Hero: Mascot Showcase (5 cols) -->
+                    <!-- Right Hero: Interactive Anime UI Mascot Showcase (5 cols) -->
                     <div class="lg:col-span-5 relative mt-space-lg lg:mt-0">
-                        <!-- Decorative Elements -->
+                        <!-- Traditional Cloud / Sun Decorative Halo -->
                         <div class="absolute -top-8 -right-8 w-72 h-72 rounded-full bg-torii-vermilion/10 -z-10 blur-xl">
                         </div>
                         <div
                             class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-aozora-sky/20 -z-10 blur-2xl">
                         </div>
-                        <!-- Character Card -->
+                        <!-- Main Genshin-inspired Character HUD Card -->
                         <div class="relative rounded-2xl bg-cloud-white/95 backdrop-blur-xl p-space-md md:p-space-lg shadow-xl shadow-primary-container/10 transition-transform duration-300"
                             id="mascotCard" style="
                                             transform: perspective(1000px)
@@ -112,13 +115,13 @@
                                 </div>
                                 <div
                                     class="px-2 py-0.5 rounded bg-primary text-cloud-white font-label-badge text-label-badge">
-                                    Mascot
+                                    SSR ★★★★★
                                 </div>
                             </div>
                             <!-- Speech Bubble Floating above -->
                             <div
                                 class="relative mb-space-sm p-space-sm rounded-xl bg-secondary-container/60 shadow-sm flex items-start gap-space-xs">
-                                <span class="text-xl"></span>
+                                <span class="text-xl">💬</span>
                                 <div class="flex flex-col">
                                     <span class="font-label-badge text-label-badge text-primary font-bold">Sora-chan
                                         (空ちゃん)</span>
@@ -157,7 +160,7 @@
                                                         font-variation-settings: &quot;FILL&quot;
                                                             1;
                                                     ">volume_up</span>
-                                    <span id="voiceStatusText" class="">Voice: Ganbatte! </span>
+                                    <span id="voiceStatusText" class="">Voice: Ganbatte! 🌸</span>
                                 </button>
                             </div>
                             <!-- Mascot Footer Attributes / Tags -->
@@ -169,6 +172,7 @@
                                     <span
                                         class="px-2 py-0.5 rounded bg-surface-container text-on-surface">#SmeconPurwokerto</span>
                                 </div>
+                                <span class="text-aozora-sky font-bold tracking-wide">一期一会 (Ichigo Ichie)</span>
                             </div>
                         </div>
                     </div>
@@ -176,7 +180,7 @@
             </section>
         </div>
         <!-- SECTION 2: TENTANG KAMI & VALUE PILLARS -->
-        <section class="w-full bg-transparent py-space-2xl relative border-t border-gray-200/80" id="tentang">
+        <section class="w-full bg-surface-container-low/70 py-space-2xl relative" id="tentang">
             <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin">
                 <!-- Section Header -->
                 <div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-xl">
@@ -184,17 +188,17 @@
                         class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200/80 shadow-xs text-xs font-bold uppercase tracking-wider mb-space-xs">
                         <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Logo"
                             class="w-4 h-4 rounded-full object-cover ring-1 ring-rose-200 shrink-0" />
-                        <span class="text-torii-vermilion"> KEUNGGULAN KAMI</span>
-                        <span class="text-gray-300"></span>
+                        <span class="text-torii-vermilion">🌸 KEUNGGULAN KAMI</span>
+                        <span class="text-gray-300">•</span>
                         <span class="text-gray-600">私たちについて</span>
                     </div>
                     <h2 class="font-headline-lg text-headline-lg text-indigo-night tracking-tight">
                         Kenapa Belajar &amp; Berkarya di Aozora?
                     </h2>
                     <p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
-                        Memberikan kegiatan produktif bertema
-                        budaya pop Jepang dan pelatihan
-                        akademik.
+                        Menggabungkan atmosfer santai nan produktif khas
+                        pop-culture Jepang dengan penguatan kompetensi
+                        akademik dan vokasi.
                     </p>
                 </div>
                 <!-- 4 Bento Grid Feature Pillars -->
@@ -202,7 +206,10 @@
                     <!-- Pillar 1 -->
                     <div
                         class="relative rounded-2xl bg-cloud-white p-space-lg shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden group">
-                        
+                        <div
+                            class="absolute -right-4 -bottom-4 text-7xl font-bold text-surface-container-high/40 select-none pointer-events-none group-hover:text-aozora-sky/20 transition-colors">
+                            学
+                        </div>
                         <div>
                             <div
                                 class="w-12 h-12 rounded-xl bg-aozora-sky/15 flex items-center justify-center text-primary mb-space-md shadow-sm">
@@ -213,11 +220,11 @@
                             </div>
                             <div class="flex items-center gap-space-xs mb-space-xs">
                                 <span class="font-label-badge text-label-badge text-primary font-bold">PILAR 01</span>
-                                <span class="text-secondary text-xs"></span>
+                                <span class="text-secondary text-xs">•</span>
                                 <span class="font-label-badge text-label-badge text-secondary">INTERACTIVE</span>
                             </div>
                             <h3 class="font-headline-sm text-headline-sm text-indigo-night mb-space-xs font-bold">
-                                Pembelajaran
+                                Pembelajaran Interaktif
                             </h3>
                             <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
                                 Pelajari Kanji, tata bahasa (bunpou),
@@ -235,7 +242,10 @@
                     <!-- Pillar 2 -->
                     <div
                         class="relative rounded-2xl bg-cloud-white p-space-lg shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden group">
-                        
+                        <div
+                            class="absolute -right-4 -bottom-4 text-7xl font-bold text-surface-container-high/40 select-none pointer-events-none group-hover:text-torii-vermilion/20 transition-colors">
+                            祭
+                        </div>
                         <div>
                             <div
                                 class="w-12 h-12 rounded-xl bg-sakura-tint flex items-center justify-center text-torii-vermilion mb-space-md shadow-sm">
@@ -247,7 +257,7 @@
                             <div class="flex items-center gap-space-xs mb-space-xs">
                                 <span class="font-label-badge text-label-badge text-torii-vermilion font-bold">PILAR
                                     02</span>
-                                <span class="text-secondary text-xs"></span>
+                                <span class="text-secondary text-xs">•</span>
                                 <span class="font-label-badge text-label-badge text-secondary">TRADITION &amp; POP</span>
                             </div>
                             <h3 class="font-headline-sm text-headline-sm text-indigo-night mb-space-xs font-bold">
@@ -269,7 +279,10 @@
                     <!-- Pillar 3 -->
                     <div
                         class="relative rounded-2xl bg-cloud-white p-space-lg shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden group">
-                        
+                        <div
+                            class="absolute -right-4 -bottom-4 text-7xl font-bold text-surface-container-high/40 select-none pointer-events-none group-hover:text-primary/20 transition-colors">
+                            友
+                        </div>
                         <div>
                             <div
                                 class="w-12 h-12 rounded-xl bg-secondary-container/60 flex items-center justify-center text-primary mb-space-md shadow-sm">
@@ -280,11 +293,11 @@
                             </div>
                             <div class="flex items-center gap-space-xs mb-space-xs">
                                 <span class="font-label-badge text-label-badge text-primary font-bold">PILAR 03</span>
-                                <span class="text-secondary text-xs"></span>
+                                <span class="text-secondary text-xs">•</span>
                                 <span class="font-label-badge text-label-badge text-secondary">COMMUNITY</span>
                             </div>
                             <h3 class="font-headline-sm text-headline-sm text-indigo-night mb-space-xs font-bold">
-                                Komunitas
+                                Sahabat Satu Hobi
                             </h3>
                             <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
                                 Circle suportif untuk nobar anime
@@ -302,7 +315,10 @@
                     <!-- Pillar 4 -->
                     <div
                         class="relative rounded-2xl bg-cloud-white p-space-lg shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden group">
-                        
+                        <div
+                            class="absolute -right-4 -bottom-4 text-7xl font-bold text-surface-container-high/40 select-none pointer-events-none group-hover:text-gold-shrine/20 transition-colors">
+                            勝
+                        </div>
                         <div>
                             <div
                                 class="w-12 h-12 rounded-xl bg-gold-shrine/15 flex items-center justify-center text-gold-shrine mb-space-md shadow-sm">
@@ -313,11 +329,11 @@
                             </div>
                             <div class="flex items-center gap-space-xs mb-space-xs">
                                 <span class="font-label-badge text-label-badge text-gold-shrine font-bold">PILAR 04</span>
-                                <span class="text-secondary text-xs"></span>
+                                <span class="text-secondary text-xs">•</span>
                                 <span class="font-label-badge text-label-badge text-secondary">PRESTIGE</span>
                             </div>
                             <h3 class="font-headline-sm text-headline-sm text-indigo-night mb-space-xs font-bold">
-                                Kompetisi
+                                Kompetisi &amp; Prestasi
                             </h3>
                             <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
                                 Bimbingan intensif persiapan lomba
@@ -336,7 +352,7 @@
             </div>
         </section>
         <!-- SECTION 3: AGENDA EVENT TERBARU & TIMELINE -->
-        <section class="w-full bg-transparent py-space-2xl relative border-t border-gray-200/80" id="event">
+        <section class="w-full py-space-2xl relative" id="event">
             <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin">
                 <!-- Section Header -->
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md">
@@ -345,17 +361,17 @@
                             class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200/80 shadow-xs text-xs font-bold uppercase tracking-wider mb-space-xs self-start">
                             <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Logo"
                                 class="w-4 h-4 rounded-full object-cover ring-1 ring-primary/20 shrink-0" />
-                            <span class="text-primary font-bold"> JADWAL &amp; DOKUMENTASI</span>
-                            <span class="text-gray-300"></span>
+                            <span class="text-primary font-bold">⛩️ JADWAL &amp; DOKUMENTASI</span>
+                            <span class="text-gray-300">•</span>
                             <span class="text-gray-600">催し物</span>
                         </div>
                         <h2 class="font-headline-lg text-headline-lg text-indigo-night tracking-tight">
                             Event &amp; Kegiatan Unggulan Aozora
                         </h2>
                         <p class="font-body-md text-body-md text-on-surface-variant mt-space-xs max-w-xl">
-                            Berbagai festival tahunan, kelas khusus,
-                            dan acara kebahasaan
-                            yang rutin diadakan.
+                            Keseruan festival akbar tahunan, workshop
+                            seni mendalam, dan uji ketangkasan bahasa
+                            yang siap kamu ikuti.
                         </p>
                     </div>
                     <!-- Filter / Tab selector Mockup -->
@@ -387,7 +403,7 @@
                             </div>
 
                             @if($event->poster_path)
-                                <div class="w-full h-48 overflow-hidden bg-white">
+                                <div class="w-full h-48 overflow-hidden bg-surface-container-low">
                                     <img src="{{ Storage::url($event->poster_path) }}" alt="{{ $event->title }}"
                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 </div>
@@ -415,7 +431,7 @@
                                         class="material-symbols-outlined text-sm {{ $event->status === 'completed' ? 'text-torii-vermilion' : 'text-gold-shrine' }}">schedule</span>
                                     <span class="">{{ \Carbon\Carbon::parse($event->start_time)->format('H:i') }} -
                                         {{ \Carbon\Carbon::parse($event->end_time)->format('H:i') }} WIB</span>
-                                    <span class="text-secondary"></span>
+                                    <span class="text-secondary">•</span>
                                     <span class="material-symbols-outlined text-sm text-primary">location_on</span>
                                     <span class="truncate">{{ $event->location }}</span>
                                 </div>
@@ -428,15 +444,15 @@
                                 @if($event->status === 'completed')
                                     <!-- Documentation indicator -->
                                     <div
-                                        class="mt-space-md p-space-sm rounded-xl bg-white flex items-center justify-between">
+                                        class="mt-space-md p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between">
                                         <div class="flex items-center gap-space-xs text-primary font-label-badge text-label-badge">
                                             <span class="material-symbols-outlined text-base">photo_library</span>
-                                            <span class=""> {{ $event->documentations()->count() }} Dokumentasi</span>
+                                            <span class="">📸 {{ $event->documentations()->count() }} Dokumentasi</span>
                                         </div>
                                     </div>
                                 @else
                                     <div
-                                        class="mt-space-md p-space-sm rounded-xl bg-white flex items-center justify-between">
+                                        class="mt-space-md p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between">
                                         <div class="flex items-center gap-space-xs text-primary font-label-badge text-label-badge">
                                             <span class="material-symbols-outlined text-base">campaign</span>
                                             <span class="">Segera Hadir</span>
@@ -455,17 +471,19 @@
                         </div>
                     @endforeach
                 </div>
-                <!-- Button All Events -->
+                <!-- Prominent Call to Action Button for Full Event Archive -->
                 <div class="mt-space-xl flex justify-center">
                     <a class="inline-flex items-center gap-space-sm bg-indigo-night hover:bg-primary text-cloud-white font-label-lg text-label-lg px-space-xl py-space-md rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 group"
                         href="{{ route('events.index') }}" wire:navigate.hover>
+                        <span
+                            class="material-symbols-outlined text-aozora-sky group-hover:rotate-45 transition-transform">auto_awesome</span>
                         <span class="">Lihat Semua Event &amp; Arsip Dokumentasi
                             (15+ Event)</span>
                         <span
                             class="text-aozora-sky font-bold text-lg transition-transform group-hover:translate-x-1">→</span>
                     </a>
                 </div>
-                <!-- Dokumentasi -->
+                <!-- DOKUMENTASI MEDIA MOCKUP HIGHLIGHT (Photo & Video Player Box) -->
                 <div id="dokumentasi" class="mt-space-2xl p-space-lg rounded-2xl bg-cloud-white shadow-md scroll-mt-24">
                     <div
                         class="flex flex-col md:flex-row items-start md:items-center justify-between pb-space-md gap-space-sm">
@@ -518,7 +536,7 @@
                         <!-- 2 Gallery Thumbnails (5 cols) -->
                         <div class="md:col-span-5 flex flex-col gap-space-sm justify-between">
                             <div
-                                class="p-space-md rounded-xl bg-white hover:bg-surface-container transition-colors flex items-center gap-space-md cursor-pointer group">
+                                class="p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-center gap-space-md cursor-pointer group">
                                 <div
                                     class="w-20 h-20 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary overflow-hidden relative shadow-sm">
                                     <span
@@ -538,7 +556,7 @@
                                 </div>
                             </div>
                             <div
-                                class="p-space-md rounded-xl bg-white hover:bg-surface-container transition-colors flex items-center gap-space-md cursor-pointer group">
+                                class="p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-center gap-space-md cursor-pointer group">
                                 <div
                                     class="w-20 h-20 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary overflow-hidden relative shadow-sm">
                                     <span
@@ -574,7 +592,7 @@
         @include('pages.partials.pengurus-section')
 
         <!-- SECTION 5: KONTAK, JADWAL & REGISTRASI CEPAT -->
-        <section class="w-full bg-transparent py-space-2xl relative border-t border-gray-200/80" id="kontak">
+        <section class="w-full bg-surface-container-low/80 py-space-2xl relative" id="kontak">
             <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
                     <!-- Left: Information Cards & Schedule (6 cols) -->
@@ -583,8 +601,8 @@
                             class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200/80 shadow-xs text-xs font-bold uppercase tracking-wider mb-space-xs self-start">
                             <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Logo"
                                 class="w-4 h-4 rounded-full object-cover ring-1 ring-rose-200 shrink-0" />
-                            <span class="text-torii-vermilion font-bold"> JADWAL &amp; SEKRETARIAT</span>
-                            <span class="text-gray-300"></span>
+                            <span class="text-torii-vermilion font-bold">⛩️ JADWAL &amp; SEKRETARIAT</span>
+                            <span class="text-gray-300">•</span>
                             <span class="text-gray-600">連絡先</span>
                         </div>
                         <h2 class="font-headline-lg text-headline-lg text-indigo-night tracking-tight">
@@ -638,29 +656,27 @@
                         <!-- Official Social & Contacts Mini Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
                             <a class="p-space-md rounded-xl bg-cloud-white hover:bg-secondary-container/30 shadow-sm flex items-center gap-space-sm transition-colors group"
-                                href="https://www.instagram.com/ancsmecone/" target="_blank">
+                                href="https://instagram.com" target="_blank">
                                 <div
-                                    class="w-10 h-10 rounded-lg bg-torii-vermilion/10 flex items-center justify-center">
-                                    <img src="{{ asset('assets/instagram.png') }}" alt="Instagram"
-                                        class="w-6 h-6 object-contain" />
+                                    class="w-10 h-10 rounded-lg bg-torii-vermilion/10 text-torii-vermilion flex items-center justify-center">
+                                    <span class="font-bold text-lg">📸</span>
                                 </div>
                                 <div class="flex flex-col">
                                     <span class="font-label-badge text-label-badge text-secondary">INSTAGRAM RESMI</span>
                                     <span
-                                        class="font-label-lg text-label-lg font-bold text-indigo-night group-hover:text-primary transition-colors">@ancsmecone</span>
+                                        class="font-label-lg text-label-lg font-bold text-indigo-night group-hover:text-primary transition-colors">@aozora_nihongo</span>
                                 </div>
                             </a>
                             <a class="p-space-md rounded-xl bg-cloud-white hover:bg-secondary-container/30 shadow-sm flex items-center gap-space-sm transition-colors group"
-                                href="https://www.tiktok.com/@ancsmecone?_r=1" target="_blank">
+                                href="mailto:noreplyaozora@gmail.com">
                                 <div
-                                    class="w-10 h-10 rounded-lg bg-black/5 flex items-center justify-center">
-                                    <img src="{{ asset('assets/tiktok.png') }}" alt="TikTok"
-                                        class="w-6 h-6 object-contain" />
+                                    class="w-10 h-10 rounded-lg bg-aozora-sky/15 text-primary flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-xl">mail</span>
                                 </div>
                                 <div class="flex flex-col">
-                                    <span class="font-label-badge text-label-badge text-secondary">TIKTOK RESMI</span>
+                                    <span class="font-label-badge text-label-badge text-secondary">EMAIL RESMI</span>
                                     <span
-                                        class="font-label-lg text-label-lg font-bold text-indigo-night group-hover:text-primary transition-colors">@ancsmecone</span>
+                                        class="font-label-lg text-label-lg font-bold text-indigo-night group-hover:text-primary transition-colors">noreplyaozora@gmail.com</span>
                                 </div>
                             </a>
                         </div>
@@ -683,7 +699,7 @@
                             <div class="flex items-center justify-between pb-space-xs">
                                 <div
                                     class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-sakura-tint text-torii-vermilion font-label-badge text-label-badge font-bold">
-                                    <span class=""> REKRUTMEN OFFLINE</span><span class=""></span><span
+                                    <span class="">🌸 REKRUTMEN OFFLINE</span><span class="">•</span><span
                                         class="">新入部員募集</span>
                                 </div>
                                 <div
@@ -697,7 +713,7 @@
                                 SMKN 1 Purwokerto
                             </h3>
                             <div class="mt-space-md flex flex-col gap-space-sm">
-                                <div class="p-space-md rounded-xl bg-white flex items-start gap-space-sm">
+                                <div class="p-space-md rounded-xl bg-surface-container-low flex items-start gap-space-sm">
                                     <div
                                         class="w-8 h-8 rounded-lg bg-primary text-cloud-white font-label-badge text-label-badge font-bold flex items-center justify-center shrink-0">
                                         01
@@ -714,7 +730,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="p-space-md rounded-xl bg-white flex items-start gap-space-sm">
+                                <div class="p-space-md rounded-xl bg-surface-container-low flex items-start gap-space-sm">
                                     <div
                                         class="w-8 h-8 rounded-lg bg-torii-vermilion text-cloud-white font-label-badge text-label-badge font-bold flex items-center justify-center shrink-0">
                                         02
@@ -731,7 +747,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="p-space-md rounded-xl bg-white flex items-start gap-space-sm">
+                                <div class="p-space-md rounded-xl bg-surface-container-low flex items-start gap-space-sm">
                                     <div
                                         class="w-8 h-8 rounded-lg bg-gold-shrine text-indigo-night font-label-badge text-label-badge font-bold flex items-center justify-center shrink-0">
                                         03
@@ -770,19 +786,19 @@
 
         const voiceQuotes = [
             {
-                voice: "Voice: Ganbatte!",
+                voice: "Voice: Ganbatte! 🌸",
                 quote: "Ganbatte ne! Belajar bahasa Jepang itu seru asalkan dinikmati bersama teman satu frekuensi!",
             },
             {
-                voice: "Voice: Ganbatte!",
+                voice: "Voice: Ganbatte! ✨",
                 quote: "Ayo asah skill Kaiwa-mu! Petualangan seru kita di Aozora baru saja dimulai!",
             },
             {
-                voice: "Voice: Ganbatte!",
+                voice: "Voice: Ganbatte! ⭐",
                 quote: "Wah, antusiasmemu keren sekali! Siap tampil percaya diri di Bunkasai Matsuri tahun ini?",
             },
             {
-                voice: "Voice: Ganbatte!",
+                voice: "Voice: Ganbatte! 🚀",
                 quote: "Jangan menyerah, tetap semangat! Aozora blue skies are always ahead!",
             },
         ];
