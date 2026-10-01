@@ -7,7 +7,7 @@
         <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-aozora-sky/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin relative z-10 flex flex-col items-center text-center">
             <div class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-primary/10 text-primary font-label-badge text-label-badge mb-space-sm font-bold">
-                <span class="">🌸 SEMUA EVENT & MATSURI</span>
+                <span class=""> SEMUA EVENT & MATSURI</span>
             </div>
             <h1 class="font-headline-lg text-4xl md:text-5xl text-indigo-night font-extrabold tracking-tight mb-4">
                 Arsip Kegiatan Aozora
@@ -88,7 +88,7 @@
                         <div class="mt-space-md p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between mt-auto">
                             <div class="flex items-center gap-space-xs text-primary font-label-badge text-label-badge">
                                 <span class="material-symbols-outlined text-base">photo_library</span>
-                                <span class="">📸 {{ $event->documentations()->count() }} Dokumentasi</span>
+                                <span class=""> {{ $event->documentations()->count() }} Dokumentasi</span>
                             </div>
                         </div>
                         @else

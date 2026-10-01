@@ -42,6 +42,27 @@ class PengurusController extends Controller
             return asset('assets/DSC02070.jpg');
         };
 
+        // ---- Pembina Ekstrakurikuler ----
+        $pembinaRecord = $allPengurus->first(function ($p) {
+            return $p->divisi === 'Pembina' || str_contains($p->jabatan, 'Pembina') || str_contains($p->nama, 'Kikie');
+        });
+
+        $pembina = $pembinaRecord ? [
+            'nama' => $pembinaRecord->user ? $pembinaRecord->user->name : $pembinaRecord->nama,
+            'jabatan' => $pembinaRecord->jabatan,
+            'sub_jabatan' => $pembinaRecord->sub_jabatan ?? 'Advisor / 顧問',
+            'kelas' => $pembinaRecord->kelas ?? 'Guru Pembina',
+            'avatar' => $resolveAvatar($pembinaRecord->avatar, $pembinaRecord->nama),
+            'badge_color' => 'bg-emerald-600 text-white',
+        ] : [
+            'nama' => 'Kikie Astri Mahdalika S.Pd',
+            'jabatan' => 'Pembina Ekstrakurikuler',
+            'sub_jabatan' => 'Advisor / 顧問',
+            'kelas' => 'Guru Pembina',
+            'avatar' => asset('assets/DSC02070.jpg'),
+            'badge_color' => 'bg-emerald-600 text-white',
+        ];
+
         // ---- Pengurus Inti (BPH) ----
         $pengurusIntiRecords = $allPengurus->where('divisi', 'Pengurus Inti');
 
@@ -130,6 +151,7 @@ class PengurusController extends Controller
         ])->toArray();
 
         $pengurusInti = [
+            'pembina' => $pembina,
             'ketua' => $ketua,
             'wakil' => $wakil,
             'bendahara' => $bendahara,
@@ -160,11 +182,26 @@ class PengurusController extends Controller
         // ---- All Members (Flat list for search/filter) ----
         $allMembers = [];
 
+        // Pembina
+        $allMembers[] = [
+            'nama' => $pembina['nama'],
+            'jabatan' => $pembina['jabatan'],
+            'sub_jabatan' => $pembina['sub_jabatan'],
+            'divisi' => 'Pembina',
+            'kategori' => 'pembina',
+            'kelas' => $pembina['kelas'],
+            'avatar' => $pembina['avatar'],
+            'role_badge' => 'Pembina Ekstrakurikuler',
+            'badge_bg' => 'bg-emerald-600',
+            'tag_color' => 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300',
+            'order' => 0,
+        ];
+
         // Ketua
         $allMembers[] = [
             'nama' => $ketua['nama'],
             'jabatan' => $ketua['jabatan'],
-            'sub_jabatan' => 'Ketua Umum • Leader / 会長',
+            'sub_jabatan' => 'Ketua Umum  Leader / 会長',
             'divisi' => 'Pengurus Inti',
             'kategori' => 'inti',
             'kelas' => $ketua['kelas'],
@@ -277,7 +314,7 @@ class PengurusController extends Controller
             }
         }
 
-        $totalInti = count($pengurusIntiRecords) + count($koordinatorRecords);
+        $totalInti = 1 + count($pengurusIntiRecords) + count($koordinatorRecords);
         $totalPengurus = $totalInti + $totalAnggota;
 
         return [

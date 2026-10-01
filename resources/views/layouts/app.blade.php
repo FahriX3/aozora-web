@@ -117,11 +117,11 @@
                             $panelUrl = '/anggota';
 
                             if ($user->hasRole('super_admin')) {
-                                $roleLabel = '👑 Super Admin';
+                                $roleLabel = ' Super Admin';
                                 $roleBadgeColor = 'bg-rose-100 text-rose-800 border-rose-300';
                                 $panelUrl = '/admin';
                             } elseif ($user->hasRole('admin')) {
-                                $roleLabel = '⭐ Admin Konten';
+                                $roleLabel = ' Admin Konten';
                                 $roleBadgeColor = 'bg-blue-100 text-blue-800 border-blue-300';
                                 $panelUrl = '/admin';
                             } elseif ($user->hasRole('koordinator_inventaris')) {
@@ -165,7 +165,7 @@
                             <div class="py-2.5 flex flex-col gap-1">
                                 <a href="{{ url($panelUrl) }}"
                                     class="w-full px-3 py-2 rounded-xl bg-primary text-cloud-white text-xs font-bold hover:bg-primary/90 flex items-center justify-between shadow-sm transition-colors">
-                                    <span>🚀 Buka Dashboard Panel</span>
+                                    <span> Buka Dashboard Panel</span>
                                     <span class="material-symbols-outlined text-sm">open_in_new</span>
                                 </a>
 
@@ -257,10 +257,6 @@
         @yield('content')
     </main>
     <footer class="w-full bg-indigo-night text-cloud-white pt-space-2xl pb-space-xl relative overflow-hidden">
-        <div
-            class="absolute -right-16 -top-16 text-[220px] font-headline-lg font-extrabold text-cloud-white/[0.03] select-none pointer-events-none">
-            青空
-        </div>
         <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl pb-space-2xl">
                 <div class="flex flex-col gap-space-md">
@@ -278,13 +274,13 @@
                     </p>
                     <div
                         class="inline-flex items-center gap-space-xs self-start px-space-sm py-1 rounded-full bg-cloud-white/10 text-aozora-sky font-label-badge text-label-badge">
-                        <span class="">🇯🇵 PURWOKERTO JAPANESE CLUB</span>
+                        <span class="">PURWOKERTO JAPANESE CLUB</span>
                     </div>
                 </div>
                 <div class="flex flex-col gap-space-sm">
                     <span
                         class="font-headline-sm text-headline-sm text-cloud-white flex items-center gap-space-xs"><span
-                            class="text-torii-vermilion">⛩️</span> Info
+                            class="text-torii-vermilion"></span> Info
                         Jadwal Rutin</span>
                     <div class="p-space-md rounded-xl bg-cloud-white/5 flex flex-col gap-space-xs">
                         <div class="flex items-center gap-space-xs text-aozora-sky font-label-md text-label-md">
@@ -294,7 +290,7 @@
                         <span class="font-headline-sm text-headline-sm text-cloud-white">Setiap Kamis</span><span
                             class="font-body-sm text-body-sm text-surface-dim">16.00 - 17.00 WIB</span>
                         <div class="mt-space-xs pt-space-xs text-surface-dim font-body-sm text-body-sm">
-                            <span class="">📍 Ruang Kelas SMKN 1 Purwokerto</span>
+                            <span class="">Ruang Kelas SMKN 1 Purwokerto</span>
                         </div>
                     </div>
                 </div>
@@ -315,13 +311,13 @@
                     </p>
                     <div class="flex flex-col gap-space-xs font-label-md text-label-md">
                         <a class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
-                            href="#"><span class="">Instagram @aozora.smecon</span><span
-                                class="text-aozora-sky font-bold">↗</span></a><a
-                            class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
-                            href="#"><span class="">YouTube Aozora Channel</span><span
-                                class="text-aozora-sky font-bold">↗</span></a><a
-                            class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
-                            href="#"><span class="">Discord Server Aozora Kaiwa</span><span
+                            href="https://www.instagram.com/ancsmecone/" target="_blank"><span class="">Instagram @ancsmecone</span><span
+                                class="text-aozora-sky font-bold">↗</span></a>
+                        <a class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
+                            href="https://www.tiktok.com/@ancsmecone?_r=1" target="_blank"><span class="">TikTok @ancsmecone</span><span
+                                class="text-aozora-sky font-bold">↗</span></a>
+                        <a class="inline-flex items-center justify-between px-space-md py-space-sm rounded-lg bg-cloud-white/5 hover:bg-cloud-white/10 text-cloud-white transition-colors"
+                            href="https://youtube.com/@ancsmecone?si=nKhw3-a3dhE1bvYF" target="_blank"><span class="">YouTube @ancsmecone</span><span
                                 class="text-aozora-sky font-bold">↗</span></a>
                     </div>
                 </div>
@@ -329,12 +325,8 @@
             <div
                 class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-surface-dim">
                 <div class="flex items-center gap-space-xs">
-                    <span class="">© 2025 Aozora Nihongo Club SMKN 1 Purwokerto.</span><span class="">Hak Cipta
-                        Dilindungi.</span>
-                </div>
-                <div class="flex items-center gap-space-md font-label-md text-label-md">
-                    <span class="text-cloud-white/70">一期一会 (Ichigo Ichie)</span><span class="">•</span><span
-                        class="text-aozora-sky">Aozora Blue Skies Ahead</span>
+                    <span>© {{ date('Y') }} Aozora Nihongo Club SMKN 1 Purwokerto.</span>
+                    <span>Hak Cipta Dilindungi.</span>
                 </div>
             </div>
         </div>
@@ -374,7 +366,7 @@
                 </div>
                 <div
                     class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-sakura-tint text-torii-vermilion text-[11px] font-bold tracking-wider uppercase mb-1">
-                    <span>🌸 ログインポータル</span>
+                    <span> ログインポータル</span>
                 </div>
                 <h2 id="login-modal-title" class="text-xl font-bold font-headline-md tracking-tight">Portal Internal
                     Aozora</h2>
@@ -386,7 +378,7 @@
                 class="bg-surface-container-low px-5 py-2.5 border-b border-surface-container-high/80 flex items-center justify-between overflow-x-auto text-[11px]">
                 <span class="font-bold text-secondary text-[10px] uppercase tracking-wider">Akses:</span>
                 <div class="flex items-center gap-1.5">
-                    <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 font-semibold">👑 Admin</span>
+                    <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 font-semibold"> Admin</span>
                     <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold">📦
                         Inventaris</span>
                     <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold">👤
@@ -431,7 +423,7 @@
                                 class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">lock</span>
                             <input type="password" name="password" id="modal-password" required
                                 class="w-full pl-10 pr-11 py-2.5 rounded-xl border border-outline-variant bg-surface text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                                placeholder="••••••••">
+                                placeholder="">
                             <button type="button" onclick="toggleModalPassword()" id="btn-toggle-password"
                                 class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors focus:outline-none cursor-pointer"
                                 aria-label="Toggle tampilkan password" tabindex="-1">

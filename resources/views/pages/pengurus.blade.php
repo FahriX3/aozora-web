@@ -101,17 +101,47 @@
 <body class="bg-white font-body-md text-body-md text-gray-900 dark:bg-gray-900 dark:text-white antialiased selection:bg-aozora-sky selection:text-indigo-night min-h-screen flex flex-col"
       x-data="{
           isModalOpen: false,
+          isDivisiModalOpen: false,
           selectedMember: null,
+          selectedDivisi: null,
+          selectedDivisiMembers: [],
           activeTab: 'Semua',
           searchQuery: '',
+          divisiAllMembers: {{ Js::from(
+              collect(['Pemateri','Kegiatan','Budaya Bahasa','PDD','Mediakom','Perkap'])->mapWithKeys(function($d) use ($pengurusInti, $anggotaDivisi) {
+                  $koors = collect($pengurusInti['koordinator'] ?? [])->where('divisi', $d)->values()->map(fn($k) => array_merge($k, ['role_badge' => 'Koordinator '.$d, 'badge_bg' => 'bg-sky-600', 'kategori' => 'koordinator', 'sub_jabatan' => 'Koordinator Bidang', 'divisi' => 'Divisi '.$d]))->toArray();
+                  $members = collect($anggotaDivisi[$d] ?? [])->map(fn($m) => array_merge($m, ['role_badge' => 'Anggota '.$d, 'badge_bg' => 'bg-gray-700', 'kategori' => 'anggota', 'sub_jabatan' => 'Anggota Aktif', 'divisi' => 'Divisi '.$d]))->toArray();
+                  return [$d => array_merge($koors, $members)];
+              })->toArray()
+          ) }},
           openModal(data) {
               this.selectedMember = data;
               this.isModalOpen = true;
               document.body.classList.add('overflow-hidden');
           },
+          openDivisiModal(divisiName) {
+              this.selectedDivisi = divisiName;
+              this.selectedDivisiMembers = this.divisiAllMembers[divisiName] || [];
+              this.isDivisiModalOpen = true;
+              document.body.classList.add('overflow-hidden');
+          },
           closeModal() {
               this.isModalOpen = false;
               this.selectedMember = null;
+              if (!this.isDivisiModalOpen) document.body.classList.remove('overflow-hidden');
+          },
+          closeDivisiModal() {
+              this.isDivisiModalOpen = false;
+              this.selectedDivisi = null;
+              this.selectedDivisiMembers = [];
+              if (!this.isModalOpen) document.body.classList.remove('overflow-hidden');
+          },
+          closeAll() {
+              this.isModalOpen = false;
+              this.isDivisiModalOpen = false;
+              this.selectedMember = null;
+              this.selectedDivisi = null;
+              this.selectedDivisiMembers = [];
               document.body.classList.remove('overflow-hidden');
           },
           allMembers: {{ Js::from($allMembers) }},
@@ -119,7 +149,8 @@
               const q = this.searchQuery.trim().toLowerCase();
               return this.allMembers.filter(m => {
                   const matchTab = (this.activeTab === 'Semua') 
-                      || (m.divisi.toLowerCase() === this.activeTab.toLowerCase());
+                      || (m.divisi.toLowerCase() === this.activeTab.toLowerCase())
+                      || (this.activeTab === 'Pengurus Inti' && m.divisi.toLowerCase() === 'pembina');
                   
                   const matchSearch = !q 
                       || m.nama.toLowerCase().includes(q) 
@@ -133,6 +164,9 @@
           },
           countByTab(tabName) {
               if (tabName === 'Semua') return this.allMembers.length;
+              if (tabName === 'Pengurus Inti') {
+                  return this.allMembers.filter(m => m.divisi.toLowerCase() === 'pengurus inti' || m.divisi.toLowerCase() === 'pembina').length;
+              }
               return this.allMembers.filter(m => m.divisi.toLowerCase() === tabName.toLowerCase()).length;
           },
           resetFilters() {
@@ -141,7 +175,7 @@
           }
       }"
       @open-modal.window="openModal($event.detail)"
-      @keydown.escape.window="closeModal()">
+      @keydown.escape.window="closeAll()">
 
     <!-- HEADER & NAVBAR -->
     <header
@@ -233,8 +267,8 @@
                     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
                         <div class="max-w-3xl">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-sakura-tint text-torii-vermilion text-xs font-bold mb-3">
-                                <span>🌸 STRUKTUR KEPENGURUSAN</span>
-                                <span>•</span>
+                                <span> STRUKTUR KEPENGURUSAN</span>
+                                <span></span>
                                 <span>組織体制</span>
                             </div>
                             <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-tight">
@@ -395,6 +429,53 @@
             <div class="flex flex-col items-center gap-10">
                 
                 <!-- ---------------------------------------------------- -->
+                <!-- BARIS 0: PEMBINA EKSTRAKURIKULER (CENTER) -->
+                <!-- ---------------------------------------------------- -->
+                @if(!empty($pengurusInti['pembina']))
+                <div class="w-full flex justify-center">
+                    <div @click="$dispatch('open-modal', {
+                            nama: '{{ addslashes($pengurusInti['pembina']['nama']) }}',
+                            jabatan: '{{ $pengurusInti['pembina']['jabatan'] }}',
+                            sub_jabatan: '{{ $pengurusInti['pembina']['sub_jabatan'] }}',
+                            divisi: 'Pembina Organisasi',
+                            kelas: '{{ $pengurusInti['pembina']['kelas'] }}',
+                            avatar: '{{ $pengurusInti['pembina']['avatar'] }}',
+                            role_badge: 'Pembina Ekstrakurikuler',
+                            badge_bg: 'bg-emerald-600'
+                         })"
+                         class="group relative w-full max-w-sm rounded-2xl bg-white dark:bg-gray-800 pt-7 pb-6 px-6 shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 border-2 border-emerald-600 dark:border-emerald-500 text-center cursor-pointer">
+                        <!-- Top Floating Badge Pembina -->
+                        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1 rounded-full text-xs font-extrabold tracking-wider uppercase shadow-lg flex items-center gap-1.5 z-30"
+                             style="background-color: #059669; color: #ffffff !important; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.45);">
+                            <span style="color: #ffffff !important;">PEMBINA EKSTRAKURIKULER</span>
+                        </div>
+
+                        <!-- Profile Avatar -->
+                        <div class="relative w-24 h-24 mx-auto mt-1 mb-4">
+                            <img src="{{ $pengurusInti['pembina']['avatar'] }}" alt="{{ $pengurusInti['pembina']['nama'] }}"
+                                 class="w-full h-full rounded-full object-cover ring-4 ring-emerald-500/30 group-hover:ring-emerald-600 transition-all shadow-md">
+                        </div>
+
+                        <!-- Member Info -->
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-emerald-600 transition-colors">
+                            {{ $pengurusInti['pembina']['nama'] }}
+                        </h3>
+                        <div class="mt-1 mb-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800">
+                                {{ $pengurusInti['pembina']['jabatan'] }} &bull; {{ $pengurusInti['pembina']['sub_jabatan'] }}
+                            </span>
+                        </div>
+                        <div class="inline-block mt-1 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-medium">
+                            <span class="font-bold text-gray-900 dark:text-white">{{ $pengurusInti['pembina']['kelas'] }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connecting Line Visual -->
+                <div class="w-0.5 h-6 bg-gray-200 dark:bg-gray-700 -my-4"></div>
+                @endif
+
+                <!-- ---------------------------------------------------- -->
                 <!-- BARIS 1: KETUA (CENTER) -->
                 <!-- ---------------------------------------------------- -->
                 <div class="w-full flex justify-center">
@@ -422,7 +503,7 @@
                             <img src="{{ $pengurusInti['ketua']['avatar'] }}" alt="{{ $pengurusInti['ketua']['nama'] }}"
                                  class="w-full h-full rounded-full object-cover ring-4 ring-blue-500/30 group-hover:ring-blue-600 transition-all shadow-md">
                             <span class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-amber-400 flex items-center justify-center text-white text-xs shadow" title="Leader">
-                                👑
+                                
                             </span>
                         </div>
 
@@ -432,7 +513,7 @@
                         </h3>
                         <div class="mt-1 mb-2">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800">
-                                Ketua Umum • Leader / 会長
+                                Ketua Umum  Leader / 会長
                             </span>
                         </div>
                         <div class="inline-block mt-1 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-medium">
@@ -462,7 +543,6 @@
                         <!-- Top Floating Badge Wakil (High Contrast & Visible) -->
                         <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1 rounded-full text-xs font-extrabold tracking-wider uppercase shadow-lg flex items-center gap-1.5 z-30"
                              style="background-color: #0284c7; color: #ffffff !important; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.45);">
-                            <span>🛡️</span>
                             <span style="color: #ffffff !important;">WAKIL KETUA</span>
                         </div>
 
@@ -471,7 +551,7 @@
                             <img src="{{ $pengurusInti['wakil']['avatar'] }}" alt="{{ $pengurusInti['wakil']['nama'] }}"
                                  class="w-full h-full rounded-full object-cover ring-4 ring-sky-400/30 group-hover:ring-sky-500 transition-all shadow-md">
                             <span class="absolute bottom-0 right-0 w-5 h-5 rounded-full bg-sky-500 flex items-center justify-center text-white text-[10px] shadow" title="Vice Leader">
-                                🛡️
+                                <span class="material-symbols-outlined text-[12px]">security</span>
                             </span>
                         </div>
 
@@ -481,7 +561,7 @@
                         </h3>
                         <div class="mt-1 mb-2">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold text-sky-700 bg-sky-50 border border-sky-200 dark:bg-sky-950 dark:text-sky-300 dark:border-sky-800">
-                                Wakil Ketua • Vice Leader / 副部長
+                                Wakil Ketua &bull; Vice Leader / 副部長
                             </span>
                         </div>
                         <div class="inline-block mt-1 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-medium">
@@ -501,7 +581,7 @@
                         <!-- Sub-grup Sekretaris -->
                         <div class="rounded-2xl bg-gray-50 dark:bg-gray-800/40 p-5 border border-gray-200 dark:border-gray-700/60">
                             <div class="flex items-center justify-center gap-2 mb-4">
-                                <span class="text-sm">📝</span>
+                                <span class="material-symbols-outlined text-sm text-primary">edit_note</span>
                                 <span class="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-white">Sekretaris</span>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -536,7 +616,7 @@
                         <!-- Sub-grup Bendahara -->
                         <div class="rounded-2xl bg-gray-50 dark:bg-gray-800/40 p-5 border border-gray-200 dark:border-gray-700/60">
                             <div class="flex items-center justify-center gap-2 mb-4">
-                                <span class="text-sm">💰</span>
+                                <span class="material-symbols-outlined text-sm text-emerald-600">payments</span>
                                 <span class="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-white">Bendahara</span>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -579,7 +659,7 @@
                 <div class="w-full max-w-2xl">
                     <div class="rounded-2xl bg-gray-50 dark:bg-gray-800/40 p-5 border border-gray-200 dark:border-gray-700/60">
                         <div class="flex items-center justify-center gap-2 mb-4">
-                            <span class="text-sm">📢</span>
+                            <span class="text-sm"></span>
                             <span class="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-white">Hubungan Masyarakat (Humas)</span>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -627,7 +707,7 @@
                             </h3>
                         </div>
                         <span class="text-xs text-gray-500 dark:text-gray-400 font-medium">
-                            6 Divisi • Masing-masing 2 Koordinator
+                            6 Divisi  Masing-masing 2 Koordinator
                         </span>
                     </div>
 
@@ -677,7 +757,7 @@
         </section>
 
         <!-- ========================================================= -->
-        <!-- BAGIAN 2: DAFTAR ANGGOTA DIVISI (32 ORANG)                -->
+        <!-- BAGIAN 2: DAFTAR ANGGOTA DIVISI (CARDS PER DIVISI)        -->
         <!-- ========================================================= -->
         <section class="w-full bg-white dark:bg-gray-900 py-14 border-t border-gray-100 dark:border-gray-800">
             <div class="max-w-[1280px] mx-auto px-4 md:px-8">
@@ -687,57 +767,89 @@
                         Anggota Divisi
                     </span>
                     <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
-                        Daftar Anggota Seluruh Divisi
+                        6 Divisi Kegiatan ANC
                     </h2>
                     <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400 mt-1">
-                        {{ $totalAnggota }} anggota aktif yang tersebar di 6 divisi kegiatan Aozora Nihongo Club
+                        {{ $totalAnggota }} anggota aktif — klik kartu divisi untuk lihat seluruh anggotanya
                     </p>
                     <div class="w-16 h-1 bg-gradient-to-r from-primary to-aozora-sky rounded-full mt-3"></div>
                 </div>
 
-                <!-- MEMBERS CARD GRID -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-                    @foreach($anggotaDivisi as $divisi => $list)
-                        @foreach($list as $member)
-                        <div @click="openModal({
-                                nama: '{{ addslashes($member['nama']) }}',
-                                jabatan: '{{ $member['jabatan'] }}',
-                                sub_jabatan: 'Anggota Aktif',
-                                divisi: 'Divisi {{ $divisi }}',
-                                kelas: '{{ $member['kelas'] }}',
-                                avatar: '{{ $member['avatar'] }}',
-                                role_badge: 'Anggota {{ $divisi }}',
-                                badge_bg: 'bg-gray-800'
-                             })"
-                             class="group rounded-2xl bg-white dark:bg-gray-800 p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-200 dark:border-gray-700 flex flex-col justify-between relative overflow-hidden cursor-pointer">
-                            <!-- Top line accent -->
-                            <div class="w-full h-1 absolute top-0 left-0 bg-blue-600/40 group-hover:bg-blue-600 transition-colors"></div>
+                <!-- DIVISI CARDS GRID -->
+                @php
+                    $divisiMeta2 = [
+                        'Pemateri'     => ['icon' => 'menu_book',   'desc' => 'Kaiwa, bunpou, kanji & persiapan JLPT.',              'grad' => 'from-indigo-600 to-blue-500'],
+                        'Kegiatan'     => ['icon' => 'celebration', 'desc' => 'Agenda rutin, matsuri & perayaan bunkasai.',          'grad' => 'from-emerald-600 to-teal-500'],
+                        'Budaya Bahasa'=> ['icon' => 'palette',     'desc' => 'Shodo, origami, tari tradisional & budaya Jepang.',  'grad' => 'from-rose-600 to-pink-500'],
+                        'PDD'          => ['icon' => 'photo_camera','desc' => 'Dokumentasi, fotografi kegiatan & arsip event.',     'grad' => 'from-amber-600 to-yellow-500'],
+                        'Mediakom'     => ['icon' => 'campaign',    'desc' => 'Media sosial, konten kreatif & narahubung.',          'grad' => 'from-purple-600 to-violet-500'],
+                        'Perkap'       => ['icon' => 'inventory_2', 'desc' => 'Inventaris properti cosplay, yukata & perlengkapan.','grad' => 'from-cyan-600 to-sky-500'],
+                    ];
+                @endphp
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    @foreach(['Pemateri','Kegiatan','Budaya Bahasa','PDD','Mediakom','Perkap'] as $divName)
+                        @php
+                            $dm = $divisiMeta2[$divName] ?? ['icon'=>'groups','desc'=>'','grad'=>'from-blue-600 to-sky-500'];
+                            $koors2 = collect($pengurusInti['koordinator'] ?? [])->where('divisi', $divName)->values();
+                            $mems2  = collect($anggotaDivisi[$divName] ?? []);
+                            $total2 = $koors2->count() + $mems2->count();
+                        @endphp
+                        <div @click="openDivisiModal('{{ $divName }}')"
+                             class="group relative bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer">
+                            <!-- Color accent top bar -->
+                            <div class="h-1.5 w-full bg-gradient-to-r {{ $dm['grad'] }} group-hover:h-2 transition-all"></div>
 
-                            <div class="flex items-start gap-3.5">
-                                <img src="{{ $member['avatar'] }}" alt="{{ $member['nama'] }}"
-                                     class="w-12 h-12 rounded-full object-cover ring-2 ring-gray-100 dark:ring-gray-700 group-hover:ring-blue-600 transition-all shadow-sm shrink-0">
-
-                                <div class="flex-1 min-w-0">
-                                    <h4 class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors truncate"
-                                        title="{{ $member['nama'] }}">
-                                        {{ $member['nama'] }}
-                                    </h4>
-                                    <span class="inline-block mt-0.5 text-[11px] font-semibold text-gray-500 dark:text-gray-400">
-                                        {{ $member['kelas'] }}
+                            <div class="p-5">
+                                <!-- Header -->
+                                <div class="flex items-start justify-between gap-3 mb-3">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="w-9 h-9 rounded-xl bg-gradient-to-br {{ $dm['grad'] }} flex items-center justify-center shadow-sm">
+                                            <span class="material-symbols-outlined text-white text-base">{{ $dm['icon'] }}</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-black text-gray-900 dark:text-white group-hover:text-primary transition-colors">{{ $divName }}</h4>
+                                            <span class="text-[10px] text-gray-500 dark:text-gray-400">Divisi Peminatan</span>
+                                        </div>
+                                    </div>
+                                    <span class="shrink-0 text-xs font-bold px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
+                                        {{ $total2 }} orang
                                     </span>
                                 </div>
-                            </div>
 
-                            <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/60 flex items-center justify-between">
-                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-200">
-                                    {{ $divisi }}
-                                </span>
-                                <span class="text-[11px] text-gray-400 dark:text-gray-500 font-medium">
-                                    Anggota
-                                </span>
+                                <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-4">{{ $dm['desc'] }}</p>
+
+                                <!-- Koordinator preview -->
+                                @if($koors2->count() > 0)
+                                <div class="mb-3 pb-3 border-b border-gray-100 dark:border-gray-700/60">
+                                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1.5">Koordinator:</span>
+                                    <div class="flex items-center gap-1.5">
+                                        @foreach($koors2 as $k2)
+                                        <div class="flex items-center gap-1.5">
+                                            <img src="{{ $k2['avatar'] }}" alt="{{ $k2['nama'] }}" class="w-6 h-6 rounded-full object-cover ring-1 ring-gray-200">
+                                            <span class="text-[11px] font-semibold text-gray-700 dark:text-gray-300 truncate max-w-[100px]">{{ $k2['nama'] }}</span>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                @endif
+
+                                <!-- Member avatars stack + CTA -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex -space-x-2">
+                                        @foreach($mems2->take(6) as $m2)
+                                        <img class="w-7 h-7 rounded-full ring-2 ring-white dark:ring-gray-800 object-cover"
+                                             src="{{ $m2['avatar'] }}" alt="{{ $m2['nama'] }}" title="{{ $m2['nama'] }}">
+                                        @endforeach
+                                        @if($mems2->count() > 6)
+                                        <div class="w-7 h-7 rounded-full bg-gray-200 dark:bg-gray-600 ring-2 ring-white dark:ring-gray-800 flex items-center justify-center text-[9px] font-black text-gray-700 dark:text-gray-300">
+                                            +{{ $mems2->count() - 6 }}
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <span class="text-[11px] text-primary dark:text-aozora-sky font-bold group-hover:underline">Lihat semua →</span>
+                                </div>
                             </div>
                         </div>
-                        @endforeach
                     @endforeach
                 </div>
             </div>
@@ -856,8 +968,6 @@
 
     <!-- FOOTER (MATCHING SITE THEME) -->
     <footer class="w-full bg-indigo-night text-cloud-white pt-12 pb-8 relative overflow-hidden border-t border-indigo-900/40">
-        <div class="absolute -right-16 -top-16 text-[220px] font-extrabold text-cloud-white/[0.03] select-none pointer-events-none">青空</div>
-        
         <div class="max-w-[1280px] mx-auto px-4 md:px-8 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-10">
                 <!-- Col 1 -->
@@ -870,17 +980,17 @@
                         Ekstrakurikuler Bahasa dan Kebudayaan Jepang di SMKN 1 Purwokerto. Ruang eksplorasi bahasa, anime culture, kaiwa, cosplay, dan matsuri berprestasi.
                     </p>
                     <div class="inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full bg-cloud-white/10 text-aozora-sky text-[11px] font-bold">
-                        <span>🇯🇵 PURWOKERTO JAPANESE CLUB</span>
+                        <span>PURWOKERTO JAPANESE CLUB</span>
                     </div>
                 </div>
 
                 <!-- Col 2 -->
                 <div class="flex flex-col gap-2">
                     <span class="font-bold text-sm text-cloud-white flex items-center gap-1.5">
-                        <span>⛩️</span> Pertemuan Rutin
+                        <span></span> Pertemuan Rutin
                     </span>
                     <div class="p-3.5 rounded-xl bg-cloud-white/5 flex flex-col gap-1 text-xs">
-                        <span class="text-aozora-sky font-bold">Setiap Kamis • 16.00 - 17.00 WIB</span>
+                        <span class="text-aozora-sky font-bold">Setiap Kamis  16.00 - 17.00 WIB</span>
                         <span class="text-surface-dim">Ruang Kelas SMKN 1 Purwokerto</span>
                     </div>
                 </div>
@@ -905,149 +1015,235 @@
             </div>
 
             <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-surface-dim">
-                <span>© 2026 Aozora Nihongo Club SMKN 1 Purwokerto. All rights reserved.</span>
-                <div class="flex items-center gap-2 text-aozora-sky">
-                    <span>一期一会 (Ichigo Ichie)</span>
-                    <span>•</span>
-                    <span>Aozora Blue Skies Ahead</span>
-                </div>
+                <span>© {{ date('Y') }} Aozora Nihongo Club SMKN 1 Purwokerto. All rights reserved.</span>
             </div>
         </div>
     </footer>
 
     <!-- ========================================================= -->
+    <!-- DIVISI MEMBER LIST MODAL                                  -->
+    <!-- ========================================================= -->
+    <template x-teleport="body">
+        <div x-show="isDivisiModalOpen"
+             x-cloak
+             style="position: fixed; inset: 0; z-index: 9999;"
+             class="fixed inset-0 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-hidden"
+             role="dialog"
+             aria-modal="true"
+             @click.self="closeDivisiModal()"
+             @keydown.escape.window="closeDivisiModal()">
+
+            <!-- Backdrop -->
+            <div x-show="isDivisiModalOpen"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 @click="closeDivisiModal()"
+                 class="fixed inset-0 bg-slate-950/70 backdrop-blur-md cursor-pointer"
+                 aria-hidden="true"></div>
+
+            <!-- Modal Card -->
+            <div x-show="isDivisiModalOpen"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 translate-y-4 sm:scale-95"
+                 x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                 x-transition:leave-end="opacity-0 translate-y-4 sm:scale-95"
+                 @click.stop
+                 class="relative w-full max-w-lg sm:max-w-xl bg-white dark:bg-gray-800 rounded-t-3xl sm:rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-10 max-h-[85vh] sm:max-h-[80vh] flex flex-col cursor-default">
+
+                <!-- Header -->
+                <div class="h-20 bg-gradient-to-r from-blue-700 via-indigo-600 to-sky-500 relative flex items-center justify-between px-5 shrink-0">
+                    <div>
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/25 backdrop-blur-sm text-white text-[11px] font-bold tracking-wider uppercase mb-0.5">
+                            <span>Anggota Divisi</span>
+                        </div>
+                        <h3 class="text-white text-lg font-black tracking-tight" x-text="'Divisi ' + selectedDivisi"></h3>
+                    </div>
+                    <button @click="closeDivisiModal()"
+                            type="button"
+                            class="w-9 h-9 rounded-full bg-black/30 hover:bg-black/50 text-white flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-white/50 cursor-pointer shrink-0"
+                            aria-label="Tutup daftar anggota divisi"
+                            title="Tutup (Esc)">
+                        <span class="text-xl font-bold leading-none">✕</span>
+                    </button>
+                </div>
+
+                <!-- Count strip -->
+                <div class="px-5 py-2.5 bg-gray-50 dark:bg-gray-900/60 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between shrink-0">
+                    <span class="text-xs text-gray-600 dark:text-gray-400 font-medium">
+                        <span class="font-bold text-gray-900 dark:text-white" x-text="selectedDivisiMembers.length"></span> anggota — klik kartu untuk detail lengkap
+                    </span>
+                    <span class="text-[10px] text-gray-400">Scroll untuk lihat semua</span>
+                </div>
+
+                <!-- Scrollable member grid: 2 columns so top row contains the 2 koordinator -->
+                <div class="overflow-y-auto flex-1 p-5">
+                    <div class="grid grid-cols-2 gap-3.5">
+                        <template x-for="(m, i) in selectedDivisiMembers" :key="i">
+                            <div @click="closeDivisiModal(); $nextTick(() => openModal(m))"
+                                 class="group rounded-xl p-4 border transition-all cursor-pointer flex flex-col items-center text-center"
+                                 :class="m.kategori === 'koordinator'
+                                     ? 'bg-sky-50/50 dark:bg-sky-950/25 border-sky-300 dark:border-sky-600 shadow-xs hover:border-sky-400 hover:shadow-md'
+                                     : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 hover:border-blue-400 hover:shadow-md'">
+                                <img :src="m.avatar" :alt="m.nama"
+                                     class="w-14 h-14 rounded-full object-cover ring-2 transition-all shadow-sm mb-2"
+                                     :class="m.kategori === 'koordinator' ? 'ring-sky-400 dark:ring-sky-500 group-hover:ring-sky-500' : 'ring-gray-100 dark:ring-gray-600 group-hover:ring-blue-400'">
+                                <span class="text-xs font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-aozora-sky transition-colors line-clamp-2 leading-tight" x-text="m.nama"></span>
+                                <span class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5" x-text="m.kelas"></span>
+                                <span class="mt-2 px-2.5 py-0.5 rounded-full text-[10px] font-bold"
+                                      :class="m.kategori === 'koordinator' ? 'bg-sky-100 text-sky-800 border border-sky-300 dark:bg-sky-900/60 dark:text-sky-300 dark:border-sky-700' : 'bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-300'"
+                                      x-text="m.kategori === 'koordinator' ? 'Koordinator' : 'Anggota'">
+                                </span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- ========================================================= -->
     <!-- MODAL POPUP BIODATA PENGURUS                              -->
     <!-- ========================================================= -->
-    <div x-show="isModalOpen"
-         x-cloak
-         @click="closeModal()"
-         class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
-         role="dialog"
-         aria-modal="true">
-
-        <!-- 1. BACKDROP OVERLAY WITH BLUR (CLICK MANA SAJA TO CLOSE) -->
+    <template x-teleport="body">
         <div x-show="isModalOpen"
-             x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0"
-             x-transition:enter-end="opacity-100"
-             x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100"
-             x-transition:leave-end="opacity-0"
-             class="fixed inset-0 bg-slate-950/70 backdrop-blur-md">
-        </div>
+             x-cloak
+             style="position: fixed; inset: 0; z-index: 9999;"
+             class="fixed inset-0 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+             role="dialog"
+             aria-modal="true"
+             @click.self="closeModal()"
+             @keydown.escape.window="closeModal()">
 
-        <!-- 2. MODAL CARD CONTAINER (@click.stop prevents closing when clicking inside) -->
-        <div x-show="isModalOpen"
-             x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0 scale-95 translate-y-4"
-             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-             x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-             x-transition:leave-end="opacity-0 scale-95 translate-y-4"
-             @click.stop
-             class="relative w-full max-w-lg bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-10 my-8">
-
-            <!-- Decorative Top Gradient Accent Header -->
-            <div class="h-28 bg-gradient-to-r from-blue-700 via-indigo-600 to-sky-500 relative flex items-start justify-between p-4">
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/25 backdrop-blur-sm text-white text-[11px] font-bold tracking-wider uppercase">
-                    <span>🌸</span>
-                    <span>Biodata Pengurus Aozora</span>
-                </div>
-
-                <!-- Tombol Silang (Close Button) -->
-                <button @click="closeModal()"
-                        type="button"
-                        class="w-9 h-9 rounded-full bg-black/30 hover:bg-black/50 text-white flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-white/50 cursor-pointer"
-                        title="Tutup (Esc)">
-                    <span class="text-xl font-bold leading-none">✕</span>
-                </button>
+            <!-- 1. BACKDROP OVERLAY WITH BLUR (CLICK MANA SAJA TO CLOSE) -->
+            <div x-show="isModalOpen"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 @click="closeModal()"
+                 class="fixed inset-0 bg-slate-950/70 backdrop-blur-md cursor-pointer"
+                 aria-hidden="true">
             </div>
 
-            <template x-if="selectedMember">
-                <div class="px-6 pb-6 pt-0 relative">
-                    <!-- Photo Avatar (Overlapping Header) -->
-                    <div class="flex justify-center -mt-16 mb-4">
-                        <div class="relative">
-                            <img :src="selectedMember.avatar"
-                                 :alt="selectedMember.nama"
-                                 class="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover ring-4 ring-white dark:ring-gray-800 shadow-xl bg-white dark:bg-gray-700">
-                            <!-- Japanese Torii icon badge on avatar -->
-                            <div class="absolute bottom-1 right-1 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs shadow-md border-2 border-white dark:border-gray-800 font-bold">
-                                ⛩️
-                            </div>
-                        </div>
+            <!-- 2. MODAL CARD CONTAINER (@click.stop prevents closing when clicking inside) -->
+            <div x-show="isModalOpen"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+                 x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+                 @click.stop
+                 class="relative w-full max-w-lg bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-10 my-8 cursor-default">
+
+                <!-- Decorative Top Gradient Accent Header -->
+                <div class="h-28 bg-gradient-to-r from-blue-700 via-indigo-600 to-sky-500 relative flex items-start justify-between p-4">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/25 backdrop-blur-sm text-white text-[11px] font-bold tracking-wider uppercase">
+                        <span>Biodata Pengurus Aozora</span>
                     </div>
 
-                    <!-- Member Name & Badges -->
-                    <div class="text-center mb-6">
-                        <h3 class="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight leading-snug"
-                            x-text="selectedMember.nama">
-                        </h3>
-                        <div class="flex flex-wrap items-center justify-center gap-2 mt-2">
-                            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm"
-                                  :class="selectedMember.badge_bg || 'bg-blue-600'"
-                                  x-text="selectedMember.role_badge">
-                            </span>
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
-                                  x-text="selectedMember.sub_jabatan || 'Pengurus'">
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Biodata Grid Information -->
-                    <div class="bg-gray-50 dark:bg-gray-900/60 rounded-2xl p-4 sm:p-5 border border-gray-100 dark:border-gray-700/60 space-y-3">
-                        <div class="text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 pb-2 border-b border-gray-200 dark:border-gray-800 flex items-center gap-1.5">
-                            <span class="material-symbols-outlined text-sm text-blue-600">badge</span>
-                            <span>Informasi Biodata Pengurus</span>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                            <!-- Nama Lengkap -->
-                            <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
-                                <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Nama Lengkap</span>
-                                <span class="font-bold text-gray-900 dark:text-white text-sm" x-text="selectedMember.nama"></span>
-                            </div>
-
-                            <!-- Jabatan Organisasi -->
-                            <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
-                                <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Jabatan / Role</span>
-                                <span class="font-bold text-blue-600 dark:text-sky-400 text-sm" x-text="selectedMember.jabatan"></span>
-                            </div>
-
-                            <!-- Divisi / Bidang -->
-                            <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
-                                <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Divisi / Bidang</span>
-                                <span class="font-bold text-gray-900 dark:text-white" x-text="selectedMember.divisi"></span>
-                            </div>
-
-                            <!-- Kelas / Jurusan -->
-                            <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
-                                <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Kelas / Jurusan</span>
-                                <span class="font-bold text-gray-900 dark:text-white" x-text="selectedMember.kelas"></span>
-                            </div>
-
-                            <!-- Organisasi -->
-                            <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
-                                <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Organisasi</span>
-                                <span class="font-bold text-gray-900 dark:text-white">Aozora Nihongo Club</span>
-                            </div>
-
-                            <!-- Periode / Status -->
-                            <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
-                                <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Masa Bakti</span>
-                                <span class="font-bold text-emerald-600 dark:text-emerald-400">Periode 2026 / 2027</span>
-                            </div>
-                        </div>
-
-                        <div class="pt-2 text-[11px] text-gray-500 dark:text-gray-400 flex items-center justify-between border-t border-gray-200/60 dark:border-gray-800">
-                            <span>SMK Negeri 1 Purwokerto</span>
-                            <span class="text-blue-600 dark:text-sky-400 font-semibold">一期一会 • 青空</span>
-                        </div>
-                    </div>
+                    <!-- Tombol Silang (Close Button) -->
+                    <button @click="closeModal()"
+                            type="button"
+                            class="w-9 h-9 rounded-full bg-black/30 hover:bg-black/50 text-white flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-white/50 cursor-pointer"
+                            aria-label="Tutup popup biodata"
+                            title="Tutup (Esc)">
+                        <span class="text-xl font-bold leading-none">✕</span>
+                    </button>
                 </div>
-            </template>
+
+                <template x-if="selectedMember">
+                    <div class="px-6 pb-6 pt-0 relative">
+                        <!-- Photo Avatar (Overlapping Header) -->
+                        <div class="flex justify-center -mt-16 mb-4">
+                            <div class="relative">
+                                <img :src="selectedMember.avatar"
+                                     :alt="selectedMember.nama"
+                                     class="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover ring-4 ring-white dark:ring-gray-800 shadow-xl bg-white dark:bg-gray-700">
+                                <div class="absolute bottom-1 right-1 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs shadow-md border-2 border-white dark:border-gray-800 font-bold">
+                                    <span class="material-symbols-outlined text-sm">person</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Member Name & Badges -->
+                        <div class="text-center mb-6">
+                            <h3 class="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight leading-snug"
+                                x-text="selectedMember.nama">
+                            </h3>
+                            <div class="flex flex-wrap items-center justify-center gap-2 mt-2">
+                                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm"
+                                      :class="selectedMember.badge_bg || 'bg-blue-600'"
+                                      x-text="selectedMember.role_badge">
+                                </span>
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                                      x-text="selectedMember.sub_jabatan || 'Pengurus'">
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Biodata Grid Information -->
+                        <div class="bg-gray-50 dark:bg-gray-900/60 rounded-2xl p-4 sm:p-5 border border-gray-100 dark:border-gray-700/60 space-y-3">
+                            <div class="text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 pb-2 border-b border-gray-200 dark:border-gray-800 flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-sm text-blue-600">badge</span>
+                                <span>Informasi Biodata Pengurus</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                <!-- Nama Lengkap -->
+                                <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
+                                    <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Nama Lengkap</span>
+                                    <span class="font-bold text-gray-900 dark:text-white text-sm" x-text="selectedMember.nama"></span>
+                                </div>
+
+                                <!-- Jabatan Organisasi -->
+                                <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
+                                    <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Jabatan / Role</span>
+                                    <span class="font-bold text-blue-600 dark:text-sky-400 text-sm" x-text="selectedMember.jabatan"></span>
+                                </div>
+
+                                <!-- Divisi / Bidang -->
+                                <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
+                                    <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Divisi / Bidang</span>
+                                    <span class="font-bold text-gray-900 dark:text-white" x-text="selectedMember.divisi"></span>
+                                </div>
+
+                                <!-- Kelas / Jurusan -->
+                                <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
+                                    <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Kelas / Jurusan</span>
+                                    <span class="font-bold text-gray-900 dark:text-white" x-text="selectedMember.kelas"></span>
+                                </div>
+
+                                <!-- Organisasi -->
+                                <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
+                                    <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Organisasi</span>
+                                    <span class="font-bold text-gray-900 dark:text-white">Aozora Nihongo Club</span>
+                                </div>
+
+                                <!-- Periode / Status -->
+                                <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
+                                    <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Masa Bakti</span>
+                                    <span class="font-bold text-emerald-600 dark:text-emerald-400">Periode 2026 / 2027</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-2 text-[11px] text-gray-500 dark:text-gray-400 flex items-center justify-between border-t border-gray-200/60 dark:border-gray-800">
+                                <span>SMK Negeri 1 Purwokerto</span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
         </div>
-    </div>
+    </template>
 
 </body>
 </html>
