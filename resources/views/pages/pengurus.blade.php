@@ -150,7 +150,7 @@
               return this.allMembers.filter(m => {
                   const matchTab = (this.activeTab === 'Semua') 
                       || (m.divisi.toLowerCase() === this.activeTab.toLowerCase())
-                      || (this.activeTab === 'Pengurus Inti' && m.divisi.toLowerCase() === 'pembina');
+                      || (this.activeTab === 'Pengurus Inti' && (m.divisi.toLowerCase() === 'pembina' || m.divisi.toLowerCase() === 'pelatih'));
                   
                   const matchSearch = !q 
                       || m.nama.toLowerCase().includes(q) 
@@ -165,7 +165,7 @@
           countByTab(tabName) {
               if (tabName === 'Semua') return this.allMembers.length;
               if (tabName === 'Pengurus Inti') {
-                  return this.allMembers.filter(m => m.divisi.toLowerCase() === 'pengurus inti' || m.divisi.toLowerCase() === 'pembina').length;
+                  return this.allMembers.filter(m => m.divisi.toLowerCase() === 'pengurus inti' || m.divisi.toLowerCase() === 'pembina' || m.divisi.toLowerCase() === 'pelatih').length;
               }
               return this.allMembers.filter(m => m.divisi.toLowerCase() === tabName.toLowerCase()).length;
           },
@@ -429,10 +429,11 @@
             <div class="flex flex-col items-center gap-10">
                 
                 <!-- ---------------------------------------------------- -->
-                <!-- BARIS 0: PEMBINA EKSTRAKURIKULER (CENTER) -->
+                <!-- BARIS 0: PEMBINA & PELATIH EKSTRAKURIKULER -->
                 <!-- ---------------------------------------------------- -->
-                @if(!empty($pengurusInti['pembina']))
-                <div class="w-full flex justify-center">
+                @if(!empty($pengurusInti['pembina']) || !empty($pengurusInti['pelatih']))
+                <div class="w-full flex flex-wrap justify-center gap-6 max-w-3xl">
+                    @if(!empty($pengurusInti['pembina']))
                     <div @click="$dispatch('open-modal', {
                             nama: '{{ addslashes($pengurusInti['pembina']['nama']) }}',
                             jabatan: '{{ $pengurusInti['pembina']['jabatan'] }}',
@@ -441,11 +442,12 @@
                             kelas: '{{ $pengurusInti['pembina']['kelas'] }}',
                             avatar: '{{ $pengurusInti['pembina']['avatar'] }}',
                             role_badge: 'Pembina Ekstrakurikuler',
-                            badge_bg: 'bg-emerald-600'
+                            badge_bg: 'bg-emerald-600',
+                            badge_style: 'background-color: #059669; color: #ffffff;'
                          })"
-                         class="group relative w-full max-w-sm rounded-2xl bg-white dark:bg-gray-800 pt-7 pb-6 px-6 shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 border-2 border-emerald-600 dark:border-emerald-500 text-center cursor-pointer">
+                         class="group relative w-full sm:w-[calc(50%-0.75rem)] max-w-sm rounded-2xl bg-white dark:bg-gray-800 pt-7 pb-6 px-6 shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 border-2 border-emerald-600 dark:border-emerald-500 text-center cursor-pointer">
                         <!-- Top Floating Badge Pembina -->
-                        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1 rounded-full text-xs font-extrabold tracking-wider uppercase shadow-lg flex items-center gap-1.5 z-30"
+                        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-extrabold tracking-wider uppercase shadow-lg flex items-center gap-1.5 z-30 whitespace-nowrap"
                              style="background-color: #059669; color: #ffffff !important; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.45);">
                             <span style="color: #ffffff !important;">PEMBINA EKSTRAKURIKULER</span>
                         </div>
@@ -469,6 +471,47 @@
                             <span class="font-bold text-gray-900 dark:text-white">{{ $pengurusInti['pembina']['kelas'] }}</span>
                         </div>
                     </div>
+                    @endif
+
+                    @if(!empty($pengurusInti['pelatih']))
+                    <div @click="$dispatch('open-modal', {
+                            nama: '{{ addslashes($pengurusInti['pelatih']['nama']) }}',
+                            jabatan: '{{ $pengurusInti['pelatih']['jabatan'] }}',
+                            sub_jabatan: '{{ $pengurusInti['pelatih']['sub_jabatan'] }}',
+                            divisi: 'Bidang Kepelatihan',
+                            kelas: '{{ $pengurusInti['pelatih']['kelas'] }}',
+                            avatar: '{{ $pengurusInti['pelatih']['avatar'] }}',
+                            role_badge: 'Pelatih Ekstrakurikuler',
+                            badge_bg: 'bg-emerald-600',
+                            badge_style: 'background-color: #059669; color: #ffffff;'
+                         })"
+                         class="group relative w-full sm:w-[calc(50%-0.75rem)] max-w-sm rounded-2xl bg-white dark:bg-gray-800 pt-7 pb-6 px-6 shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 border-2 border-emerald-600 dark:border-emerald-500 text-center cursor-pointer">
+                        <!-- Top Floating Badge Pelatih -->
+                        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-extrabold tracking-wider uppercase shadow-lg flex items-center gap-1.5 z-30 whitespace-nowrap"
+                             style="background-color: #059669; color: #ffffff !important; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.45);">
+                            <span style="color: #ffffff !important;">PELATIH EKSTRAKURIKULER</span>
+                        </div>
+
+                        <!-- Profile Avatar -->
+                        <div class="relative w-24 h-24 mx-auto mt-1 mb-4">
+                            <img src="{{ $pengurusInti['pelatih']['avatar'] }}" alt="{{ $pengurusInti['pelatih']['nama'] }}"
+                                 class="w-full h-full rounded-full object-cover ring-4 ring-emerald-500/30 group-hover:ring-emerald-600 transition-all shadow-md">
+                        </div>
+
+                        <!-- Member Info -->
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-emerald-600 transition-colors">
+                            {{ $pengurusInti['pelatih']['nama'] }}
+                        </h3>
+                        <div class="mt-1 mb-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800">
+                                {{ $pengurusInti['pelatih']['jabatan'] }} &bull; {{ $pengurusInti['pelatih']['sub_jabatan'] }}
+                            </span>
+                        </div>
+                        <div class="inline-block mt-1 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-medium">
+                            <span class="font-bold text-gray-900 dark:text-white">{{ $pengurusInti['pelatih']['kelas'] }}</span>
+                        </div>
+                    </div>
+                    @endif
                 </div>
 
                 <!-- Connecting Line Visual -->
@@ -487,24 +530,20 @@
                             kelas: '{{ $pengurusInti['ketua']['kelas'] }}',
                             avatar: '{{ $pengurusInti['ketua']['avatar'] }}',
                             role_badge: 'Ketua Umum',
-                            badge_bg: 'bg-blue-600'
+                            badge_bg: 'bg-blue-600',
+                            badge_style: 'background-color: #2563eb; color: #ffffff;'
                          })"
                          class="group relative w-full max-w-sm rounded-2xl bg-white dark:bg-gray-800 pt-7 pb-6 px-6 shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 border-2 border-blue-600 dark:border-blue-500 text-center cursor-pointer">
-                        <!-- Top Floating Badge Ketua (High Contrast & Visible) -->
+                        <!-- Top Floating Badge Ketua -->
                         <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1 rounded-full text-xs font-extrabold tracking-wider uppercase shadow-lg flex items-center gap-1.5 z-30"
                              style="background-color: #0043c0; color: #ffffff !important; box-shadow: 0 4px 14px rgba(0, 67, 192, 0.45);">
-                            <span class="text-amber-300">★</span>
                             <span style="color: #ffffff !important;">KETUA UMUM</span>
-                            <span class="text-amber-300">★</span>
                         </div>
 
                         <!-- Profile Avatar -->
                         <div class="relative w-24 h-24 mx-auto mt-1 mb-4">
                             <img src="{{ $pengurusInti['ketua']['avatar'] }}" alt="{{ $pengurusInti['ketua']['nama'] }}"
                                  class="w-full h-full rounded-full object-cover ring-4 ring-blue-500/30 group-hover:ring-blue-600 transition-all shadow-md">
-                            <span class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-amber-400 flex items-center justify-center text-white text-xs shadow" title="Leader">
-                                
-                            </span>
                         </div>
 
                         <!-- Member Info -->
@@ -513,7 +552,7 @@
                         </h3>
                         <div class="mt-1 mb-2">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800">
-                                Ketua Umum  Leader / 会長
+                                Ketua Umum &bull; 会長
                             </span>
                         </div>
                         <div class="inline-block mt-1 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-medium">
@@ -537,10 +576,11 @@
                             kelas: '{{ $pengurusInti['wakil']['kelas'] }}',
                             avatar: '{{ $pengurusInti['wakil']['avatar'] }}',
                             role_badge: 'Wakil Ketua',
-                            badge_bg: 'bg-sky-600'
+                            badge_bg: 'bg-sky-600',
+                            badge_style: 'background-color: #0284c7; color: #ffffff;'
                          })"
                          class="group relative w-full max-w-sm rounded-2xl bg-white dark:bg-gray-800 pt-7 pb-6 px-6 shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 border-2 border-sky-500 dark:border-sky-400 text-center cursor-pointer">
-                        <!-- Top Floating Badge Wakil (High Contrast & Visible) -->
+                        <!-- Top Floating Badge Wakil -->
                         <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1 rounded-full text-xs font-extrabold tracking-wider uppercase shadow-lg flex items-center gap-1.5 z-30"
                              style="background-color: #0284c7; color: #ffffff !important; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.45);">
                             <span style="color: #ffffff !important;">WAKIL KETUA</span>
@@ -550,9 +590,6 @@
                         <div class="relative w-20 h-20 mx-auto mt-1 mb-4">
                             <img src="{{ $pengurusInti['wakil']['avatar'] }}" alt="{{ $pengurusInti['wakil']['nama'] }}"
                                  class="w-full h-full rounded-full object-cover ring-4 ring-sky-400/30 group-hover:ring-sky-500 transition-all shadow-md">
-                            <span class="absolute bottom-0 right-0 w-5 h-5 rounded-full bg-sky-500 flex items-center justify-center text-white text-[10px] shadow" title="Vice Leader">
-                                <span class="material-symbols-outlined text-[12px]">security</span>
-                            </span>
                         </div>
 
                         <!-- Member Info -->
@@ -561,7 +598,7 @@
                         </h3>
                         <div class="mt-1 mb-2">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold text-sky-700 bg-sky-50 border border-sky-200 dark:bg-sky-950 dark:text-sky-300 dark:border-sky-800">
-                                Wakil Ketua &bull; Vice Leader / 副部長
+                                Wakil Ketua &bull; 副部長
                             </span>
                         </div>
                         <div class="inline-block mt-1 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-medium">
@@ -1182,6 +1219,7 @@
                             <div class="flex flex-wrap items-center justify-center gap-2 mt-2">
                                 <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm"
                                       :class="selectedMember.badge_bg || 'bg-blue-600'"
+                                      :style="selectedMember.badge_style || ''"
                                       x-text="selectedMember.role_badge">
                                 </span>
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
@@ -1218,21 +1256,27 @@
 
                                 <!-- Kelas / Jurusan -->
                                 <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
-                                    <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Kelas / Jurusan</span>
+                                    <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5"
+                                          x-text="(selectedMember.kategori === 'pembina' || selectedMember.kategori === 'pelatih' || selectedMember.divisi === 'Pembina' || selectedMember.divisi === 'Pelatih' || selectedMember.divisi === 'Pembina Organisasi' || selectedMember.divisi === 'Bidang Kepelatihan') ? 'Status Keanggotaan' : 'Kelas / Jurusan'">
+                                        Kelas / Jurusan
+                                    </span>
                                     <span class="font-bold text-gray-900 dark:text-white" x-text="selectedMember.kelas"></span>
                                 </div>
 
                                 <!-- Organisasi -->
-                                <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
+                                <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs"
+                                     :class="(selectedMember.kategori === 'pembina' || selectedMember.kategori === 'pelatih' || selectedMember.divisi === 'Pembina' || selectedMember.divisi === 'Pelatih' || selectedMember.divisi === 'Pembina Organisasi' || selectedMember.divisi === 'Bidang Kepelatihan' || selectedMember.sub_jabatan === '顧問' || selectedMember.sub_jabatan === '指導員') ? 'sm:col-span-2' : ''">
                                     <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Organisasi</span>
                                     <span class="font-bold text-gray-900 dark:text-white">Aozora Nihongo Club</span>
                                 </div>
 
                                 <!-- Periode / Status -->
-                                <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
-                                    <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Masa Bakti</span>
-                                    <span class="font-bold text-emerald-600 dark:text-emerald-400">Periode 2026 / 2027</span>
-                                </div>
+                                <template x-if="!(selectedMember.kategori === 'pembina' || selectedMember.kategori === 'pelatih' || selectedMember.divisi === 'Pembina' || selectedMember.divisi === 'Pelatih' || selectedMember.divisi === 'Pembina Organisasi' || selectedMember.divisi === 'Bidang Kepelatihan' || selectedMember.sub_jabatan === '顧問' || selectedMember.sub_jabatan === '指導員')">
+                                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700/80 shadow-2xs">
+                                        <span class="text-gray-500 dark:text-gray-400 block text-[11px] mb-0.5">Masa Bakti</span>
+                                        <span class="font-bold text-emerald-600 dark:text-emerald-400">Periode 2026 / 2027</span>
+                                    </div>
+                                </template>
                             </div>
 
                             <div class="pt-2 text-[11px] text-gray-500 dark:text-gray-400 flex items-center justify-between border-t border-gray-200/60 dark:border-gray-800">

@@ -38,8 +38,26 @@ class PengurusController extends Controller
             if ($avatar && $avatar !== 'default-avatar.png' && Storage::disk('public')->exists($avatar)) {
                 return Storage::url($avatar);
             }
-            // Fallback: use the local asset photo
-            return asset('assets/DSC02070.jpg');
+            // Fallback: use pengurus_dummy.jpg
+            return asset('assets/kepengurusan/pengurus_dummy.jpg');
+        };
+
+        // Helper: clean sub_jabatan from Advisor, Coach, Leader, Vice Leader
+        $cleanSubJabatan = function (?string $sub, string $default): string {
+            if (!$sub) return $default;
+            $cleaned = str_replace(
+                ['• Advisor / ', '• Advisor /', 'Advisor / ', 'Advisor /', 'Advisor', 
+                 '• Coach / ', '• Coach /', 'Coach / ', 'Coach /', 'Coach',
+                 '• Leader / ', '• Leader /', 'Leader / ', 'Leader /', '• Leader ', '• Leader', 'Leader',
+                 '• Vice Leader / ', '• Vice Leader /', 'Vice Leader / ', 'Vice Leader /', 'Vice Leader', 'Vice Leader / 副部長'],
+                ['', '', '', '', '',
+                 '', '', '', '', '',
+                 '', '', '', '', '', '', '',
+                 '', '', '', '', '', '副部長'],
+                $sub
+            );
+            $cleaned = trim($cleaned, " \t\n\r\0\x0B•-");
+            return !empty($cleaned) ? $cleaned : $default;
         };
 
         // ---- Pembina Ekstrakurikuler ----
@@ -50,17 +68,46 @@ class PengurusController extends Controller
         $pembina = $pembinaRecord ? [
             'nama' => $pembinaRecord->user ? $pembinaRecord->user->name : $pembinaRecord->nama,
             'jabatan' => $pembinaRecord->jabatan,
-            'sub_jabatan' => $pembinaRecord->sub_jabatan ?? 'Advisor / 顧問',
+            'sub_jabatan' => $cleanSubJabatan($pembinaRecord->sub_jabatan ?? null, '顧問'),
             'kelas' => $pembinaRecord->kelas ?? 'Guru Pembina',
-            'avatar' => $resolveAvatar($pembinaRecord->avatar, $pembinaRecord->nama),
+            'avatar' => ($pembinaRecord->avatar && $pembinaRecord->avatar !== 'default-avatar.png' && Storage::disk('public')->exists($pembinaRecord->avatar))
+                ? Storage::url($pembinaRecord->avatar)
+                : asset('assets/kepengurusan/kikie_sensei.jpg'),
             'badge_color' => 'bg-emerald-600 text-white',
+            'badge_style' => 'background-color: #059669; color: #ffffff;',
         ] : [
             'nama' => 'Kikie Astri Mahdalika S.Pd',
             'jabatan' => 'Pembina Ekstrakurikuler',
-            'sub_jabatan' => 'Advisor / 顧問',
+            'sub_jabatan' => '顧問',
             'kelas' => 'Guru Pembina',
-            'avatar' => asset('assets/DSC02070.jpg'),
+            'avatar' => asset('assets/kepengurusan/kikie_sensei.jpg'),
             'badge_color' => 'bg-emerald-600 text-white',
+            'badge_style' => 'background-color: #059669; color: #ffffff;',
+        ];
+
+        // ---- Pelatih Ekstrakurikuler ----
+        $pelatihRecord = $allPengurus->first(function ($p) {
+            return $p->divisi === 'Pelatih' || str_contains($p->jabatan, 'Pelatih') || str_contains($p->nama, 'Ayu');
+        });
+
+        $pelatih = $pelatihRecord ? [
+            'nama' => $pelatihRecord->user ? $pelatihRecord->user->name : $pelatihRecord->nama,
+            'jabatan' => $pelatihRecord->jabatan ?? 'Pelatih Ekstrakurikuler',
+            'sub_jabatan' => $cleanSubJabatan($pelatihRecord->sub_jabatan ?? null, '指導員'),
+            'kelas' => $pelatihRecord->kelas ?? 'Pelatih ANC',
+            'avatar' => ($pelatihRecord->avatar && $pelatihRecord->avatar !== 'default-avatar.png' && Storage::disk('public')->exists($pelatihRecord->avatar))
+                ? Storage::url($pelatihRecord->avatar)
+                : asset('assets/kepengurusan/mba_ayu.jpg'),
+            'badge_color' => 'bg-emerald-600 text-white',
+            'badge_style' => 'background-color: #059669; color: #ffffff;',
+        ] : [
+            'nama' => 'Ayu Tsaltsa Savira',
+            'jabatan' => 'Pelatih Ekstrakurikuler',
+            'sub_jabatan' => '指導員',
+            'kelas' => 'Pelatih ANC',
+            'avatar' => asset('assets/kepengurusan/mba_ayu.jpg'),
+            'badge_color' => 'bg-emerald-600 text-white',
+            'badge_style' => 'background-color: #059669; color: #ffffff;',
         ];
 
         // ---- Pengurus Inti (BPH) ----
@@ -71,13 +118,15 @@ class PengurusController extends Controller
         $ketua = $ketuaRecord ? [
             'nama' => $ketuaRecord->user ? $ketuaRecord->user->name : $ketuaRecord->nama,
             'jabatan' => $ketuaRecord->jabatan,
-            'sub_jabatan' => $ketuaRecord->sub_jabatan ?? 'Leader / 会長',
+            'sub_jabatan' => $cleanSubJabatan($ketuaRecord->sub_jabatan ?? null, '会長'),
             'kelas' => $ketuaRecord->kelas,
             'avatar' => $resolveAvatar($ketuaRecord->avatar, $ketuaRecord->nama),
             'badge_color' => 'bg-primary text-white',
+            'badge_style' => 'background-color: #2563eb; color: #ffffff;',
         ] : [
-            'nama' => '-', 'jabatan' => 'Ketua Umum', 'sub_jabatan' => 'Leader / 会長',
-            'kelas' => '-', 'avatar' => asset('assets/DSC02070.jpg'), 'badge_color' => 'bg-primary text-white',
+            'nama' => '-', 'jabatan' => 'Ketua Umum', 'sub_jabatan' => '会長',
+            'kelas' => '-', 'avatar' => asset('assets/kepengurusan/pengurus_dummy.jpg'), 'badge_color' => 'bg-primary text-white',
+            'badge_style' => 'background-color: #2563eb; color: #ffffff;',
         ];
 
         // Wakil Ketua
@@ -85,13 +134,15 @@ class PengurusController extends Controller
         $wakil = $wakilRecord ? [
             'nama' => $wakilRecord->user ? $wakilRecord->user->name : $wakilRecord->nama,
             'jabatan' => $wakilRecord->jabatan,
-            'sub_jabatan' => $wakilRecord->sub_jabatan ?? 'Vice Leader / 副部長',
+            'sub_jabatan' => $cleanSubJabatan($wakilRecord->sub_jabatan ?? null, '副部長'),
             'kelas' => $wakilRecord->kelas,
             'avatar' => $resolveAvatar($wakilRecord->avatar, $wakilRecord->nama),
             'badge_color' => 'bg-sky-500 text-white',
+            'badge_style' => 'background-color: #0284c7; color: #ffffff;',
         ] : [
-            'nama' => '-', 'jabatan' => 'Wakil Ketua', 'sub_jabatan' => 'Vice Leader / 副部長',
-            'kelas' => '-', 'avatar' => asset('assets/DSC02070.jpg'), 'badge_color' => 'bg-sky-500 text-white',
+            'nama' => '-', 'jabatan' => 'Wakil Ketua', 'sub_jabatan' => '副部長',
+            'kelas' => '-', 'avatar' => asset('assets/kepengurusan/pengurus_dummy.jpg'), 'badge_color' => 'bg-sky-500 text-white',
+            'badge_style' => 'background-color: #0284c7; color: #ffffff;',
         ];
 
         // Bendahara (1 & 2)
@@ -152,6 +203,7 @@ class PengurusController extends Controller
 
         $pengurusInti = [
             'pembina' => $pembina,
+            'pelatih' => $pelatih,
             'ketua' => $ketua,
             'wakil' => $wakil,
             'bendahara' => $bendahara,
@@ -193,6 +245,23 @@ class PengurusController extends Controller
             'avatar' => $pembina['avatar'],
             'role_badge' => 'Pembina Ekstrakurikuler',
             'badge_bg' => 'bg-emerald-600',
+            'badge_style' => 'background-color: #059669; color: #ffffff;',
+            'tag_color' => 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300',
+            'order' => 0,
+        ];
+
+        // Pelatih
+        $allMembers[] = [
+            'nama' => $pelatih['nama'],
+            'jabatan' => $pelatih['jabatan'],
+            'sub_jabatan' => $pelatih['sub_jabatan'],
+            'divisi' => 'Bidang Kepelatihan',
+            'kategori' => 'pelatih',
+            'kelas' => $pelatih['kelas'],
+            'avatar' => $pelatih['avatar'],
+            'role_badge' => 'Pelatih Ekstrakurikuler',
+            'badge_bg' => 'bg-emerald-600',
+            'badge_style' => 'background-color: #059669; color: #ffffff;',
             'tag_color' => 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300',
             'order' => 0,
         ];
@@ -201,13 +270,14 @@ class PengurusController extends Controller
         $allMembers[] = [
             'nama' => $ketua['nama'],
             'jabatan' => $ketua['jabatan'],
-            'sub_jabatan' => 'Ketua Umum  Leader / 会長',
+            'sub_jabatan' => $ketua['sub_jabatan'],
             'divisi' => 'Pengurus Inti',
             'kategori' => 'inti',
             'kelas' => $ketua['kelas'],
             'avatar' => $ketua['avatar'],
             'role_badge' => 'Ketua Umum',
             'badge_bg' => 'bg-blue-600',
+            'badge_style' => 'background-color: #2563eb; color: #ffffff;',
             'tag_color' => 'bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300',
             'order' => 1,
         ];
@@ -216,13 +286,14 @@ class PengurusController extends Controller
         $allMembers[] = [
             'nama' => $wakil['nama'],
             'jabatan' => $wakil['jabatan'],
-            'sub_jabatan' => 'Wakil Ketua • Vice Leader / 副部長',
+            'sub_jabatan' => $wakil['sub_jabatan'],
             'divisi' => 'Pengurus Inti',
             'kategori' => 'inti',
             'kelas' => $wakil['kelas'],
             'avatar' => $wakil['avatar'],
             'role_badge' => 'Wakil Ketua',
             'badge_bg' => 'bg-sky-600',
+            'badge_style' => 'background-color: #0284c7; color: #ffffff;',
             'tag_color' => 'bg-sky-100 text-sky-700 dark:bg-sky-950 dark:text-sky-300',
             'order' => 2,
         ];
@@ -314,7 +385,7 @@ class PengurusController extends Controller
             }
         }
 
-        $totalInti = 1 + count($pengurusIntiRecords) + count($koordinatorRecords);
+        $totalInti = 2 + count($pengurusIntiRecords) + count($koordinatorRecords);
         $totalPengurus = $totalInti + $totalAnggota;
 
         return [

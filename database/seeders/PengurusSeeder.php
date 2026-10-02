@@ -20,8 +20,18 @@ class PengurusSeeder extends Seeder
                 'nama' => 'Kikie Astri Mahdalika S.Pd',
                 'kelas' => 'Guru Pembina',
                 'jabatan' => 'Pembina Ekstrakurikuler',
-                'sub_jabatan' => 'Advisor / 顧問',
+                'sub_jabatan' => '顧問',
                 'divisi' => 'Pembina',
+                'urutan' => 0,
+            ],
+
+            // ===== PELATIH EKSTRAKURIKULER =====
+            [
+                'nama' => 'Ayu Tsaltsa Savira',
+                'kelas' => 'Pelatih ANC',
+                'jabatan' => 'Pelatih Ekstrakurikuler',
+                'sub_jabatan' => '指導員',
+                'divisi' => 'Pelatih',
                 'urutan' => 0,
             ],
 
@@ -30,7 +40,7 @@ class PengurusSeeder extends Seeder
                 'nama' => 'Tegar Satrio Utomo',
                 'kelas' => 'XI PPLG 2',
                 'jabatan' => 'Ketua Umum',
-                'sub_jabatan' => 'Leader / 会長',
+                'sub_jabatan' => '会長',
                 'divisi' => 'Pengurus Inti',
                 'urutan' => 1,
             ],
@@ -38,7 +48,7 @@ class PengurusSeeder extends Seeder
                 'nama' => 'Deris Novaliza Khusnul Khotimah',
                 'kelas' => 'XI TJKT 1',
                 'jabatan' => 'Wakil Ketua',
-                'sub_jabatan' => 'Vice Leader / 副部長',
+                'sub_jabatan' => '副部長',
                 'divisi' => 'Pengurus Inti',
                 'urutan' => 2,
             ],
