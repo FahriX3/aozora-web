@@ -45,28 +45,34 @@ PROMPT;
     }
 
     /**
-     * Build conversation prompt from message history.
+     * Build messages array for Ollama /api/chat.
      */
-    private function buildPrompt(string $userText, string $sessionId, $user): string
+    private function buildMessages(int $userId): array
     {
-        $history = ChatMessage::where('user_id', $user->id)
-            ->where('session_id', $sessionId)
+        $history = ChatMessage::where('user_id', $userId)
             ->orderBy('id', 'desc')
             ->take(12)
             ->get()
             ->reverse();
 
-        $conversationText = "";
+        $messages = [];
+        $messages[] = [
+            'role' => 'system',
+            'content' => $this->getSystemPrompt(),
+        ];
+
         foreach ($history as $item) {
-            $speaker = $item->role === 'user' ? ($user->name ?: 'Pengguna') : 'Sora';
-            $conversationText .= "{$speaker}: {$item->content}\n";
+            $messages[] = [
+                'role' => $item->role === 'user' ? 'user' : 'assistant',
+                'content' => $item->content,
+            ];
         }
 
-        return $this->getSystemPrompt() . "\n\nPercakapan terkini:\n" . $conversationText . "Sora: ";
+        return $messages;
     }
 
     /**
-     * Get recent chat messages for current user/session.
+     * Get recent chat messages for current user (unified across devices).
      */
     public function history(Request $request): JsonResponse
     {
@@ -77,15 +83,11 @@ PROMPT;
             ]);
         }
 
-        $sessionId = $request->query('session_id');
         $dailyLimit = config('services.ai.daily_token_limit', 5000);
 
-        $query = ChatMessage::where('user_id', Auth::id());
-        if ($sessionId) {
-            $query->where('session_id', $sessionId);
-        }
-
-        $messages = $query->orderBy('id', 'desc')
+        // Unified cross-device history: query all recent messages for this user
+        $messages = ChatMessage::where('user_id', Auth::id())
+            ->orderBy('id', 'desc')
             ->take(40)
             ->get(['id', 'role', 'content', 'created_at'])
             ->reverse()
@@ -106,13 +108,14 @@ PROMPT;
                 'email' => Auth::user()->email,
             ],
             'messages' => $messages,
+            'daily_limit' => $dailyLimit,
             'token_remaining' => UserTokenUsage::remainingTokens(Auth::id(), $dailyLimit),
         ]);
     }
 
     /**
      * Send message to Sora AI with streaming response.
-     * Proxies the Ollama NDJSON stream directly to the browser.
+     * Proxies the Ollama /api/chat NDJSON stream directly to the browser.
      */
     public function sendStream(Request $request): StreamedResponse
     {
@@ -137,12 +140,13 @@ PROMPT;
                 echo json_encode([
                     'error' => 'Kuota harian Sora kamu sudah habis 🌸 Coba lagi besok ya!',
                     'quota_exceeded' => true,
+                    'daily_limit' => $dailyLimit,
                     'tokens_remaining' => $remaining,
                 ]) . "\n";
             }, 429, ['Content-Type' => 'text/plain']);
         }
 
-        $sessionId = $request->input('session_id') ?: ('sess_' . $user->id . '_' . date('Ymd'));
+        $sessionId = 'user_' . $user->id;
         $userText = trim($request->input('message'));
 
         // Save user message to database
@@ -153,21 +157,31 @@ PROMPT;
             'session_id' => $sessionId,
         ]);
 
-        // Build the full prompt
-        $fullPrompt = $this->buildPrompt($userText, $sessionId, $user);
+        // Build messages array for Ollama /api/chat
+        $messages = $this->buildMessages($user->id);
 
-        $apiUrl = config('services.ai.url', 'http://ai.api.fahrimandriva.web.id/api/generate');
+        $apiUrl = config('services.ai.url', 'http://ai.api.fahrimandriva.web.id/api/chat');
+        if (str_contains($apiUrl, '/api/generate')) {
+            $apiUrl = str_replace('/api/generate', '/api/chat', $apiUrl);
+        }
+
         $model = config('services.ai.model', 'qwen2.5:1.5b');
         $maxTokens = config('services.ai.max_tokens', 350);
 
         $payload = json_encode([
             'model' => $model,
-            'prompt' => $fullPrompt,
+            'messages' => $messages,
             'stream' => true,
             'options' => [
                 'num_predict' => $maxTokens,
                 'temperature' => 0.7,
                 'top_p' => 0.9,
+                'stop' => [
+                    '<|im_end|>',
+                    "\n" . ($user->name ?: 'Pengguna') . ":",
+                    "\nUser:",
+                    "\nPengguna:",
+                ],
             ],
         ]);
 
@@ -203,16 +217,24 @@ PROMPT;
 
                             $data = json_decode($trimmed, true);
                             if ($data) {
-                                if (isset($data['response'])) {
-                                    $fullReply .= $data['response'];
+                                $chunkText = $data['message']['content'] ?? ($data['response'] ?? '');
+                                if ($chunkText !== '') {
+                                    $fullReply .= $chunkText;
                                 }
+
                                 if (isset($data['done']) && $data['done'] === true) {
                                     $totalEvalCount = $data['eval_count'] ?? 0;
                                 }
+
+                                // Relay normalized line to the browser
+                                echo json_encode([
+                                    'response' => $chunkText,
+                                    'done' => $data['done'] ?? false,
+                                ]) . "\n";
+                            } else {
+                                echo $trimmed . "\n";
                             }
 
-                            // Relay the line directly to the browser
-                            echo $trimmed . "\n";
                             if (ob_get_level()) ob_flush();
                             flush();
                         }
@@ -231,14 +253,18 @@ PROMPT;
                     $trimmed = trim($lineBuffer);
                     $data = json_decode($trimmed, true);
                     if ($data) {
-                        if (isset($data['response'])) {
-                            $fullReply .= $data['response'];
+                        $chunkText = $data['message']['content'] ?? ($data['response'] ?? '');
+                        if ($chunkText !== '') {
+                            $fullReply .= $chunkText;
                         }
                         if (isset($data['done']) && $data['done'] === true) {
                             $totalEvalCount = $data['eval_count'] ?? 0;
                         }
+                        echo json_encode([
+                            'response' => $chunkText,
+                            'done' => $data['done'] ?? false,
+                        ]) . "\n";
                     }
-                    echo $trimmed . "\n";
                     if (ob_get_level()) ob_flush();
                     flush();
                 }
@@ -265,31 +291,33 @@ PROMPT;
                 flush();
             }
 
-            // Save the complete assistant reply to database
-            if (!empty(trim($fullReply))) {
+            // Save the complete assistant reply to database (stripping accidental 'Sora: ' prefix if present)
+            $cleanReply = preg_replace('/^Sora:\s*/i', '', trim($fullReply));
+            if (!empty($cleanReply)) {
                 ChatMessage::create([
                     'user_id' => $user->id,
                     'role' => 'assistant',
-                    'content' => trim($fullReply),
+                    'content' => $cleanReply,
                     'session_id' => $sessionId,
                 ]);
 
                 // Track token usage
                 if ($totalEvalCount > 0) {
                     UserTokenUsage::addTokens($user->id, $totalEvalCount);
-                } elseif (mb_strlen(trim($fullReply)) > 0) {
+                } elseif (mb_strlen($cleanReply) > 0) {
                     // Fallback token estimation if stream connection was interrupted before done flag
-                    $fallbackTokens = max(1, (int) ceil(mb_strlen(trim($fullReply)) / 3.5));
+                    $fallbackTokens = max(1, (int) ceil(mb_strlen($cleanReply) / 3.5));
                     UserTokenUsage::addTokens($user->id, $fallbackTokens);
                     $totalEvalCount = $fallbackTokens;
                 }
             }
 
-            // Send a final metadata line so frontend knows remaining quota
+            // Send a final metadata line so frontend knows remaining quota and daily limit
             $remaining = UserTokenUsage::remainingTokens($user->id, $dailyLimit);
             echo json_encode([
                 'sora_meta' => true,
                 'tokens_used' => $totalEvalCount,
+                'daily_limit' => $dailyLimit,
                 'tokens_remaining' => $remaining,
             ]) . "\n";
             if (ob_get_level()) ob_flush();
@@ -323,7 +351,7 @@ PROMPT;
 
         $user = Auth::user();
         $dailyLimit = config('services.ai.daily_token_limit', 5000);
-        $sessionId = $request->input('session_id') ?: ('sess_' . $user->id . '_' . date('Ymd'));
+        $sessionId = 'user_' . $user->id;
         $userText = trim($request->input('message'));
 
         // Check daily token budget
@@ -331,6 +359,8 @@ PROMPT;
             return response()->json([
                 'error' => 'Kuota harian Sora kamu sudah habis 🌸 Coba lagi besok ya!',
                 'quota_exceeded' => true,
+                'daily_limit' => $dailyLimit,
+                'tokens_remaining' => UserTokenUsage::remainingTokens($user->id, $dailyLimit),
             ], 429);
         }
 
@@ -342,27 +372,37 @@ PROMPT;
             'session_id' => $sessionId,
         ]);
 
-        $fullPrompt = $this->buildPrompt($userText, $sessionId, $user);
+        $apiUrl = config('services.ai.url', 'http://ai.api.fahrimandriva.web.id/api/chat');
+        if (str_contains($apiUrl, '/api/generate')) {
+            $apiUrl = str_replace('/api/generate', '/api/chat', $apiUrl);
+        }
 
-        $apiUrl = config('services.ai.url', 'http://ai.api.fahrimandriva.web.id/api/generate');
         $model = config('services.ai.model', 'qwen2.5:1.5b');
         $maxTokens = config('services.ai.max_tokens', 350);
+        $messages = $this->buildMessages($user->id);
 
         try {
             $response = \Illuminate\Support\Facades\Http::timeout(50)->post($apiUrl, [
                 'model' => $model,
-                'prompt' => $fullPrompt,
+                'messages' => $messages,
                 'stream' => false,
                 'options' => [
                     'num_predict' => $maxTokens,
                     'temperature' => 0.7,
                     'top_p' => 0.9,
+                    'stop' => [
+                        '<|im_end|>',
+                        "\n" . ($user->name ?: 'Pengguna') . ":",
+                        "\nUser:",
+                        "\nPengguna:",
+                    ],
                 ],
             ]);
 
             if ($response->successful()) {
                 $data = $response->json();
-                $reply = trim($data['response'] ?? '');
+                $reply = trim($data['message']['content'] ?? ($data['response'] ?? ''));
+                $reply = preg_replace('/^Sora:\s*/i', '', $reply);
                 $evalCount = $data['eval_count'] ?? 0;
 
                 if (empty($reply)) {
@@ -402,12 +442,13 @@ PROMPT;
                 'time' => $assistantMessage->created_at->format('H:i'),
             ],
             'session_id' => $sessionId,
+            'daily_limit' => $dailyLimit,
             'tokens_remaining' => UserTokenUsage::remainingTokens($user->id, $dailyLimit),
         ]);
     }
 
     /**
-     * Clear chat history for user session.
+     * Clear chat history for current user.
      */
     public function clear(Request $request): JsonResponse
     {
@@ -415,12 +456,7 @@ PROMPT;
             return response()->json(['status' => 'unauthorized'], 401);
         }
 
-        $sessionId = $request->input('session_id');
-        $query = ChatMessage::where('user_id', Auth::id());
-        if ($sessionId) {
-            $query->where('session_id', $sessionId);
-        }
-        $query->delete();
+        ChatMessage::where('user_id', Auth::id())->delete();
 
         return response()->json(['status' => 'cleared']);
     }

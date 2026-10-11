@@ -79,8 +79,9 @@
                     <div class="flex items-center gap-2 mt-0.5">
                         <p class="text-xs text-white/75 leading-tight">Asisten AI Aozora Club</p>
                         @auth
-                            <span id="sora-quota-badge" class="hidden px-1.5 py-0.2 rounded bg-white/15 text-[10px] text-white/90">
-                                5.000 token
+                            <span id="sora-quota-badge" class="hidden px-2 py-0.5 rounded-full bg-white/20 border border-white/30 text-[10px] font-semibold text-white items-center gap-1">
+                                <span id="sora-quota-badge-dot" class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                <span id="sora-quota-badge-text">100%</span>
                             </span>
                         @endauth
                     </div>
@@ -162,11 +163,19 @@
                         <span class="material-symbols-outlined text-lg">send</span>
                     </button>
                 </form>
-                <div class="mt-1.5 flex items-center justify-between px-1">
-                    <span class="text-[10px] text-gray-400">Tekan Enter untuk kirim</span>
-                    <span class="text-[10px] text-gray-400 flex items-center gap-1">
-                        <span id="sora-quota-label" class="text-gray-500 font-medium">🌸 Kuota hari ini: <strong id="sora-quota-number" class="text-primary font-bold">5.000</strong></span>
-                    </span>
+                <div class="mt-2 pt-2 border-t border-gray-100 flex flex-col gap-1.5 px-0.5 select-none">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-gray-500 font-medium flex items-center gap-1 text-[11px]">
+                            <span>🌸 Kuota Harian</span>
+                            <span id="sora-quota-detail-text" class="text-gray-400 text-[10px]">(5.000 / 5.000)</span>
+                        </span>
+                        <span id="sora-quota-percent-text" class="text-[11px] font-bold text-emerald-600">100%</span>
+                    </div>
+                    <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="sora-quota-progress-bar"
+                            class="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-500 ease-out"
+                            style="width: 100%;"></div>
+                    </div>
                 </div>
             @else
                 <div class="bg-primary/5 border border-primary/15 rounded-2xl p-3 text-center">
@@ -190,11 +199,17 @@
         var isToggling = false;
         var historyLoaded = false;
         var isStreaming = false;
-        var soraSessionId = localStorage.getItem('aozora_sora_session');
-        if (!soraSessionId) {
-            soraSessionId = 'sess_' + Math.random().toString(36).substring(2, 12);
-            localStorage.setItem('aozora_sora_session', soraSessionId);
-        }
+        @auth
+            var soraSessionId = 'user_{{ Auth::id() }}';
+            var soraDailyLimit = {{ (int) config('services.ai.daily_token_limit', 5000) }};
+        @else
+            var soraSessionId = localStorage.getItem('aozora_sora_session');
+            if (!soraSessionId) {
+                soraSessionId = 'guest_' + Math.random().toString(36).substring(2, 12);
+                localStorage.setItem('aozora_sora_session', soraSessionId);
+            }
+            var soraDailyLimit = 5000;
+        @endauth
 
         window.toggleSoraChat = function () {
             if (isToggling) return;
@@ -229,9 +244,7 @@
                 });
 
                 @auth
-                    if (!historyLoaded) {
-                        loadSoraHistory();
-                    }
+                    loadSoraHistory();
                     setTimeout(function () {
                         var inp = document.getElementById('sora-input');
                         if (inp && !isStreaming) inp.focus();
@@ -311,19 +324,70 @@
             }).catch(console.error);
         };
 
-        function updateQuotaDisplay(remaining) {
+        function updateQuotaDisplay(remaining, totalLimit) {
             if (remaining === undefined || remaining === null) return;
-            var numFormatted = Number(remaining).toLocaleString('id-ID');
-            
+            var limit = totalLimit || window.soraDailyLimit || 5000;
+            window.soraDailyLimit = limit;
+            var percent = Math.max(0, Math.min(100, Math.round((remaining / limit) * 100)));
+
+            // Header badge
             var badge = document.getElementById('sora-quota-badge');
-            if (badge) {
-                badge.textContent = numFormatted + ' token';
+            var badgeText = document.getElementById('sora-quota-badge-text');
+            var badgeDot = document.getElementById('sora-quota-badge-dot');
+            if (badge && badgeText) {
+                badgeText.textContent = percent + '%';
                 badge.classList.remove('hidden');
+                badge.classList.add('flex');
             }
 
-            var numSpan = document.getElementById('sora-quota-number');
-            if (numSpan) {
-                numSpan.textContent = numFormatted;
+            // Input footer progress bar & percent
+            var bar = document.getElementById('sora-quota-progress-bar');
+            var percentText = document.getElementById('sora-quota-percent-text');
+            var detailText = document.getElementById('sora-quota-detail-text');
+
+            if (percentText) {
+                percentText.textContent = percent + '%';
+            }
+
+            if (detailText) {
+                detailText.textContent = '(' + Number(remaining).toLocaleString('id-ID') + ' / ' + Number(limit).toLocaleString('id-ID') + ')';
+            }
+
+            if (bar) {
+                bar.style.width = percent + '%';
+                bar.className = 'h-full rounded-full transition-all duration-500 ease-out ';
+                if (percent > 50) {
+                    bar.className += 'bg-gradient-to-r from-emerald-500 to-teal-400';
+                    if (badgeDot) badgeDot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400';
+                    if (percentText) percentText.className = 'text-[11px] font-bold text-emerald-600';
+                } else if (percent > 20) {
+                    bar.className += 'bg-gradient-to-r from-amber-500 to-yellow-400';
+                    if (badgeDot) badgeDot.className = 'w-1.5 h-1.5 rounded-full bg-amber-400';
+                    if (percentText) percentText.className = 'text-[11px] font-bold text-amber-600';
+                } else {
+                    bar.className += 'bg-gradient-to-r from-rose-500 to-red-500';
+                    if (badgeDot) badgeDot.className = 'w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse';
+                    if (percentText) percentText.className = 'text-[11px] font-bold text-rose-600 animate-pulse';
+                }
+            }
+
+            // Handle 0% empty quota state
+            var input = document.getElementById('sora-input');
+            var btn = document.getElementById('sora-send-btn');
+            if (percent <= 0) {
+                if (input) {
+                    input.placeholder = 'Kuota hari ini habis 🌸 Coba lagi besok ya!';
+                    input.disabled = true;
+                }
+                if (btn) btn.disabled = true;
+            } else if (!isStreaming) {
+                if (input && input.disabled) {
+                    input.placeholder = 'Tanya apa saja ke Sora...';
+                    input.disabled = false;
+                }
+                if (btn && btn.disabled) {
+                    btn.disabled = false;
+                }
             }
         }
 
@@ -410,7 +474,7 @@
                 .then(function (data) {
                     historyLoaded = true;
                     if (data.token_remaining !== undefined) {
-                        updateQuotaDisplay(data.token_remaining);
+                        updateQuotaDisplay(data.token_remaining, data.daily_limit);
                     }
 
                     if (data.authenticated && data.messages && data.messages.length > 0) {
@@ -484,7 +548,7 @@
                     if (typing) typing.classList.add('hidden');
                     appendMessage('assistant', errorData.error || 'Kuota harian kamu sudah habis 🌸 Coba lagi besok ya!');
                     if (errorData.tokens_remaining !== undefined) {
-                        updateQuotaDisplay(errorData.tokens_remaining);
+                        updateQuotaDisplay(errorData.tokens_remaining, errorData.daily_limit);
                     }
                     return;
                 }
@@ -519,7 +583,7 @@
 
                             // Handle token usage metadata
                             if (data.sora_meta && data.tokens_remaining !== undefined) {
-                                updateQuotaDisplay(data.tokens_remaining);
+                                updateQuotaDisplay(data.tokens_remaining, data.daily_limit);
                                 continue;
                             }
 
