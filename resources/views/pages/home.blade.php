@@ -96,8 +96,11 @@
                         <div class="absolute -top-8 -right-8 w-72 h-72 rounded-full bg-torii-vermilion/10 -z-10 blur-xl">
                         </div>
                         <div
-                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-aozora-sky/20 -z-10 blur-2xl">                        <!-- Main Genshin-inspired Character HUD Card with Gacha System -->
-                        <div class="relative rounded-2xl bg-cloud-white/95 backdrop-blur-xl p-space-md md:p-space-lg shadow-xl shadow-primary-container/10 transition-transform duration-300 border border-gray-100"
+                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-aozora-sky/20 -z-10 blur-2xl">
+                        </div>
+
+                        <!-- Main Character HUD Card with Gacha System -->
+                        <div class="relative rounded-2xl bg-cloud-white/95 backdrop-blur-xl p-space-md md:p-space-lg shadow-xl shadow-primary-container/10 transition-transform duration-300 border border-gray-100 z-10"
                             id="mascotCard" style="transform: perspective(1000px) rotateY(0deg) rotateX(0deg);">
                             
                             <!-- Top HUD Bar -->
