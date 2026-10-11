@@ -437,7 +437,8 @@
                             @if($event->poster_path)
                                 <div class="w-full h-48 overflow-hidden bg-surface-container-low">
                                     <img src="{{ Storage::url($event->poster_path) }}" alt="{{ $event->title }}"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        loading="lazy" decoding="async">
                                 </div>
                             @endif
 

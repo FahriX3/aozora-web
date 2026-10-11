@@ -109,6 +109,7 @@
                                 src="{{ $pembina['avatar'] ?? asset('assets/DSC02070.jpg') }}" 
                                 alt="{{ $pembina['nama'] }}" 
                                 class="w-20 h-20 rounded-2xl object-cover ring-2 ring-emerald-500/30 shadow-sm group-hover:ring-emerald-500 transition-all"
+                                loading="lazy" decoding="async"
                             />
                             <span class="absolute -bottom-1.5 -right-1 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold shadow-xs">顧問</span>
                         </div>
@@ -155,6 +156,7 @@
                             src="{{ $ketua['avatar'] ?? asset('assets/DSC02070.jpg') }}" 
                             alt="{{ $ketua['nama'] ?? 'Ketua Umum' }}" 
                             class="w-20 h-20 rounded-2xl object-cover ring-2 ring-primary/20 shadow-sm group-hover:ring-primary transition-all"
+                            loading="lazy" decoding="async"
                         />
                         <span class="absolute -bottom-1.5 -right-1 px-2 py-0.5 rounded-full bg-primary text-white text-[10px] font-bold shadow-xs">会長</span>
                     </div>
@@ -185,6 +187,7 @@
                             src="{{ $wakil['avatar'] ?? asset('assets/DSC02070.jpg') }}" 
                             alt="{{ $wakil['nama'] ?? 'Wakil Ketua' }}" 
                             class="w-20 h-20 rounded-2xl object-cover ring-2 ring-sky-400/20 shadow-sm group-hover:ring-sky-500 transition-all"
+                            loading="lazy" decoding="async"
                         />
                         <span class="absolute -bottom-1.5 -right-1 px-2 py-0.5 rounded-full bg-sky-600 text-white text-[10px] font-bold shadow-xs">副会長</span>
                     </div>
@@ -214,7 +217,7 @@
                             badge_bg: 'bg-indigo-600'
                          })"
                          class="bg-white rounded-xl p-4 border border-gray-200 flex items-center gap-3.5 hover:border-indigo-200 hover:shadow-md transition-all cursor-pointer group">
-                        <img src="{{ $sek['avatar'] ?? asset('assets/DSC02070.jpg') }}" alt="{{ $sek['nama'] }}" class="w-12 h-12 rounded-xl object-cover ring-1 ring-gray-200 shrink-0 group-hover:ring-indigo-300 transition-all" />
+                        <img src="{{ $sek['avatar'] ?? asset('assets/DSC02070.jpg') }}" alt="{{ $sek['nama'] }}" class="w-12 h-12 rounded-xl object-cover ring-1 ring-gray-200 shrink-0 group-hover:ring-indigo-300 transition-all" loading="lazy" decoding="async" />
                         <div class="flex flex-col min-w-0">
                             <span class="text-[11px] font-bold text-indigo-600 uppercase tracking-wider">{{ $sek['jabatan'] }}</span>
                             <span class="text-sm font-bold text-gray-900 truncate">{{ $sek['nama'] }}</span>
@@ -236,7 +239,7 @@
                             badge_bg: 'bg-emerald-600'
                          })"
                          class="bg-white rounded-xl p-4 border border-gray-200 flex items-center gap-3.5 hover:border-emerald-200 hover:shadow-md transition-all cursor-pointer group">
-                        <img src="{{ $ben['avatar'] ?? asset('assets/DSC02070.jpg') }}" alt="{{ $ben['nama'] }}" class="w-12 h-12 rounded-xl object-cover ring-1 ring-gray-200 shrink-0 group-hover:ring-emerald-300 transition-all" />
+                        <img src="{{ $ben['avatar'] ?? asset('assets/DSC02070.jpg') }}" alt="{{ $ben['nama'] }}" class="w-12 h-12 rounded-xl object-cover ring-1 ring-gray-200 shrink-0 group-hover:ring-emerald-300 transition-all" loading="lazy" decoding="async" />
                         <div class="flex flex-col min-w-0">
                             <span class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">{{ $ben['jabatan'] }}</span>
                             <span class="text-sm font-bold text-gray-900 truncate">{{ $ben['nama'] }}</span>
@@ -258,7 +261,7 @@
                             badge_bg: 'bg-amber-600'
                          })"
                          class="bg-white rounded-xl p-4 border border-gray-200 flex items-center gap-3.5 hover:border-amber-200 hover:shadow-md transition-all cursor-pointer group">
-                        <img src="{{ $hum['avatar'] ?? asset('assets/DSC02070.jpg') }}" alt="{{ $hum['nama'] }}" class="w-12 h-12 rounded-xl object-cover ring-1 ring-gray-200 shrink-0 group-hover:ring-amber-300 transition-all" />
+                        <img src="{{ $hum['avatar'] ?? asset('assets/DSC02070.jpg') }}" alt="{{ $hum['nama'] }}" class="w-12 h-12 rounded-xl object-cover ring-1 ring-gray-200 shrink-0 group-hover:ring-amber-300 transition-all" loading="lazy" decoding="async" />
                         <div class="flex flex-col min-w-0">
                             <span class="text-[11px] font-bold text-amber-600 uppercase tracking-wider">{{ $hum['jabatan'] }}</span>
                             <span class="text-sm font-bold text-gray-900 truncate">{{ $hum['nama'] }}</span>
@@ -323,7 +326,7 @@
                                     <div class="space-y-2">
                                         @foreach($koors as $k)
                                             <div class="flex items-center gap-2.5">
-                                                <img src="{{ $k['avatar'] ?? asset('assets/DSC02070.jpg') }}" alt="{{ $k['nama'] }}" class="w-8 h-8 rounded-lg object-cover ring-1 ring-gray-200 shrink-0" />
+                                                <img src="{{ $k['avatar'] ?? asset('assets/DSC02070.jpg') }}" alt="{{ $k['nama'] }}" class="w-8 h-8 rounded-lg object-cover ring-1 ring-gray-200 shrink-0" loading="lazy" decoding="async" />
                                                 <div class="flex flex-col min-w-0">
                                                     <span class="text-xs font-bold text-gray-900 truncate">{{ $k['nama'] }}</span>
                                                     <span class="text-[11px] text-gray-500">Kelas {{ $k['kelas'] }}</span>
@@ -344,6 +347,7 @@
                                         src="{{ $m['avatar'] ?? asset('assets/DSC02070.jpg') }}" 
                                         alt="{{ $m['nama'] }}" 
                                         title="{{ $m['nama'] }} (Kelas {{ $m['kelas'] }})"
+                                        loading="lazy" decoding="async"
                                     />
                                 @endforeach
                                 @if($members->count() > 5)
