@@ -25,6 +25,49 @@
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
         }
+
+        /* Scoped & Bulletproof Layout for Sora Chat Box */
+        #sora-box {
+            position: fixed !important;
+            bottom: 24px !important;
+            right: 24px !important;
+            left: auto !important;
+            top: auto !important;
+            width: 385px !important;
+            max-width: calc(100vw - 32px) !important;
+            height: 550px !important;
+            max-height: calc(100vh - 48px) !important;
+            border-radius: 24px !important;
+            box-shadow: 0 20px 60px -10px rgba(0, 30, 90, 0.35), 0 0 0 1px rgba(0, 60, 173, 0.1) !important;
+            z-index: 9995 !important;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: #ffffff;
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease !important;
+        }
+
+        /* Expanded Mode on Desktop */
+        #sora-box.sora-expanded {
+            width: 580px !important;
+            height: 640px !important;
+            max-height: calc(100vh - 48px) !important;
+        }
+
+        /* Mobile View (< 640px) */
+        @media (max-width: 639px) {
+            #sora-box {
+                bottom: 0 !important;
+                right: 0 !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 100% !important;
+                max-height: 100dvh !important;
+                border-radius: 0 !important;
+            }
+        }
     </style>
 
     {{-- Floating Toggle Launcher Button --}}
@@ -56,9 +99,14 @@
         </span>
     </button>
 
+    {{-- Backdrop Overlay (Click Outside to Close) --}}
+    <div id="sora-backdrop" onclick="toggleSoraChat()"
+        class="hidden fixed inset-0 bg-slate-900/30 backdrop-blur-[2px] z-[9992] transition-opacity duration-300 opacity-0 cursor-pointer">
+    </div>
+
     {{-- Chat Box Window --}}
     <div id="sora-box"
-        class="hidden fixed bottom-5 right-5 sm:bottom-6 sm:right-6 w-[calc(100vw-2rem)] sm:w-[410px] h-[570px] max-h-[86vh] bg-white rounded-3xl shadow-[0_25px_70px_rgba(11,16,33,0.3)] border border-gray-100/90 flex-col overflow-hidden transition-all duration-300 transform scale-95 opacity-0 pointer-events-none z-[9995]">
+        class="hidden bg-white border border-gray-100/90 transform scale-95 opacity-0 pointer-events-none">
         
         {{-- Header --}}
         <div class="bg-gradient-to-r from-indigo-night via-[#003cad] to-primary p-4 text-white flex items-center justify-between shrink-0 relative overflow-hidden select-none">
@@ -89,6 +137,10 @@
             </div>
 
             <div class="flex items-center gap-1.5 relative z-10">
+                <button type="button" id="sora-expand-btn" onclick="toggleSoraExpand()" title="Perbesar / Perkecil"
+                    class="hidden sm:flex w-8 h-8 rounded-full bg-white/10 hover:bg-white/25 text-white/80 hover:text-white items-center justify-center transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-base" id="sora-expand-icon">open_in_full</span>
+                </button>
                 @auth
                     <button type="button" onclick="clearSoraChat()" title="Hapus Obrolan"
                         class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/25 text-white/80 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
@@ -97,7 +149,8 @@
                 @endauth
                 <button type="button" onclick="toggleSoraChat()" title="Tutup Chat"
                     class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/25 text-white/80 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
-                    <span class="material-symbols-outlined text-lg">close</span>
+                    <span class="material-symbols-outlined text-lg sm:hidden">expand_more</span>
+                    <span class="material-symbols-outlined text-lg hidden sm:inline">close</span>
                 </button>
             </div>
         </div>
@@ -211,10 +264,36 @@
             var soraDailyLimit = 5000;
         @endauth
 
+        var isExpanded = false;
+        window.toggleSoraExpand = function () {
+            var box = document.getElementById('sora-box');
+            var icon = document.getElementById('sora-expand-icon');
+            var btn = document.getElementById('sora-expand-btn');
+            if (!box) return;
+            isExpanded = !isExpanded;
+            if (isExpanded) {
+                box.classList.add('sora-expanded');
+                if (icon) icon.textContent = 'close_fullscreen';
+                if (btn) btn.title = 'Perkecil Ukuran Chat';
+            } else {
+                box.classList.remove('sora-expanded');
+                if (icon) icon.textContent = 'open_in_full';
+                if (btn) btn.title = 'Perbesar Ukuran Chat';
+            }
+        };
+
+        // Close on Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && soraOpen) {
+                toggleSoraChat();
+            }
+        });
+
         window.toggleSoraChat = function () {
             if (isToggling) return;
             var box = document.getElementById('sora-box');
             var launcher = document.getElementById('sora-launcher');
+            var backdrop = document.getElementById('sora-backdrop');
             if (!box) return;
 
             isToggling = true;
@@ -223,14 +302,18 @@
             if (soraOpen) {
                 // Open Chat Box
                 box.classList.remove('hidden');
-                box.classList.add('flex');
-                
+                if (backdrop) {
+                    backdrop.classList.remove('hidden');
+                    void backdrop.offsetHeight;
+                    backdrop.classList.remove('opacity-0');
+                    backdrop.classList.add('opacity-100');
+                }
+
                 // Lock background scroll on mobile only
                 if (window.innerWidth < 640) {
                     document.body.style.overflow = 'hidden';
                 }
 
-                // Force layout reflow before triggering CSS transitions
                 void box.offsetHeight;
 
                 box.classList.remove('scale-95', 'opacity-0', 'pointer-events-none');
@@ -259,6 +342,11 @@
                 box.classList.remove('scale-100', 'opacity-100', 'pointer-events-auto');
                 box.classList.add('scale-95', 'opacity-0', 'pointer-events-none');
 
+                if (backdrop) {
+                    backdrop.classList.remove('opacity-100');
+                    backdrop.classList.add('opacity-0');
+                }
+
                 if (window.innerWidth < 640) {
                     document.body.style.overflow = '';
                 }
@@ -266,6 +354,7 @@
                 setTimeout(function () {
                     box.classList.remove('flex');
                     box.classList.add('hidden');
+                    if (backdrop) backdrop.classList.add('hidden');
                     if (launcher) launcher.classList.remove('hidden');
                     isToggling = false;
                 }, 260);
