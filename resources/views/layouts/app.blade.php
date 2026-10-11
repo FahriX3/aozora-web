@@ -549,7 +549,171 @@
                 if (menu) menu.classList.add('hidden');
             }
         });
+
+        // ==========================================
+        // UNIVERSAL CUSTOM AOZORA ALERT & TOAST SYSTEM
+        // ==========================================
+        window.showAozoraAlert = function(titleOrMsg, message = null, type = 'info', confirmText = 'Oke, Mengerti! 🌸') {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('aozoraAlertModal');
+                const card = document.getElementById('aozoraAlertCard');
+                const titleEl = document.getElementById('aozoraAlertTitle');
+                const msgEl = document.getElementById('aozoraAlertMessage');
+                const iconEl = document.getElementById('aozoraAlertIcon');
+                const iconWrap = document.getElementById('aozoraAlertIconWrap');
+                const badgeEl = document.getElementById('aozoraAlertBadge');
+                const accentEl = document.getElementById('aozoraAlertAccent');
+                const confirmBtn = document.getElementById('aozoraAlertConfirmBtn');
+                const closeBtn = document.getElementById('aozoraAlertCloseBtn');
+                const confirmTextEl = document.getElementById('aozoraAlertConfirmText');
+
+                if (!modal || !card) {
+                    return resolve(false);
+                }
+
+                let title = titleOrMsg;
+                let text = message;
+                if (text === null) {
+                    text = titleOrMsg;
+                    title = 'Pemberitahuan 🌸';
+                }
+
+                titleEl.textContent = title;
+                msgEl.textContent = text;
+                if (confirmTextEl) confirmTextEl.textContent = confirmText;
+
+                // Color themes & icons based on type
+                if (type === 'success') {
+                    accentEl.className = 'h-1.5 w-full bg-gradient-to-r from-emerald-500 to-teal-500';
+                    iconWrap.className = 'w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-md bg-emerald-50 text-emerald-600 ring-4 ring-emerald-50/50';
+                    iconEl.textContent = 'check_circle';
+                    badgeEl.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200 uppercase tracking-wider';
+                    badgeEl.textContent = 'Sukses';
+                    confirmBtn.className = 'px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer flex items-center gap-1.5';
+                } else if (type === 'error' || type === 'danger') {
+                    accentEl.className = 'h-1.5 w-full bg-gradient-to-r from-rose-500 to-red-600';
+                    iconWrap.className = 'w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-md bg-rose-50 text-rose-600 ring-4 ring-rose-50/50';
+                    iconEl.textContent = 'error';
+                    badgeEl.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 border border-rose-200 uppercase tracking-wider';
+                    badgeEl.textContent = 'Perhatian';
+                    confirmBtn.className = 'px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer flex items-center gap-1.5';
+                } else if (type === 'warning') {
+                    accentEl.className = 'h-1.5 w-full bg-gradient-to-r from-amber-500 to-orange-500';
+                    iconWrap.className = 'w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-md bg-amber-50 text-amber-600 ring-4 ring-amber-50/50';
+                    iconEl.textContent = 'warning';
+                    badgeEl.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 border border-amber-200 uppercase tracking-wider';
+                    badgeEl.textContent = 'Peringatan';
+                    confirmBtn.className = 'px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer flex items-center gap-1.5';
+                } else {
+                    accentEl.className = 'h-1.5 w-full bg-gradient-to-r from-blue-600 via-indigo-500 to-rose-500';
+                    iconWrap.className = 'w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-md bg-blue-50 text-blue-600 ring-4 ring-blue-50/50';
+                    iconEl.textContent = 'info';
+                    badgeEl.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 border border-blue-200 uppercase tracking-wider';
+                    badgeEl.textContent = 'Aozora';
+                    confirmBtn.className = 'px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer flex items-center gap-1.5';
+                }
+
+                // Show modal with animation
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.classList.add('opacity-100');
+                card.classList.remove('scale-95');
+                card.classList.add('scale-100');
+
+                function closeModal() {
+                    modal.classList.add('opacity-0', 'pointer-events-none');
+                    modal.classList.remove('opacity-100');
+                    card.classList.remove('scale-100');
+                    card.classList.add('scale-95');
+                    confirmBtn.removeEventListener('click', onConfirm);
+                    closeBtn.removeEventListener('click', onCancel);
+                    modal.removeEventListener('click', onBackdrop);
+                    document.removeEventListener('keydown', onEsc);
+                    resolve(true);
+                }
+
+                function onConfirm() { closeModal(); }
+                function onCancel() { closeModal(); }
+                function onBackdrop(e) { if (e.target === modal) closeModal(); }
+                function onEsc(e) { if (e.key === 'Escape') closeModal(); }
+
+                confirmBtn.addEventListener('click', onConfirm, { once: true });
+                closeBtn.addEventListener('click', onCancel, { once: true });
+                modal.addEventListener('click', onBackdrop);
+                document.addEventListener('keydown', onEsc, { once: true });
+            });
+        };
+
+        // Universal alert override
+        window.alert = function(msg) {
+            window.showAozoraAlert('Pemberitahuan 🌸', msg);
+        };
+
+        // Universal toast notification
+        window.showAozoraToast = function(message, type = 'info', duration = 3500) {
+            const container = document.getElementById('aozoraToastContainer');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = 'pointer-events-auto flex items-center gap-3 p-3.5 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 text-slate-800 text-xs sm:text-sm font-medium transform translate-y-3 opacity-0 transition-all duration-300';
+            
+            let iconName = 'info';
+            let iconColor = 'text-blue-500';
+            if (type === 'success') { iconName = 'check_circle'; iconColor = 'text-emerald-500'; }
+            else if (type === 'error') { iconName = 'error'; iconColor = 'text-rose-500'; }
+            else if (type === 'warning') { iconName = 'warning'; iconColor = 'text-amber-500'; }
+
+            toast.innerHTML = `
+                <span class="material-symbols-outlined text-xl ${iconColor} shrink-0">${iconName}</span>
+                <span class="flex-1 leading-snug">${message}</span>
+            `;
+
+            container.appendChild(toast);
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-3', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-3', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        };
     </script>
+
+    {{-- CUSTOM AOZORA POPUP ALERT MODAL & TOAST CONTAINER --}}
+    <div id="aozoraAlertModal" class="fixed inset-0 z-[100000] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-md transition-all duration-300 opacity-0 pointer-events-none">
+        <div id="aozoraAlertCard" class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transform scale-95 transition-all duration-300">
+            <div id="aozoraAlertAccent" class="h-1.5 w-full bg-gradient-to-r from-blue-600 via-indigo-500 to-rose-500"></div>
+
+            <div class="p-6">
+                <button type="button" id="aozoraAlertCloseBtn" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-700 flex items-center justify-center transition-colors cursor-pointer" aria-label="Tutup">
+                    <span class="material-symbols-outlined text-lg">close</span>
+                </button>
+
+                <div class="flex items-start gap-4">
+                    <div id="aozoraAlertIconWrap" class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-md bg-blue-50 text-blue-600 ring-4 ring-blue-50/50">
+                        <span id="aozoraAlertIcon" class="material-symbols-outlined text-2xl">info</span>
+                    </div>
+
+                    <div class="flex-1 pr-6">
+                        <div class="flex items-center gap-2 mb-1.5">
+                            <h3 id="aozoraAlertTitle" class="text-lg font-bold text-slate-900 tracking-tight">Pemberitahuan</h3>
+                            <span id="aozoraAlertBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 border border-blue-200 uppercase tracking-wider">Aozora</span>
+                        </div>
+                        <p id="aozoraAlertMessage" class="text-sm text-slate-600 leading-relaxed whitespace-pre-line"></p>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-end">
+                    <button type="button" id="aozoraAlertConfirmBtn" class="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer flex items-center gap-1.5">
+                        <span id="aozoraAlertConfirmText">Oke, Mengerti! 🌸</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Toast Container -->
+    <div id="aozoraToastContainer" class="fixed top-24 right-4 sm:right-6 z-[99999] flex flex-col gap-2.5 pointer-events-none max-w-sm w-full"></div>
 
     {{-- Chatbot Sora (AI Assistant) Floating Widget --}}
     <x-chat-widget />

@@ -811,16 +811,23 @@
 
     <!-- 1% UR EASTER EGG SPECIAL ANNOUNCEMENT MODAL -->
     <div id="easterEggBanner"
-        style="position: fixed; inset: 0; z-index: 99999; background: rgba(5, 8, 20, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: none; opacity: 0; transition: opacity 0.3s ease; align-items: center; justify-content: center; padding: 1rem;">
-        <div style="background: linear-gradient(180deg, #1C0A35 0%, #0F051D 100%); border: 2px solid #D946EF; box-shadow: 0 0 50px rgba(217, 70, 239, 0.5), inset 0 0 20px rgba(217, 70, 239, 0.2); border-radius: 1.5rem; max-width: 30rem; width: 100%; padding: 2rem 1.5rem; color: #FFFFFF; position: relative; overflow: hidden; transform: scale(0.95); transition: transform 0.3s ease; text-align: center;">
+        style="position: fixed; inset: 0; z-index: 99999; background: rgba(5, 8, 20, 0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); display: none; opacity: 0; transition: opacity 0.3s ease; align-items: center; justify-content: center; padding: 1rem;">
+        <div style="background: linear-gradient(180deg, #1C0A35 0%, #0F051D 100%); border: 2px solid #D946EF; box-shadow: 0 0 50px rgba(217, 70, 239, 0.45), inset 0 0 25px rgba(217, 70, 239, 0.2); border-radius: 1.5rem; max-width: 28rem; width: 100%; padding: 2rem 1.5rem; color: #FFFFFF; position: relative; overflow: hidden; transform: scale(0.92); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); text-align: center;">
             
+            <!-- Close 'X' Button at Top Right -->
+            <button type="button" id="closeEasterEggTopBtn"
+                style="position: absolute; top: 1rem; right: 1rem; width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: rgba(255, 255, 255, 0.12); color: #FCE7F3; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.2); cursor: pointer; transition: background 0.2s; z-index: 2;"
+                aria-label="Tutup Modal Easter Egg">
+                <span class="material-symbols-outlined" style="font-size: 1.25rem;">close</span>
+            </button>
+
             <!-- Radial glow in background -->
             <div style="position: absolute; top: -4rem; right: -4rem; width: 10rem; height: 10rem; background: rgba(236, 72, 153, 0.3); border-radius: 9999px; filter: blur(35px); pointer-events: none;"></div>
             <div style="position: absolute; bottom: -4rem; left: -4rem; width: 10rem; height: 10rem; background: rgba(168, 85, 247, 0.3); border-radius: 9999px; filter: blur(35px); pointer-events: none;"></div>
 
             <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
                 <!-- Glowing badge -->
-                <div style="background: linear-gradient(90deg, #EC4899 0%, #A855F7 100%); color: #FFFFFF; font-weight: 900; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 1.25rem; border-radius: 9999px; box-shadow: 0 0 20px rgba(236, 72, 153, 0.6); display: inline-flex; align-items: center; gap: 0.35rem; margin-bottom: 1.25rem;">
+                <div style="background: linear-gradient(90deg, #EC4899 0%, #A855F7 100%); color: #FFFFFF; font-weight: 900; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.35rem 1.25rem; border-radius: 9999px; box-shadow: 0 0 20px rgba(236, 72, 153, 0.6); display: inline-flex; align-items: center; gap: 0.35rem; margin-bottom: 1.25rem;">
                     <span class="material-symbols-outlined" style="font-size: 1rem; color: #FFFFFF;">auto_awesome</span>
                     <span>1% ULTRA RARE EASTER EGG</span>
                     <span class="material-symbols-outlined" style="font-size: 1rem; color: #FFFFFF;">auto_awesome</span>
@@ -828,10 +835,10 @@
 
                 <!-- Avatar circle with glowing border -->
                 <div style="width: 7.5rem; height: 7.5rem; border-radius: 1.25rem; overflow: hidden; border: 3px solid #F472B6; box-shadow: 0 0 30px rgba(244, 114, 182, 0.6); margin-bottom: 1rem;">
-                    <img src="{{ asset('assets/mascots/sora_yosuga.webp') }}" alt="Sora Kasugano" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                    <img src="{{ asset('assets/mascots/sora_yosuga.webp') }}" alt="Sora Kasugano" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" />
                 </div>
 
-                <h3 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; margin: 0;">
+                <h3 style="font-size: 1.375rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; margin: 0;">
                     Sora Kasugano (春日野 穹)
                 </h3>
                 <p style="font-size: 0.8125rem; color: #F472B6; font-weight: 600; margin-top: 0.25rem;">
@@ -844,7 +851,7 @@
                 </div>
 
                 <p style="font-size: 0.75rem; color: #E9D5FF; margin-top: 0.875rem; font-family: monospace;">
-                    🎉 HOKI TINGKAT TINGGI! Peluang gacha rahasia berhasil didapatkan!
+                    🎉 HOKI TINGKAT TINGGI! Peluang gacha rahasia didapatkan!
                 </p>
 
                 <!-- Action Button -->
@@ -1276,8 +1283,14 @@
                         if (finalMascot.id === "sora_yosuga") {
                             triggerConfetti(5000);
                             openEasterEggModal();
-                        } else if (finalMascot.rarity === "SSR") {
-                            triggerConfetti(2500);
+                        } else {
+                            if (window.showAozoraToast) {
+                                const toastType = finalMascot.rarity === 'SSR' ? 'success' : 'info';
+                                window.showAozoraToast(`🎲 Selamat! Mendapatkan: ${finalMascot.name} (${finalMascot.rarity})! 🌸`, toastType);
+                            }
+                            if (finalMascot.rarity === "SSR") {
+                                triggerConfetti(2500);
+                            }
                         }
                     }
                 }, 85);
@@ -1313,20 +1326,25 @@
         // Easter Egg Modal Controls
         const easterEggModal = document.getElementById("easterEggBanner");
         const closeEasterEggBtn = document.getElementById("closeEasterEggBtn");
+        const closeEasterEggTopBtn = document.getElementById("closeEasterEggTopBtn");
         function openEasterEggModal() {
             if (!easterEggModal) return;
             easterEggModal.style.display = "flex";
             requestAnimationFrame(() => {
                 easterEggModal.style.opacity = "1";
                 const card = easterEggModal.querySelector("div");
-                if (card) card.style.transform = "scale(1)";
+                if (card) {
+                    card.style.transform = "scale(1)";
+                }
             });
         }
         function closeEasterEggModal() {
             if (!easterEggModal) return;
             easterEggModal.style.opacity = "0";
             const card = easterEggModal.querySelector("div");
-            if (card) card.style.transform = "scale(0.95)";
+            if (card) {
+                card.style.transform = "scale(0.92)";
+            }
             setTimeout(() => {
                 easterEggModal.style.display = "none";
             }, 300);
@@ -1337,11 +1355,21 @@
                 setActiveMascot("sora_yosuga");
             });
         }
+        if (closeEasterEggTopBtn) {
+            closeEasterEggTopBtn.addEventListener("click", () => {
+                closeEasterEggModal();
+            });
+        }
         if (easterEggModal) {
             easterEggModal.addEventListener("click", (e) => {
                 if (e.target === easterEggModal) closeEasterEggModal();
             });
         }
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && easterEggModal && easterEggModal.style.display === "flex") {
+                closeEasterEggModal();
+            }
+        });
 
         // Mascot Dex Modal Controls
         const dexModal = document.getElementById("mascotDexModal");
