@@ -16,21 +16,25 @@ class ChatController extends Controller
     private function getSystemPrompt(): string
     {
         return <<<PROMPT
-Kamu adalah Sora (空), siswi SMA virtual ceria sekaligus asisten AI dari ekstrakurikuler Aozora Nihongo Club di SMKN 1 Purwokerto (SMECO). Teman bicaramu adalah teman sekolahmu.
+Kamu adalah Sora (空), siswi SMA virtual ceria sekaligus asisten AI dari ekstrakurikuler Aozora Nihongo Club di SMKN 1 Purwokerto (SMECO), Banyumas.
 
-Info Singkat Klub Aozora:
+Info Klub Aozora:
 - Lokasi: Ruang Kelas SMKN 1 Purwokerto, Jl. Dr. Soeparno No. 29, Purwokerto Timur
 - Kumpul rutin: Setiap hari Kamis pukul 16.00 - 17.00 WIB
-- Divisi: Percakapan (Kaiwa), Kaligrafi (Shodo), Cosplay, Matsuri (Festival Budaya), Anime & Manga
+- Divisi: Percakapan (Kaiwa), Kaligrafi (Shodo), Cosplay, Festival Budaya (Matsuri), Anime & Manga
 - Slogan: Ichigo Ichie (一期一会) & "Aozora: Blue Skies Ahead"
 
-GAYA BICARA & ATURAN PENTING:
-1. Bicara santai, ramah, dan seru seperti teman sebaya di sekolah. BUKAN bot customer service, BUKAN pidato upacara!
-2. WAJIB selalu gunakan Bahasa Indonesia santai (DILARANG menggunakan Bahasa Inggris).
-3. JAWAB SINGKAT DAN PADAT (cukup 1 sampai 2 kalimat saja untuk sapaan atau obrolan santai, maksimal 3 kalimat untuk pertanyaan biasa). DILARANG menulis paragraf panjang berbelit-belit!
-4. Jika disapa ("hai", "halo", "p"), balas SINGKAT dan ceria, contoh: "Halo! Konnichiwa~ 🌸 Lagi santai atau ada yang mau kamu tanyain tentang klub Aozora nih?"
-5. DILARANG menulis awalan nama seperti "Sora:", "AI:", atau "Asisten:".
-6. Jangan mengulang-ulang nama pengguna di setiap kalimat.
+ATURAN BAHASA (MUTLAK):
+1. WAJIB SELALU gunakan BAHASA INDONESIA santai dan akrab dengan alfabet/huruf latin biasa.
+2. Boleh diselingi istilah atau sapaan BAHASA JEPANG ringan (seperti: Konnichiwa, Arigatou, Sugoi, Ganbatte, Yoroshiku).
+3. DILARANG KERAS MENGGUNAKAN BAHASA INGGRIS! Jangan pernah gunakan kata bahasa Inggris (seperti "Hello", "How can I help", "assist", dsb). Kamu tidak melayani bahasa Inggris.
+4. DILARANG menggunakan huruf Mandarin / Hanzi China.
+
+GAYA BICARA & FORMAT:
+1. Ngobrol santai dan asik seperti teman sebaya di sekolah. BUKAN bot customer service formal, BUKAN pidato upacara!
+2. JAWAB SINGKAT DAN PADAT (1 sampai 2 kalimat saja untuk sapaan atau obrolan santai, maksimal 3 kalimat untuk pertanyaan biasa). DILARANG menulis jawaban panjang berbelit-belit!
+3. DILARANG menulis awalan nama seperti "Sora:", "AI:", atau "Asisten:".
+4. Jangan mengulang-ulang nama pengguna di setiap kalimat.
 PROMPT;
     }
 
@@ -51,11 +55,24 @@ PROMPT;
             'content' => $this->getSystemPrompt(),
         ];
 
+        // Seed anchor example if conversation is starting out (history <= 1 message)
+        if ($history->count() <= 1) {
+            $messages[] = [
+                'role' => 'user',
+                'content' => 'halo',
+            ];
+            $messages[] = [
+                'role' => 'assistant',
+                'content' => 'Halo! Konnichiwa~ 🌸 Senang ketemu kamu! Ada yang mau kamu tanyakan seputar klub Aozora atau belajar bahasa Jepang bareng Sora?',
+            ];
+        }
+
         foreach ($history as $item) {
             $content = trim($item->content);
             if ($item->role === 'assistant') {
-                // Strip historical "Sora: " prefixes so past errors don't poison current context
+                // Strip historical prefixes so past errors don't poison current context
                 $content = preg_replace('/^(Sora|AI|Asisten):\s*/i', '', $content);
+                $content = preg_replace('/^(Hello there|Hello|Hey there|Hi there)[!,.]*\s*(How can I (help|assist) you( today)?[?!.]*)?\s*/i', '', $content);
             }
             if (!empty($content)) {
                 $messages[] = [
@@ -183,6 +200,9 @@ PROMPT;
                     "\nHuman:",
                     "\nAssistant:",
                     "Sora:",
+                    "Hello there",
+                    "How can I assist",
+                    "How can I help",
                 ],
             ],
         ]);
@@ -293,8 +313,9 @@ PROMPT;
                 flush();
             }
 
-            // Save the complete assistant reply to database (stripping accidental 'Sora: ' prefix if present)
+            // Save the complete assistant reply to database (stripping accidental 'Sora: ' or English greetings if present)
             $cleanReply = preg_replace('/^(Sora|AI|Asisten):\s*/i', '', trim($fullReply));
+            $cleanReply = preg_replace('/^(Hello there|Hello|Hey there|Hi there)[!,.]*\s*(How can I (help|assist) you( today)?[?!.]*)?\s*/i', '', $cleanReply);
             if (!empty($cleanReply)) {
                 ChatMessage::create([
                     'user_id' => $user->id,
@@ -402,6 +423,9 @@ PROMPT;
                         "\nHuman:",
                         "\nAssistant:",
                         "Sora:",
+                        "Hello there",
+                        "How can I assist",
+                        "How can I help",
                     ],
                 ],
             ]);
@@ -410,6 +434,7 @@ PROMPT;
                 $data = $response->json();
                 $reply = trim($data['message']['content'] ?? ($data['response'] ?? ''));
                 $reply = preg_replace('/^(Sora|AI|Asisten):\s*/i', '', $reply);
+                $reply = preg_replace('/^(Hello there|Hello|Hey there|Hi there)[!,.]*\s*(How can I (help|assist) you( today)?[?!.]*)?\s*/i', '', $reply);
                 $evalCount = $data['eval_count'] ?? 0;
 
                 if (empty($reply)) {
