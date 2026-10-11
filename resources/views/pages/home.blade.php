@@ -100,43 +100,45 @@
                         </div>
 
                         <!-- Main Character HUD Card with Gacha System -->
-                        <div class="relative rounded-2xl bg-cloud-white/95 backdrop-blur-xl p-space-md md:p-space-lg shadow-xl shadow-primary-container/10 transition-transform duration-300 border border-gray-100 z-10"
-                            id="mascotCard" style="transform: perspective(1000px) rotateY(0deg) rotateX(0deg);">
+                        <div class="relative rounded-2xl bg-white p-4 md:p-6 shadow-xl transition-all duration-300 border border-slate-200 z-10 hover:-translate-y-1 hover:shadow-2xl"
+                            id="mascotCard" style="background: #FFFFFF; border: 1px solid #E2E8F0; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);">
                             
                             <!-- Top HUD Bar -->
-                            <div class="flex items-center justify-between pb-space-sm gap-2">
+                            <div class="flex items-center justify-between pb-3 gap-2">
                                 <div class="flex items-center gap-2 min-w-0">
                                     <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Logo"
-                                        class="w-4 h-4 rounded-full object-cover ring-1 ring-primary/20 shrink-0" />
-                                    <span class="font-label-badge text-label-badge text-indigo-night uppercase font-bold truncate">AOZORA NIHONGO CLUB</span>
+                                        class="w-4 h-4 rounded-full object-cover shrink-0" style="border: 1px solid rgba(2, 132, 199, 0.3);" />
+                                    <span style="font-size: 0.6875rem; font-weight: 800; color: #0F172A; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">AOZORA NIHONGO CLUB</span>
                                 </div>
                                 <div class="flex items-center gap-1.5 shrink-0">
                                     <!-- Dynamic Rarity Badge -->
                                     <div id="mascotRarityBadge"
-                                        class="px-2.5 py-0.5 rounded-full font-label-badge text-[11px] font-bold tracking-wider flex items-center gap-1 transition-all duration-300 bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-xs">
+                                        style="padding: 0.2rem 0.65rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 800; background: linear-gradient(135deg, #0EA5E9, #2563EB); color: #FFFFFF; display: inline-flex; align-items: center; gap: 0.25rem; box-shadow: 0 2px 6px rgba(14, 165, 233, 0.3); transition: all 0.3s ease;">
                                         <span id="mascotRarityText">R</span>
-                                        <span id="mascotRarityStars" class="text-[9px]">★★★</span>
+                                        <span id="mascotRarityStars" style="font-size: 0.5625rem;">★★★</span>
                                     </div>
                                     <!-- Open Collection Dex Button -->
                                     <button id="openCollectionBtn" type="button"
-                                        class="px-2 py-0.5 rounded-full bg-surface-container hover:bg-surface-container-high text-[11px] font-semibold text-secondary hover:text-primary border border-gray-200/60 flex items-center gap-1 transition-all cursor-pointer active:scale-95"
-                                        title="Buka Koleksi Maskot">
-                                        <span class="material-symbols-outlined text-[13px] text-aozora-sky">auto_stories</span>
+                                        style="padding: 0.25rem 0.65rem; border-radius: 9999px; background: #F1F5F9; color: #334155; font-size: 0.6875rem; font-weight: 700; border: 1px solid #CBD5E1; cursor: pointer; display: flex; align-items: center; gap: 0.25rem; transition: transform 0.15s ease;"
+                                        title="Buka Koleksi Maskot"
+                                        onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">
+                                        <span class="material-symbols-outlined" style="font-size: 0.8125rem; color: #0284C7;">auto_stories</span>
                                         <span id="collectionCountBadge">1/5</span>
                                     </button>
                                 </div>
                             </div>
 
                             <!-- Speech Bubble Floating above -->
-                            <div class="relative mb-space-sm p-space-sm rounded-xl bg-secondary-container/60 shadow-sm flex items-start gap-space-xs transition-all duration-300"
-                                id="mascotSpeechBox">
-                                <span class="text-xl" id="mascotSpeechIcon">💬</span>
-                                <div class="flex flex-col min-w-0">
-                                    <div class="flex items-center gap-1.5 flex-wrap">
-                                        <span class="font-label-badge text-label-badge text-primary font-bold" id="mascotNameText">Sora-chan (空ちゃん)</span>
-                                        <span class="text-[10px] text-secondary font-medium" id="mascotTitleText">• Original Mascot</span>
+                            <div class="relative mb-3 flex items-start gap-2.5 transition-all duration-300"
+                                id="mascotSpeechBox"
+                                style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 0.75rem; padding: 0.625rem 0.875rem;">
+                                <span style="font-size: 1.25rem; line-height: 1;" id="mascotSpeechIcon">💬</span>
+                                <div style="display: flex; flex-direction: column; min-width: 0;">
+                                    <div style="display: flex; align-items: center; gap: 0.375rem; flex-wrap: wrap;">
+                                        <span style="font-size: 0.75rem; font-weight: 800; color: #0284C7;" id="mascotNameText">Sora-chan (空ちゃん)</span>
+                                        <span style="font-size: 0.625rem; color: #64748B; font-weight: 600;" id="mascotTitleText">• Original Mascot</span>
                                     </div>
-                                    <p class="font-body-sm text-body-sm text-indigo-night leading-tight font-medium mt-0.5"
+                                    <p style="font-size: 0.75rem; color: #1E293B; line-height: 1.35; font-weight: 500; margin: 0.25rem 0 0 0;"
                                         id="speechBubbleText">
                                         "Konnichiwa! Selamat datang di Aozora Club~ Ikuti petualangan seru kami di SMKN 1!"
                                     </p>
@@ -145,71 +147,64 @@
 
                             <!-- Character Artwork Visual Display -->
                             <div id="mascotImageWrapper"
-                                class="relative w-full aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-surface to-secondary-container/40 flex items-center justify-center group shadow-inner border-2 border-sky-300 ring-4 ring-sky-400/20 transition-all duration-500">
+                                class="relative w-full aspect-square rounded-xl overflow-hidden flex items-center justify-center group shadow-inner transition-all duration-500"
+                                style="background: linear-gradient(180deg, #F0F9FF 0%, #E0F2FE 100%); border: 2px solid #38BDF8; box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);">
                                 <img id="mascotImage" alt="Mascot Aozora Nihongo Club"
                                     class="w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 select-none"
-                                    src="{{ asset('assets/mascots/sora_original.png') }}" />
-
-                                <!-- Gacha Summon Flash / Animation Overlay -->
-                                <div id="gachaRollOverlay"
-                                    class="absolute inset-0 bg-white/0 pointer-events-none transition-all duration-300 flex flex-col items-center justify-center z-10">
-                                    <div id="gachaRollSpinner" class="hidden flex-col items-center gap-2">
-                                        <div class="w-12 h-12 rounded-full border-4 border-amber-400 border-t-transparent animate-spin shadow-lg"></div>
-                                        <span class="text-xs font-black tracking-wider uppercase text-white bg-indigo-night/90 px-3 py-1 rounded-full shadow backdrop-blur">
-                                            Summoning... ✨
-                                        </span>
-                                    </div>
-                                </div>
+                                    src="{{ asset('assets/mascots/sora_original.webp') }}" />
 
                                 <!-- Floating HUD Attributes -->
                                 <div class="absolute top-3 left-3 flex flex-col gap-1.5 pointer-events-none z-10">
                                     <span id="mascotHudTag"
-                                        class="px-2.5 py-1 rounded-md bg-indigo-night/85 backdrop-blur-md text-cloud-white font-label-badge text-label-badge transition-all shadow-xs">
+                                        style="padding: 0.25rem 0.625rem; border-radius: 0.375rem; background: rgba(15, 23, 42, 0.85); color: #FFFFFF; font-size: 0.6875rem; font-weight: 700; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
                                         Mascot: Sora-chan
                                     </span>
                                     <span id="mascotHudLevel"
-                                        class="px-2.5 py-1 rounded-md bg-torii-vermilion/90 backdrop-blur-md text-cloud-white font-label-badge text-label-badge transition-all shadow-xs">
+                                        style="padding: 0.25rem 0.625rem; border-radius: 0.375rem; background: rgba(232, 58, 48, 0.9); color: #FFFFFF; font-size: 0.6875rem; font-weight: 700; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
                                         Club Level: S-Tier
                                     </span>
                                 </div>
 
                                 <!-- Interactive Voice Audio Pill -->
                                 <button
-                                    class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-cloud-white/95 hover:bg-white shadow-md backdrop-blur-md text-indigo-night font-label-badge text-label-badge flex items-center gap-1.5 transition-all transform hover:scale-105 active:scale-95 cursor-pointer select-none z-10"
-                                    id="voicePlayBtn" type="button" title="Dengarkan suara Ganbatte!">
+                                    style="position: absolute; bottom: 0.75rem; right: 0.75rem; padding: 0.35rem 0.75rem; border-radius: 9999px; background: rgba(255, 255, 255, 0.95); color: #0F172A; font-size: 0.6875rem; font-weight: 700; display: flex; align-items: center; gap: 0.35rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.8); cursor: pointer; z-index: 10; transition: transform 0.2s;"
+                                    id="voicePlayBtn" type="button" title="Dengarkan suara Ganbatte!"
+                                    onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                                     <span id="voiceIcon"
-                                        class="material-symbols-outlined text-torii-vermilion text-base transition-transform"
-                                        style="font-variation-settings: 'FILL' 1;">volume_up</span>
-                                    <span id="voiceStatusText" class="font-medium">Voice: Ganbatte! 🌸</span>
+                                        class="material-symbols-outlined"
+                                        style="font-size: 1rem; color: #E83A30; font-variation-settings: 'FILL' 1;">volume_up</span>
+                                    <span id="voiceStatusText">Voice: Ganbatte! 🌸</span>
                                 </button>
                             </div>
 
                             <!-- Interactive Gacha Action Buttons -->
-                            <div class="mt-space-sm flex items-center gap-2">
+                            <div class="mt-3 flex items-center gap-2">
                                 <button id="gachaRollBtn" type="button"
-                                    class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-torii-vermilion via-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-bold text-xs shadow-md shadow-rose-500/25 flex items-center justify-center gap-2 transition-all transform active:scale-95 cursor-pointer select-none group">
-                                    <span class="material-symbols-outlined text-base group-hover:rotate-180 transition-transform duration-500">casino</span>
-                                    <span>Tarik Gacha Maskot! 🎲</span>
+                                    style="flex: 1; padding: 0.75rem 1rem; border-radius: 0.75rem; background: linear-gradient(135deg, #E83A30 0%, #F43F5E 50%, #F59E0B 100%) !important; color: #FFFFFF !important; font-size: 0.8125rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(232, 58, 48, 0.4); transition: transform 0.15s ease;"
+                                    onmousedown="this.style.transform='scale(0.97)'" onmouseup="this.style.transform='scale(1)'">
+                                    <span class="material-symbols-outlined" id="gachaBtnIcon" style="font-size: 1.125rem; color: #FFFFFF !important;">casino</span>
+                                    <span id="gachaBtnText" style="color: #FFFFFF !important; font-weight: 800; font-size: 0.8125rem; letter-spacing: 0.01em;">Tarik Gacha Maskot! 🎲</span>
                                 </button>
                                 <button id="gachaDexBtn" type="button"
-                                    class="py-2.5 px-3.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-indigo-night border border-gray-200/80 font-semibold text-xs flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shadow-xs"
-                                    title="Buka Koleksi Maskot (Pokedex)">
-                                    <span class="material-symbols-outlined text-base text-aozora-sky">collections_bookmark</span>
-                                    <span class="hidden sm:inline font-mono text-[11px]">Koleksi</span>
+                                    style="padding: 0.75rem 0.875rem; border-radius: 0.75rem; background: #FFFFFF !important; color: #0F172A !important; border: 1px solid #CBD5E1 !important; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 0.35rem; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: transform 0.15s ease;"
+                                    title="Buka Koleksi Maskot (Pokedex)"
+                                    onmousedown="this.style.transform='scale(0.97)'" onmouseup="this.style.transform='scale(1)'">
+                                    <span class="material-symbols-outlined" style="font-size: 1.125rem; color: #0284C7 !important;">collections_bookmark</span>
+                                    <span style="color: #0F172A !important; font-weight: 700;">Koleksi</span>
                                 </button>
                             </div>
 
                             <!-- Mascot Footer Attributes / Tags -->
-                            <div class="flex flex-wrap items-center justify-between pt-space-xs gap-space-xs font-label-badge text-label-badge">
-                                <div class="flex items-center gap-space-xs text-secondary">
+                            <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding-top: 0.5rem; gap: 0.5rem; font-size: 0.6875rem;">
+                                <div style="display: flex; align-items: center; gap: 0.35rem;">
                                     <span id="mascotTag1"
-                                        class="px-2 py-0.5 rounded bg-surface-container text-on-surface">#NihongoClub</span>
+                                        style="padding: 0.15rem 0.5rem; border-radius: 0.375rem; background: #F1F5F9; color: #475569; font-weight: 600;">#NihongoClub</span>
                                     <span id="mascotTag2"
-                                        class="px-2 py-0.5 rounded bg-surface-container text-on-surface">#AozoraOriginal</span>
+                                        style="padding: 0.15rem 0.5rem; border-radius: 0.375rem; background: #F1F5F9; color: #475569; font-weight: 600;">#AozoraOriginal</span>
                                 </div>
-                                <span class="text-aozora-sky font-bold tracking-wide">一期一会 (Ichigo Ichie)</span>
+                                <span style="color: #0284C7; font-weight: 700; letter-spacing: 0.02em;">一期一会 (Ichigo Ichie)</span>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </section>
@@ -809,101 +804,105 @@
     </div>
 
     <!-- CANVAS CONFETTI FOR SPECIAL PULLS -->
-    <canvas id="gachaConfettiCanvas" class="fixed inset-0 pointer-events-none z-[120] hidden w-full h-full"></canvas>
+    <canvas id="gachaConfettiCanvas" style="position: fixed; inset: 0; pointer-events: none; z-index: 999999; display: none; width: 100vw; height: 100vh;"></canvas>
 
     <!-- 1% UR EASTER EGG SPECIAL ANNOUNCEMENT MODAL -->
-    <div id="easterEggBanner" class="fixed inset-0 z-[110] bg-indigo-night/85 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300 hidden opacity-0">
-        <div class="relative w-full max-w-lg bg-gradient-to-b from-fuchsia-950/95 via-purple-900/90 to-indigo-950/95 rounded-3xl p-6 sm:p-8 text-white shadow-2xl border-2 border-fuchsia-400 ring-8 ring-pink-500/20 overflow-hidden transform scale-95 transition-all duration-300">
-            <!-- Shimmer effect -->
-            <div class="absolute -top-24 -right-24 w-48 h-48 bg-pink-500/30 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-500/30 rounded-full blur-3xl pointer-events-none"></div>
+    <div id="easterEggBanner"
+        style="position: fixed; inset: 0; z-index: 99999; background: rgba(5, 8, 20, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: none; opacity: 0; transition: opacity 0.3s ease; align-items: center; justify-content: center; padding: 1rem;">
+        <div style="background: linear-gradient(180deg, #1C0A35 0%, #0F051D 100%); border: 2px solid #D946EF; box-shadow: 0 0 50px rgba(217, 70, 239, 0.5), inset 0 0 20px rgba(217, 70, 239, 0.2); border-radius: 1.5rem; max-width: 30rem; width: 100%; padding: 2rem 1.5rem; color: #FFFFFF; position: relative; overflow: hidden; transform: scale(0.95); transition: transform 0.3s ease; text-align: center;">
+            
+            <!-- Radial glow in background -->
+            <div style="position: absolute; top: -4rem; right: -4rem; width: 10rem; height: 10rem; background: rgba(236, 72, 153, 0.3); border-radius: 9999px; filter: blur(35px); pointer-events: none;"></div>
+            <div style="position: absolute; bottom: -4rem; left: -4rem; width: 10rem; height: 10rem; background: rgba(168, 85, 247, 0.3); border-radius: 9999px; filter: blur(35px); pointer-events: none;"></div>
 
-            <div class="relative flex flex-col items-center text-center">
+            <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
                 <!-- Glowing badge -->
-                <div class="px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-fuchsia-500 text-white font-black text-xs tracking-widest uppercase shadow-lg shadow-pink-500/50 flex items-center gap-1.5 animate-pulse mb-4">
-                    <span class="material-symbols-outlined text-sm">auto_awesome</span>
+                <div style="background: linear-gradient(90deg, #EC4899 0%, #A855F7 100%); color: #FFFFFF; font-weight: 900; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 1.25rem; border-radius: 9999px; box-shadow: 0 0 20px rgba(236, 72, 153, 0.6); display: inline-flex; align-items: center; gap: 0.35rem; margin-bottom: 1.25rem;">
+                    <span class="material-symbols-outlined" style="font-size: 1rem; color: #FFFFFF;">auto_awesome</span>
                     <span>1% ULTRA RARE EASTER EGG</span>
-                    <span class="material-symbols-outlined text-sm">auto_awesome</span>
+                    <span class="material-symbols-outlined" style="font-size: 1rem; color: #FFFFFF;">auto_awesome</span>
                 </div>
 
-                <!-- Avatar circle -->
-                <div class="relative w-28 h-28 rounded-2xl overflow-hidden border-4 border-fuchsia-400 shadow-2xl shadow-fuchsia-500/50 mb-4 ring-4 ring-pink-400/40">
-                    <img src="{{ asset('assets/mascots/sora_yosuga.png') }}" alt="Sora Kasugano" class="w-full h-full object-cover" />
+                <!-- Avatar circle with glowing border -->
+                <div style="width: 7.5rem; height: 7.5rem; border-radius: 1.25rem; overflow: hidden; border: 3px solid #F472B6; box-shadow: 0 0 30px rgba(244, 114, 182, 0.6); margin-bottom: 1rem;">
+                    <img src="{{ asset('assets/mascots/sora_yosuga.webp') }}" alt="Sora Kasugano" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
                 </div>
 
-                <h3 class="font-headline-sm text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-white to-fuchsia-200 tracking-tight">
+                <h3 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; margin: 0;">
                     Sora Kasugano (春日野 穹)
                 </h3>
-                <p class="text-xs text-pink-300 font-medium mt-1">
+                <p style="font-size: 0.8125rem; color: #F472B6; font-weight: 600; margin-top: 0.25rem;">
                     • Yosuga no Sora • Kembaran Rahasia Sora-chan
                 </p>
 
                 <!-- Voice Quote Bubble -->
-                <div class="mt-4 p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-pink-100 text-xs sm:text-sm font-medium leading-relaxed italic">
+                <div style="margin-top: 1rem; padding: 0.875rem 1.25rem; border-radius: 1rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #FCE7F3; font-size: 0.875rem; line-height: 1.5; font-style: italic; width: 100%; box-sizing: border-box;">
                     "Onii-chan...? Kenapa kamu menatapku seperti itu? B-Bukan berarti aku senang kamu summon... Baka!"
                 </div>
 
-                <p class="text-[11px] text-pink-200/80 mt-3 font-mono">
-                    🎉 Peluang gacha 1:100 berhasil didapatkan! Maskot ini telah otomatis diaktifkan di dashboard utamamu.
+                <p style="font-size: 0.75rem; color: #E9D5FF; margin-top: 0.875rem; font-family: monospace;">
+                    🎉 HOKI TINGKAT TINGGI! Peluang gacha rahasia berhasil didapatkan!
                 </p>
 
                 <!-- Action Button -->
                 <button type="button" id="closeEasterEggBtn"
-                    class="mt-5 w-full py-3 px-6 rounded-2xl bg-gradient-to-r from-fuchsia-500 via-pink-500 to-rose-500 hover:from-fuchsia-600 hover:to-rose-600 font-bold text-sm tracking-wide text-white shadow-xl shadow-pink-500/40 transform active:scale-95 transition-all cursor-pointer">
-                    Keren Banget! Pasang Sekarang 🖤🐰
+                    style="margin-top: 1.25rem; width: 100%; padding: 0.875rem 1.5rem; border-radius: 1rem; background: linear-gradient(90deg, #D946EF 0%, #EC4899 50%, #F43F5E 100%); color: #FFFFFF; font-weight: 800; font-size: 0.9375rem; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(217, 70, 239, 0.5); transition: transform 0.2s;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    Klaim &amp; Pasang Maskot Sora 🖤🐰
                 </button>
             </div>
         </div>
     </div>
 
     <!-- MASCOT COLLECTION DEX MODAL (POKEDEX) -->
-    <div id="mascotDexModal" class="fixed inset-0 z-[100] bg-indigo-night/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 transition-all duration-300 hidden opacity-0">
-        <div class="relative w-full max-w-4xl bg-cloud-white/95 rounded-3xl shadow-2xl border border-white/60 overflow-hidden flex flex-col max-h-[92vh] transform scale-95 transition-all duration-300">
+    <div id="mascotDexModal"
+        style="position: fixed; inset: 0; z-index: 99998; background: rgba(5, 8, 20, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; opacity: 0; transition: opacity 0.3s ease; align-items: center; justify-content: center; padding: 1rem;">
+        <div style="background: #FFFFFF; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); max-width: 56rem; width: 100%; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; transform: scale(0.95); transition: transform 0.3s ease;">
             <!-- Modal Header -->
-            <div class="p-5 sm:p-6 border-b border-gray-100 bg-white/80 flex items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-aozora-sky to-blue-600 text-white flex items-center justify-center shadow-md shadow-sky-500/20">
-                        <span class="material-symbols-outlined text-xl">collections_bookmark</span>
+            <div style="padding: 1.25rem 1.5rem; border-bottom: 1px solid #F1F5F9; display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: #FAFAFA;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div style="width: 2.5rem; height: 2.5rem; border-radius: 1rem; background: linear-gradient(135deg, #38BDF8 0%, #2563EB 100%); color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);">
+                        <span class="material-symbols-outlined" style="font-size: 1.25rem; color: #FFFFFF;">collections_bookmark</span>
                     </div>
                     <div>
-                        <div class="flex items-center gap-2">
-                            <h3 class="font-headline-sm text-lg sm:text-xl font-bold text-indigo-night">Aozora Mascot Dex</h3>
-                            <span class="text-xs text-secondary font-japanese font-semibold">青空マスコット図鑑</span>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <h3 style="font-size: 1.125rem; font-weight: 800; color: #0F172A; margin: 0;">Aozora Mascot Dex</h3>
+                            <span style="font-size: 0.75rem; color: #64748B; font-weight: 600;">青空マスコット図鑑</span>
                         </div>
-                        <p class="text-xs text-secondary mt-0.5">Kumpulkan 5 karakter maskot eksklusif Aozora Club &amp; dengarkan suara uniknya!</p>
+                        <p style="font-size: 0.75rem; color: #64748B; margin: 0.125rem 0 0 0;">Kumpulkan 5 karakter maskot eksklusif Aozora Club &amp; dengarkan suara uniknya!</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span id="dexProgressBadge" class="hidden sm:inline-flex px-3 py-1 rounded-full bg-surface-container font-mono text-xs font-bold text-primary border border-gray-200">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span id="dexProgressBadge" style="padding: 0.25rem 0.75rem; border-radius: 9999px; background: #F1F5F9; color: #0284C7; font-weight: 700; font-size: 0.75rem; border: 1px solid #E2E8F0; font-family: monospace;">
                         1/5 Terkumpul
                     </span>
                     <button id="closeDexModalBtn" type="button"
-                        class="w-9 h-9 rounded-full bg-surface-container hover:bg-surface-container-high text-secondary hover:text-indigo-night flex items-center justify-center transition-all cursor-pointer">
-                        <span class="material-symbols-outlined text-lg">close</span>
+                        style="width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: #F1F5F9; color: #475569; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer;">
+                        <span class="material-symbols-outlined" style="font-size: 1.25rem;">close</span>
                     </button>
                 </div>
             </div>
 
             <!-- Modal Content (Grid of 5 Mascots) -->
-            <div class="p-5 sm:p-6 overflow-y-auto">
+            <div style="padding: 1.25rem 1.5rem; overflow-y: auto;">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4" id="mascotDexGrid">
                     <!-- Rendered dynamically by JavaScript -->
                 </div>
             </div>
 
             <!-- Modal Footer -->
-            <div class="p-4 sm:p-5 border-t border-gray-100 bg-white/90 flex flex-wrap items-center justify-between gap-3">
-                <div class="text-xs text-secondary">
+            <div style="padding: 1rem 1.5rem; border-top: 1px solid #F1F5F9; background: #FAFAFA; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem;">
+                <div style="font-size: 0.75rem; color: #64748B;">
                     <span>💡 Tips: Setiap maskot punya nada suara <em>Ganbatte</em> dan kutipan berbeda!</span>
                 </div>
-                <div class="flex items-center gap-2">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
                     <button id="dexGachaShortcutBtn" type="button"
-                        class="py-2 px-4 rounded-xl bg-gradient-to-r from-torii-vermilion to-rose-500 hover:from-rose-600 hover:to-rose-600 text-white text-xs font-bold shadow-md shadow-rose-500/25 flex items-center gap-1.5 transition-all cursor-pointer">
-                        <span class="material-symbols-outlined text-sm">casino</span>
+                        style="padding: 0.5rem 1rem; border-radius: 0.75rem; background: linear-gradient(135deg, #E83A30 0%, #F43F5E 100%); color: #FFFFFF; font-size: 0.75rem; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.35rem; box-shadow: 0 4px 12px rgba(232, 58, 48, 0.25);">
+                        <span class="material-symbols-outlined" style="font-size: 0.875rem; color: #FFFFFF;">casino</span>
                         <span>Tarik Gacha Lagi! 🎲</span>
                     </button>
                     <button id="closeDexModalBtn2" type="button"
-                        class="py-2 px-4 rounded-xl bg-surface-container hover:bg-surface-container-high text-indigo-night text-xs font-semibold transition-all cursor-pointer">
+                        style="padding: 0.5rem 1rem; border-radius: 0.75rem; background: #F1F5F9; color: #334155; font-size: 0.75rem; font-weight: 600; border: 1px solid #CBD5E1; cursor: pointer;">
                         Tutup
                     </button>
                 </div>
@@ -921,18 +920,18 @@
                 title: "• Original Mascot",
                 rarity: "R",
                 stars: "★★★",
-                badgeClass: "bg-gradient-to-r from-sky-500 to-blue-600 text-white",
-                borderClass: "border-sky-300 ring-sky-400/20",
+                badgeStyle: "background: linear-gradient(135deg, #0EA5E9, #2563EB); color: #FFFFFF;",
+                borderStyle: "border-color: #38BDF8; box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);",
                 quote: "Konnichiwa! Selamat datang di Aozora Club~ Ikuti petualangan seru kami di SMKN 1!",
-                image: "{{ asset('assets/mascots/sora_original.png') }}",
+                image: "{{ asset('assets/mascots/sora_original.webp') }}",
                 audioPitch: 1.0,
                 voiceLabel: "Voice: Ganbatte! 🌸",
                 tag1: "#NihongoClub",
                 tag2: "#AozoraOriginal",
                 hudTag: "Mascot: Sora-chan",
                 hudLevel: "Club Level: S-Tier",
-                weight: 50,
-                dropRate: "50%",
+                weight: 35,
+                dropRate: "35%",
                 desc: "Maskot utama Aozora Nihongo Club yang ceria dan selalu menyemangati anggotanya."
             },
             {
@@ -941,10 +940,10 @@
                 title: "• Kaiwa Specialist",
                 rarity: "R",
                 stars: "★★★",
-                badgeClass: "bg-gradient-to-r from-blue-600 to-indigo-700 text-white",
-                borderClass: "border-indigo-400 ring-indigo-500/20",
+                badgeStyle: "background: linear-gradient(135deg, #2563EB, #4F46E5); color: #FFFFFF;",
+                borderStyle: "border-color: #6366F1; box-shadow: 0 0 15px rgba(99, 102, 241, 0.25);",
                 quote: "Ayo ngobrol santai pakai bahasa Jepang! Kaiwa itu nggak sesulit yang kamu bayangkan kok~",
-                image: "{{ asset('assets/mascots/aoi_kaiwa.png') }}",
+                image: "{{ asset('assets/mascots/aoi_kaiwa.webp') }}",
                 audioPitch: 0.93,
                 voiceLabel: "Voice: Ganbatte ne! 📘",
                 tag1: "#KaiwaClub",
@@ -961,18 +960,18 @@
                 title: "• Shodo & Kanji Master",
                 rarity: "SR",
                 stars: "★★★★",
-                badgeClass: "bg-gradient-to-r from-purple-600 to-pink-600 text-white",
-                borderClass: "border-purple-400 ring-purple-500/20",
+                badgeStyle: "background: linear-gradient(135deg, #9333EA, #DB2777); color: #FFFFFF;",
+                borderStyle: "border-color: #A855F7; box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);",
                 quote: "Fokus dan goreskan kuas kaligrafimu dengan mantap. Setiap kanji punya jiwa dan ceritanya sendiri!",
-                image: "{{ asset('assets/mascots/ren_shodo.png') }}",
+                image: "{{ asset('assets/mascots/ren_shodo.webp') }}",
                 audioPitch: 0.78,
                 voiceLabel: "Voice: Gambare! 🖌️",
                 tag1: "#ShodoClub",
                 tag2: "#KanjiMaster",
                 hudTag: "Mascot: Ren",
                 hudLevel: "Specialty: Calligraphy",
-                weight: 14,
-                dropRate: "14%",
+                weight: 20,
+                dropRate: "20%",
                 desc: "Ahli kaligrafi Shodo dan Kanji yang tenang namun memiliki dedikasi tinggi."
             },
             {
@@ -981,18 +980,18 @@
                 title: "• Cosplay & Matsuri Idol",
                 rarity: "SSR",
                 stars: "★★★★★",
-                badgeClass: "bg-gradient-to-r from-amber-500 via-rose-500 to-pink-500 text-white shadow-md shadow-rose-500/30",
-                borderClass: "border-amber-400 ring-amber-400/30 shadow-lg shadow-amber-500/20",
+                badgeStyle: "background: linear-gradient(135deg, #F59E0B, #E11D48); color: #FFFFFF;",
+                borderStyle: "border-color: #F59E0B; box-shadow: 0 0 20px rgba(245, 158, 11, 0.35);",
                 quote: "Yattaa~! Siap-siap tampil all-out di Festival Bunkasai SMKN 1 Purwokerto tahun ini bareng aku!",
-                image: "{{ asset('assets/mascots/hana_cosplay.png') }}",
+                image: "{{ asset('assets/mascots/hana_cosplay.webp') }}",
                 audioPitch: 1.18,
                 voiceLabel: "Voice: Ganbatteee~! 👘✨",
                 tag1: "#CosplayMatsuri",
                 tag2: "#BunkasaiIdol",
                 hudTag: "Mascot: Hana-chan",
                 hudLevel: "Status: Matsuri Queen",
-                weight: 5,
-                dropRate: "5%",
+                weight: 13,
+                dropRate: "13%",
                 desc: "Ikon festival budaya dan cosplay yang energik, menyulap suasana Matsuri jadi meriah."
             },
             {
@@ -1001,25 +1000,44 @@
                 title: "• [SECRET EASTER EGG] Lost Twin",
                 rarity: "UR",
                 stars: "★★★★★★",
-                badgeClass: "bg-gradient-to-r from-fuchsia-600 via-pink-500 to-rose-600 text-white shadow-lg shadow-pink-500/50 animate-pulse",
-                borderClass: "border-fuchsia-400 ring-4 ring-pink-500/40 shadow-2xl shadow-fuchsia-500/30",
+                badgeStyle: "background: linear-gradient(135deg, #C026D3, #E11D48); color: #FFFFFF; box-shadow: 0 0 15px rgba(225, 29, 72, 0.6);",
+                borderStyle: "border-color: #F43F5E; box-shadow: 0 0 25px rgba(244, 63, 94, 0.5);",
                 quote: "Onii-chan...? Kenapa menatapku seperti itu? B-Bukan berarti aku senang kamu summon... Baka!",
-                image: "{{ asset('assets/mascots/sora_yosuga.png') }}",
+                image: "{{ asset('assets/mascots/sora_yosuga.webp') }}",
                 audioPitch: 0.86,
                 voiceLabel: "Voice: Ganbatte...? 🖤🐰",
                 tag1: "#YosugaNoSora",
-                tag2: "#1PercentDrop",
+                tag2: "#SecretDrop",
                 hudTag: "Mascot: Kasugano Sora",
-                hudLevel: "Rarity: 1% ULTRA RARE",
-                weight: 1,
-                dropRate: "1% (EASTER EGG)",
-                desc: "Karakter legendaris pembawa boneka kelinci hitam yang tersesat di SMKN 1. Peluang summon cuma 1%!"
+                hudLevel: "Rarity: ULTRA RARE",
+                weight: 2,
+                dropRate: "2% (EASTER EGG)",
+                desc: "Karakter legendaris pembawa boneka kelinci hitam yang tersesat di SMKN 1. Peluang summon rahasia!"
             }
         ];
 
+        // Lazy-preload remaining mascot images after initial load to keep page light
+        if ("requestIdleCallback" in window) {
+            window.requestIdleCallback(() => {
+                MASCOTS.forEach(m => {
+                    const pre = new Image();
+                    pre.src = m.image;
+                });
+            });
+        } else {
+            window.addEventListener("load", () => {
+                setTimeout(() => {
+                    MASCOTS.forEach(m => {
+                        const pre = new Image();
+                        pre.src = m.image;
+                    });
+                }, 800);
+            });
+        }
+
         // Storage keys
-        const KEY_DEX = "aozora_mascot_dex_v1";
-        const KEY_ACTIVE = "aozora_active_mascot_v1";
+        const KEY_DEX = "aozora_mascot_dex_v2";
+        const KEY_ACTIVE = "aozora_active_mascot_v2";
 
         function getUnlockedMascots() {
             try {
@@ -1105,7 +1123,6 @@
                 src.connect(audioCtx.destination);
                 src.start(0);
             } else {
-                // Fallback to HTML5 audio with playbackRate
                 const fbAudio = new Audio("{{ asset('audio/gambate.mp3') }}");
                 fbAudio.playbackRate = pitch;
                 fbAudio.play().catch(e => console.warn("Audio play issue:", e));
@@ -1113,7 +1130,7 @@
         }
 
         // Apply mascot data to homepage HUD card
-        function applyMascotToCard(mascot, animate = false) {
+        function applyMascotToCard(mascot, bounce = false) {
             const img = document.getElementById("mascotImage");
             const wrapper = document.getElementById("mascotImageWrapper");
             const rarityBadge = document.getElementById("mascotRarityBadge");
@@ -1130,8 +1147,8 @@
 
             if (rarityText) rarityText.textContent = mascot.rarity;
             if (rarityStars) rarityStars.textContent = mascot.stars;
-            if (rarityBadge) {
-                rarityBadge.className = `px-2.5 py-0.5 rounded-full font-label-badge text-[11px] font-bold tracking-wider flex items-center gap-1 transition-all duration-300 ${mascot.badgeClass}`;
+            if (rarityBadge && mascot.badgeStyle) {
+                rarityBadge.style = mascot.badgeStyle;
             }
 
             if (nameText) nameText.textContent = mascot.name;
@@ -1144,19 +1161,17 @@
             if (tag1) tag1.textContent = mascot.tag1;
             if (tag2) tag2.textContent = mascot.tag2;
 
-            if (wrapper) {
-                wrapper.className = `relative w-full aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-surface to-secondary-container/40 flex items-center justify-center group shadow-inner border-2 transition-all duration-500 ${mascot.borderClass}`;
+            if (wrapper && mascot.borderStyle) {
+                wrapper.style = mascot.borderStyle;
             }
 
             if (img) {
-                if (animate) {
-                    img.classList.add("scale-110", "opacity-80");
+                img.src = mascot.image;
+                if (bounce) {
+                    img.style.transform = "scale(1.08)";
                     setTimeout(() => {
-                        img.src = mascot.image;
-                        img.classList.remove("scale-110", "opacity-80");
-                    }, 150);
-                } else {
-                    img.src = mascot.image;
+                        img.style.transform = "scale(1)";
+                    }, 200);
                 }
             }
         }
@@ -1184,10 +1199,8 @@
             return MASCOTS[0];
         }
 
-        // Gacha Button Trigger
+        // Interactive Gacha Button & Roulette Shuffle
         const gachaBtn = document.getElementById("gachaRollBtn");
-        const rollOverlay = document.getElementById("gachaRollOverlay");
-        const rollSpinner = document.getElementById("gachaRollSpinner");
         let isRolling = false;
 
         if (gachaBtn) {
@@ -1196,48 +1209,48 @@
                 isRolling = true;
                 initAudioOnGesture();
 
-                // UI roll animation
-                gachaBtn.disabled = true;
-                gachaBtn.classList.add("opacity-70", "cursor-wait");
-                if (rollOverlay) {
-                    rollOverlay.classList.remove("bg-white/0", "pointer-events-none");
-                    rollOverlay.classList.add("bg-indigo-night/40", "backdrop-blur-xs");
-                }
-                if (rollSpinner) {
-                    rollSpinner.classList.remove("hidden");
-                    rollSpinner.classList.add("flex");
-                }
+                const btnText = document.getElementById("gachaBtnText");
+                const btnIcon = document.getElementById("gachaBtnIcon");
+                if (btnText) btnText.textContent = "Mengacak Maskot... 🎲";
+                if (btnIcon) btnIcon.classList.add("animate-spin");
+                gachaBtn.style.opacity = "0.8";
+                gachaBtn.style.pointerEvents = "none";
 
-                // Random suspense duration 650ms
-                setTimeout(() => {
-                    const rolledMascot = pickRandomMascot();
-                    saveUnlockedMascot(rolledMascot.id);
-                    setActiveMascot(rolledMascot.id);
+                // Fast slot-machine roulette animation (swaps images rapidly for 720ms)
+                let shuffleIndex = 0;
+                const totalShuffles = 8;
+                const shuffleTimer = setInterval(() => {
+                    const tempMascot = MASCOTS[shuffleIndex % MASCOTS.length];
+                    applyMascotToCard(tempMascot, false);
+                    shuffleIndex++;
 
-                    // Stop rolling UI
-                    if (rollOverlay) {
-                        rollOverlay.classList.remove("bg-indigo-night/40", "backdrop-blur-xs");
-                        rollOverlay.classList.add("bg-white/0", "pointer-events-none");
+                    if (shuffleIndex >= totalShuffles) {
+                        clearInterval(shuffleTimer);
+
+                        // Final chosen mascot
+                        const finalMascot = pickRandomMascot();
+                        saveUnlockedMascot(finalMascot.id);
+                        setActiveMascot(finalMascot.id);
+
+                        // Reset button UI
+                        if (btnText) btnText.textContent = "Tarik Gacha Maskot! 🎲";
+                        if (btnIcon) btnIcon.classList.remove("animate-spin");
+                        gachaBtn.style.opacity = "1";
+                        gachaBtn.style.pointerEvents = "auto";
+                        isRolling = false;
+
+                        // Play distinct audio
+                        playGanbatteVoice(finalMascot.audioPitch);
+
+                        // Check special events
+                        if (finalMascot.id === "sora_yosuga") {
+                            triggerConfetti(5000);
+                            openEasterEggModal();
+                        } else if (finalMascot.rarity === "SSR") {
+                            triggerConfetti(2500);
+                        }
                     }
-                    if (rollSpinner) {
-                        rollSpinner.classList.add("hidden");
-                        rollSpinner.classList.remove("flex");
-                    }
-                    gachaBtn.disabled = false;
-                    gachaBtn.classList.remove("opacity-70", "cursor-wait");
-                    isRolling = false;
-
-                    // Play specific mascot voice with pitch
-                    playGanbatteVoice(rolledMascot.audioPitch);
-
-                    // Check if 1% Easter Egg (Sora Kasugano)
-                    if (rolledMascot.id === "sora_yosuga") {
-                        triggerConfetti(4000);
-                        openEasterEggModal();
-                    } else if (rolledMascot.rarity === "SSR") {
-                        triggerConfetti(2500);
-                    }
-                }, 700);
+                }, 85);
             });
         }
 
@@ -1252,10 +1265,10 @@
                 playGanbatteVoice(mascot.audioPitch);
 
                 // Button bounce animation
-                voiceBtn.classList.add("scale-110", "bg-sakura-tint");
+                voiceBtn.classList.add("scale-110");
                 if (voiceIcon) voiceIcon.classList.add("rotate-12");
                 setTimeout(() => {
-                    voiceBtn.classList.remove("scale-110", "bg-sakura-tint");
+                    voiceBtn.classList.remove("scale-110");
                     if (voiceIcon) voiceIcon.classList.remove("rotate-12");
                 }, 300);
             });
@@ -1272,23 +1285,33 @@
         const closeEasterEggBtn = document.getElementById("closeEasterEggBtn");
         function openEasterEggModal() {
             if (!easterEggModal) return;
-            easterEggModal.classList.remove("hidden");
+            easterEggModal.style.display = "flex";
             requestAnimationFrame(() => {
-                easterEggModal.classList.remove("opacity-0");
+                easterEggModal.style.opacity = "1";
                 const card = easterEggModal.querySelector("div");
-                if (card) card.classList.remove("scale-95");
+                if (card) card.style.transform = "scale(1)";
             });
         }
         function closeEasterEggModal() {
             if (!easterEggModal) return;
-            easterEggModal.classList.add("opacity-0");
+            easterEggModal.style.opacity = "0";
             const card = easterEggModal.querySelector("div");
-            if (card) card.classList.add("scale-95");
+            if (card) card.style.transform = "scale(0.95)";
             setTimeout(() => {
-                easterEggModal.classList.add("hidden");
+                easterEggModal.style.display = "none";
             }, 300);
         }
-        if (closeEasterEggBtn) closeEasterEggBtn.addEventListener("click", closeEasterEggModal);
+        if (closeEasterEggBtn) {
+            closeEasterEggBtn.addEventListener("click", () => {
+                closeEasterEggModal();
+                setActiveMascot("sora_yosuga");
+            });
+        }
+        if (easterEggModal) {
+            easterEggModal.addEventListener("click", (e) => {
+                if (e.target === easterEggModal) closeEasterEggModal();
+            });
+        }
 
         // Mascot Dex Modal Controls
         const dexModal = document.getElementById("mascotDexModal");
@@ -1301,21 +1324,21 @@
         function openDexModal() {
             if (!dexModal) return;
             renderDexGrid();
-            dexModal.classList.remove("hidden");
+            dexModal.style.display = "flex";
             requestAnimationFrame(() => {
-                dexModal.classList.remove("opacity-0");
+                dexModal.style.opacity = "1";
                 const card = dexModal.querySelector("div");
-                if (card) card.classList.remove("scale-95");
+                if (card) card.style.transform = "scale(1)";
             });
         }
 
         function closeDexModal() {
             if (!dexModal) return;
-            dexModal.classList.add("opacity-0");
+            dexModal.style.opacity = "0";
             const card = dexModal.querySelector("div");
-            if (card) card.classList.add("scale-95");
+            if (card) card.style.transform = "scale(0.95)";
             setTimeout(() => {
-                dexModal.classList.add("hidden");
+                dexModal.style.display = "none";
             }, 300);
         }
 
@@ -1323,6 +1346,11 @@
         if (openDexBtn2) openDexBtn2.addEventListener("click", openDexModal);
         if (closeDexBtn) closeDexBtn.addEventListener("click", closeDexModal);
         if (closeDexBtn2) closeDexBtn2.addEventListener("click", closeDexModal);
+        if (dexModal) {
+            dexModal.addEventListener("click", (e) => {
+                if (e.target === dexModal) closeDexModal();
+            });
+        }
         if (dexGachaShortcut) {
             dexGachaShortcut.addEventListener("click", () => {
                 closeDexModal();
@@ -1343,17 +1371,17 @@
 
                 if (!isUnlocked) {
                     return `
-                        <div class="rounded-2xl border border-gray-200/80 bg-surface-container-low/60 p-4 flex flex-col items-center text-center relative overflow-hidden group">
-                            <div class="w-full aspect-square rounded-xl bg-gray-200/80 flex flex-col items-center justify-center text-gray-400 mb-3 border border-dashed border-gray-300">
-                                <span class="material-symbols-outlined text-4xl mb-1 text-gray-400">lock</span>
-                                <span class="text-[11px] font-bold uppercase tracking-wider text-gray-500">Terkunci</span>
+                        <div style="border-radius: 1rem; border: 1px dashed #CBD5E1; background: #F8FAFC; padding: 1rem; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;">
+                            <div style="width: 100%; aspect-ratio: 1/1; border-radius: 0.75rem; background: #E2E8F0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94A3B8; margin-bottom: 0.75rem;">
+                                <span class="material-symbols-outlined" style="font-size: 2.5rem; color: #94A3B8;">lock</span>
+                                <span style="font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #64748B;">Terkunci</span>
                             </div>
-                            <div class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-200 text-gray-600 mb-1">
+                            <div style="padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.625rem; font-weight: 700; background: #E2E8F0; color: #475569; margin-bottom: 0.25rem;">
                                 Drop Rate: ${m.dropRate}
                             </div>
-                            <h4 class="font-bold text-xs text-gray-500 mt-1">???</h4>
-                            <p class="text-[10px] text-gray-400 mt-1">Tarik gacha untuk membuka maskot ini!</p>
-                            <button disabled class="mt-3 w-full py-1.5 px-3 rounded-lg bg-gray-100 text-gray-400 text-xs font-semibold cursor-not-allowed">
+                            <h4 style="font-weight: 700; font-size: 0.75rem; color: #64748B; margin: 0.25rem 0 0 0;">???</h4>
+                            <p style="font-size: 0.625rem; color: #94A3B8; margin: 0.25rem 0 0 0;">Tarik gacha untuk membuka!</p>
+                            <button disabled style="margin-top: 0.75rem; width: 100%; padding: 0.375rem 0.75rem; border-radius: 0.5rem; background: #F1F5F9; color: #94A3B8; font-size: 0.75rem; font-weight: 600; border: none; cursor: not-allowed;">
                                 Belum Terbuka
                             </button>
                         </div>
@@ -1361,30 +1389,30 @@
                 }
 
                 return `
-                    <div class="rounded-2xl border ${isActive ? 'border-primary ring-2 ring-primary/30' : 'border-gray-200'} bg-white p-4 flex flex-col items-center text-center relative shadow-sm hover:shadow-md transition-all group">
-                        ${isActive ? '<span class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-primary text-white text-[9px] font-bold">AKTIF</span>' : ''}
-                        <div class="w-full aspect-square rounded-xl overflow-hidden mb-3 border ${m.borderClass}">
-                            <img src="${m.image}" alt="${m.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <div style="border-radius: 1rem; border: ${isActive ? '2px solid #0284C7' : '1px solid #E2E8F0'}; background: #FFFFFF; padding: 1rem; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                        ${isActive ? '<span style="position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.125rem 0.5rem; border-radius: 9999px; background: #0284C7; color: #FFFFFF; font-size: 0.5625rem; font-weight: 800;">AKTIF</span>' : ''}
+                        <div style="width: 100%; aspect-ratio: 1/1; border-radius: 0.75rem; overflow: hidden; margin-bottom: 0.75rem; ${m.borderStyle}">
+                            <img src="${m.image}" alt="${m.name}" style="width: 100%; height: 100%; object-fit: cover;" />
                         </div>
-                        <div class="px-2 py-0.5 rounded-full text-[10px] font-bold ${m.badgeClass} mb-1">
+                        <div style="padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.625rem; font-weight: 700; margin-bottom: 0.25rem; ${m.badgeStyle}">
                             ${m.rarity} ${m.stars}
                         </div>
-                        <h4 class="font-bold text-xs text-indigo-night mt-1 truncate w-full" title="${m.name}">${m.name}</h4>
-                        <p class="text-[10px] text-secondary line-clamp-2 mt-1 leading-tight">${m.desc}</p>
+                        <h4 style="font-weight: 700; font-size: 0.75rem; color: #0F172A; margin: 0.25rem 0 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;" title="${m.name}">${m.name}</h4>
+                        <p style="font-size: 0.625rem; color: #64748B; margin: 0.25rem 0 0 0; line-height: 1.3;">${m.desc}</p>
                         
-                        <div class="mt-3 w-full flex flex-col gap-1.5">
+                        <div style="margin-top: 0.75rem; width: 100%; display: flex; flex-direction: column; gap: 0.35rem;">
                             <button type="button" onclick="window.previewMascotVoice('${m.id}')"
-                                class="w-full py-1 px-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-secondary hover:text-primary text-[11px] font-medium flex items-center justify-center gap-1 transition-all cursor-pointer">
-                                <span class="material-symbols-outlined text-[13px] text-torii-vermilion">volume_up</span>
+                                style="width: 100%; padding: 0.25rem 0.5rem; border-radius: 0.5rem; background: #F1F5F9; color: #334155; font-size: 0.6875rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.25rem; border: none; cursor: pointer;">
+                                <span class="material-symbols-outlined" style="font-size: 0.8125rem; color: #E83A30;">volume_up</span>
                                 <span>Tes Suara</span>
                             </button>
                             ${isActive ? `
-                                <button disabled class="w-full py-1.5 px-3 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold cursor-default">
+                                <button disabled style="width: 100%; padding: 0.375rem 0.75rem; border-radius: 0.5rem; background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; font-size: 0.75rem; font-weight: 700; cursor: default;">
                                     ✓ Sedang Aktif
                                 </button>
                             ` : `
                                 <button type="button" onclick="window.chooseActiveMascot('${m.id}')"
-                                    class="w-full py-1.5 px-3 rounded-lg bg-indigo-night hover:bg-primary text-white text-xs font-bold transition-all active:scale-95 cursor-pointer">
+                                    style="width: 100%; padding: 0.375rem 0.75rem; border-radius: 0.5rem; background: #0F172A; color: #FFFFFF; font-size: 0.75rem; font-weight: 700; border: none; cursor: pointer;">
                                     Gunakan Maskot
                                 </button>
                             `}
@@ -1412,18 +1440,18 @@
             const canvas = document.getElementById("gachaConfettiCanvas");
             if (!canvas) return;
             const ctx = canvas.getContext("2d");
-            canvas.classList.remove("hidden");
+            canvas.style.display = "block";
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
             const colors = ["#FF69B4", "#FFD700", "#38BDF8", "#A855F7", "#F43F5E", "#10B981"];
             const particles = [];
-            const count = 120;
+            const count = 100;
 
             for (let i = 0; i < count; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
-                    y: Math.random() * -canvas.height * 0.5,
+                    y: Math.random() * -canvas.height * 0.4,
                     size: Math.random() * 8 + 4,
                     color: colors[Math.floor(Math.random() * colors.length)],
                     speedX: (Math.random() - 0.5) * 6,
@@ -1455,7 +1483,7 @@
                     requestAnimationFrame(draw);
                 } else {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    canvas.classList.add("hidden");
+                    canvas.style.display = "none";
                 }
             }
             requestAnimationFrame(draw);
@@ -1469,21 +1497,7 @@
             updateCollectionCounter();
         });
 
-        // 2. Parallax / Subtle Cursor Reaction on Mascot HUD Card
-        const mascotCard = document.getElementById("mascotCard");
-        if (mascotCard && window.innerWidth > 768) {
-            mascotCard.addEventListener("mousemove", (e) => {
-                const rect = mascotCard.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                mascotCard.style.transform = `perspective(1000px) rotateY(${x * 0.02}deg) rotateX(${-y * 0.02}deg)`;
-            });
 
-            mascotCard.addEventListener("mouseleave", () => {
-                mascotCard.style.transform =
-                    "perspective(1000px) rotateY(0deg) rotateX(0deg)";
-            });
-        }
 
         // 3. Tab Filter Switcher (Visual mockup interaction)
         const filterBtns =
