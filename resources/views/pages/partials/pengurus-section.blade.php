@@ -12,8 +12,8 @@
         )) }},
         divisiAllMembers: {{ Js::from(
             collect(['Pemateri','Kegiatan','Budaya Bahasa','PDD','Mediakom','Perkap'])->mapWithKeys(function($d) use ($pengurusInti, $anggotaDivisi) {
-                $koors = collect($pengurusInti['koordinator'] ?? [])->where('divisi', $d)->values()->map(fn($k) => array_merge($k, ['role_badge' => 'Koordinator', 'kategori' => 'koordinator']))->toArray();
-                $members = collect($anggotaDivisi[$d] ?? [])->map(fn($m) => array_merge($m, ['role_badge' => 'Anggota', 'kategori' => 'anggota']))->toArray();
+                $koors = collect($pengurusInti['koordinator'] ?? [])->where('divisi', $d)->values()->map(fn($k) => array_merge($k, ['role_badge' => 'Koordinator', 'kategori' => 'koordinator', 'badge_bg' => 'bg-sky-600', 'badge_style' => 'background-color: #0284c7; color: #ffffff;']))->toArray();
+                $members = collect($anggotaDivisi[$d] ?? [])->map(fn($m) => array_merge($m, ['role_badge' => 'Anggota', 'kategori' => 'anggota', 'badge_bg' => 'bg-slate-600', 'badge_style' => 'background-color: #475569; color: #ffffff;']))->toArray();
                 return [$d => array_merge($koors, $members)];
             })->toArray()
         ) }},
@@ -83,16 +83,20 @@
             </div>
         </div>
 
-        {{-- PEMBINA EKSTRAKURIKULER --}}
-        @if(!empty($pengurusInti['pembina']))
-            @php $pembina = $pengurusInti['pembina']; @endphp
+        {{-- PEMBINA & PELATIH EKSTRAKURIKULER --}}
+        @if(!empty($pengurusInti['pembina']) || !empty($pengurusInti['pelatih']))
+            @php 
+                $pembina = $pengurusInti['pembina'] ?? null;
+                $pelatih = $pengurusInti['pelatih'] ?? null;
+            @endphp
             <div class="mb-10">
                 <div class="flex items-center justify-center gap-2 mb-4">
                     <span class="w-1.5 h-5 rounded-full bg-emerald-600"></span>
-                    <h3 class="text-lg font-bold text-gray-900 font-headline-sm tracking-tight">Pembina Ekstrakurikuler</h3>
-                    <span class="text-xs text-gray-500 font-medium">顧問</span>
+                    <h3 class="text-lg font-bold text-gray-900 font-headline-sm tracking-tight">Pembina & Pelatih</h3>
+                    <span class="text-xs text-gray-500 font-medium">顧問・指導員</span>
                 </div>
-                <div class="max-w-md mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    @if($pembina)
                     <div @click="openMemberModal({
                             nama: '{{ addslashes($pembina['nama']) }}',
                             jabatan: '{{ $pembina['jabatan'] }}',
@@ -101,12 +105,13 @@
                             kelas: '{{ $pembina['kelas'] }}',
                             avatar: '{{ $pembina['avatar'] }}',
                             role_badge: 'Pembina Ekstrakurikuler',
-                            badge_bg: 'bg-emerald-600'
+                            badge_bg: 'bg-emerald-600',
+                            badge_style: 'background-color: #059669; color: #ffffff;'
                          })"
                          class="bg-white rounded-2xl p-6 border border-emerald-200/90 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center gap-5 cursor-pointer group">
                         <div class="relative shrink-0">
                             <img 
-                                src="{{ $pembina['avatar'] ?? asset('assets/DSC02070.jpg') }}" 
+                                src="{{ $pembina['avatar'] ?? asset('assets/kepengurusan/kikie_sensei.jpg') }}" 
                                 alt="{{ $pembina['nama'] }}" 
                                 class="w-20 h-20 rounded-2xl object-cover ring-2 ring-emerald-500/30 shadow-sm group-hover:ring-emerald-500 transition-all"
                             />
@@ -118,9 +123,42 @@
                             </div>
                             <h4 class="text-lg font-bold text-gray-900 font-headline-sm leading-snug group-hover:text-emerald-700 transition-colors">{{ $pembina['nama'] }}</h4>
                             <span class="text-xs text-gray-500 mt-0.5">{{ $pembina['kelas'] }} &bull; {{ $pembina['sub_jabatan'] }}</span>
-                            <span class="text-[10px] text-emerald-600 font-semibold mt-1.5">Klik untuk detail →</span>
+                            <span class="text-[10px] text-emerald-600 font-semibold mt-1.5">Klik untuk detail &rarr;</span>
                         </div>
                     </div>
+                    @endif
+
+                    @if($pelatih)
+                    <div @click="openMemberModal({
+                            nama: '{{ addslashes($pelatih['nama']) }}',
+                            jabatan: '{{ $pelatih['jabatan'] }}',
+                            sub_jabatan: '{{ $pelatih['sub_jabatan'] }}',
+                            divisi: 'Bidang Kepelatihan',
+                            kelas: '{{ $pelatih['kelas'] }}',
+                            avatar: '{{ $pelatih['avatar'] }}',
+                            role_badge: 'Pelatih Ekstrakurikuler',
+                            badge_bg: 'bg-emerald-600',
+                            badge_style: 'background-color: #059669; color: #ffffff;'
+                         })"
+                         class="bg-white rounded-2xl p-6 border border-emerald-200/90 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center gap-5 cursor-pointer group">
+                        <div class="relative shrink-0">
+                            <img 
+                                src="{{ $pelatih['avatar'] ?? asset('assets/kepengurusan/mba_ayu.jpg') }}" 
+                                alt="{{ $pelatih['nama'] }}" 
+                                class="w-20 h-20 rounded-2xl object-cover ring-2 ring-emerald-500/30 shadow-sm group-hover:ring-emerald-500 transition-all"
+                            />
+                            <span class="absolute -bottom-1.5 -right-1 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold shadow-xs">指導員</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="inline-flex items-center gap-1.5 self-start px-2.5 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-[11px] font-bold mb-1">
+                                <span>{{ $pelatih['jabatan'] }}</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-gray-900 font-headline-sm leading-snug group-hover:text-emerald-700 transition-colors">{{ $pelatih['nama'] }}</h4>
+                            <span class="text-xs text-gray-500 mt-0.5">{{ $pelatih['kelas'] }} &bull; {{ $pelatih['sub_jabatan'] }}</span>
+                            <span class="text-[10px] text-emerald-600 font-semibold mt-1.5">Klik untuk detail &rarr;</span>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         @endif
@@ -142,17 +180,18 @@
                 <div @click="openMemberModal({
                         nama: '{{ addslashes($ketua['nama'] ?? '') }}',
                         jabatan: '{{ $ketua['jabatan'] ?? 'Ketua Umum' }}',
-                        sub_jabatan: '{{ $ketua['sub_jabatan'] ?? 'Leader' }}',
+                        sub_jabatan: '{{ $ketua['sub_jabatan'] ?? '会長' }}',
                         divisi: 'Pengurus Inti (BPH)',
                         kelas: '{{ $ketua['kelas'] ?? '-' }}',
                         avatar: '{{ $ketua['avatar'] ?? '' }}',
                         role_badge: 'Ketua Umum',
-                        badge_bg: 'bg-blue-600'
+                        badge_bg: 'bg-blue-600',
+                        badge_style: 'background-color: #2563eb; color: #ffffff;'
                      })"
                      class="bg-white rounded-2xl p-6 border border-gray-200/90 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center gap-5 cursor-pointer group">
                     <div class="relative shrink-0">
                         <img 
-                            src="{{ $ketua['avatar'] ?? asset('assets/DSC02070.jpg') }}" 
+                            src="{{ $ketua['avatar'] ?? asset('assets/kepengurusan/pengurus_dummy.jpg') }}" 
                             alt="{{ $ketua['nama'] ?? 'Ketua Umum' }}" 
                             class="w-20 h-20 rounded-2xl object-cover ring-2 ring-primary/20 shadow-sm group-hover:ring-primary transition-all"
                         />
@@ -160,10 +199,10 @@
                     </div>
                     <div class="flex flex-col">
                         <div class="inline-flex items-center gap-1.5 self-start px-2.5 py-0.5 rounded-md bg-blue-50 text-primary text-[11px] font-bold mb-1">
-                            <span> {{ $ketua['jabatan'] ?? 'Ketua Umum' }}</span>
+                            <span>{{ $ketua['jabatan'] ?? 'Ketua Umum' }}</span>
                         </div>
                         <h4 class="text-lg font-bold text-gray-900 font-headline-sm leading-snug group-hover:text-primary transition-colors">{{ $ketua['nama'] ?? '-' }}</h4>
-                        <span class="text-xs text-gray-500 mt-0.5">Kelas {{ $ketua['kelas'] ?? '-' }} &bull; {{ $ketua['sub_jabatan'] ?? 'Leader' }}</span>
+                        <span class="text-xs text-gray-500 mt-0.5">Kelas {{ $ketua['kelas'] ?? '-' }} &bull; {{ $ketua['sub_jabatan'] ?? '会長' }}</span>
                         <span class="text-[10px] text-primary font-semibold mt-1.5">Klik untuk detail →</span>
                     </div>
                 </div>
@@ -172,28 +211,29 @@
                 <div @click="openMemberModal({
                         nama: '{{ addslashes($wakil['nama'] ?? '') }}',
                         jabatan: '{{ $wakil['jabatan'] ?? 'Wakil Ketua' }}',
-                        sub_jabatan: '{{ $wakil['sub_jabatan'] ?? 'Vice Leader' }}',
+                        sub_jabatan: '{{ $wakil['sub_jabatan'] ?? '副部長' }}',
                         divisi: 'Pengurus Inti (BPH)',
                         kelas: '{{ $wakil['kelas'] ?? '-' }}',
                         avatar: '{{ $wakil['avatar'] ?? '' }}',
                         role_badge: 'Wakil Ketua',
-                        badge_bg: 'bg-sky-600'
+                        badge_bg: 'bg-sky-600',
+                        badge_style: 'background-color: #0284c7; color: #ffffff;'
                      })"
                      class="bg-white rounded-2xl p-6 border border-gray-200/90 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center gap-5 cursor-pointer group">
                     <div class="relative shrink-0">
                         <img 
-                            src="{{ $wakil['avatar'] ?? asset('assets/DSC02070.jpg') }}" 
+                            src="{{ $wakil['avatar'] ?? asset('assets/kepengurusan/pengurus_dummy.jpg') }}" 
                             alt="{{ $wakil['nama'] ?? 'Wakil Ketua' }}" 
                             class="w-20 h-20 rounded-2xl object-cover ring-2 ring-sky-400/20 shadow-sm group-hover:ring-sky-500 transition-all"
                         />
-                        <span class="absolute -bottom-1.5 -right-1 px-2 py-0.5 rounded-full bg-sky-600 text-white text-[10px] font-bold shadow-xs">副会長</span>
+                        <span class="absolute -bottom-1.5 -right-1 px-2 py-0.5 rounded-full bg-sky-600 text-white text-[10px] font-bold shadow-xs">副部長</span>
                     </div>
                     <div class="flex flex-col">
                         <div class="inline-flex items-center gap-1.5 self-start px-2.5 py-0.5 rounded-md bg-sky-50 text-sky-700 text-[11px] font-bold mb-1">
-                            <span> {{ $wakil['jabatan'] ?? 'Wakil Ketua' }}</span>
+                            <span>{{ $wakil['jabatan'] ?? 'Wakil Ketua' }}</span>
                         </div>
                         <h4 class="text-lg font-bold text-gray-900 font-headline-sm leading-snug group-hover:text-sky-600 transition-colors">{{ $wakil['nama'] ?? '-' }}</h4>
-                        <span class="text-xs text-gray-500 mt-0.5">Kelas {{ $wakil['kelas'] ?? '-' }} &bull; {{ $wakil['sub_jabatan'] ?? 'Vice Leader' }}</span>
+                        <span class="text-xs text-gray-500 mt-0.5">Kelas {{ $wakil['kelas'] ?? '-' }} &bull; {{ $wakil['sub_jabatan'] ?? '副部長' }}</span>
                         <span class="text-[10px] text-sky-600 font-semibold mt-1.5">Klik untuk detail →</span>
                     </div>
                 </div>
@@ -211,10 +251,11 @@
                             kelas: '{{ $sek['kelas'] }}',
                             avatar: '{{ $sek['avatar'] }}',
                             role_badge: '{{ $sek['jabatan'] }}',
-                            badge_bg: 'bg-indigo-600'
+                            badge_bg: 'bg-indigo-600',
+                            badge_style: 'background-color: #4f46e5; color: #ffffff;'
                          })"
                          class="bg-white rounded-xl p-4 border border-gray-200 flex items-center gap-3.5 hover:border-indigo-200 hover:shadow-md transition-all cursor-pointer group">
-                        <img src="{{ $sek['avatar'] ?? asset('assets/DSC02070.jpg') }}" alt="{{ $sek['nama'] }}" class="w-12 h-12 rounded-xl object-cover ring-1 ring-gray-200 shrink-0 group-hover:ring-indigo-300 transition-all" />
+                        <img src="{{ $sek['avatar'] ?? asset('assets/kepengurusan/pengurus_dummy.jpg') }}" alt="{{ $sek['nama'] }}" class="w-12 h-12 rounded-xl object-cover ring-1 ring-gray-200 shrink-0 group-hover:ring-indigo-300 transition-all" />
                         <div class="flex flex-col min-w-0">
                             <span class="text-[11px] font-bold text-indigo-600 uppercase tracking-wider">{{ $sek['jabatan'] }}</span>
                             <span class="text-sm font-bold text-gray-900 truncate">{{ $sek['nama'] }}</span>
@@ -233,10 +274,11 @@
                             kelas: '{{ $ben['kelas'] }}',
                             avatar: '{{ $ben['avatar'] }}',
                             role_badge: '{{ $ben['jabatan'] }}',
-                            badge_bg: 'bg-emerald-600'
+                            badge_bg: 'bg-emerald-600',
+                            badge_style: 'background-color: #059669; color: #ffffff;'
                          })"
                          class="bg-white rounded-xl p-4 border border-gray-200 flex items-center gap-3.5 hover:border-emerald-200 hover:shadow-md transition-all cursor-pointer group">
-                        <img src="{{ $ben['avatar'] ?? asset('assets/DSC02070.jpg') }}" alt="{{ $ben['nama'] }}" class="w-12 h-12 rounded-xl object-cover ring-1 ring-gray-200 shrink-0 group-hover:ring-emerald-300 transition-all" />
+                        <img src="{{ $ben['avatar'] ?? asset('assets/kepengurusan/pengurus_dummy.jpg') }}" alt="{{ $ben['nama'] }}" class="w-12 h-12 rounded-xl object-cover ring-1 ring-gray-200 shrink-0 group-hover:ring-emerald-300 transition-all" />
                         <div class="flex flex-col min-w-0">
                             <span class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">{{ $ben['jabatan'] }}</span>
                             <span class="text-sm font-bold text-gray-900 truncate">{{ $ben['nama'] }}</span>
@@ -255,10 +297,11 @@
                             kelas: '{{ $hum['kelas'] }}',
                             avatar: '{{ $hum['avatar'] }}',
                             role_badge: '{{ $hum['jabatan'] }}',
-                            badge_bg: 'bg-amber-600'
+                            badge_bg: 'bg-amber-600',
+                            badge_style: 'background-color: #d97706; color: #ffffff;'
                          })"
                          class="bg-white rounded-xl p-4 border border-gray-200 flex items-center gap-3.5 hover:border-amber-200 hover:shadow-md transition-all cursor-pointer group">
-                        <img src="{{ $hum['avatar'] ?? asset('assets/DSC02070.jpg') }}" alt="{{ $hum['nama'] }}" class="w-12 h-12 rounded-xl object-cover ring-1 ring-gray-200 shrink-0 group-hover:ring-amber-300 transition-all" />
+                        <img src="{{ $hum['avatar'] ?? asset('assets/kepengurusan/pengurus_dummy.jpg') }}" alt="{{ $hum['nama'] }}" class="w-12 h-12 rounded-xl object-cover ring-1 ring-gray-200 shrink-0 group-hover:ring-amber-300 transition-all" />
                         <div class="flex flex-col min-w-0">
                             <span class="text-[11px] font-bold text-amber-600 uppercase tracking-wider">{{ $hum['jabatan'] }}</span>
                             <span class="text-sm font-bold text-gray-900 truncate">{{ $hum['nama'] }}</span>
@@ -323,7 +366,7 @@
                                     <div class="space-y-2">
                                         @foreach($koors as $k)
                                             <div class="flex items-center gap-2.5">
-                                                <img src="{{ $k['avatar'] ?? asset('assets/DSC02070.jpg') }}" alt="{{ $k['nama'] }}" class="w-8 h-8 rounded-lg object-cover ring-1 ring-gray-200 shrink-0" />
+                                                <img src="{{ $k['avatar'] ?? asset('assets/kepengurusan/pengurus_dummy.jpg') }}" alt="{{ $k['nama'] }}" class="w-8 h-8 rounded-lg object-cover ring-1 ring-gray-200 shrink-0" />
                                                 <div class="flex flex-col min-w-0">
                                                     <span class="text-xs font-bold text-gray-900 truncate">{{ $k['nama'] }}</span>
                                                     <span class="text-[11px] text-gray-500">Kelas {{ $k['kelas'] }}</span>
@@ -341,7 +384,7 @@
                                 @foreach($members->take(5) as $m)
                                     <img 
                                         class="inline-block h-6 w-6 rounded-full ring-2 ring-white object-cover" 
-                                        src="{{ $m['avatar'] ?? asset('assets/DSC02070.jpg') }}" 
+                                        src="{{ $m['avatar'] ?? asset('assets/kepengurusan/pengurus_dummy.jpg') }}" 
                                         alt="{{ $m['nama'] }}" 
                                         title="{{ $m['nama'] }} (Kelas {{ $m['kelas'] }})"
                                     />
@@ -513,6 +556,7 @@
                             <div class="flex flex-wrap items-center justify-center gap-2 mt-2">
                                 <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm"
                                       :class="selectedMember.badge_bg || 'bg-blue-600'"
+                                      :style="selectedMember.badge_style || ''"
                                       x-text="selectedMember.role_badge">
                                 </span>
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700"
@@ -542,17 +586,20 @@
                                     <span class="font-bold text-gray-900" x-text="selectedMember.divisi"></span>
                                 </div>
                                 <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-2xs">
-                                    <span class="text-gray-500 block text-[11px] mb-0.5">Kelas / Jurusan</span>
+                                    <span class="text-gray-500 block text-[11px] mb-0.5" x-text="(selectedMember.kategori === 'pembina' || selectedMember.kategori === 'pelatih' || selectedMember.divisi === 'Pembina' || selectedMember.divisi === 'Pelatih' || selectedMember.divisi === 'Pembina Organisasi' || selectedMember.divisi === 'Bidang Kepelatihan') ? 'Status Keanggotaan' : 'Kelas / Jurusan'">Kelas / Jurusan</span>
                                     <span class="font-bold text-gray-900" x-text="selectedMember.kelas"></span>
                                 </div>
-                                <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-2xs">
+                                <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-2xs"
+                                     :class="(selectedMember.kategori === 'pembina' || selectedMember.kategori === 'pelatih' || selectedMember.divisi === 'Pembina' || selectedMember.divisi === 'Pelatih' || selectedMember.divisi === 'Pembina Organisasi' || selectedMember.divisi === 'Bidang Kepelatihan' || selectedMember.sub_jabatan === '顧問' || selectedMember.sub_jabatan === '指導員') ? 'sm:col-span-2' : ''">
                                     <span class="text-gray-500 block text-[11px] mb-0.5">Organisasi</span>
                                     <span class="font-bold text-gray-900">Aozora Nihongo Club</span>
                                 </div>
-                                <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-2xs">
-                                    <span class="text-gray-500 block text-[11px] mb-0.5">Masa Bakti</span>
-                                    <span class="font-bold text-emerald-600">Periode 2026 / 2027</span>
-                                </div>
+                                <template x-if="!(selectedMember.kategori === 'pembina' || selectedMember.kategori === 'pelatih' || selectedMember.divisi === 'Pembina' || selectedMember.divisi === 'Pelatih' || selectedMember.divisi === 'Pembina Organisasi' || selectedMember.divisi === 'Bidang Kepelatihan' || selectedMember.sub_jabatan === '顧問' || selectedMember.sub_jabatan === '指導員')">
+                                    <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-2xs">
+                                        <span class="text-gray-500 block text-[11px] mb-0.5">Masa Bakti</span>
+                                        <span class="font-bold text-emerald-600">Periode 2026 / 2027</span>
+                                    </div>
+                                </template>
                             </div>
 
                             <div class="pt-2 text-[11px] text-gray-500 flex items-center justify-between border-t border-gray-200/60">
