@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 return new class extends Migration
 {
@@ -11,7 +12,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+
+        // Ensure all required permissions exist before assigning
+        $requiredPermissions = [
+            'view_event', 'create_event', 'edit_event', 'delete_event',
+            'view_documentation', 'create_documentation', 'edit_documentation', 'delete_documentation',
+            'view_pengurus',
+            'view_inventaris', 'create_inventaris', 'edit_inventaris',
+            'view_transaksi', 'create_transaksi',
+            'view_laporan', 'create_laporan',
+        ];
+        foreach ($requiredPermissions as $perm) {
+            Permission::firstOrCreate(['name' => $perm, 'guard_name' => 'web']);
+        }
 
         // 1. Role Pengurus (Akses lintas semua panel)
         $pengurus = Role::firstOrCreate(['name' => 'pengurus', 'guard_name' => 'web']);

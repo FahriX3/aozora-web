@@ -541,8 +541,7 @@
         function formatSoraContent(text) {
             if (!text) return '';
             var cleaned = String(text)
-                .replace(/^(Sora|AI|Asisten):\s*/i, '')
-                .replace(/^(Hello there|Hello|Hey there|Hi there)[!,.]*\s*(How can I (help|assist) you( today)?[?!.]*)?\s*/i, '');
+                .replace(/^(Sora|AI|Asisten):\s*/i, '');
             var formatted = escapeHtml(cleaned)
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                 .replace(/\*(.*?)\*/g, '<em>$1</em>')
