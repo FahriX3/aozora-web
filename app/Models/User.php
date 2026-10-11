@@ -13,9 +13,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
-
 #[Fillable(['name', 'email', 'password', 'role'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements FilamentUser
@@ -28,14 +25,14 @@ class User extends Authenticatable implements FilamentUser
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        if ($this->hasAnyRole(['super_admin', 'pengurus'])) {
+        if ($this->role === 'admin' || $this->hasAnyRole(['super_admin', 'admin', 'pengurus'])) {
             return true;
         }
 
         return match ($panel->getId()) {
-            'admin' => $this->hasRole('admin'),
-            'inventaris' => $this->hasAnyRole(['admin', 'koordinator_inventaris']),
-            'events', 'pdd' => $this->hasAnyRole(['admin', 'koordinator_kegiatan', 'pdd']),
+            'admin' => $this->role === 'admin' || $this->hasRole('admin'),
+            'inventaris' => in_array($this->role, ['admin', 'pengurus']) || $this->hasAnyRole(['admin', 'koordinator_inventaris', 'pengurus']),
+            'events', 'pdd' => in_array($this->role, ['admin', 'pengurus']) || $this->hasAnyRole(['admin', 'koordinator_kegiatan', 'pdd']),
             'anggota' => true,
             default => false,
         };
@@ -57,18 +54,5 @@ class User extends Authenticatable implements FilamentUser
     public function pengurus()
     {
         return $this->hasOne(Pengurus::class);
-    }
-
-    public function canAccessPanel(Panel $panel): bool
-    {
-        if ($panel->getId() === 'admin') {
-            return $this->role === 'admin';
-        }
-
-        if ($panel->getId() === 'inventaris') {
-            return in_array($this->role, ['admin', 'pengurus']);
-        }
-
-        return true;
     }
 }
