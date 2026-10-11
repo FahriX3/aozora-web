@@ -51,9 +51,10 @@ PROMPT;
     {
         $history = ChatMessage::where('user_id', $user->id)
             ->where('session_id', $sessionId)
-            ->orderBy('id', 'asc')
+            ->orderBy('id', 'desc')
             ->take(12)
-            ->get();
+            ->get()
+            ->reverse();
 
         $conversationText = "";
         foreach ($history as $item) {
@@ -84,9 +85,11 @@ PROMPT;
             $query->where('session_id', $sessionId);
         }
 
-        $messages = $query->orderBy('created_at', 'asc')
+        $messages = $query->orderBy('id', 'desc')
             ->take(40)
             ->get(['id', 'role', 'content', 'created_at'])
+            ->reverse()
+            ->values()
             ->map(function ($msg) {
                 return [
                     'id' => $msg->id,
@@ -274,6 +277,11 @@ PROMPT;
                 // Track token usage
                 if ($totalEvalCount > 0) {
                     UserTokenUsage::addTokens($user->id, $totalEvalCount);
+                } elseif (mb_strlen(trim($fullReply)) > 0) {
+                    // Fallback token estimation if stream connection was interrupted before done flag
+                    $fallbackTokens = max(1, (int) ceil(mb_strlen(trim($fullReply)) / 3.5));
+                    UserTokenUsage::addTokens($user->id, $fallbackTokens);
+                    $totalEvalCount = $fallbackTokens;
                 }
             }
 
@@ -364,6 +372,9 @@ PROMPT;
                 // Track token usage
                 if ($evalCount > 0) {
                     UserTokenUsage::addTokens($user->id, $evalCount);
+                } elseif (mb_strlen($reply) > 0) {
+                    $fallbackTokens = max(1, (int) ceil(mb_strlen($reply) / 3.5));
+                    UserTokenUsage::addTokens($user->id, $fallbackTokens);
                 }
             } else {
                 Log::warning('AI API non-200 response: ' . $response->body());

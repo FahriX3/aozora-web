@@ -23,8 +23,10 @@ Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->n
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
 // Chatbot Sora AI API
-Route::get('/api/chat/history', [ChatController::class, 'history'])->name('chat.history');
-Route::post('/api/chat/send', [ChatController::class, 'send'])->name('chat.send');
-Route::post('/api/chat/stream', [ChatController::class, 'sendStream'])->name('chat.stream');
-Route::post('/api/chat/clear', [ChatController::class, 'clear'])->name('chat.clear');
+Route::prefix('api/chat')->group(function () {
+    Route::get('/history', [ChatController::class, 'history'])->name('chat.history');
+    Route::post('/send', [ChatController::class, 'send'])->middleware('throttle:15,1')->name('chat.send');
+    Route::post('/stream', [ChatController::class, 'sendStream'])->middleware('throttle:15,1')->name('chat.stream');
+    Route::post('/clear', [ChatController::class, 'clear'])->name('chat.clear');
+});
 
