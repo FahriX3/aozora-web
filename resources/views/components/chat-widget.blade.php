@@ -540,7 +540,8 @@
 
         function formatSoraContent(text) {
             if (!text) return '';
-            var formatted = escapeHtml(text)
+            var cleaned = String(text).replace(/^(Sora|AI|Asisten):\s*/i, '');
+            var formatted = escapeHtml(cleaned)
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                 .replace(/\*(.*?)\*/g, '<em>$1</em>')
                 .replace(/`([^`]+)`/g, '<code class="bg-gray-100 text-primary px-1 py-0.5 rounded text-xs">$1</code>')

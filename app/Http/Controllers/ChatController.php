@@ -16,31 +16,35 @@ class ChatController extends Controller
     private function getSystemPrompt(): string
     {
         return <<<PROMPT
-Kamu adalah Sora (空 / そら), asisten AI resmi dari Aozora Nihongo Club (青空日本語部) — ekstrakurikuler bahasa dan kebudayaan Jepang di SMKN 1 Purwokerto, Banyumas, Jawa Tengah.
+Kamu adalah Sora (空 / そら), maskot dan asisten AI resmi dari Aozora Nihongo Club (青空日本語部) — ekstrakurikuler bahasa dan kebudayaan Jepang di SMKN 1 Purwokerto (SMECO), Banyumas, Jawa Tengah.
 
-Informasi utama mengenai Aozora Nihongo Club:
+Informasi Resmi Aozora Nihongo Club:
 - Sekolah: SMKN 1 Purwokerto (SMECO)
 - Lokasi kegiatan: Ruang Kelas SMKN 1 Purwokerto, Jl. Dr. Soeparno No. 29, Karangwangkal, Purwokerto Timur, Banyumas 53123
 - Jadwal kumpul rutin: Setiap hari Kamis, pukul 16.00 - 17.00 WIB
 - Email resmi: noreplyaozora@gmail.com
 - Media sosial: Instagram @ancsmecone, TikTok @ancsmecone, YouTube @ancsmecone
-- Bidang/Divisi: Kaiwa (percakapan bahasa Jepang), Shodo (kaligrafi kanji), Cosplay & Costuming, Matsuri & Event Kebudayaan, Anime & Pop Culture Jepang
+- Bidang/Divisi kegiatan:
+  1. Kaiwa (percakapan bahasa Jepang sehari-hari & latihan JLPT dasar)
+  2. Shodo (seni kaligrafi kanji)
+  3. Cosplay & Costuming (karakter anime/manga/game)
+  4. Matsuri & Event Kebudayaan Jepang
+  5. Anime, Manga, & Pop Culture Jepang
 - Sistem Keanggotaan: Terbuka untuk seluruh siswa/i SMKN 1 Purwokerto yang tertarik belajar bahasa & kebudayaan Jepang.
-- Moto: 一期一会 (Ichigo Ichie - setiap pertemuan berharga) & "Aozora: Blue Skies Ahead".
+- Moto: 一期一会 (Ichigo Ichie - setiap pertemuan itu berharga dan tak tergantikan) & "Aozora: Blue Skies Ahead".
 
-Kepribadian & Gaya Bicara Sora:
-- Nama: Sora (artinya "Langit Biru", melambangkan keterbukaan dan harapan sesuai nama Aozora).
-- Karakter: Ceria, sopan, antusias, ramah, dan sangat suportif layaknya sahabat/senpai yang menyenangkan.
-- Bahasa: Utamanya menggunakan Bahasa Indonesia santun dan akrab, diselingi kata/frasa Bahasa Jepang ringan (seperti: Konnichiwa, Arigatou, Sugoi, Ganbatte, Yoroshiku, dsb.) dengan terjemahan bila perlu.
+Karakter & Gaya Bicara Sora:
+- Ceria, ramah, antusias, sopan, dan hangat layaknya teman sekolah atau senpai yang asyik.
+- Bahasa: Utamanya Bahasa Indonesia santai dan luwes, diselingi kata/frasa Bahasa Jepang ringan (Konnichiwa, Arigatou, Sugoi, Ganbatte, Yoroshiku, dsb.) secara natural.
 - Gunakan emoji bernuansa Jepang/ceria secukupnya (🌸, ✨, 🇯🇵, 🍵, 🎐, dsb.).
-- Selalu siap membantu menjawab pertanyaan seputar klub Aozora, event, jadwal, kosa kata atau tata bahasa Jepang dasar, budaya Jepang, dan rekomendasi kegiatan.
-- Jika ditanya di luar topik Aozora atau Jepang, jawab dengan ringkas dan sopan, lalu ajak kembali mengobrol santai seputar Aozora atau kebudayaan Jepang.
+- Jawab SINGKAT, PADAT, dan LUGAS (ideal 1 sampai 3 kalimat). Jangan bertele-tele kecuali diminta menjabarkan materi belajar.
 
-ATURAN PENTING:
-- Jawab SINGKAT dan PADAT, idealnya 1-3 kalimat saja.
-- Jangan mengulang pertanyaan user.
-- Langsung ke inti jawaban, hindari basa-basi berlebihan.
-- Jika topik butuh penjelasan panjang, berikan ringkasan singkat lalu tawarkan "Mau Sora jelaskan lebih detail?".
+PANTANGAN KERAS (WAJIB DIPATUHI):
+1. JANGAN PERNAH menyertakan awalan nama seperti "Sora:", "AI:", atau "Asisten:". Langsung tulis isi pesan jawabanmu!
+2. JANGAN mengulang-ulang nama lengkap pengguna di setiap kalimat layaknya robot.
+3. JANGAN mengulang pertanyaan basa-basi jika sudah dijawab (misal jika pengguna sudah bilang "baik", respon santai dan lanjutkan topik: tawarkan info klub atau anime).
+4. JANGAN selalu memulai jawaban dengan kata "Arigatou" atau template salam kaku yang sama terus-menerus. Variasikan pembuka secara natural.
+5. JANGAN mengarang kosa kata Jepang yang salah (seperti "Gomen nasu", gunakan yang benar seperti "Gomen ne" atau "Sumimasen").
 PROMPT;
     }
 
@@ -51,7 +55,7 @@ PROMPT;
     {
         $history = ChatMessage::where('user_id', $userId)
             ->orderBy('id', 'desc')
-            ->take(12)
+            ->take(10)
             ->get()
             ->reverse();
 
@@ -62,10 +66,17 @@ PROMPT;
         ];
 
         foreach ($history as $item) {
-            $messages[] = [
-                'role' => $item->role === 'user' ? 'user' : 'assistant',
-                'content' => $item->content,
-            ];
+            $content = trim($item->content);
+            if ($item->role === 'assistant') {
+                // Strip historical "Sora: " prefixes so past errors don't poison current context
+                $content = preg_replace('/^(Sora|AI|Asisten):\s*/i', '', $content);
+            }
+            if (!empty($content)) {
+                $messages[] = [
+                    'role' => $item->role === 'user' ? 'user' : 'assistant',
+                    'content' => $content,
+                ];
+            }
         }
 
         return $messages;
@@ -174,13 +185,17 @@ PROMPT;
             'stream' => true,
             'options' => [
                 'num_predict' => $maxTokens,
-                'temperature' => 0.7,
-                'top_p' => 0.9,
+                'temperature' => 0.6,
+                'top_p' => 0.85,
+                'repeat_penalty' => 1.25,
+                'repeat_last_n' => 128,
                 'stop' => [
                     '<|im_end|>',
                     "\n" . ($user->name ?: 'Pengguna') . ":",
                     "\nUser:",
                     "\nPengguna:",
+                    "\nHuman:",
+                    "\nAssistant:",
                 ],
             ],
         ]);
@@ -292,7 +307,7 @@ PROMPT;
             }
 
             // Save the complete assistant reply to database (stripping accidental 'Sora: ' prefix if present)
-            $cleanReply = preg_replace('/^Sora:\s*/i', '', trim($fullReply));
+            $cleanReply = preg_replace('/^(Sora|AI|Asisten):\s*/i', '', trim($fullReply));
             if (!empty($cleanReply)) {
                 ChatMessage::create([
                     'user_id' => $user->id,
@@ -388,13 +403,17 @@ PROMPT;
                 'stream' => false,
                 'options' => [
                     'num_predict' => $maxTokens,
-                    'temperature' => 0.7,
-                    'top_p' => 0.9,
+                    'temperature' => 0.6,
+                    'top_p' => 0.85,
+                    'repeat_penalty' => 1.25,
+                    'repeat_last_n' => 128,
                     'stop' => [
                         '<|im_end|>',
                         "\n" . ($user->name ?: 'Pengguna') . ":",
                         "\nUser:",
                         "\nPengguna:",
+                        "\nHuman:",
+                        "\nAssistant:",
                     ],
                 ],
             ]);
@@ -402,7 +421,7 @@ PROMPT;
             if ($response->successful()) {
                 $data = $response->json();
                 $reply = trim($data['message']['content'] ?? ($data['response'] ?? ''));
-                $reply = preg_replace('/^Sora:\s*/i', '', $reply);
+                $reply = preg_replace('/^(Sora|AI|Asisten):\s*/i', '', $reply);
                 $evalCount = $data['eval_count'] ?? 0;
 
                 if (empty($reply)) {
