@@ -96,85 +96,117 @@
                         <div class="absolute -top-8 -right-8 w-72 h-72 rounded-full bg-torii-vermilion/10 -z-10 blur-xl">
                         </div>
                         <div
-                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-aozora-sky/20 -z-10 blur-2xl">
-                        </div>
-                        <!-- Main Genshin-inspired Character HUD Card -->
-                        <div class="relative rounded-2xl bg-cloud-white/95 backdrop-blur-xl p-space-md md:p-space-lg shadow-xl shadow-primary-container/10 transition-transform duration-300"
-                            id="mascotCard" style="
-                                            transform: perspective(1000px)
-                                                rotateY(0deg) rotateX(0deg);
-                                        ">
+                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-aozora-sky/20 -z-10 blur-2xl">                        <!-- Main Genshin-inspired Character HUD Card with Gacha System -->
+                        <div class="relative rounded-2xl bg-cloud-white/95 backdrop-blur-xl p-space-md md:p-space-lg shadow-xl shadow-primary-container/10 transition-transform duration-300 border border-gray-100"
+                            id="mascotCard" style="transform: perspective(1000px) rotateY(0deg) rotateX(0deg);">
+                            
                             <!-- Top HUD Bar -->
-                            <div class="flex items-center justify-between pb-space-sm">
-                                <div class="flex items-center gap-2">
+                            <div class="flex items-center justify-between pb-space-sm gap-2">
+                                <div class="flex items-center gap-2 min-w-0">
                                     <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Logo"
                                         class="w-4 h-4 rounded-full object-cover ring-1 ring-primary/20 shrink-0" />
-                                    <span
-                                        class="font-label-badge text-label-badge text-indigo-night uppercase font-bold">AOZORA
-                                        NIHONGO CLUB</span>
+                                    <span class="font-label-badge text-label-badge text-indigo-night uppercase font-bold truncate">AOZORA NIHONGO CLUB</span>
                                 </div>
-                                <div
-                                    class="px-2 py-0.5 rounded bg-primary text-cloud-white font-label-badge text-label-badge">
-                                    SSR ★★★★★
+                                <div class="flex items-center gap-1.5 shrink-0">
+                                    <!-- Dynamic Rarity Badge -->
+                                    <div id="mascotRarityBadge"
+                                        class="px-2.5 py-0.5 rounded-full font-label-badge text-[11px] font-bold tracking-wider flex items-center gap-1 transition-all duration-300 bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-xs">
+                                        <span id="mascotRarityText">R</span>
+                                        <span id="mascotRarityStars" class="text-[9px]">★★★</span>
+                                    </div>
+                                    <!-- Open Collection Dex Button -->
+                                    <button id="openCollectionBtn" type="button"
+                                        class="px-2 py-0.5 rounded-full bg-surface-container hover:bg-surface-container-high text-[11px] font-semibold text-secondary hover:text-primary border border-gray-200/60 flex items-center gap-1 transition-all cursor-pointer active:scale-95"
+                                        title="Buka Koleksi Maskot">
+                                        <span class="material-symbols-outlined text-[13px] text-aozora-sky">auto_stories</span>
+                                        <span id="collectionCountBadge">1/5</span>
+                                    </button>
                                 </div>
                             </div>
+
                             <!-- Speech Bubble Floating above -->
-                            <div
-                                class="relative mb-space-sm p-space-sm rounded-xl bg-secondary-container/60 shadow-sm flex items-start gap-space-xs">
-                                <span class="text-xl">💬</span>
-                                <div class="flex flex-col">
-                                    <span class="font-label-badge text-label-badge text-primary font-bold">Sora-chan
-                                        (空ちゃん)</span>
-                                    <p class="font-body-sm text-body-sm text-indigo-night leading-tight font-medium"
+                            <div class="relative mb-space-sm p-space-sm rounded-xl bg-secondary-container/60 shadow-sm flex items-start gap-space-xs transition-all duration-300"
+                                id="mascotSpeechBox">
+                                <span class="text-xl" id="mascotSpeechIcon">💬</span>
+                                <div class="flex flex-col min-w-0">
+                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                        <span class="font-label-badge text-label-badge text-primary font-bold" id="mascotNameText">Sora-chan (空ちゃん)</span>
+                                        <span class="text-[10px] text-secondary font-medium" id="mascotTitleText">• Original Mascot</span>
+                                    </div>
+                                    <p class="font-body-sm text-body-sm text-indigo-night leading-tight font-medium mt-0.5"
                                         id="speechBubbleText">
-                                        "Konnichiwa! Selamat datang di
-                                        Aozora Club~ Ikuti petualangan
-                                        seru kami di SMKN 1!"
+                                        "Konnichiwa! Selamat datang di Aozora Club~ Ikuti petualangan seru kami di SMKN 1!"
                                     </p>
                                 </div>
                             </div>
+
                             <!-- Character Artwork Visual Display -->
-                            <div
-                                class="relative w-full aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-surface to-secondary-container/40 flex items-center justify-center group shadow-inner">
-                                <img alt="Mascot Sora-chan Aozora Nihongo Club"
-                                    class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe_57QRBxcPOxYpvoRkSSUOgH3K1ldKLCAAaYxfqzhuBIlPdMwKPITA2FIlP0xftYt--7X0loUMNwZ3T9pulWmnG7VAMJ8nmf0Mp3aTJ6os01vkE0OvrX_iO1kRs0RDhqlXwPpl4Ml0xCGRXfQS7jdEdDo9TB2Dllwrv5QjGy2VIHvbP1RYVt0cM680j6nLbITW4yZn8WUyuEtBYx5aysZQlq8S0jg7y_N6BRIYSJYRFAStambE6vz" />
+                            <div id="mascotImageWrapper"
+                                class="relative w-full aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-surface to-secondary-container/40 flex items-center justify-center group shadow-inner border-2 border-sky-300 ring-4 ring-sky-400/20 transition-all duration-500">
+                                <img id="mascotImage" alt="Mascot Aozora Nihongo Club"
+                                    class="w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 select-none"
+                                    src="{{ asset('assets/mascots/sora_original.png') }}" />
+
+                                <!-- Gacha Summon Flash / Animation Overlay -->
+                                <div id="gachaRollOverlay"
+                                    class="absolute inset-0 bg-white/0 pointer-events-none transition-all duration-300 flex flex-col items-center justify-center z-10">
+                                    <div id="gachaRollSpinner" class="hidden flex-col items-center gap-2">
+                                        <div class="w-12 h-12 rounded-full border-4 border-amber-400 border-t-transparent animate-spin shadow-lg"></div>
+                                        <span class="text-xs font-black tracking-wider uppercase text-white bg-indigo-night/90 px-3 py-1 rounded-full shadow backdrop-blur">
+                                            Summoning... ✨
+                                        </span>
+                                    </div>
+                                </div>
+
                                 <!-- Floating HUD Attributes -->
-                                <div class="absolute top-3 left-3 flex flex-col gap-1.5">
-                                    <span
-                                        class="px-2.5 py-1 rounded-md bg-indigo-night/80 backdrop-blur-md text-cloud-white font-label-badge text-label-badge">
+                                <div class="absolute top-3 left-3 flex flex-col gap-1.5 pointer-events-none z-10">
+                                    <span id="mascotHudTag"
+                                        class="px-2.5 py-1 rounded-md bg-indigo-night/85 backdrop-blur-md text-cloud-white font-label-badge text-label-badge transition-all shadow-xs">
                                         Mascot: Sora-chan
                                     </span>
-                                    <span
-                                        class="px-2.5 py-1 rounded-md bg-torii-vermilion/90 backdrop-blur-md text-cloud-white font-label-badge text-label-badge">
+                                    <span id="mascotHudLevel"
+                                        class="px-2.5 py-1 rounded-md bg-torii-vermilion/90 backdrop-blur-md text-cloud-white font-label-badge text-label-badge transition-all shadow-xs">
                                         Club Level: S-Tier
                                     </span>
                                 </div>
+
                                 <!-- Interactive Voice Audio Pill -->
                                 <button
-                                    class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-cloud-white/90 hover:bg-cloud-white shadow-md backdrop-blur-md text-indigo-night font-label-badge text-label-badge flex items-center gap-1.5 transition-all transform hover:scale-105 active:scale-95 cursor-pointer select-none"
-                                    id="voicePlayBtn" type="button">
+                                    class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-cloud-white/95 hover:bg-white shadow-md backdrop-blur-md text-indigo-night font-label-badge text-label-badge flex items-center gap-1.5 transition-all transform hover:scale-105 active:scale-95 cursor-pointer select-none z-10"
+                                    id="voicePlayBtn" type="button" title="Dengarkan suara Ganbatte!">
                                     <span id="voiceIcon"
                                         class="material-symbols-outlined text-torii-vermilion text-base transition-transform"
-                                        style="
-                                                        font-variation-settings: &quot;FILL&quot;
-                                                            1;
-                                                    ">volume_up</span>
-                                    <span id="voiceStatusText" class="">Voice: Ganbatte! 🌸</span>
+                                        style="font-variation-settings: 'FILL' 1;">volume_up</span>
+                                    <span id="voiceStatusText" class="font-medium">Voice: Ganbatte! 🌸</span>
                                 </button>
                             </div>
+
+                            <!-- Interactive Gacha Action Buttons -->
+                            <div class="mt-space-sm flex items-center gap-2">
+                                <button id="gachaRollBtn" type="button"
+                                    class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-torii-vermilion via-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-bold text-xs shadow-md shadow-rose-500/25 flex items-center justify-center gap-2 transition-all transform active:scale-95 cursor-pointer select-none group">
+                                    <span class="material-symbols-outlined text-base group-hover:rotate-180 transition-transform duration-500">casino</span>
+                                    <span>Tarik Gacha Maskot! 🎲</span>
+                                </button>
+                                <button id="gachaDexBtn" type="button"
+                                    class="py-2.5 px-3.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-indigo-night border border-gray-200/80 font-semibold text-xs flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shadow-xs"
+                                    title="Buka Koleksi Maskot (Pokedex)">
+                                    <span class="material-symbols-outlined text-base text-aozora-sky">collections_bookmark</span>
+                                    <span class="hidden sm:inline font-mono text-[11px]">Koleksi</span>
+                                </button>
+                            </div>
+
                             <!-- Mascot Footer Attributes / Tags -->
-                            <div
-                                class="flex flex-wrap items-center justify-between pt-space-sm gap-space-xs font-label-badge text-label-badge">
+                            <div class="flex flex-wrap items-center justify-between pt-space-xs gap-space-xs font-label-badge text-label-badge">
                                 <div class="flex items-center gap-space-xs text-secondary">
-                                    <span
+                                    <span id="mascotTag1"
                                         class="px-2 py-0.5 rounded bg-surface-container text-on-surface">#NihongoClub</span>
-                                    <span
-                                        class="px-2 py-0.5 rounded bg-surface-container text-on-surface">#SmeconPurwokerto</span>
+                                    <span id="mascotTag2"
+                                        class="px-2 py-0.5 rounded bg-surface-container text-on-surface">#AozoraOriginal</span>
                                 </div>
                                 <span class="text-aozora-sky font-bold tracking-wide">一期一会 (Ichigo Ichie)</span>
-                            </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </section>
@@ -772,68 +804,667 @@
             </div>
         </section>
     </div>
+
+    <!-- CANVAS CONFETTI FOR SPECIAL PULLS -->
+    <canvas id="gachaConfettiCanvas" class="fixed inset-0 pointer-events-none z-[120] hidden w-full h-full"></canvas>
+
+    <!-- 1% UR EASTER EGG SPECIAL ANNOUNCEMENT MODAL -->
+    <div id="easterEggBanner" class="fixed inset-0 z-[110] bg-indigo-night/85 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300 hidden opacity-0">
+        <div class="relative w-full max-w-lg bg-gradient-to-b from-fuchsia-950/95 via-purple-900/90 to-indigo-950/95 rounded-3xl p-6 sm:p-8 text-white shadow-2xl border-2 border-fuchsia-400 ring-8 ring-pink-500/20 overflow-hidden transform scale-95 transition-all duration-300">
+            <!-- Shimmer effect -->
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-pink-500/30 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-500/30 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative flex flex-col items-center text-center">
+                <!-- Glowing badge -->
+                <div class="px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-fuchsia-500 text-white font-black text-xs tracking-widest uppercase shadow-lg shadow-pink-500/50 flex items-center gap-1.5 animate-pulse mb-4">
+                    <span class="material-symbols-outlined text-sm">auto_awesome</span>
+                    <span>1% ULTRA RARE EASTER EGG</span>
+                    <span class="material-symbols-outlined text-sm">auto_awesome</span>
+                </div>
+
+                <!-- Avatar circle -->
+                <div class="relative w-28 h-28 rounded-2xl overflow-hidden border-4 border-fuchsia-400 shadow-2xl shadow-fuchsia-500/50 mb-4 ring-4 ring-pink-400/40">
+                    <img src="{{ asset('assets/mascots/sora_yosuga.png') }}" alt="Sora Kasugano" class="w-full h-full object-cover" />
+                </div>
+
+                <h3 class="font-headline-sm text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-white to-fuchsia-200 tracking-tight">
+                    Sora Kasugano (春日野 穹)
+                </h3>
+                <p class="text-xs text-pink-300 font-medium mt-1">
+                    • Yosuga no Sora • Kembaran Rahasia Sora-chan
+                </p>
+
+                <!-- Voice Quote Bubble -->
+                <div class="mt-4 p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-pink-100 text-xs sm:text-sm font-medium leading-relaxed italic">
+                    "Onii-chan...? Kenapa kamu menatapku seperti itu? B-Bukan berarti aku senang kamu summon... Baka!"
+                </div>
+
+                <p class="text-[11px] text-pink-200/80 mt-3 font-mono">
+                    🎉 Peluang gacha 1:100 berhasil didapatkan! Maskot ini telah otomatis diaktifkan di dashboard utamamu.
+                </p>
+
+                <!-- Action Button -->
+                <button type="button" id="closeEasterEggBtn"
+                    class="mt-5 w-full py-3 px-6 rounded-2xl bg-gradient-to-r from-fuchsia-500 via-pink-500 to-rose-500 hover:from-fuchsia-600 hover:to-rose-600 font-bold text-sm tracking-wide text-white shadow-xl shadow-pink-500/40 transform active:scale-95 transition-all cursor-pointer">
+                    Keren Banget! Pasang Sekarang 🖤🐰
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MASCOT COLLECTION DEX MODAL (POKEDEX) -->
+    <div id="mascotDexModal" class="fixed inset-0 z-[100] bg-indigo-night/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 transition-all duration-300 hidden opacity-0">
+        <div class="relative w-full max-w-4xl bg-cloud-white/95 rounded-3xl shadow-2xl border border-white/60 overflow-hidden flex flex-col max-h-[92vh] transform scale-95 transition-all duration-300">
+            <!-- Modal Header -->
+            <div class="p-5 sm:p-6 border-b border-gray-100 bg-white/80 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-aozora-sky to-blue-600 text-white flex items-center justify-center shadow-md shadow-sky-500/20">
+                        <span class="material-symbols-outlined text-xl">collections_bookmark</span>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-headline-sm text-lg sm:text-xl font-bold text-indigo-night">Aozora Mascot Dex</h3>
+                            <span class="text-xs text-secondary font-japanese font-semibold">青空マスコット図鑑</span>
+                        </div>
+                        <p class="text-xs text-secondary mt-0.5">Kumpulkan 5 karakter maskot eksklusif Aozora Club &amp; dengarkan suara uniknya!</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span id="dexProgressBadge" class="hidden sm:inline-flex px-3 py-1 rounded-full bg-surface-container font-mono text-xs font-bold text-primary border border-gray-200">
+                        1/5 Terkumpul
+                    </span>
+                    <button id="closeDexModalBtn" type="button"
+                        class="w-9 h-9 rounded-full bg-surface-container hover:bg-surface-container-high text-secondary hover:text-indigo-night flex items-center justify-center transition-all cursor-pointer">
+                        <span class="material-symbols-outlined text-lg">close</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Content (Grid of 5 Mascots) -->
+            <div class="p-5 sm:p-6 overflow-y-auto">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4" id="mascotDexGrid">
+                    <!-- Rendered dynamically by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 sm:p-5 border-t border-gray-100 bg-white/90 flex flex-wrap items-center justify-between gap-3">
+                <div class="text-xs text-secondary">
+                    <span>💡 Tips: Setiap maskot punya nada suara <em>Ganbatte</em> dan kutipan berbeda!</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="dexGachaShortcutBtn" type="button"
+                        class="py-2 px-4 rounded-xl bg-gradient-to-r from-torii-vermilion to-rose-500 hover:from-rose-600 hover:to-rose-600 text-white text-xs font-bold shadow-md shadow-rose-500/25 flex items-center gap-1.5 transition-all cursor-pointer">
+                        <span class="material-symbols-outlined text-sm">casino</span>
+                        <span>Tarik Gacha Lagi! 🎲</span>
+                    </button>
+                    <button id="closeDexModalBtn2" type="button"
+                        class="py-2 px-4 rounded-xl bg-surface-container hover:bg-surface-container-high text-indigo-night text-xs font-semibold transition-all cursor-pointer">
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- CLIENT INTERACTIVE SCRIPT -->
     <script>
-        // 1. Interactive Voice Clip on Mascot
-        const voiceBtn = document.getElementById("voicePlayBtn");
-        const voiceText = document.getElementById("voiceStatusText");
-        const voiceIcon = document.getElementById("voiceIcon");
-        const speechBubble = document.getElementById("speechBubbleText");
-
-        // Initialize audio clip
-        const ganbatteAudio = new Audio("{{ asset('audio/gambate.mp3') }}");
-        ganbatteAudio.preload = "auto";
-
-        const voiceQuotes = [
+        // MASCOT GACHA & AUDIO SYSTEM
+        const MASCOTS = [
             {
-                voice: "Voice: Ganbatte! 🌸",
-                quote: "Ganbatte ne! Belajar bahasa Jepang itu seru asalkan dinikmati bersama teman satu frekuensi!",
+                id: "sora",
+                name: "Sora-chan (空ちゃん)",
+                title: "• Original Mascot",
+                rarity: "R",
+                stars: "★★★",
+                badgeClass: "bg-gradient-to-r from-sky-500 to-blue-600 text-white",
+                borderClass: "border-sky-300 ring-sky-400/20",
+                quote: "Konnichiwa! Selamat datang di Aozora Club~ Ikuti petualangan seru kami di SMKN 1!",
+                image: "{{ asset('assets/mascots/sora_original.png') }}",
+                audioPitch: 1.0,
+                voiceLabel: "Voice: Ganbatte! 🌸",
+                tag1: "#NihongoClub",
+                tag2: "#AozoraOriginal",
+                hudTag: "Mascot: Sora-chan",
+                hudLevel: "Club Level: S-Tier",
+                weight: 50,
+                dropRate: "50%",
+                desc: "Maskot utama Aozora Nihongo Club yang ceria dan selalu menyemangati anggotanya."
             },
             {
-                voice: "Voice: Ganbatte! ✨",
-                quote: "Ayo asah skill Kaiwa-mu! Petualangan seru kita di Aozora baru saja dimulai!",
+                id: "aoi",
+                name: "Aoi Senpai (葵先輩)",
+                title: "• Kaiwa Specialist",
+                rarity: "R",
+                stars: "★★★",
+                badgeClass: "bg-gradient-to-r from-blue-600 to-indigo-700 text-white",
+                borderClass: "border-indigo-400 ring-indigo-500/20",
+                quote: "Ayo ngobrol santai pakai bahasa Jepang! Kaiwa itu nggak sesulit yang kamu bayangkan kok~",
+                image: "{{ asset('assets/mascots/aoi_kaiwa.png') }}",
+                audioPitch: 0.93,
+                voiceLabel: "Voice: Ganbatte ne! 📘",
+                tag1: "#KaiwaClub",
+                tag2: "#AoiSenpai",
+                hudTag: "Mascot: Aoi-san",
+                hudLevel: "Skill: JLPT N3",
+                weight: 30,
+                dropRate: "30%",
+                desc: "Senpai sabar yang gemar memandu percakapan bahasa Jepang sehari-hari."
             },
             {
-                voice: "Voice: Ganbatte! ⭐",
-                quote: "Wah, antusiasmemu keren sekali! Siap tampil percaya diri di Bunkasai Matsuri tahun ini?",
+                id: "ren",
+                name: "Ren (蓮)",
+                title: "• Shodo & Kanji Master",
+                rarity: "SR",
+                stars: "★★★★",
+                badgeClass: "bg-gradient-to-r from-purple-600 to-pink-600 text-white",
+                borderClass: "border-purple-400 ring-purple-500/20",
+                quote: "Fokus dan goreskan kuas kaligrafimu dengan mantap. Setiap kanji punya jiwa dan ceritanya sendiri!",
+                image: "{{ asset('assets/mascots/ren_shodo.png') }}",
+                audioPitch: 0.78,
+                voiceLabel: "Voice: Gambare! 🖌️",
+                tag1: "#ShodoClub",
+                tag2: "#KanjiMaster",
+                hudTag: "Mascot: Ren",
+                hudLevel: "Specialty: Calligraphy",
+                weight: 14,
+                dropRate: "14%",
+                desc: "Ahli kaligrafi Shodo dan Kanji yang tenang namun memiliki dedikasi tinggi."
             },
             {
-                voice: "Voice: Ganbatte! 🚀",
-                quote: "Jangan menyerah, tetap semangat! Aozora blue skies are always ahead!",
+                id: "hana",
+                name: "Hana-chan (華ちゃん)",
+                title: "• Cosplay & Matsuri Idol",
+                rarity: "SSR",
+                stars: "★★★★★",
+                badgeClass: "bg-gradient-to-r from-amber-500 via-rose-500 to-pink-500 text-white shadow-md shadow-rose-500/30",
+                borderClass: "border-amber-400 ring-amber-400/30 shadow-lg shadow-amber-500/20",
+                quote: "Yattaa~! Siap-siap tampil all-out di Festival Bunkasai SMKN 1 Purwokerto tahun ini bareng aku!",
+                image: "{{ asset('assets/mascots/hana_cosplay.png') }}",
+                audioPitch: 1.18,
+                voiceLabel: "Voice: Ganbatteee~! 👘✨",
+                tag1: "#CosplayMatsuri",
+                tag2: "#BunkasaiIdol",
+                hudTag: "Mascot: Hana-chan",
+                hudLevel: "Status: Matsuri Queen",
+                weight: 5,
+                dropRate: "5%",
+                desc: "Ikon festival budaya dan cosplay yang energik, menyulap suasana Matsuri jadi meriah."
             },
+            {
+                id: "sora_yosuga",
+                name: "Sora Kasugano (春日野 穹)",
+                title: "• [SECRET EASTER EGG] Lost Twin",
+                rarity: "UR",
+                stars: "★★★★★★",
+                badgeClass: "bg-gradient-to-r from-fuchsia-600 via-pink-500 to-rose-600 text-white shadow-lg shadow-pink-500/50 animate-pulse",
+                borderClass: "border-fuchsia-400 ring-4 ring-pink-500/40 shadow-2xl shadow-fuchsia-500/30",
+                quote: "Onii-chan...? Kenapa menatapku seperti itu? B-Bukan berarti aku senang kamu summon... Baka!",
+                image: "{{ asset('assets/mascots/sora_yosuga.png') }}",
+                audioPitch: 0.86,
+                voiceLabel: "Voice: Ganbatte...? 🖤🐰",
+                tag1: "#YosugaNoSora",
+                tag2: "#1PercentDrop",
+                hudTag: "Mascot: Kasugano Sora",
+                hudLevel: "Rarity: 1% ULTRA RARE",
+                weight: 1,
+                dropRate: "1% (EASTER EGG)",
+                desc: "Karakter legendaris pembawa boneka kelinci hitam yang tersesat di SMKN 1. Peluang summon cuma 1%!"
+            }
         ];
 
-        let currentQuoteIndex = 0;
-        if (voiceBtn) {
-            voiceBtn.addEventListener("click", () => {
-                // Play audio
+        // Storage keys
+        const KEY_DEX = "aozora_mascot_dex_v1";
+        const KEY_ACTIVE = "aozora_active_mascot_v1";
+
+        function getUnlockedMascots() {
+            try {
+                const stored = localStorage.getItem(KEY_DEX);
+                if (stored) {
+                    const parsed = JSON.parse(stored);
+                    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+                }
+            } catch (e) {
+                console.warn(e);
+            }
+            return ["sora"];
+        }
+
+        function saveUnlockedMascot(id) {
+            const list = getUnlockedMascots();
+            if (!list.includes(id)) {
+                list.push(id);
                 try {
-                    ganbatteAudio.currentTime = 0;
-                    const playPromise = ganbatteAudio.play();
-                    if (playPromise !== undefined) {
-                        playPromise.catch((e) => {
-                            console.warn("Audio playback issue:", e);
-                        });
-                    }
-                } catch (err) {
-                    console.error("Audio error:", err);
+                    localStorage.setItem(KEY_DEX, JSON.stringify(list));
+                } catch (e) {
+                    console.warn(e);
+                }
+            }
+            updateCollectionCounter();
+            renderDexGrid();
+        }
+
+        function getActiveMascotId() {
+            try {
+                const active = localStorage.getItem(KEY_ACTIVE);
+                if (active && MASCOTS.some(m => m.id === active)) return active;
+            } catch (e) {
+                console.warn(e);
+            }
+            return "sora";
+        }
+
+        function setActiveMascot(id) {
+            const mascot = MASCOTS.find(m => m.id === id) || MASCOTS[0];
+            try {
+                localStorage.setItem(KEY_ACTIVE, mascot.id);
+            } catch (e) {
+                console.warn(e);
+            }
+            applyMascotToCard(mascot, true);
+            renderDexGrid();
+        }
+
+        // Web Audio API engine for pitch shifting
+        let audioCtx = null;
+        let audioBuf = null;
+        let isAudioLoading = false;
+
+        function loadAudioBuffer() {
+            if (audioBuf || isAudioLoading) return;
+            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContextClass) return;
+            if (!audioCtx) audioCtx = new AudioContextClass();
+            isAudioLoading = true;
+            fetch("{{ asset('audio/gambate.mp3') }}")
+                .then(res => res.arrayBuffer())
+                .then(buf => audioCtx.decodeAudioData(buf))
+                .then(decoded => {
+                    audioBuf = decoded;
+                    isAudioLoading = false;
+                })
+                .catch(err => {
+                    console.warn("Audio buffer decode error:", err);
+                    isAudioLoading = false;
+                });
+        }
+
+        function playGanbatteVoice(pitch = 1.0) {
+            loadAudioBuffer();
+            if (audioCtx && audioBuf) {
+                if (audioCtx.state === "suspended") {
+                    audioCtx.resume();
+                }
+                const src = audioCtx.createBufferSource();
+                src.buffer = audioBuf;
+                src.playbackRate.value = pitch;
+                src.connect(audioCtx.destination);
+                src.start(0);
+            } else {
+                // Fallback to HTML5 audio with playbackRate
+                const fbAudio = new Audio("{{ asset('audio/gambate.mp3') }}");
+                fbAudio.playbackRate = pitch;
+                fbAudio.play().catch(e => console.warn("Audio play issue:", e));
+            }
+        }
+
+        // Apply mascot data to homepage HUD card
+        function applyMascotToCard(mascot, animate = false) {
+            const img = document.getElementById("mascotImage");
+            const wrapper = document.getElementById("mascotImageWrapper");
+            const rarityBadge = document.getElementById("mascotRarityBadge");
+            const rarityText = document.getElementById("mascotRarityText");
+            const rarityStars = document.getElementById("mascotRarityStars");
+            const nameText = document.getElementById("mascotNameText");
+            const titleText = document.getElementById("mascotTitleText");
+            const speechText = document.getElementById("speechBubbleText");
+            const hudTag = document.getElementById("mascotHudTag");
+            const hudLevel = document.getElementById("mascotHudLevel");
+            const voiceStatus = document.getElementById("voiceStatusText");
+            const tag1 = document.getElementById("mascotTag1");
+            const tag2 = document.getElementById("mascotTag2");
+
+            if (rarityText) rarityText.textContent = mascot.rarity;
+            if (rarityStars) rarityStars.textContent = mascot.stars;
+            if (rarityBadge) {
+                rarityBadge.className = `px-2.5 py-0.5 rounded-full font-label-badge text-[11px] font-bold tracking-wider flex items-center gap-1 transition-all duration-300 ${mascot.badgeClass}`;
+            }
+
+            if (nameText) nameText.textContent = mascot.name;
+            if (titleText) titleText.textContent = mascot.title;
+            if (speechText) speechText.textContent = `"${mascot.quote}"`;
+
+            if (hudTag) hudTag.textContent = mascot.hudTag;
+            if (hudLevel) hudLevel.textContent = mascot.hudLevel;
+            if (voiceStatus) voiceStatus.textContent = mascot.voiceLabel;
+            if (tag1) tag1.textContent = mascot.tag1;
+            if (tag2) tag2.textContent = mascot.tag2;
+
+            if (wrapper) {
+                wrapper.className = `relative w-full aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-surface to-secondary-container/40 flex items-center justify-center group shadow-inner border-2 transition-all duration-500 ${mascot.borderClass}`;
+            }
+
+            if (img) {
+                if (animate) {
+                    img.classList.add("scale-110", "opacity-80");
+                    setTimeout(() => {
+                        img.src = mascot.image;
+                        img.classList.remove("scale-110", "opacity-80");
+                    }, 150);
+                } else {
+                    img.src = mascot.image;
+                }
+            }
+        }
+
+        // Collection Counter update
+        function updateCollectionCounter() {
+            const unlocked = getUnlockedMascots();
+            const countBadge = document.getElementById("collectionCountBadge");
+            const dexBadge = document.getElementById("dexProgressBadge");
+            const text = `${unlocked.length}/${MASCOTS.length}`;
+            if (countBadge) countBadge.textContent = text;
+            if (dexBadge) dexBadge.textContent = `${unlocked.length}/${MASCOTS.length} Terkumpul`;
+        }
+
+        // Weighted Gacha roll
+        function pickRandomMascot() {
+            const totalWeight = MASCOTS.reduce((sum, m) => sum + m.weight, 0);
+            let rand = Math.random() * totalWeight;
+            for (const mascot of MASCOTS) {
+                if (rand < mascot.weight) {
+                    return mascot;
+                }
+                rand -= mascot.weight;
+            }
+            return MASCOTS[0];
+        }
+
+        // Gacha Button Trigger
+        const gachaBtn = document.getElementById("gachaRollBtn");
+        const rollOverlay = document.getElementById("gachaRollOverlay");
+        const rollSpinner = document.getElementById("gachaRollSpinner");
+        let isRolling = false;
+
+        if (gachaBtn) {
+            gachaBtn.addEventListener("click", () => {
+                if (isRolling) return;
+                isRolling = true;
+                initAudioOnGesture();
+
+                // UI roll animation
+                gachaBtn.disabled = true;
+                gachaBtn.classList.add("opacity-70", "cursor-wait");
+                if (rollOverlay) {
+                    rollOverlay.classList.remove("bg-white/0", "pointer-events-none");
+                    rollOverlay.classList.add("bg-indigo-night/40", "backdrop-blur-xs");
+                }
+                if (rollSpinner) {
+                    rollSpinner.classList.remove("hidden");
+                    rollSpinner.classList.add("flex");
                 }
 
-                // Cycle quote
-                currentQuoteIndex = (currentQuoteIndex + 1) % voiceQuotes.length;
-                const target = voiceQuotes[currentQuoteIndex];
-                if (voiceText) voiceText.textContent = target.voice;
-                if (speechBubble) speechBubble.textContent = `"${target.quote}"`;
-
-                // Animation punch
-                voiceBtn.classList.add("bg-sakura-tint", "text-torii-vermilion", "scale-105");
-                if (voiceIcon) voiceIcon.classList.add("scale-125");
+                // Random suspense duration 650ms
                 setTimeout(() => {
-                    voiceBtn.classList.remove("bg-sakura-tint", "text-torii-vermilion", "scale-105");
-                    if (voiceIcon) voiceIcon.classList.remove("scale-125");
-                }, 500);
+                    const rolledMascot = pickRandomMascot();
+                    saveUnlockedMascot(rolledMascot.id);
+                    setActiveMascot(rolledMascot.id);
+
+                    // Stop rolling UI
+                    if (rollOverlay) {
+                        rollOverlay.classList.remove("bg-indigo-night/40", "backdrop-blur-xs");
+                        rollOverlay.classList.add("bg-white/0", "pointer-events-none");
+                    }
+                    if (rollSpinner) {
+                        rollSpinner.classList.add("hidden");
+                        rollSpinner.classList.remove("flex");
+                    }
+                    gachaBtn.disabled = false;
+                    gachaBtn.classList.remove("opacity-70", "cursor-wait");
+                    isRolling = false;
+
+                    // Play specific mascot voice with pitch
+                    playGanbatteVoice(rolledMascot.audioPitch);
+
+                    // Check if 1% Easter Egg (Sora Kasugano)
+                    if (rolledMascot.id === "sora_yosuga") {
+                        triggerConfetti(4000);
+                        openEasterEggModal();
+                    } else if (rolledMascot.rarity === "SSR") {
+                        triggerConfetti(2500);
+                    }
+                }, 700);
             });
         }
+
+        // Voice Button Click
+        const voiceBtn = document.getElementById("voicePlayBtn");
+        const voiceIcon = document.getElementById("voiceIcon");
+        if (voiceBtn) {
+            voiceBtn.addEventListener("click", () => {
+                initAudioOnGesture();
+                const activeId = getActiveMascotId();
+                const mascot = MASCOTS.find(m => m.id === activeId) || MASCOTS[0];
+                playGanbatteVoice(mascot.audioPitch);
+
+                // Button bounce animation
+                voiceBtn.classList.add("scale-110", "bg-sakura-tint");
+                if (voiceIcon) voiceIcon.classList.add("rotate-12");
+                setTimeout(() => {
+                    voiceBtn.classList.remove("scale-110", "bg-sakura-tint");
+                    if (voiceIcon) voiceIcon.classList.remove("rotate-12");
+                }, 300);
+            });
+        }
+
+        // Initialize audio on first user gesture
+        function initAudioOnGesture() {
+            loadAudioBuffer();
+        }
+        window.addEventListener("pointerdown", initAudioOnGesture, { once: true });
+
+        // Easter Egg Modal Controls
+        const easterEggModal = document.getElementById("easterEggBanner");
+        const closeEasterEggBtn = document.getElementById("closeEasterEggBtn");
+        function openEasterEggModal() {
+            if (!easterEggModal) return;
+            easterEggModal.classList.remove("hidden");
+            requestAnimationFrame(() => {
+                easterEggModal.classList.remove("opacity-0");
+                const card = easterEggModal.querySelector("div");
+                if (card) card.classList.remove("scale-95");
+            });
+        }
+        function closeEasterEggModal() {
+            if (!easterEggModal) return;
+            easterEggModal.classList.add("opacity-0");
+            const card = easterEggModal.querySelector("div");
+            if (card) card.classList.add("scale-95");
+            setTimeout(() => {
+                easterEggModal.classList.add("hidden");
+            }, 300);
+        }
+        if (closeEasterEggBtn) closeEasterEggBtn.addEventListener("click", closeEasterEggModal);
+
+        // Mascot Dex Modal Controls
+        const dexModal = document.getElementById("mascotDexModal");
+        const openDexBtn = document.getElementById("openCollectionBtn");
+        const openDexBtn2 = document.getElementById("gachaDexBtn");
+        const closeDexBtn = document.getElementById("closeDexModalBtn");
+        const closeDexBtn2 = document.getElementById("closeDexModalBtn2");
+        const dexGachaShortcut = document.getElementById("dexGachaShortcutBtn");
+
+        function openDexModal() {
+            if (!dexModal) return;
+            renderDexGrid();
+            dexModal.classList.remove("hidden");
+            requestAnimationFrame(() => {
+                dexModal.classList.remove("opacity-0");
+                const card = dexModal.querySelector("div");
+                if (card) card.classList.remove("scale-95");
+            });
+        }
+
+        function closeDexModal() {
+            if (!dexModal) return;
+            dexModal.classList.add("opacity-0");
+            const card = dexModal.querySelector("div");
+            if (card) card.classList.add("scale-95");
+            setTimeout(() => {
+                dexModal.classList.add("hidden");
+            }, 300);
+        }
+
+        if (openDexBtn) openDexBtn.addEventListener("click", openDexModal);
+        if (openDexBtn2) openDexBtn2.addEventListener("click", openDexModal);
+        if (closeDexBtn) closeDexBtn.addEventListener("click", closeDexModal);
+        if (closeDexBtn2) closeDexBtn2.addEventListener("click", closeDexModal);
+        if (dexGachaShortcut) {
+            dexGachaShortcut.addEventListener("click", () => {
+                closeDexModal();
+                if (gachaBtn) gachaBtn.click();
+            });
+        }
+
+        // Render Dex Grid
+        function renderDexGrid() {
+            const grid = document.getElementById("mascotDexGrid");
+            if (!grid) return;
+            const unlocked = getUnlockedMascots();
+            const activeId = getActiveMascotId();
+
+            grid.innerHTML = MASCOTS.map(m => {
+                const isUnlocked = unlocked.includes(m.id);
+                const isActive = activeId === m.id;
+
+                if (!isUnlocked) {
+                    return `
+                        <div class="rounded-2xl border border-gray-200/80 bg-surface-container-low/60 p-4 flex flex-col items-center text-center relative overflow-hidden group">
+                            <div class="w-full aspect-square rounded-xl bg-gray-200/80 flex flex-col items-center justify-center text-gray-400 mb-3 border border-dashed border-gray-300">
+                                <span class="material-symbols-outlined text-4xl mb-1 text-gray-400">lock</span>
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-gray-500">Terkunci</span>
+                            </div>
+                            <div class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-200 text-gray-600 mb-1">
+                                Drop Rate: ${m.dropRate}
+                            </div>
+                            <h4 class="font-bold text-xs text-gray-500 mt-1">???</h4>
+                            <p class="text-[10px] text-gray-400 mt-1">Tarik gacha untuk membuka maskot ini!</p>
+                            <button disabled class="mt-3 w-full py-1.5 px-3 rounded-lg bg-gray-100 text-gray-400 text-xs font-semibold cursor-not-allowed">
+                                Belum Terbuka
+                            </button>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="rounded-2xl border ${isActive ? 'border-primary ring-2 ring-primary/30' : 'border-gray-200'} bg-white p-4 flex flex-col items-center text-center relative shadow-sm hover:shadow-md transition-all group">
+                        ${isActive ? '<span class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-primary text-white text-[9px] font-bold">AKTIF</span>' : ''}
+                        <div class="w-full aspect-square rounded-xl overflow-hidden mb-3 border ${m.borderClass}">
+                            <img src="${m.image}" alt="${m.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        </div>
+                        <div class="px-2 py-0.5 rounded-full text-[10px] font-bold ${m.badgeClass} mb-1">
+                            ${m.rarity} ${m.stars}
+                        </div>
+                        <h4 class="font-bold text-xs text-indigo-night mt-1 truncate w-full" title="${m.name}">${m.name}</h4>
+                        <p class="text-[10px] text-secondary line-clamp-2 mt-1 leading-tight">${m.desc}</p>
+                        
+                        <div class="mt-3 w-full flex flex-col gap-1.5">
+                            <button type="button" onclick="window.previewMascotVoice('${m.id}')"
+                                class="w-full py-1 px-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-secondary hover:text-primary text-[11px] font-medium flex items-center justify-center gap-1 transition-all cursor-pointer">
+                                <span class="material-symbols-outlined text-[13px] text-torii-vermilion">volume_up</span>
+                                <span>Tes Suara</span>
+                            </button>
+                            ${isActive ? `
+                                <button disabled class="w-full py-1.5 px-3 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold cursor-default">
+                                    ✓ Sedang Aktif
+                                </button>
+                            ` : `
+                                <button type="button" onclick="window.chooseActiveMascot('${m.id}')"
+                                    class="w-full py-1.5 px-3 rounded-lg bg-indigo-night hover:bg-primary text-white text-xs font-bold transition-all active:scale-95 cursor-pointer">
+                                    Gunakan Maskot
+                                </button>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Global functions for inline onclick in modal
+        window.chooseActiveMascot = function(id) {
+            setActiveMascot(id);
+            const mascot = MASCOTS.find(m => m.id === id);
+            if (mascot) playGanbatteVoice(mascot.audioPitch);
+        };
+
+        window.previewMascotVoice = function(id) {
+            initAudioOnGesture();
+            const mascot = MASCOTS.find(m => m.id === id);
+            if (mascot) playGanbatteVoice(mascot.audioPitch);
+        };
+
+        // Confetti Fireworks Engine
+        function triggerConfetti(durationMs = 3000) {
+            const canvas = document.getElementById("gachaConfettiCanvas");
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            canvas.classList.remove("hidden");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const colors = ["#FF69B4", "#FFD700", "#38BDF8", "#A855F7", "#F43F5E", "#10B981"];
+            const particles = [];
+            const count = 120;
+
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * -canvas.height * 0.5,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speedX: (Math.random() - 0.5) * 6,
+                    speedY: Math.random() * 4 + 3,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: (Math.random() - 0.5) * 10,
+                });
+            }
+
+            const startTime = performance.now();
+            function draw(now) {
+                const elapsed = now - startTime;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach(p => {
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    p.rotation += p.rotationSpeed;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+                    ctx.restore();
+                });
+
+                if (elapsed < durationMs) {
+                    requestAnimationFrame(draw);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    canvas.classList.add("hidden");
+                }
+            }
+            requestAnimationFrame(draw);
+        }
+
+        // Initialize state on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            const activeId = getActiveMascotId();
+            const mascot = MASCOTS.find(m => m.id === activeId) || MASCOTS[0];
+            applyMascotToCard(mascot, false);
+            updateCollectionCounter();
+        });
 
         // 2. Parallax / Subtle Cursor Reaction on Mascot HUD Card
         const mascotCard = document.getElementById("mascotCard");
