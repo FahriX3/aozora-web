@@ -113,17 +113,19 @@
                                 <div class="flex items-center gap-1.5 shrink-0">
                                     <!-- Dynamic Rarity Badge -->
                                     <div id="mascotRarityBadge"
-                                        style="padding: 0.2rem 0.65rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 800; background: linear-gradient(135deg, #0EA5E9, #2563EB); color: #FFFFFF; display: inline-flex; align-items: center; gap: 0.25rem; box-shadow: 0 2px 6px rgba(14, 165, 233, 0.3); transition: all 0.3s ease;">
-                                        <span id="mascotRarityText">R</span>
-                                        <span id="mascotRarityStars" style="font-size: 0.5625rem;">★★★</span>
+                                        style="height: 1.625rem; padding: 0 0.65rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 800; background: linear-gradient(135deg, #0EA5E9, #2563EB); color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; gap: 0.25rem; box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35); transition: all 0.3s ease;">
+                                        <span id="mascotRarityText" style="font-weight: 900; font-size: 0.75rem; letter-spacing: 0.05em;">R</span>
+                                        <span id="mascotRarityStars" style="font-size: 0.5625rem; letter-spacing: 0.05em;">★★★</span>
                                     </div>
                                     <!-- Open Collection Dex Button -->
                                     <button id="openCollectionBtn" type="button"
-                                        style="padding: 0.25rem 0.65rem; border-radius: 9999px; background: #F1F5F9; color: #334155; font-size: 0.6875rem; font-weight: 700; border: 1px solid #CBD5E1; cursor: pointer; display: flex; align-items: center; gap: 0.25rem; transition: transform 0.15s ease;"
-                                        title="Buka Koleksi Maskot"
+                                        style="height: 1.625rem; padding: 0 0.65rem; border-radius: 9999px; background: #F8FAFC; color: #334155; font-size: 0.6875rem; font-weight: 700; border: 1px solid #CBD5E1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem; transition: all 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.06);"
+                                        title="Buka Koleksi Maskot (Dex)"
+                                        onmouseover="this.style.background='#F1F5F9'; this.style.borderColor='#94A3B8';"
+                                        onmouseout="this.style.background='#F8FAFC'; this.style.borderColor='#CBD5E1';"
                                         onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">
-                                        <span class="material-symbols-outlined" style="font-size: 0.8125rem; color: #0284C7;">auto_stories</span>
-                                        <span id="collectionCountBadge">1/5</span>
+                                        <span class="material-symbols-outlined" style="font-size: 0.875rem; color: #0284C7; vertical-align: middle;">auto_stories</span>
+                                        <span id="collectionCountBadge" style="font-weight: 800; font-size: 0.6875rem; color: #0F172A;">1/5</span>
                                     </button>
                                 </div>
                             </div>
@@ -1148,7 +1150,21 @@
             if (rarityText) rarityText.textContent = mascot.rarity;
             if (rarityStars) rarityStars.textContent = mascot.stars;
             if (rarityBadge && mascot.badgeStyle) {
-                rarityBadge.style = mascot.badgeStyle;
+                rarityBadge.style.cssText = `
+                    height: 1.625rem;
+                    padding: 0 0.65rem;
+                    border-radius: 9999px;
+                    font-size: 0.6875rem;
+                    font-weight: 800;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.25rem;
+                    color: #FFFFFF;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                    transition: all 0.3s ease;
+                    ${mascot.badgeStyle}
+                `;
             }
 
             if (nameText) nameText.textContent = mascot.name;
@@ -1162,7 +1178,20 @@
             if (tag2) tag2.textContent = mascot.tag2;
 
             if (wrapper && mascot.borderStyle) {
-                wrapper.style = mascot.borderStyle;
+                wrapper.style.cssText = `
+                    position: relative;
+                    width: 100%;
+                    aspect-ratio: 1 / 1;
+                    border-radius: 0.75rem;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: linear-gradient(180deg, #F0F9FF 0%, #E0F2FE 100%);
+                    border: 2px solid;
+                    transition: all 0.5s ease;
+                    ${mascot.borderStyle}
+                `;
             }
 
             if (img) {
