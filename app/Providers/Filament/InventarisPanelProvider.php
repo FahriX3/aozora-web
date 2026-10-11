@@ -64,6 +64,7 @@ class InventarisPanelProvider extends PanelProvider
             ->widgets([
                 \App\Filament\Inventaris\Widgets\InventarisStatsOverview::class,
                 \App\Filament\Inventaris\Widgets\InventarisConditionChart::class,
+                \App\Filament\Inventaris\Widgets\RecentTransaksiWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -81,4 +82,3 @@ class InventarisPanelProvider extends PanelProvider
             ]);
     }
 }
-
