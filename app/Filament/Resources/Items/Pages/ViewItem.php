@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\Loans\Pages;
+namespace App\Filament\Resources\Items\Pages;
 
-use App\Filament\Resources\Loans\LoanResource;
+use App\Filament\Resources\Items\ItemResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 
-class ViewLoan extends ViewRecord
+class ViewItem extends ViewRecord
 {
-    protected static string $resource = LoanResource::class;
+    protected static string $resource = ItemResource::class;
 
     protected function getHeaderActions(): array
     {

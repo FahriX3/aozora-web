@@ -651,25 +651,43 @@
                             overlay.classList.add("animate-spin");
                             setTimeout(() => {
                                 overlay.classList.remove("animate-spin");
-                                alert(
-                                    "Memutar Video Official Aftermovie 4K Haru no Hikari SMKN 1 Purwokerto (Simulasi Mode Pemutar).",
-                                );
+                                if (window.showAozoraAlert) {
+                                    window.showAozoraAlert(
+                                        "Aftermovie 4K 🎬",
+                                        "Memutar Video Official Aftermovie 4K Haru no Hikari SMKN 1 Purwokerto (Simulasi Mode Pemutar).",
+                                        "info"
+                                    );
+                                } else {
+                                    alert("Memutar Video Official Aftermovie 4K Haru no Hikari SMKN 1 Purwokerto.");
+                                }
                             }, 300);
                         }
                     }
 
                     // Download Archive Action
                     function downloadArchiveModal() {
-                        alert(
-                            "Tautan Google Drive resmi SMKN 1 Purwokerto dibuka: Mengarahkan ke arsip 180+ foto resolusi penuh (1.8 GB). Arigatou!",
-                        );
+                        if (window.showAozoraAlert) {
+                            window.showAozoraAlert(
+                                "Arsip Google Drive 📂",
+                                "Tautan Google Drive resmi SMKN 1 Purwokerto dibuka: Mengarahkan ke arsip 180+ foto resolusi penuh (1.8 GB). Arigatou gozaimasu! 🌸",
+                                "success"
+                            );
+                        } else {
+                            alert("Tautan Google Drive resmi SMKN 1 Purwokerto dibuka: Mengarahkan ke arsip 180+ foto resolusi penuh (1.8 GB). Arigatou!");
+                        }
                     }
 
                     // Upload User Photos Action
                     function uploadModal() {
-                        alert(
-                            "Formulir Unggah Dokumentasi Siswa: Silakan kirimkan foto hasil jepretan Anda ke tim kurasi Jurnalistik Aozora.",
-                        );
+                        if (window.showAozoraAlert) {
+                            window.showAozoraAlert(
+                                "Unggah Dokumentasi Siswa 📸",
+                                "Formulir Unggah Dokumentasi Siswa: Silakan kirimkan foto hasil jepretan Anda ke tim kurasi Jurnalistik Aozora. Kami tunggu karya terbaikmu! ✨",
+                                "info"
+                            );
+                        } else {
+                            alert("Formulir Unggah Dokumentasi Siswa: Silakan kirimkan foto hasil jepretan Anda ke tim kurasi Jurnalistik Aozora.");
+                        }
                     }
 
                     @if($event->status !== 'completed' && $event->event_date && $event->start_time)

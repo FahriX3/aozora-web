@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\Loans\Pages;
+namespace App\Filament\Resources\Items\Pages;
 
-use App\Filament\Resources\Loans\LoanResource;
+use App\Filament\Resources\Items\ItemResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditLoan extends EditRecord
+class EditItem extends EditRecord
 {
-    protected static string $resource = LoanResource::class;
+    protected static string $resource = ItemResource::class;
 
     protected function getHeaderActions(): array
     {

@@ -22,9 +22,23 @@ class TransaksiInventaris extends Model
     ];
 
     protected $casts = [
-        'jumlah'  => 'integer',
+        'jumlah' => 'integer',
         'tanggal' => 'date',
     ];
+
+    protected static function booted(): void
+    {
+        static::created(function (TransaksiInventaris $transaksi) {
+            $item = $transaksi->inventarisItem;
+            if ($item) {
+                if ($transaksi->tipe === 'keluar') {
+                    $item->decrement('jumlah_tersedia', $transaksi->jumlah);
+                } elseif ($transaksi->tipe === 'masuk') {
+                    $item->increment('jumlah_tersedia', $transaksi->jumlah);
+                }
+            }
+        });
+    }
 
     public function inventarisItem(): BelongsTo
     {

@@ -40,6 +40,26 @@ class RoleResource extends Resource
         return $user && $user->hasRole('super_admin');
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole('super_admin') ?? false;
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole('super_admin') ?? false;
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->hasRole('super_admin') ?? false;
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()?->hasRole('super_admin') ?? false;
+    }
+
     public static function form(Schema $schema): Schema
     {
         return RoleForm::configure($schema);

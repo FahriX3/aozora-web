@@ -9,7 +9,7 @@ class EventDocumentation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['event_id', 'file_path', 'file_type'];
+    protected $fillable = ['event_id', 'file_path', 'caption', 'file_type'];
 
     public function event()
     {

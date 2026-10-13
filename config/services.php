@@ -35,4 +35,17 @@ return [
         ],
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI'),
+    ],
+
+    'ai' => [
+        'url' => env('AI_API_URL', 'http://ai.api.fahrimandriva.web.id/api/chat'),
+        'model' => env('AI_MODEL', 'qwen2.5:3b'),
+        'max_tokens' => (int) env('AI_MAX_TOKENS', 350),
+        'daily_token_limit' => (int) env('AI_DAILY_TOKEN_LIMIT', 5000),
+    ],
+
 ];

@@ -36,9 +36,19 @@ class AdminPanelProvider extends PanelProvider
                 'warning' => Color::hex('#F59E0B'),
             ])
             ->font('Be Vietnam Pro')
-            ->favicon(asset('assets/ANC_icon.jpg'))
+            ->favicon(asset('assets/ANC_icon.png'))
             ->brandLogo(fn () => view('filament.logo'))
             ->brandLogoHeight('3rem')
+            ->userMenuItems([
+                'home' => \Filament\Navigation\MenuItem::make()
+                    ->label('Buka Website Utama')
+                    ->url('/')
+                    ->icon('heroicon-o-arrow-top-right-on-square'),
+            ])
+            ->renderHook(
+                \Filament\View\PanelsRenderHook::HEAD_END,
+                fn () => view('filament.custom-styles')
+            )
             ->renderHook(
                 \Filament\View\PanelsRenderHook::SIDEBAR_NAV_END,
                 fn () => view('filament.sidebar-footer')
@@ -47,6 +57,12 @@ class AdminPanelProvider extends PanelProvider
                 \Filament\View\PanelsRenderHook::TOPBAR_LOGO_AFTER,
                 fn () => view('filament.topbar-start')
             )
+            ->resources([
+                \App\Filament\Inventaris\Resources\InventarisItems\InventarisItemResource::class,
+                \App\Filament\Inventaris\Resources\Loans\LoanResource::class,
+                \App\Filament\Inventaris\Resources\ReturnResource::class,
+                \App\Filament\Inventaris\Resources\LaporanKerusakan\LaporanKerusakanResource::class,
+            ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
@@ -55,6 +71,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 \App\Filament\Widgets\StatsOverview::class,
+                \App\Filament\Widgets\AdminActivityChart::class,
                 \App\Filament\Widgets\LatestEventsWidget::class,
             ])
             ->middleware([

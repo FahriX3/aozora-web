@@ -9,7 +9,7 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('pages.auth.login');
+        return redirect('/?login=modal');
     }
 
     public function login(Request $request)
@@ -25,8 +25,12 @@ class AuthController extends Controller
             /** @var \App\Models\User $user */
             $user = Auth::user();
 
-            if ($user->hasRole('super_admin') || $user->hasRole('admin')) {
+            if ($user->hasAnyRole(['super_admin', 'admin', 'pengurus'])) {
                 return redirect()->intended('/admin');
+            }
+
+            if ($user->hasAnyRole(['koordinator_kegiatan', 'pdd'])) {
+                return redirect()->intended('/events-hub');
             }
 
             if ($user->hasRole('koordinator_inventaris')) {
@@ -34,10 +38,10 @@ class AuthController extends Controller
             }
 
             if ($user->hasRole('anggota')) {
-                return redirect()->intended('/anggota');
+                return redirect()->intended('/?chat=open');
             }
 
-            return redirect()->intended('/admin');
+            return redirect()->intended('/events-hub');
         }
 
         return back()->withErrors([

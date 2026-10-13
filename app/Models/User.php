@@ -13,24 +13,26 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'role'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, HasRoles, Notifiable;
 
     /**
      * Determine if user can access the given Filament panel.
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        if ($this->hasAnyRole(['super_admin', 'admin'])) {
+        if ($this->role === 'admin' || $this->hasAnyRole(['super_admin', 'admin', 'pengurus'])) {
             return true;
         }
 
         return match ($panel->getId()) {
-            'inventaris' => $this->hasRole('koordinator_inventaris'),
+            'admin' => $this->role === 'admin' || $this->hasRole('admin'),
+            'inventaris' => in_array($this->role, ['admin', 'pengurus']) || $this->hasAnyRole(['admin', 'koordinator_inventaris', 'pengurus']),
+            'events', 'pdd' => in_array($this->role, ['admin', 'pengurus']) || $this->hasAnyRole(['admin', 'koordinator_kegiatan', 'pdd']),
             'anggota' => true,
             default => false,
         };
@@ -54,5 +56,3 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasOne(Pengurus::class);
     }
 }
-
-

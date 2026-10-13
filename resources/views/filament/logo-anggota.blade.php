@@ -1,17 +1,22 @@
-<div style="display: flex; align-items: center; justify-content: space-between; width: 100%; min-width: 220px;">
-    <div style="display: flex; align-items: center; gap: 0.75rem;">
+<div class="anc-logo-container" style="display: flex; align-items: center; justify-content: space-between; width: 100%; min-width: 200px;">
+    <div class="anc-logo-left" style="display: flex; align-items: center; gap: 10px;">
         <img
             src="{{ asset('assets/ANC_icon.png') }}"
             alt="ANC Logo"
-            style="width: 2.5rem; height: 2.5rem; border-radius: 9999px; object-fit: cover; box-shadow: 0 4px 14px rgba(225,29,72,0.25); border: 1.5px solid rgba(225,29,72,0.2); flex-shrink: 0;"
+            width="38"
+            height="38"
+            class="anc-logo-img ring-anggota"
+            style="width: 38px; height: 38px; min-width: 38px; max-width: 38px; min-height: 38px; max-height: 38px; border-radius: 9999px; object-fit: cover; flex-shrink: 0;"
         />
-        <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2;">
-            <div style="display: flex; align-items: center; gap: 0.375rem;">
-                <span style="font-size: 1.25rem; font-weight: 700; letter-spacing: -0.025em; font-family: 'Plus Jakarta Sans', sans-serif; color: #0f172a;">青空</span>
-                <span style="font-size: 1.25rem; font-weight: 700; letter-spacing: -0.025em; color: #E11D48; font-family: 'Plus Jakarta Sans', sans-serif;">ANGGOTA</span>
+        <div class="anc-logo-text-group" style="display: flex; flex-direction: column; line-height: 1.15;">
+            <div class="anc-logo-title-row" style="display: flex; align-items: center; gap: 6px;">
+                <span class="anc-brand-kanji">青空</span>
+                <span class="anc-brand-hub text-anggota">ANGGOTA</span>
             </div>
-            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; font-family: 'Space Grotesk', sans-serif; margin-top: 2px;">Portal Pengurus &amp; Anggota</span>
+            <span class="anc-brand-sub">Portal Pengurus &amp; Anggota</span>
         </div>
     </div>
-    <span style="padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 11px; font-weight: 700; background-color: #FFE4E6; color: #E11D48; margin-left: 0.5rem; border: 1px solid #FECDD3;">部員</span>
+    <span class="anc-badge badge-anggota">
+        部員
+    </span>
 </div>

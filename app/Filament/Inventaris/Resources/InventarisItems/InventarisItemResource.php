@@ -21,13 +21,13 @@ class InventarisItemResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedArchiveBox;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Logistik & Inventaris';
+    protected static string|UnitEnum|null $navigationGroup = 'Manajemen Inventaris';
 
-    protected static ?string $navigationLabel = 'Katalog Barang';
+    protected static ?string $navigationLabel = 'Data Barang';
 
     protected static ?string $modelLabel = 'Barang Inventaris';
 
-    protected static ?string $pluralModelLabel = 'Katalog Barang';
+    protected static ?string $pluralModelLabel = 'Data Barang';
 
     protected static ?int $navigationSort = 1;
 

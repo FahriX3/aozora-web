@@ -1,6 +1,50 @@
-<div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0.75rem; border-radius: 9999px; background-color: #f1f4f9; margin-left: 1rem;">
-    <svg style="width: 1.25rem; height: 1.25rem; color: #38BDF8;" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
-    </svg>
-    <span style="font-size: 12px; font-weight: 600; color: #181c20; font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.08em;">SMKN 1 Purwokerto &bull; Admin Gate</span>
+@php
+    $user = auth()->user();
+    $currentPanel = filament()->getId();
+
+    $canAdmin = $user && $user->canAccessPanel(filament()->getPanel('admin'));
+    $canInventaris = $user && $user->canAccessPanel(filament()->getPanel('inventaris'));
+    $canEvents = $user && $user->canAccessPanel(filament()->getPanel('events'));
+@endphp
+
+<div class="anc-topbar-wrapper" style="display: flex; align-items: center; gap: 8px; margin-left: 8px;">
+    {{-- Dynamic Panel Switcher Bar --}}
+    <div class="anc-panel-switcher" style="display: inline-flex; align-items: center; padding: 3px; border-radius: 10px; gap: 3px;">
+        @if($canAdmin)
+            <a href="{{ url('/admin') }}"
+               title="Masuk ke Admin Central Hub"
+               class="anc-nav-pill {{ $currentPanel === 'admin' ? 'active-admin' : '' }}">
+                <span style="font-size: 13px; line-height: 1;">👑</span>
+                <span>Admin Hub</span>
+            </a>
+        @endif
+
+        @if($canInventaris)
+            <a href="{{ url('/inventaris') }}"
+               title="Masuk ke Panel Inventaris &amp; Logistik"
+               class="anc-nav-pill {{ $currentPanel === 'inventaris' ? 'active-inventaris' : '' }}">
+                <span style="font-size: 13px; line-height: 1;">📦</span>
+                <span>Inventaris</span>
+            </a>
+        @endif
+
+        @if($canEvents)
+            <a href="{{ url('/events-hub') }}"
+               title="Masuk ke Panel Event &amp; Dokumentasi"
+               class="anc-nav-pill {{ $currentPanel === 'events' ? 'active-events' : '' }}">
+                <span style="font-size: 13px; line-height: 1;">🎪</span>
+                <span>Events Hub</span>
+            </a>
+        @endif
+    </div>
+
+    {{-- Website Utama Link --}}
+    <a href="{{ url('/') }}" target="_blank"
+       title="Buka Website Utama Aozora di Tab Baru"
+       class="anc-web-link">
+        <svg width="14" height="14" style="width: 14px; height: 14px; min-width: 14px; max-width: 14px; flex-shrink: 0;" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+        </svg>
+        <span>Web Utama</span>
+    </a>
 </div>

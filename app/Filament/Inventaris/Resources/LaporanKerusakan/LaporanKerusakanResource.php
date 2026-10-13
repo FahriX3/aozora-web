@@ -21,7 +21,7 @@ class LaporanKerusakanResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedExclamationTriangle;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Logistik & Inventaris';
+    protected static string|UnitEnum|null $navigationGroup = 'Manajemen Inventaris';
 
     protected static ?string $navigationLabel = 'Laporan Kerusakan';
 
@@ -29,7 +29,7 @@ class LaporanKerusakanResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Laporan Kerusakan';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 4;
 
     public static function getNavigationBadge(): ?string
     {

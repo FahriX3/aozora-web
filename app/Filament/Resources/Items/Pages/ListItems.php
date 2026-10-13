@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\Loans\Pages;
+namespace App\Filament\Resources\Items\Pages;
 
-use App\Filament\Resources\Loans\LoanResource;
+use App\Filament\Resources\Items\ItemResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
-class ListLoans extends ListRecords
+class ListItems extends ListRecords
 {
-    protected static string $resource = LoanResource::class;
+    protected static string $resource = ItemResource::class;
 
     protected function getHeaderActions(): array
     {
