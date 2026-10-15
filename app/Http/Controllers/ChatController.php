@@ -23,7 +23,7 @@ class ChatController extends Controller
      */
     private function getBaseKnowledge(): string
     {
-        return Cache::remember('sora_base_knowledge_v2', 300, function () {
+        return Cache::remember('sora_base_knowledge_v5', 300, function () {
             $lines = [];
 
             // 1. Profil Umum & Sekolah
@@ -32,7 +32,30 @@ class ChatController extends Controller
             $lines[] = '• Jadwal Kumpul Rutin: Setiap hari Kamis pukul 16.00 - 17.00 WIB di lingkungan SMKN 1 Purwokerto.';
             $lines[] = "• Slogan: 'Ichigo Ichie' (一期一会 - satu pertemuan seumur hidup) & 'Aozora: Blue Skies Ahead'.";
             $lines[] = '• Maskot Resmi: Sora-chan (空ちゃん) - siswi ceria berambut biru toska khas Aozora.';
-            $lines[] = '• Divisi Kegiatan: Percakapan (Kaiwa), Kaligrafi (Shodo), Cosplay, Festival Budaya (Matsuri), Anime & Manga, serta Tim Pemateri/Edukasi.';
+
+            // 6 Divisi Resmi Aozora
+            $lines[] = '• 6 DIVISI RESMI AOZORA (SEBUTKAN SECARA SINGKAT 1 BARIS PER POIN):';
+            $lines[] = '  1. Pemateri (Bahasa Jepang, kaiwa, tata bahasa, kanji & JLPT)';
+            $lines[] = '  2. Kegiatan (Agenda rutin, matsuri & festival bunkasai)';
+            $lines[] = '  3. Budaya Bahasa (Shodo kaligrafi, origami & kebudayaan Jepang)';
+            $lines[] = '  4. PDD (Publikasi, Desain & Dokumentasi fotografi kegiatan)';
+            $lines[] = '  5. Mediakom (Media Sosial Instagram/TikTok & konten kreatif)';
+            $lines[] = '  6. Perkap (Perlengkapan, inventaris alat & properti event)';
+
+            // Koordinator Divisi (Hanya sebutkan jika ditanya siapa koordinatornya)
+            try {
+                $koordinators = Pengurus::where('jabatan', 'like', 'Koordinator%')->orderBy('urutan')->get();
+                if ($koordinators->isNotEmpty()) {
+                    $lines[] = '• Koordinator Divisi (HANYA sebutkan jika ditanya siapa koordinatornya):';
+                    $divGroups = $koordinators->groupBy('divisi');
+                    foreach ($divGroups as $divName => $koorItems) {
+                        $kStr = $koorItems->map(fn ($k) => "{$k->nama} ({$k->kelas})")->join(' & ');
+                        $lines[] = "  - Divisi {$divName}: {$kStr}";
+                    }
+                }
+            } catch (\Throwable) {
+                // Ignore
+            }
 
             // 2. Data Pengurus Real dari Database
             try {
@@ -116,29 +139,45 @@ class ChatController extends Controller
         $query = mb_strtolower($userQuery);
         $extras = [];
 
+        // Cek jika menanyakan divisi secara umum
+        if (str_contains($query, 'divisi') || str_contains($query, 'bidang') || str_contains($query, 'bagian')) {
+            $extras[] = '• ATURAN JAWAB DIVISI: Sebutkan 6 divisi resmi ini secara ringkas (1 baris per nomor): 1. Pemateri, 2. Kegiatan, 3. Budaya Bahasa, 4. PDD, 5. Mediakom, 6. Perkap. Jangan sertakan nama orang/koordinator agar jawaban ringkas dan tidak kepanjangan.';
+        }
+
         $divKeywords = [
             'pemateri' => 'Pemateri',
-            'kaiwa' => 'Kaiwa',
-            'shodo' => 'Shodo',
-            'kaligrafi' => 'Kaligrafi',
-            'cosplay' => 'Cosplay',
-            'matsuri' => 'Matsuri',
-            'festival' => 'Festival',
-            'anime' => 'Anime & Manga',
-            'manga' => 'Anime & Manga',
+            'materi' => 'Pemateri',
+            'kaiwa' => 'Pemateri',
+            'bunpou' => 'Pemateri',
+            'kanji' => 'Pemateri',
+            'jlpt' => 'Pemateri',
+            'kegiatan' => 'Kegiatan',
+            'acara' => 'Kegiatan',
+            'budaya bahasa' => 'Budaya Bahasa',
+            'budaya' => 'Budaya Bahasa',
+            'shodo' => 'Budaya Bahasa',
+            'kaligrafi' => 'Budaya Bahasa',
+            'origami' => 'Budaya Bahasa',
+            'pdd' => 'PDD',
+            'dokumentasi' => 'PDD',
+            'fotografi' => 'PDD',
+            'desain' => 'PDD',
+            'mediakom' => 'Mediakom',
+            'medsos' => 'Mediakom',
+            'instagram' => 'Mediakom',
+            'perkap' => 'Perkap',
+            'perlengkapan' => 'Perkap',
+            'properti' => 'Perkap',
         ];
 
         foreach ($divKeywords as $keyword => $divLabel) {
             if (str_contains($query, $keyword)) {
                 try {
-                    $members = Pengurus::where('divisi', 'like', "%{$divLabel}%")
-                        ->orWhere('jabatan', 'like', "%{$keyword}%")
-                        ->take(6)
-                        ->get();
-
+                    $members = Pengurus::where('divisi', $divLabel)->orderBy('urutan')->get();
                     if ($members->isNotEmpty()) {
-                        $names = $members->map(fn ($m) => "{$m->nama} ({$m->jabatan}, {$m->kelas})")->join(', ');
-                        $extras[] = "• Anggota/Koordinator terkait {$divLabel}: {$names}";
+                        $koors = $members->where('jabatan', 'like', 'Koordinator%')->map(fn ($m) => "{$m->nama} ({$m->kelas})")->join(' & ');
+                        $anggotas = $members->where('jabatan', 'Anggota')->map(fn ($m) => "{$m->nama} ({$m->kelas})")->join(', ');
+                        $extras[] = "• Detail Divisi {$divLabel}: Koordinator: {$koors}. Anggota ({$members->where('jabatan', 'Anggota')->count()} orang): {$anggotas}.";
                     }
                 } catch (\Throwable) {
                     // Ignore
@@ -217,8 +256,10 @@ KEPRIBADIAN & GAYA KOMUNIKASI:
 4. DILARANG menggunakan bahasa Inggris (jangan pernah menyapa "Hello there", "How can I help", atau "assist").
 5. JAWAB SINGKAT, PADAT, DAN JELAS:
    - Sapaan / basa-basi: 1 sampai 2 kalimat saja.
-   - Pertanyaan informasi: 2 sampai 4 kalimat padat. DILARANG bertele-tele atau membuat pidato panjang.
+   - Pertanyaan informasi / daftar: Jawab ringkas 1 baris per poin. DILARANG bertele-tele atau membuat penjabaran panjang.
 6. DILARANG menulis label awalan nama seperti "Sora:", "AI:", atau "Asisten:".
+7. DILARANG menulis pengantar kaku/robotik seperti "berdasarkan fakta yang diberikan", "menurut data", atau "berikut adalah penjelasannya". Berbicaralah alami, ceria, dan akrab sebagai Sora!
+8. JIKA DITANYA DAFTAR DIVISI: Cukup sebutkan nama 6 divisi dan fokus singkatnya saja dalam 1 baris per nomor. JANGAN sertakan nama koordinator kecuali jika pengguna bertanya siapa koordinatornya.
 
 ATURAN KEBENARAN FAKTA (GROUNDING DATA):
 1. Identitas & Sekolahmu HANYA SATU: SMKN 1 Purwokerto (SMECO), Banyumas, Jawa Tengah. DILARANG KERAS menyebut sekolah atau kota lain (DILARANG menyebut Klaten, Kebumen, Solo, dsb).
@@ -232,6 +273,16 @@ Sora: Konnichiwa! 🌸 Halo! Senang ketemu kamu. Ada yang ingin kamu tanyakan se
 
 Pengguna: Kamu siapa? / Siapa kamu?
 Sora: Aku Sora (そら), maskot resmi sekaligus asisten AI Aozora Nihongo Club di SMKN 1 Purwokerto! Aku siap bantu kamu seputar info klub, kegiatan, event, dan belajar bahasa Jepang bareng 🌸
+
+Pengguna: Apa saja divisi di Aozora? / Divisi apa saja yang ada?
+Sora: Di Aozora Nihongo Club ada 6 divisi resmi lho! 🌸
+1. Pemateri (Kaiwa, tata bahasa, kanji & JLPT)
+2. Kegiatan (Agenda rutin, matsuri & bunkasai)
+3. Budaya Bahasa (Shodo, origami & kebudayaan Jepang)
+4. PDD (Publikasi, Desain & Dokumentasi)
+5. Mediakom (Media Sosial & Komunikasi kreatif)
+6. Perkap (Perlengkapan & properti event)
+Ada divisi yang ingin kamu ketahui lebih lanjut? 😊
 
 Pengguna: Siapa ketua klub?
 Sora: Ketua Umum Aozora Nihongo Club adalah Tegar Satrio Utomo (XI PPLG 2).
@@ -428,7 +479,7 @@ PROMPT;
                         'Accept: application/x-ndjson, application/json',
                     ],
                     CURLOPT_RETURNTRANSFER => false,
-                    CURLOPT_TIMEOUT => 60,
+                    CURLOPT_TIMEOUT => 120,
                     CURLOPT_CONNECTTIMEOUT => 10,
                     CURLOPT_WRITEFUNCTION => function ($ch, $chunk) use (&$fullReply, &$totalEvalCount, &$lineBuffer) {
                         $lineBuffer .= $chunk;
@@ -627,7 +678,7 @@ PROMPT;
         $messages = $this->buildMessages($user->id, $userText);
 
         try {
-            $response = Http::timeout(50)->post($apiUrl, [
+            $response = Http::timeout(120)->post($apiUrl, [
                 'model' => $model,
                 'messages' => $messages,
                 'stream' => false,
