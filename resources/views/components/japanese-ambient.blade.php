@@ -1,79 +1,84 @@
 {{-- JAPANESE AMBIENT COMPONENT: FALLING SAKURA PETALS & TRADITIONAL KOTO BGM --}}
 <div>
     {{-- 1. Fullscreen Falling Sakura Canvas (Background Layer z-[1]) --}}
-    <canvas id="sakura-canvas" class="fixed inset-0 pointer-events-none z-[1] w-full h-full" aria-hidden="true"></canvas>
+    <canvas id="sakura-canvas" class="fixed inset-0 pointer-events-none z-[1] w-full h-full"
+        aria-hidden="true"></canvas>
 
     {{-- 2. Audio Element --}}
-    <audio id="aozora-bgm" src="{{ asset('audio/koto_bgm.mp3') }}" preload="auto" loop></audio>
-
-    {{-- 3. Floating Japanese Ambient Controller (Bottom Left) --}}
-    <div id="ambient-hud-container" class="fixed bottom-5 left-4 sm:left-6 z-[95] select-none font-sans">
-        
-        {{-- Autoplay Hint Tooltip (shown if browser blocked autoplay until user clicks) --}}
-        <div id="bgm-autoplay-hint" class="hidden mb-2.5 px-3 py-1.5 rounded-full bg-slate-900/90 text-white text-[11px] font-medium shadow-lg backdrop-blur-md border border-white/10 items-center gap-1.5 animate-bounce">
-            <span class="text-rose-400">🌸</span>
-            <span>Sentuh layar untuk memutar alunan Koto</span>
-        </div>
-
-        {{-- Main Glassmorphism Controller Card --}}
-        <div class="group relative flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-white/95 backdrop-blur-md border border-rose-200/70 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_12px_36px_rgba(244,63,94,0.2)] transition-all duration-300">
-            
-            {{-- Rotating Sakura Vinyl / Icon --}}
-            <button type="button" id="bgm-play-btn" onclick="window.AozoraAmbient.toggleBgm()" class="relative w-8 h-8 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 flex items-center justify-center text-white shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer shrink-0" title="Putar / Jeda Musik Koto">
-                <span id="bgm-disc-icon" class="text-base transition-transform duration-300">🌸</span>
-                <span id="bgm-action-overlay" class="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                    <span id="bgm-play-icon" class="material-symbols-outlined text-white text-base">play_arrow</span>
-                </span>
-            </button>
-
-            {{-- Info & Live Audio Equalizer --}}
-            <div class="flex flex-col cursor-pointer" onclick="window.AozoraAmbient.toggleBgm()">
-                <div class="flex items-center gap-1.5">
-                    <span class="text-[10px] font-bold text-torii-vermilion uppercase tracking-widest flex items-center gap-1">
-                        <span>琴</span>
-                        <span>Koto BGM</span>
-                    </span>
-                    {{-- Mini Equalizer Bars --}}
-                    <div id="bgm-equalizer" class="flex items-end gap-0.5 h-3 opacity-40 transition-opacity">
-                        <span class="eq-bar w-0.5 h-1.5 bg-rose-500 rounded-full"></span>
-                        <span class="eq-bar w-0.5 h-3 bg-rose-500 rounded-full"></span>
-                        <span class="eq-bar w-0.5 h-2 bg-rose-500 rounded-full"></span>
-                        <span class="eq-bar w-0.5 h-2.5 bg-rose-500 rounded-full"></span>
-                    </div>
-                </div>
-                <span id="bgm-status-text" class="text-[11px] font-semibold text-slate-700 truncate max-w-[120px] sm:max-w-[140px]">
-                    Traditional Shamisen
-                </span>
-            </div>
-
-            {{-- Extra Controls: Volume & Sakura Toggle --}}
-            <div class="flex items-center gap-1 border-l border-rose-100 pl-2">
-                {{-- Volume Mute Toggle --}}
-                <button type="button" id="bgm-mute-btn" onclick="window.AozoraAmbient.toggleMute()" class="w-7 h-7 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition-colors cursor-pointer" title="Bisukan / Aktifkan Suara">
-                    <span id="bgm-volume-icon" class="material-symbols-outlined text-lg">volume_up</span>
-                </button>
-
-                {{-- Falling Sakura Toggle Button --}}
-                <button type="button" id="sakura-toggle-btn" onclick="window.AozoraAmbient.toggleSakura()" class="w-7 h-7 rounded-lg text-rose-500 hover:text-rose-700 bg-rose-50 hover:bg-rose-100/80 flex items-center justify-center transition-all cursor-pointer" title="Aktifkan / Matikan Efek Guguran Sakura">
-                    <span class="text-xs">🌸</span>
-                </button>
-            </div>
-        </div>
-    </div>
+    <audio id="aozora-bgm"
+        src="{{ asset('audio/koto_bgm.mp3') }}?v={{ file_exists(public_path('audio/koto_bgm.mp3')) ? filemtime(public_path('audio/koto_bgm.mp3')) : '1' }}"
+        preload="auto" loop></audio>
 </div>
 
 <style>
     /* Equalizer Bouncing Animation */
-    @keyframes eq-bounce-1 { 0%, 100% { height: 4px; } 50% { height: 12px; } }
-    @keyframes eq-bounce-2 { 0%, 100% { height: 12px; } 50% { height: 6px; } }
-    @keyframes eq-bounce-3 { 0%, 100% { height: 6px; } 50% { height: 14px; } }
-    @keyframes eq-bounce-4 { 0%, 100% { height: 10px; } 50% { height: 3px; } }
+    @keyframes eq-bounce-1 {
 
-    .bgm-playing #bgm-equalizer { opacity: 1; }
-    .bgm-playing .eq-bar:nth-child(1) { animation: eq-bounce-1 0.8s ease-in-out infinite; }
-    .bgm-playing .eq-bar:nth-child(2) { animation: eq-bounce-2 0.7s ease-in-out infinite 0.1s; }
-    .bgm-playing .eq-bar:nth-child(3) { animation: eq-bounce-3 0.9s ease-in-out infinite 0.2s; }
-    .bgm-playing .eq-bar:nth-child(4) { animation: eq-bounce-4 0.75s ease-in-out infinite 0.15s; }
+        0%,
+        100% {
+            height: 4px;
+        }
+
+        50% {
+            height: 12px;
+        }
+    }
+
+    @keyframes eq-bounce-2 {
+
+        0%,
+        100% {
+            height: 12px;
+        }
+
+        50% {
+            height: 6px;
+        }
+    }
+
+    @keyframes eq-bounce-3 {
+
+        0%,
+        100% {
+            height: 6px;
+        }
+
+        50% {
+            height: 14px;
+        }
+    }
+
+    @keyframes eq-bounce-4 {
+
+        0%,
+        100% {
+            height: 10px;
+        }
+
+        50% {
+            height: 3px;
+        }
+    }
+
+    .bgm-playing #bgm-equalizer {
+        opacity: 1;
+    }
+
+    .bgm-playing .eq-bar:nth-child(1) {
+        animation: eq-bounce-1 0.8s ease-in-out infinite;
+    }
+
+    .bgm-playing .eq-bar:nth-child(2) {
+        animation: eq-bounce-2 0.7s ease-in-out infinite 0.1s;
+    }
+
+    .bgm-playing .eq-bar:nth-child(3) {
+        animation: eq-bounce-3 0.9s ease-in-out infinite 0.2s;
+    }
+
+    .bgm-playing .eq-bar:nth-child(4) {
+        animation: eq-bounce-4 0.75s ease-in-out infinite 0.15s;
+    }
 
     .bgm-playing #bgm-disc-icon {
         display: inline-block;
@@ -81,8 +86,13 @@
     }
 
     @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
     }
 </style>
 
@@ -162,7 +172,7 @@
                 this.swayOffset = Math.random() * Math.PI * 2;
                 this.driftFactor = (Math.random() - 0.3) * 1.5; // individual wind susceptibility
                 this.opacity = (Math.random() * 0.25 + 0.5) * (0.6 + this.depth * 0.4); // 0.4 - 0.85
-                
+
                 // Color palette (soft cherry blossom gradients)
                 const colors = [
                     { r: 255, g: 183, b: 197 }, // Classic sakura pink
@@ -309,15 +319,49 @@
 
         function updateUI(playing) {
             isPlaying = playing;
-            if (playing) {
-                container.classList.add('bgm-playing');
-                if (playIcon) playIcon.textContent = 'pause';
-                if (statusText) statusText.textContent = 'Sedang Memutar 🌸';
-                if (autoplayHint) autoplayHint.classList.add('hidden');
-            } else {
-                container.classList.remove('bgm-playing');
-                if (playIcon) playIcon.textContent = 'play_arrow';
-                if (statusText) statusText.textContent = 'Tradisional Koto';
+            if (container) {
+                if (playing) {
+                    container.classList.add('bgm-playing');
+                } else {
+                    container.classList.remove('bgm-playing');
+                }
+            }
+            if (playIcon) playIcon.textContent = playing ? 'pause' : 'play_arrow';
+            if (statusText) statusText.textContent = playing ? 'Sedang Memutar 🌸' : 'Tradisional Koto';
+            if (autoplayHint && playing) autoplayHint.classList.add('hidden');
+
+            // Desktop Navbar Toggle
+            const headerBtn = document.getElementById('header-bgm-toggle');
+            const headerIcon = document.getElementById('header-bgm-icon');
+            const headerDisc = document.getElementById('header-bgm-disc');
+            const headerLabel = document.getElementById('header-bgm-label');
+            if (headerIcon) {
+                headerIcon.textContent = playing ? 'volume_up' : 'volume_off';
+            }
+            if (headerDisc) {
+                headerDisc.style.display = 'inline-block';
+                headerDisc.style.animation = playing ? 'spin 4s linear infinite' : 'none';
+            }
+            if (headerLabel) {
+                headerLabel.textContent = 'Musik';
+            }
+            if (headerBtn) {
+                headerBtn.setAttribute('title', playing ? 'Jeda Musik Koto' : 'Putar Musik Koto');
+            }
+
+            // Mobile Drawer Toggle (Strip 3)
+            const mobileIcon = document.getElementById('mobile-drawer-bgm-icon');
+            const mobileDisc = document.getElementById('mobile-drawer-bgm-disc');
+            const mobileLabel = document.getElementById('mobile-drawer-bgm-label');
+            if (mobileIcon) {
+                mobileIcon.textContent = playing ? 'volume_up' : 'volume_off';
+            }
+            if (mobileDisc) {
+                mobileDisc.style.display = 'inline-block';
+                mobileDisc.style.animation = playing ? 'spin 4s linear infinite' : 'none';
+            }
+            if (mobileLabel) {
+                mobileLabel.textContent = playing ? 'Musik: Sedang Memutar' : 'Musik: Dijeda';
             }
         }
 

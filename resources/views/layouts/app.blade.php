@@ -95,6 +95,15 @@
                     href="/#kontak">
                     Kontak
                 </a>
+                {{-- Music Button in Desktop Navbar List --}}
+                <button type="button" id="header-bgm-toggle"
+                    onclick="window.AozoraAmbient && window.AozoraAmbient.toggleBgm()"
+                    class="nav-anchor inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50/90 hover:bg-rose-100 border border-rose-200/80 text-torii-vermilion text-xs font-semibold shadow-xs hover:shadow transition-all cursor-pointer select-none"
+                    title="Putar / Jeda Musik Koto">
+                    <span class="material-symbols-outlined text-base" id="header-bgm-icon">volume_up</span>
+                    <span class="text-xs font-bold text-slate-700" id="header-bgm-label">Musik</span>
+                    <span id="header-bgm-disc" class="text-sm select-none">🌸</span>
+                </button>
             </nav>
 
             {{-- Right Header Actions (Auth / Portal / Mobile Menu) --}}
@@ -249,6 +258,20 @@
                     <span class="material-symbols-outlined text-lg">call</span>
                     Kontak
                 </a>
+
+                {{-- Mobile Drawer Ambient Music Toggle --}}
+                <div class="pt-2 mt-1 border-t border-gray-100">
+                    <button type="button" onclick="window.AozoraAmbient && window.AozoraAmbient.toggleBgm()"
+                        class="w-full px-4 py-2.5 rounded-xl font-medium text-sm text-gray-700 hover:bg-rose-50/80 flex items-center justify-between transition-colors cursor-pointer select-none"
+                        id="mobile-drawer-bgm-toggle">
+                        <div class="flex items-center gap-2.5">
+                            <span class="material-symbols-outlined text-lg text-torii-vermilion"
+                                id="mobile-drawer-bgm-icon">volume_up</span>
+                            <span class="font-semibold text-gray-800" id="mobile-drawer-bgm-label">Musik: Memutar</span>
+                        </div>
+                        <span id="mobile-drawer-bgm-disc" class="text-base select-none">🌸</span>
+                    </button>
+                </div>
             </nav>
         </div>
     </header>

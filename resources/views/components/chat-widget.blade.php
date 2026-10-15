@@ -148,9 +148,9 @@
                     </button>
                 @endauth
                 <button type="button" onclick="toggleSoraChat()" title="Tutup Chat"
-                    class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/25 text-white/80 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
-                    <span class="material-symbols-outlined text-lg sm:hidden">expand_more</span>
-                    <span class="material-symbols-outlined text-lg hidden sm:inline">close</span>
+                    class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/25 text-white/80 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                    aria-label="Tutup Chat">
+                    <span class="material-symbols-outlined text-lg">close</span>
                 </button>
             </div>
         </div>

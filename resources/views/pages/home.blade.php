@@ -84,7 +84,7 @@
                             </div>
                             <div class="p-space-md rounded-xl bg-cloud-white shadow-sm flex flex-col">
                                 <span
-                                    class="font-headline-md text-headline-md text-indigo-night font-extrabold">N5-N4</span>
+                                    class="font-headline-md text-headline-md text-indigo-night font-extrabold">Basic</span>
                                 <span class="font-label-badge text-label-badge text-secondary uppercase">JLPT
                                     Coaching</span>
                             </div>
@@ -101,21 +101,27 @@
 
                         <!-- Main Character HUD Card with Gacha System -->
                         <div class="relative rounded-2xl bg-white p-4 md:p-6 shadow-xl transition-all duration-300 border border-slate-200 z-10 hover:-translate-y-1 hover:shadow-2xl"
-                            id="mascotCard" style="background: #FFFFFF; border: 1px solid #E2E8F0; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);">
-                            
+                            id="mascotCard"
+                            style="background: #FFFFFF; border: 1px solid #E2E8F0; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);">
+
                             <!-- Top HUD Bar -->
                             <div class="flex items-center justify-between pb-3 gap-2">
                                 <div class="flex items-center gap-2 min-w-0">
                                     <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Logo"
-                                        class="w-4 h-4 rounded-full object-cover shrink-0" style="border: 1px solid rgba(2, 132, 199, 0.3);" />
-                                    <span style="font-size: 0.6875rem; font-weight: 800; color: #0F172A; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">AOZORA NIHONGO CLUB</span>
+                                        class="w-4 h-4 rounded-full object-cover shrink-0"
+                                        style="border: 1px solid rgba(2, 132, 199, 0.3);" />
+                                    <span
+                                        style="font-size: 0.6875rem; font-weight: 800; color: #0F172A; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">AOZORA
+                                        NIHONGO CLUB</span>
                                 </div>
                                 <div class="flex items-center gap-1.5 shrink-0">
                                     <!-- Dynamic Rarity Badge -->
                                     <div id="mascotRarityBadge"
                                         style="height: 1.625rem; padding: 0 0.65rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 800; background: linear-gradient(135deg, #0EA5E9, #2563EB); color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; gap: 0.25rem; box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35); transition: all 0.3s ease;">
-                                        <span id="mascotRarityText" style="font-weight: 900; font-size: 0.75rem; letter-spacing: 0.05em;">R</span>
-                                        <span id="mascotRarityStars" style="font-size: 0.5625rem; letter-spacing: 0.05em;">★★★</span>
+                                        <span id="mascotRarityText"
+                                            style="font-weight: 900; font-size: 0.75rem; letter-spacing: 0.05em;">R</span>
+                                        <span id="mascotRarityStars"
+                                            style="font-size: 0.5625rem; letter-spacing: 0.05em;">★★★</span>
                                     </div>
                                     <!-- Open Collection Dex Button -->
                                     <button id="openCollectionBtn" type="button"
@@ -123,9 +129,12 @@
                                         title="Buka Koleksi Maskot (Dex)"
                                         onmouseover="this.style.background='#F1F5F9'; this.style.borderColor='#94A3B8';"
                                         onmouseout="this.style.background='#F8FAFC'; this.style.borderColor='#CBD5E1';"
-                                        onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">
-                                        <span class="material-symbols-outlined" style="font-size: 0.875rem; color: #0284C7; vertical-align: middle;">auto_stories</span>
-                                        <span id="collectionCountBadge" style="font-weight: 800; font-size: 0.6875rem; color: #0F172A;">1/5</span>
+                                        onmousedown="this.style.transform='scale(0.95)'"
+                                        onmouseup="this.style.transform='scale(1)'">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 0.875rem; color: #0284C7; vertical-align: middle;">auto_stories</span>
+                                        <span id="collectionCountBadge"
+                                            style="font-weight: 800; font-size: 0.6875rem; color: #0F172A;">1/5</span>
                                     </button>
                                 </div>
                             </div>
@@ -137,8 +146,10 @@
                                 <span style="font-size: 1.25rem; line-height: 1;" id="mascotSpeechIcon">💬</span>
                                 <div style="display: flex; flex-direction: column; min-width: 0;">
                                     <div style="display: flex; align-items: center; gap: 0.375rem; flex-wrap: wrap;">
-                                        <span style="font-size: 0.75rem; font-weight: 800; color: #0284C7;" id="mascotNameText">Sora-chan (空ちゃん)</span>
-                                        <span style="font-size: 0.625rem; color: #64748B; font-weight: 600;" id="mascotTitleText">• Original Mascot</span>
+                                        <span style="font-size: 0.75rem; font-weight: 800; color: #0284C7;"
+                                            id="mascotNameText">Sora-chan (空ちゃん)</span>
+                                        <span style="font-size: 0.625rem; color: #64748B; font-weight: 600;"
+                                            id="mascotTitleText">• Original Mascot</span>
                                     </div>
                                     <p style="font-size: 0.75rem; color: #1E293B; line-height: 1.35; font-weight: 500; margin: 0.25rem 0 0 0;"
                                         id="speechBubbleText">
@@ -171,9 +182,9 @@
                                 <button
                                     style="position: absolute; bottom: 0.75rem; right: 0.75rem; padding: 0.35rem 0.75rem; border-radius: 9999px; background: rgba(255, 255, 255, 0.95); color: #0F172A; font-size: 0.6875rem; font-weight: 700; display: flex; align-items: center; gap: 0.35rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.8); cursor: pointer; z-index: 10; transition: transform 0.2s;"
                                     id="voicePlayBtn" type="button" title="Dengarkan suara Ganbatte!"
-                                    onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                                    <span id="voiceIcon"
-                                        class="material-symbols-outlined"
+                                    onmouseover="this.style.transform='scale(1.05)'"
+                                    onmouseout="this.style.transform='scale(1)'">
+                                    <span id="voiceIcon" class="material-symbols-outlined"
                                         style="font-size: 1rem; color: #E83A30; font-variation-settings: 'FILL' 1;">volume_up</span>
                                     <span id="voiceStatusText">Voice: Ganbatte! 🌸</span>
                                 </button>
@@ -183,28 +194,35 @@
                             <div class="mt-3 flex items-center gap-2">
                                 <button id="gachaRollBtn" type="button"
                                     style="flex: 1; padding: 0.75rem 1rem; border-radius: 0.75rem; background: linear-gradient(135deg, #E83A30 0%, #F43F5E 50%, #F59E0B 100%) !important; color: #FFFFFF !important; font-size: 0.8125rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(232, 58, 48, 0.4); transition: transform 0.15s ease;"
-                                    onmousedown="this.style.transform='scale(0.97)'" onmouseup="this.style.transform='scale(1)'">
-                                    <span class="material-symbols-outlined" id="gachaBtnIcon" style="font-size: 1.125rem; color: #FFFFFF !important;">casino</span>
-                                    <span id="gachaBtnText" style="color: #FFFFFF !important; font-weight: 800; font-size: 0.8125rem; letter-spacing: 0.01em;">Tarik Gacha Maskot! 🎲</span>
+                                    onmousedown="this.style.transform='scale(0.97)'"
+                                    onmouseup="this.style.transform='scale(1)'">
+                                    <span class="material-symbols-outlined" id="gachaBtnIcon"
+                                        style="font-size: 1.125rem; color: #FFFFFF !important;">casino</span>
+                                    <span id="gachaBtnText"
+                                        style="color: #FFFFFF !important; font-weight: 800; font-size: 0.8125rem; letter-spacing: 0.01em;">Tarik
+                                        Gacha Maskot! 🎲</span>
                                 </button>
                                 <button id="gachaDexBtn" type="button"
                                     style="padding: 0.75rem 0.875rem; border-radius: 0.75rem; background: #FFFFFF !important; color: #0F172A !important; border: 1px solid #CBD5E1 !important; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 0.35rem; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: transform 0.15s ease;"
-                                    title="Buka Koleksi Maskot (Pokedex)"
-                                    onmousedown="this.style.transform='scale(0.97)'" onmouseup="this.style.transform='scale(1)'">
-                                    <span class="material-symbols-outlined" style="font-size: 1.125rem; color: #0284C7 !important;">collections_bookmark</span>
+                                    title="Buka Koleksi Maskot (Pokedex)" onmousedown="this.style.transform='scale(0.97)'"
+                                    onmouseup="this.style.transform='scale(1)'">
+                                    <span class="material-symbols-outlined"
+                                        style="font-size: 1.125rem; color: #0284C7 !important;">collections_bookmark</span>
                                     <span style="color: #0F172A !important; font-weight: 700;">Koleksi</span>
                                 </button>
                             </div>
 
                             <!-- Mascot Footer Attributes / Tags -->
-                            <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding-top: 0.5rem; gap: 0.5rem; font-size: 0.6875rem;">
+                            <div
+                                style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding-top: 0.5rem; gap: 0.5rem; font-size: 0.6875rem;">
                                 <div style="display: flex; align-items: center; gap: 0.35rem;">
                                     <span id="mascotTag1"
                                         style="padding: 0.15rem 0.5rem; border-radius: 0.375rem; background: #F1F5F9; color: #475569; font-weight: 600;">#NihongoClub</span>
                                     <span id="mascotTag2"
                                         style="padding: 0.15rem 0.5rem; border-radius: 0.375rem; background: #F1F5F9; color: #475569; font-weight: 600;">#AozoraOriginal</span>
                                 </div>
-                                <span style="color: #0284C7; font-weight: 700; letter-spacing: 0.02em;">一期一会 (Ichigo Ichie)</span>
+                                <span style="color: #0284C7; font-weight: 700; letter-spacing: 0.02em;">一期一会 (Ichigo
+                                    Ichie)</span>
                             </div>
                         </div>
                     </div>
@@ -246,9 +264,9 @@
                             <div
                                 class="w-12 h-12 rounded-xl bg-aozora-sky/15 flex items-center justify-center text-primary mb-space-md shadow-sm">
                                 <span class="material-symbols-outlined text-2xl" style="
-                                                    font-variation-settings: &quot;FILL&quot;
-                                                        1;
-                                                ">menu_book</span>
+                                                        font-variation-settings: &quot;FILL&quot;
+                                                            1;
+                                                    ">menu_book</span>
                             </div>
                             <div class="flex items-center gap-space-xs mb-space-xs">
                                 <span class="font-label-badge text-label-badge text-primary font-bold">PILAR 01</span>
@@ -282,9 +300,9 @@
                             <div
                                 class="w-12 h-12 rounded-xl bg-sakura-tint flex items-center justify-center text-torii-vermilion mb-space-md shadow-sm">
                                 <span class="material-symbols-outlined text-2xl" style="
-                                                    font-variation-settings: &quot;FILL&quot;
-                                                        1;
-                                                ">theater_comedy</span>
+                                                        font-variation-settings: &quot;FILL&quot;
+                                                            1;
+                                                    ">theater_comedy</span>
                             </div>
                             <div class="flex items-center gap-space-xs mb-space-xs">
                                 <span class="font-label-badge text-label-badge text-torii-vermilion font-bold">PILAR
@@ -319,9 +337,9 @@
                             <div
                                 class="w-12 h-12 rounded-xl bg-secondary-container/60 flex items-center justify-center text-primary mb-space-md shadow-sm">
                                 <span class="material-symbols-outlined text-2xl" style="
-                                                    font-variation-settings: &quot;FILL&quot;
-                                                        1;
-                                                ">groups</span>
+                                                        font-variation-settings: &quot;FILL&quot;
+                                                            1;
+                                                    ">groups</span>
                             </div>
                             <div class="flex items-center gap-space-xs mb-space-xs">
                                 <span class="font-label-badge text-label-badge text-primary font-bold">PILAR 03</span>
@@ -355,9 +373,9 @@
                             <div
                                 class="w-12 h-12 rounded-xl bg-gold-shrine/15 flex items-center justify-center text-gold-shrine mb-space-md shadow-sm">
                                 <span class="material-symbols-outlined text-2xl" style="
-                                                    font-variation-settings: &quot;FILL&quot;
-                                                        1;
-                                                ">military_tech</span>
+                                                        font-variation-settings: &quot;FILL&quot;
+                                                            1;
+                                                    ">military_tech</span>
                             </div>
                             <div class="flex items-center gap-space-xs mb-space-xs">
                                 <span class="font-label-badge text-label-badge text-gold-shrine font-bold">PILAR 04</span>
@@ -440,8 +458,10 @@
                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         loading="lazy" decoding="async">
                                     @if($event->youtube_thumbnail)
-                                        <div class="absolute inset-0 bg-black/20 flex items-center justify-center pointer-events-none group-hover:bg-black/10 transition-colors">
-                                            <span class="w-10 h-10 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-md">
+                                        <div
+                                            class="absolute inset-0 bg-black/20 flex items-center justify-center pointer-events-none group-hover:bg-black/10 transition-colors">
+                                            <span
+                                                class="w-10 h-10 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-md">
                                                 <span class="material-symbols-outlined text-2xl ml-0.5">play_arrow</span>
                                             </span>
                                         </div>
@@ -537,7 +557,8 @@
                         </div>
                         @if($aftermovieEvent)
                             <div class="flex items-center gap-space-xs font-label-badge text-label-badge">
-                                <span class="px-2.5 py-1 rounded-full bg-torii-vermilion/10 text-torii-vermilion font-bold flex items-center gap-1.5">
+                                <span
+                                    class="px-2.5 py-1 rounded-full bg-torii-vermilion/10 text-torii-vermilion font-bold flex items-center gap-1.5">
                                     <span class="w-2 h-2 rounded-full bg-torii-vermilion animate-ping"></span>
                                     Official Aftermovie
                                 </span>
@@ -547,8 +568,7 @@
                     <div class="w-full">
                         <!-- Video Preview (Full Width) -->
                         @if($aftermovieEvent && ($aftermovieEvent->youtube_embed_url || $aftermovieEvent->youtube_link))
-                            <div
-                                class="w-full relative rounded-xl overflow-hidden bg-indigo-night aspect-video shadow-inner">
+                            <div class="w-full relative rounded-xl overflow-hidden bg-indigo-night aspect-video shadow-inner">
                                 <div class="absolute top-4 left-4 z-20 flex items-center gap-space-xs pointer-events-none">
                                     <span class="w-2.5 h-2.5 rounded-full bg-torii-vermilion animate-ping"></span>
                                     <span
@@ -556,9 +576,9 @@
                                         AFTERMOVIE {{ $aftermovieEvent->title }}
                                     </span>
                                 </div>
-                                <iframe src="{{ $aftermovieEvent->youtube_embed_url ?? str_replace('watch?v=', 'embed/', $aftermovieEvent->youtube_link) }}"
-                                    class="w-full h-full border-0" 
-                                    title="Aftermovie {{ $aftermovieEvent->title }}"
+                                <iframe
+                                    src="{{ $aftermovieEvent->youtube_embed_url ?? str_replace('watch?v=', 'embed/', $aftermovieEvent->youtube_link) }}"
+                                    class="w-full h-full border-0" title="Aftermovie {{ $aftermovieEvent->title }}"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen></iframe>
                             </div>
@@ -760,13 +780,15 @@
     </div>
 
     <!-- CANVAS CONFETTI FOR SPECIAL PULLS -->
-    <canvas id="gachaConfettiCanvas" style="position: fixed; inset: 0; pointer-events: none; z-index: 999999; display: none; width: 100vw; height: 100vh;"></canvas>
+    <canvas id="gachaConfettiCanvas"
+        style="position: fixed; inset: 0; pointer-events: none; z-index: 999999; display: none; width: 100vw; height: 100vh;"></canvas>
 
     <!-- 1% UR EASTER EGG SPECIAL ANNOUNCEMENT MODAL -->
     <div id="easterEggBanner"
         style="position: fixed; inset: 0; z-index: 99999; background: rgba(5, 8, 20, 0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); display: none; opacity: 0; transition: opacity 0.3s ease; align-items: center; justify-content: center; padding: 1rem;">
-        <div style="background: linear-gradient(180deg, #1C0A35 0%, #0F051D 100%); border: 2px solid #D946EF; box-shadow: 0 0 50px rgba(217, 70, 239, 0.45), inset 0 0 25px rgba(217, 70, 239, 0.2); border-radius: 1.5rem; max-width: 28rem; width: 100%; padding: 2rem 1.5rem; color: #FFFFFF; position: relative; overflow: hidden; transform: scale(0.92); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); text-align: center;">
-            
+        <div
+            style="background: linear-gradient(180deg, #1C0A35 0%, #0F051D 100%); border: 2px solid #D946EF; box-shadow: 0 0 50px rgba(217, 70, 239, 0.45), inset 0 0 25px rgba(217, 70, 239, 0.2); border-radius: 1.5rem; max-width: 28rem; width: 100%; padding: 2rem 1.5rem; color: #FFFFFF; position: relative; overflow: hidden; transform: scale(0.92); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); text-align: center;">
+
             <!-- Close 'X' Button at Top Right -->
             <button type="button" id="closeEasterEggTopBtn"
                 style="position: absolute; top: 1rem; right: 1rem; width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: rgba(255, 255, 255, 0.12); color: #FCE7F3; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.2); cursor: pointer; transition: background 0.2s; z-index: 2;"
@@ -775,20 +797,27 @@
             </button>
 
             <!-- Radial glow in background -->
-            <div style="position: absolute; top: -4rem; right: -4rem; width: 10rem; height: 10rem; background: rgba(236, 72, 153, 0.3); border-radius: 9999px; filter: blur(35px); pointer-events: none;"></div>
-            <div style="position: absolute; bottom: -4rem; left: -4rem; width: 10rem; height: 10rem; background: rgba(168, 85, 247, 0.3); border-radius: 9999px; filter: blur(35px); pointer-events: none;"></div>
+            <div
+                style="position: absolute; top: -4rem; right: -4rem; width: 10rem; height: 10rem; background: rgba(236, 72, 153, 0.3); border-radius: 9999px; filter: blur(35px); pointer-events: none;">
+            </div>
+            <div
+                style="position: absolute; bottom: -4rem; left: -4rem; width: 10rem; height: 10rem; background: rgba(168, 85, 247, 0.3); border-radius: 9999px; filter: blur(35px); pointer-events: none;">
+            </div>
 
             <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
                 <!-- Glowing badge -->
-                <div style="background: linear-gradient(90deg, #EC4899 0%, #A855F7 100%); color: #FFFFFF; font-weight: 900; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.35rem 1.25rem; border-radius: 9999px; box-shadow: 0 0 20px rgba(236, 72, 153, 0.6); display: inline-flex; align-items: center; gap: 0.35rem; margin-bottom: 1.25rem;">
+                <div
+                    style="background: linear-gradient(90deg, #EC4899 0%, #A855F7 100%); color: #FFFFFF; font-weight: 900; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.35rem 1.25rem; border-radius: 9999px; box-shadow: 0 0 20px rgba(236, 72, 153, 0.6); display: inline-flex; align-items: center; gap: 0.35rem; margin-bottom: 1.25rem;">
                     <span class="material-symbols-outlined" style="font-size: 1rem; color: #FFFFFF;">auto_awesome</span>
                     <span>1% ULTRA RARE EASTER EGG</span>
                     <span class="material-symbols-outlined" style="font-size: 1rem; color: #FFFFFF;">auto_awesome</span>
                 </div>
 
                 <!-- Avatar circle with glowing border -->
-                <div style="width: 7.5rem; height: 7.5rem; border-radius: 1.25rem; overflow: hidden; border: 3px solid #F472B6; box-shadow: 0 0 30px rgba(244, 114, 182, 0.6); margin-bottom: 1rem;">
-                    <img src="{{ asset('assets/mascots/sora_yosuga.webp') }}" alt="Sora Kasugano" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" />
+                <div
+                    style="width: 7.5rem; height: 7.5rem; border-radius: 1.25rem; overflow: hidden; border: 3px solid #F472B6; box-shadow: 0 0 30px rgba(244, 114, 182, 0.6); margin-bottom: 1rem;">
+                    <img src="{{ asset('assets/mascots/sora_yosuga.webp') }}" alt="Sora Kasugano"
+                        style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" />
                 </div>
 
                 <h3 style="font-size: 1.375rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; margin: 0;">
@@ -799,7 +828,8 @@
                 </p>
 
                 <!-- Voice Quote Bubble -->
-                <div style="margin-top: 1rem; padding: 0.875rem 1.25rem; border-radius: 1rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #FCE7F3; font-size: 0.875rem; line-height: 1.5; font-style: italic; width: 100%; box-sizing: border-box;">
+                <div
+                    style="margin-top: 1rem; padding: 0.875rem 1.25rem; border-radius: 1rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #FCE7F3; font-size: 0.875rem; line-height: 1.5; font-style: italic; width: 100%; box-sizing: border-box;">
                     "Onii-chan...? Kenapa kamu menatapku seperti itu? B-Bukan berarti aku senang kamu summon... Baka!"
                 </div>
 
@@ -820,23 +850,30 @@
     <!-- MASCOT COLLECTION DEX MODAL (POKEDEX) -->
     <div id="mascotDexModal"
         style="position: fixed; inset: 0; z-index: 99998; background: rgba(5, 8, 20, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; opacity: 0; transition: opacity 0.3s ease; align-items: center; justify-content: center; padding: 1rem;">
-        <div style="background: #FFFFFF; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); max-width: 56rem; width: 100%; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; transform: scale(0.95); transition: transform 0.3s ease;">
+        <div
+            style="background: #FFFFFF; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); max-width: 56rem; width: 100%; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; transform: scale(0.95); transition: transform 0.3s ease;">
             <!-- Modal Header -->
-            <div style="padding: 1.25rem 1.5rem; border-bottom: 1px solid #F1F5F9; display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: #FAFAFA;">
+            <div
+                style="padding: 1.25rem 1.5rem; border-bottom: 1px solid #F1F5F9; display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: #FAFAFA;">
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
-                    <div style="width: 2.5rem; height: 2.5rem; border-radius: 1rem; background: linear-gradient(135deg, #38BDF8 0%, #2563EB 100%); color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);">
-                        <span class="material-symbols-outlined" style="font-size: 1.25rem; color: #FFFFFF;">collections_bookmark</span>
+                    <div
+                        style="width: 2.5rem; height: 2.5rem; border-radius: 1rem; background: linear-gradient(135deg, #38BDF8 0%, #2563EB 100%); color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);">
+                        <span class="material-symbols-outlined"
+                            style="font-size: 1.25rem; color: #FFFFFF;">collections_bookmark</span>
                     </div>
                     <div>
                         <div style="display: flex; align-items: center; gap: 0.5rem;">
-                            <h3 style="font-size: 1.125rem; font-weight: 800; color: #0F172A; margin: 0;">Aozora Mascot Dex</h3>
+                            <h3 style="font-size: 1.125rem; font-weight: 800; color: #0F172A; margin: 0;">Aozora Mascot Dex
+                            </h3>
                             <span style="font-size: 0.75rem; color: #64748B; font-weight: 600;">青空マスコット図鑑</span>
                         </div>
-                        <p style="font-size: 0.75rem; color: #64748B; margin: 0.125rem 0 0 0;">Kumpulkan 5 karakter maskot eksklusif Aozora Club &amp; dengarkan suara uniknya!</p>
+                        <p style="font-size: 0.75rem; color: #64748B; margin: 0.125rem 0 0 0;">Kumpulkan 5 karakter maskot
+                            eksklusif Aozora Club &amp; dengarkan suara uniknya!</p>
                     </div>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <span id="dexProgressBadge" style="padding: 0.25rem 0.75rem; border-radius: 9999px; background: #F1F5F9; color: #0284C7; font-weight: 700; font-size: 0.75rem; border: 1px solid #E2E8F0; font-family: monospace;">
+                    <span id="dexProgressBadge"
+                        style="padding: 0.25rem 0.75rem; border-radius: 9999px; background: #F1F5F9; color: #0284C7; font-weight: 700; font-size: 0.75rem; border: 1px solid #E2E8F0; font-family: monospace;">
                         1/5 Terkumpul
                     </span>
                     <button id="closeDexModalBtn" type="button"
@@ -854,7 +891,8 @@
             </div>
 
             <!-- Modal Footer -->
-            <div style="padding: 1rem 1.5rem; border-top: 1px solid #F1F5F9; background: #FAFAFA; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem;">
+            <div
+                style="padding: 1rem 1.5rem; border-top: 1px solid #F1F5F9; background: #FAFAFA; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem;">
                 <div style="font-size: 0.75rem; color: #64748B;">
                     <span>💡 Tips: Setiap maskot punya nada suara <em>Ganbatte</em> dan kutipan berbeda!</span>
                 </div>
@@ -1112,20 +1150,20 @@
             if (rarityStars) rarityStars.textContent = mascot.stars;
             if (rarityBadge && mascot.badgeStyle) {
                 rarityBadge.style.cssText = `
-                    height: 1.625rem;
-                    padding: 0 0.65rem;
-                    border-radius: 9999px;
-                    font-size: 0.6875rem;
-                    font-weight: 800;
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 0.25rem;
-                    color: #FFFFFF;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-                    transition: all 0.3s ease;
-                    ${mascot.badgeStyle}
-                `;
+                        height: 1.625rem;
+                        padding: 0 0.65rem;
+                        border-radius: 9999px;
+                        font-size: 0.6875rem;
+                        font-weight: 800;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.25rem;
+                        color: #FFFFFF;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                        transition: all 0.3s ease;
+                        ${mascot.badgeStyle}
+                    `;
             }
 
             if (nameText) nameText.textContent = mascot.name;
@@ -1140,19 +1178,19 @@
 
             if (wrapper && mascot.borderStyle) {
                 wrapper.style.cssText = `
-                    position: relative;
-                    width: 100%;
-                    aspect-ratio: 1 / 1;
-                    border-radius: 0.75rem;
-                    overflow: hidden;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: linear-gradient(180deg, #F0F9FF 0%, #E0F2FE 100%);
-                    border: 2px solid;
-                    transition: all 0.5s ease;
-                    ${mascot.borderStyle}
-                `;
+                        position: relative;
+                        width: 100%;
+                        aspect-ratio: 1 / 1;
+                        border-radius: 0.75rem;
+                        overflow: hidden;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: linear-gradient(180deg, #F0F9FF 0%, #E0F2FE 100%);
+                        border: 2px solid;
+                        transition: all 0.5s ease;
+                        ${mascot.borderStyle}
+                    `;
             }
 
             if (img) {
@@ -1382,65 +1420,65 @@
 
                 if (!isUnlocked) {
                     return `
-                        <div style="border-radius: 1rem; border: 1px dashed #CBD5E1; background: #F8FAFC; padding: 1rem; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;">
-                            <div style="width: 100%; aspect-ratio: 1/1; border-radius: 0.75rem; background: #E2E8F0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94A3B8; margin-bottom: 0.75rem;">
-                                <span class="material-symbols-outlined" style="font-size: 2.5rem; color: #94A3B8;">lock</span>
-                                <span style="font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #64748B;">Terkunci</span>
+                            <div style="border-radius: 1rem; border: 1px dashed #CBD5E1; background: #F8FAFC; padding: 1rem; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;">
+                                <div style="width: 100%; aspect-ratio: 1/1; border-radius: 0.75rem; background: #E2E8F0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94A3B8; margin-bottom: 0.75rem;">
+                                    <span class="material-symbols-outlined" style="font-size: 2.5rem; color: #94A3B8;">lock</span>
+                                    <span style="font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #64748B;">Terkunci</span>
+                                </div>
+                                <div style="padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.625rem; font-weight: 700; background: #E2E8F0; color: #475569; margin-bottom: 0.25rem;">
+                                    Drop Rate: ${m.dropRate}
+                                </div>
+                                <h4 style="font-weight: 700; font-size: 0.75rem; color: #64748B; margin: 0.25rem 0 0 0;">???</h4>
+                                <p style="font-size: 0.625rem; color: #94A3B8; margin: 0.25rem 0 0 0;">Tarik gacha untuk membuka!</p>
+                                <button disabled style="margin-top: 0.75rem; width: 100%; padding: 0.375rem 0.75rem; border-radius: 0.5rem; background: #F1F5F9; color: #94A3B8; font-size: 0.75rem; font-weight: 600; border: none; cursor: not-allowed;">
+                                    Belum Terbuka
+                                </button>
                             </div>
-                            <div style="padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.625rem; font-weight: 700; background: #E2E8F0; color: #475569; margin-bottom: 0.25rem;">
-                                Drop Rate: ${m.dropRate}
-                            </div>
-                            <h4 style="font-weight: 700; font-size: 0.75rem; color: #64748B; margin: 0.25rem 0 0 0;">???</h4>
-                            <p style="font-size: 0.625rem; color: #94A3B8; margin: 0.25rem 0 0 0;">Tarik gacha untuk membuka!</p>
-                            <button disabled style="margin-top: 0.75rem; width: 100%; padding: 0.375rem 0.75rem; border-radius: 0.5rem; background: #F1F5F9; color: #94A3B8; font-size: 0.75rem; font-weight: 600; border: none; cursor: not-allowed;">
-                                Belum Terbuka
-                            </button>
-                        </div>
-                    `;
+                        `;
                 }
 
                 return `
-                    <div style="border-radius: 1rem; border: ${isActive ? '2px solid #0284C7' : '1px solid #E2E8F0'}; background: #FFFFFF; padding: 1rem; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
-                        ${isActive ? '<span style="position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.125rem 0.5rem; border-radius: 9999px; background: #0284C7; color: #FFFFFF; font-size: 0.5625rem; font-weight: 800;">AKTIF</span>' : ''}
-                        <div style="width: 100%; aspect-ratio: 1/1; border-radius: 0.75rem; overflow: hidden; margin-bottom: 0.75rem; ${m.borderStyle}">
-                            <img src="${m.image}" alt="${m.name}" style="width: 100%; height: 100%; object-fit: cover;" />
-                        </div>
-                        <div style="padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.625rem; font-weight: 700; margin-bottom: 0.25rem; ${m.badgeStyle}">
-                            ${m.rarity} ${m.stars}
-                        </div>
-                        <h4 style="font-weight: 700; font-size: 0.75rem; color: #0F172A; margin: 0.25rem 0 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;" title="${m.name}">${m.name}</h4>
-                        <p style="font-size: 0.625rem; color: #64748B; margin: 0.25rem 0 0 0; line-height: 1.3;">${m.desc}</p>
-                        
-                        <div style="margin-top: 0.75rem; width: 100%; display: flex; flex-direction: column; gap: 0.35rem;">
-                            <button type="button" onclick="window.previewMascotVoice('${m.id}')"
-                                style="width: 100%; padding: 0.25rem 0.5rem; border-radius: 0.5rem; background: #F1F5F9; color: #334155; font-size: 0.6875rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.25rem; border: none; cursor: pointer;">
-                                <span class="material-symbols-outlined" style="font-size: 0.8125rem; color: #E83A30;">volume_up</span>
-                                <span>Tes Suara</span>
-                            </button>
-                            ${isActive ? `
-                                <button disabled style="width: 100%; padding: 0.375rem 0.75rem; border-radius: 0.5rem; background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; font-size: 0.75rem; font-weight: 700; cursor: default;">
-                                    ✓ Sedang Aktif
+                        <div style="border-radius: 1rem; border: ${isActive ? '2px solid #0284C7' : '1px solid #E2E8F0'}; background: #FFFFFF; padding: 1rem; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                            ${isActive ? '<span style="position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.125rem 0.5rem; border-radius: 9999px; background: #0284C7; color: #FFFFFF; font-size: 0.5625rem; font-weight: 800;">AKTIF</span>' : ''}
+                            <div style="width: 100%; aspect-ratio: 1/1; border-radius: 0.75rem; overflow: hidden; margin-bottom: 0.75rem; ${m.borderStyle}">
+                                <img src="${m.image}" alt="${m.name}" style="width: 100%; height: 100%; object-fit: cover;" />
+                            </div>
+                            <div style="padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.625rem; font-weight: 700; margin-bottom: 0.25rem; ${m.badgeStyle}">
+                                ${m.rarity} ${m.stars}
+                            </div>
+                            <h4 style="font-weight: 700; font-size: 0.75rem; color: #0F172A; margin: 0.25rem 0 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;" title="${m.name}">${m.name}</h4>
+                            <p style="font-size: 0.625rem; color: #64748B; margin: 0.25rem 0 0 0; line-height: 1.3;">${m.desc}</p>
+
+                            <div style="margin-top: 0.75rem; width: 100%; display: flex; flex-direction: column; gap: 0.35rem;">
+                                <button type="button" onclick="window.previewMascotVoice('${m.id}')"
+                                    style="width: 100%; padding: 0.25rem 0.5rem; border-radius: 0.5rem; background: #F1F5F9; color: #334155; font-size: 0.6875rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.25rem; border: none; cursor: pointer;">
+                                    <span class="material-symbols-outlined" style="font-size: 0.8125rem; color: #E83A30;">volume_up</span>
+                                    <span>Tes Suara</span>
                                 </button>
-                            ` : `
-                                <button type="button" onclick="window.chooseActiveMascot('${m.id}')"
-                                    style="width: 100%; padding: 0.375rem 0.75rem; border-radius: 0.5rem; background: #0F172A; color: #FFFFFF; font-size: 0.75rem; font-weight: 700; border: none; cursor: pointer;">
-                                    Gunakan Maskot
-                                </button>
-                            `}
+                                ${isActive ? `
+                                    <button disabled style="width: 100%; padding: 0.375rem 0.75rem; border-radius: 0.5rem; background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; font-size: 0.75rem; font-weight: 700; cursor: default;">
+                                        ✓ Sedang Aktif
+                                    </button>
+                                ` : `
+                                    <button type="button" onclick="window.chooseActiveMascot('${m.id}')"
+                                        style="width: 100%; padding: 0.375rem 0.75rem; border-radius: 0.5rem; background: #0F172A; color: #FFFFFF; font-size: 0.75rem; font-weight: 700; border: none; cursor: pointer;">
+                                        Gunakan Maskot
+                                    </button>
+                                `}
+                            </div>
                         </div>
-                    </div>
-                `;
+                    `;
             }).join('');
         }
 
         // Global functions for inline onclick in modal
-        window.chooseActiveMascot = function(id) {
+        window.chooseActiveMascot = function (id) {
             setActiveMascot(id);
             const mascot = MASCOTS.find(m => m.id === id);
             if (mascot) playGanbatteVoice(mascot.audioPitch);
         };
 
-        window.previewMascotVoice = function(id) {
+        window.previewMascotVoice = function (id) {
             initAudioOnGesture();
             const mascot = MASCOTS.find(m => m.id === id);
             if (mascot) playGanbatteVoice(mascot.audioPitch);
