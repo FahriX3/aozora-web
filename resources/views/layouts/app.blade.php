@@ -352,7 +352,7 @@
         {{-- Panel Card --}}
         <div
             class="relative w-full max-w-[420px] bg-white rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.28)] overflow-hidden border border-gray-100 animate-modal-in z-10 p-6 sm:p-8">
-            
+
             {{-- Close Button --}}
             <button type="button" onclick="closeLoginModal()"
                 class="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-800 flex items-center justify-center transition-colors focus:outline-none cursor-pointer"
@@ -362,8 +362,10 @@
 
             {{-- Top Branding --}}
             <div class="text-center mb-6">
-                <div class="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-3 shadow-inner">
-                    <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Icon" class="w-11 h-11 rounded-full object-cover" />
+                <div
+                    class="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-3 shadow-inner">
+                    <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Icon"
+                        class="w-11 h-11 rounded-full object-cover" />
                 </div>
                 <h2 id="login-modal-title" class="text-xl font-bold font-headline-md tracking-tight text-gray-900">
                     Masuk ke Aozora
@@ -375,21 +377,24 @@
 
             {{-- Flash Messages --}}
             @if (session('auth_success'))
-                <div class="mb-4 bg-emerald-50 text-emerald-800 border border-emerald-200 p-3 rounded-xl text-xs flex items-center gap-2">
+                <div
+                    class="mb-4 bg-emerald-50 text-emerald-800 border border-emerald-200 p-3 rounded-xl text-xs flex items-center gap-2">
                     <span class="material-symbols-outlined text-base text-emerald-600 shrink-0">check_circle</span>
                     <span>{{ session('auth_success') }}</span>
                 </div>
             @endif
 
             @if (session('error'))
-                <div class="mb-4 bg-rose-50 text-rose-800 border border-rose-200 p-3 rounded-xl text-xs flex items-center gap-2">
+                <div
+                    class="mb-4 bg-rose-50 text-rose-800 border border-rose-200 p-3 rounded-xl text-xs flex items-center gap-2">
                     <span class="material-symbols-outlined text-base text-rose-600 shrink-0">error</span>
                     <span>{{ session('error') }}</span>
                 </div>
             @endif
 
             @if ($errors->any())
-                <div class="mb-4 bg-rose-50 text-rose-800 border border-rose-200 p-3 rounded-xl text-xs flex items-start gap-2">
+                <div
+                    class="mb-4 bg-rose-50 text-rose-800 border border-rose-200 p-3 rounded-xl text-xs flex items-start gap-2">
                     <span class="material-symbols-outlined text-base text-rose-600 shrink-0 mt-0.5">error</span>
                     <ul class="list-disc pl-4 space-y-0.5">
                         @foreach ($errors->all() as $error)
@@ -403,10 +408,14 @@
             <a href="{{ route('auth.google') }}"
                 class="w-full py-2.5 px-4 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded-xl border border-gray-300 shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-3 text-sm group cursor-pointer">
                 <svg class="w-4 h-4 shrink-0 transition-transform group-hover:scale-105" viewBox="0 0 24 24">
-                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.665-5.17 3.665-9.12z"/>
-                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.13C3.27 21.36 7.35 24 12 24z"/>
-                    <path fill="#FBBC05" d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.13z"/>
-                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.35 0 3.27 2.64 1.25 6.58l4.03 3.13c.95-2.83 3.6-4.96 6.72-4.96z"/>
+                    <path fill="#4285F4"
+                        d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.665-5.17 3.665-9.12z" />
+                    <path fill="#34A853"
+                        d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.13C3.27 21.36 7.35 24 12 24z" />
+                    <path fill="#FBBC05"
+                        d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.13z" />
+                    <path fill="#EA4335"
+                        d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.35 0 3.27 2.64 1.25 6.58l4.03 3.13c.95-2.83 3.6-4.96 6.72-4.96z" />
                 </svg>
                 <span>Masuk dengan Google</span>
             </a>
@@ -424,7 +433,8 @@
                 <div class="flex flex-col gap-1">
                     <label for="modal-email" class="text-xs font-semibold text-gray-700">Email Akun</label>
                     <div class="relative">
-                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">mail</span>
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">mail</span>
                         <input type="email" name="email" id="modal-email" value="{{ old('email') }}" required
                             class="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-gray-200 bg-gray-50 focus:bg-white text-gray-800 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-gray-400"
                             placeholder="nama@email.com">
@@ -434,7 +444,8 @@
                 <div class="flex flex-col gap-1">
                     <label for="modal-password" class="text-xs font-semibold text-gray-700">Kata Sandi</label>
                     <div class="relative">
-                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">lock</span>
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">lock</span>
                         <input type="password" name="password" id="modal-password" required
                             class="w-full pl-9 pr-10 py-2 text-sm rounded-xl border border-gray-200 bg-gray-50 focus:bg-white text-gray-800 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-gray-400"
                             placeholder="••••••••">
@@ -455,7 +466,7 @@
 
             <div class="mt-4 pt-3 border-t border-gray-100 text-center">
                 <p class="text-[11px] text-gray-400">
-                    Masuk dengan Google otomatis terhubung sebagai anggota Aozora 🌸
+                    Silahkan Login 🌸
                 </p>
             </div>
         </div>
@@ -553,7 +564,7 @@
         // ==========================================
         // UNIVERSAL CUSTOM AOZORA ALERT & TOAST SYSTEM
         // ==========================================
-        window.showAozoraAlert = function(titleOrMsg, message = null, type = 'info', confirmText = 'Oke, Mengerti! 🌸') {
+        window.showAozoraAlert = function (titleOrMsg, message = null, type = 'info', confirmText = 'Oke, Mengerti! 🌸') {
             return new Promise((resolve) => {
                 const modal = document.getElementById('aozoraAlertModal');
                 const card = document.getElementById('aozoraAlertCard');
@@ -644,18 +655,18 @@
         };
 
         // Universal alert override
-        window.alert = function(msg) {
+        window.alert = function (msg) {
             window.showAozoraAlert('Pemberitahuan 🌸', msg);
         };
 
         // Universal toast notification
-        window.showAozoraToast = function(message, type = 'info', duration = 3500) {
+        window.showAozoraToast = function (message, type = 'info', duration = 3500) {
             const container = document.getElementById('aozoraToastContainer');
             if (!container) return;
 
             const toast = document.createElement('div');
             toast.className = 'pointer-events-auto flex items-center gap-3 p-3.5 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 text-slate-800 text-xs sm:text-sm font-medium transform translate-y-3 opacity-0 transition-all duration-300';
-            
+
             let iconName = 'info';
             let iconColor = 'text-blue-500';
             if (type === 'success') { iconName = 'check_circle'; iconColor = 'text-emerald-500'; }
@@ -680,31 +691,41 @@
     </script>
 
     {{-- CUSTOM AOZORA POPUP ALERT MODAL & TOAST CONTAINER --}}
-    <div id="aozoraAlertModal" class="fixed inset-0 z-[100000] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-md transition-all duration-300 opacity-0 pointer-events-none">
-        <div id="aozoraAlertCard" class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transform scale-95 transition-all duration-300">
-            <div id="aozoraAlertAccent" class="h-1.5 w-full bg-gradient-to-r from-blue-600 via-indigo-500 to-rose-500"></div>
+    <div id="aozoraAlertModal"
+        class="fixed inset-0 z-[100000] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-md transition-all duration-300 opacity-0 pointer-events-none">
+        <div id="aozoraAlertCard"
+            class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transform scale-95 transition-all duration-300">
+            <div id="aozoraAlertAccent" class="h-1.5 w-full bg-gradient-to-r from-blue-600 via-indigo-500 to-rose-500">
+            </div>
 
             <div class="p-6">
-                <button type="button" id="aozoraAlertCloseBtn" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-700 flex items-center justify-center transition-colors cursor-pointer" aria-label="Tutup">
+                <button type="button" id="aozoraAlertCloseBtn"
+                    class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-700 flex items-center justify-center transition-colors cursor-pointer"
+                    aria-label="Tutup">
                     <span class="material-symbols-outlined text-lg">close</span>
                 </button>
 
                 <div class="flex items-start gap-4">
-                    <div id="aozoraAlertIconWrap" class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-md bg-blue-50 text-blue-600 ring-4 ring-blue-50/50">
+                    <div id="aozoraAlertIconWrap"
+                        class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-md bg-blue-50 text-blue-600 ring-4 ring-blue-50/50">
                         <span id="aozoraAlertIcon" class="material-symbols-outlined text-2xl">info</span>
                     </div>
 
                     <div class="flex-1 pr-6">
                         <div class="flex items-center gap-2 mb-1.5">
-                            <h3 id="aozoraAlertTitle" class="text-lg font-bold text-slate-900 tracking-tight">Pemberitahuan</h3>
-                            <span id="aozoraAlertBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 border border-blue-200 uppercase tracking-wider">Aozora</span>
+                            <h3 id="aozoraAlertTitle" class="text-lg font-bold text-slate-900 tracking-tight">
+                                Pemberitahuan</h3>
+                            <span id="aozoraAlertBadge"
+                                class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 border border-blue-200 uppercase tracking-wider">Aozora</span>
                         </div>
-                        <p id="aozoraAlertMessage" class="text-sm text-slate-600 leading-relaxed whitespace-pre-line"></p>
+                        <p id="aozoraAlertMessage" class="text-sm text-slate-600 leading-relaxed whitespace-pre-line">
+                        </p>
                     </div>
                 </div>
 
                 <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-end">
-                    <button type="button" id="aozoraAlertConfirmBtn" class="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer flex items-center gap-1.5">
+                    <button type="button" id="aozoraAlertConfirmBtn"
+                        class="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer flex items-center gap-1.5">
                         <span id="aozoraAlertConfirmText">Oke, Mengerti! 🌸</span>
                     </button>
                 </div>
@@ -713,10 +734,15 @@
     </div>
 
     <!-- Global Toast Container -->
-    <div id="aozoraToastContainer" class="fixed top-24 right-4 sm:right-6 z-[99999] flex flex-col gap-2.5 pointer-events-none max-w-sm w-full"></div>
+    <div id="aozoraToastContainer"
+        class="fixed top-24 right-4 sm:right-6 z-[99999] flex flex-col gap-2.5 pointer-events-none max-w-sm w-full">
+    </div>
 
     {{-- Chatbot Sora (AI Assistant) Floating Widget --}}
     <x-chat-widget />
+
+    {{-- Japanese Ambient Backsound & Falling Sakura Petals --}}
+    <x-japanese-ambient />
 </body>
 
 </html>
