@@ -1,58 +1,145 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Aozora Web
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi web profil komunitas dan sistem manajemen kegiatan untuk Aozora Nihongo Club (ANC), ekstrakurikuler Bahasa dan Budaya Jepang di SMK Negeri 1 Purwokerto.
 
-## About Laravel
+Proyek ini dibangun menggunakan Laravel 13 dan Filament v5 untuk menyediakan portal informasi publik bagi anggota dan siswa, sekaligus panel administrasi internal untuk mengelola kegiatan, dokumentasi, kepengurusan, dan inventaris barang milik klub.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Portal Publik
+- Halaman beranda menampilkan profil klub, jadwal pertemuan mingguan, divisi minat (Kaiwa, Shodo, Cosplay, Matsuri, Anime & Manga, dan Edukasi), serta agenda kegiatan terdekat.
+- Direktori agenda menyediakan rincian jadwal, rundown acara, koordinat lokasi kegiatan, galeri foto dokumentasi, dan tautan video aftermovie.
+- Halaman pengurus memuat struktur pembina, pengurus harian, koordinator divisi, dan anggota aktif.
+- Chatbot Sora AI (Sora-chan) berfungsi sebagai asisten interaktif untuk tanya-jawab seputar kegiatan klub dan materi dasar bahasa Jepang, dilengkapi respons streaming dan pembatasan token harian per pengguna.
+- Sistem autentikasi mendukung pendaftaran dan masuk akun lokal maupun integrasi akun Google melalui Google OAuth.
 
-## Learning Laravel
+### Panel Administrasi (Filament)
+- Pengelolaan acara dan dokumentasi untuk menambah jadwal kegiatan, rundown susunan acara, titik lokasi, foto arsip, serta tautan video.
+- Pengelolaan data pembina dan pengurus per divisi kepengurusan.
+- Sistem inventaris untuk mendata perlengkapan klub, mencatat riwayat peminjaman barang, dan memproses laporan kerusakan aset.
+- Pengaturan peran dan hak akses berbasis Spatie Permission untuk membedakan wewenang pengurus, koordinator kegiatan, koordinator inventaris, PDD, admin, hingga super admin.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Teknologi yang Digunakan
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- Backend: PHP 8.3+, Laravel 13
+- Admin Panel: Filament v5
+- Manajemen Hak Akses: Spatie Laravel Permission
+- Autentikasi Eksternal: Laravel Socialite (Google OAuth)
+- Frontend: Blade Templates, Tailwind CSS v4, Vite
+- Integrasi Asisten AI: API model eksternal dengan response streaming (Server-Sent Events)
+- Basis Data: SQLite (bawaan) atau MySQL / MariaDB
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Prasyarat Sistem
 
-```bash
-composer require laravel/boost --dev
+Sebelum menjalankan proyek, pastikan lingkungan komputer telah terpasang:
+- PHP >= 8.3 dengan ekstensi pendukung Laravel (pdo, mbstring, openssl, tokenizer, xml, ctype, json, bcmath, curl, intl)
+- Composer
+- Node.js (versi 18 ke atas) dan NPM
+- Server basis data seperti SQLite atau MySQL
 
-php artisan boost:install
+---
+
+## Panduan Instalasi Lokal
+
+Ikuti langkah-langkah berikut untuk memasang dan menjalankan proyek di komputer lokal:
+
+1. Unduh atau clone repositori:
+   ```bash
+   git clone https://github.com/FahriX3/aozora-web.git
+   cd aozora-web
+   ```
+
+2. Pasang dependensi PHP:
+   ```bash
+   composer install
+   ```
+
+3. Pasang dependensi JavaScript:
+   ```bash
+   npm install
+   ```
+
+4. Siapkan berkas konfigurasi lingkungan:
+   Salin berkas contoh `.env.example` menjadi `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+   Buka berkas `.env` dan sesuaikan koneksi database. Secara bawaan, proyek dapat langsung menggunakan SQLite.
+
+5. Buat Application Key aplikasi:
+   ```bash
+   php artisan key:generate
+   ```
+
+6. Jalankan migrasi basis data dan seeder data awal:
+   ```bash
+   php artisan migrate --seed
+   ```
+   Perintah ini membuat skema tabel sekaligus mengisi data awal peran, akun pengelola, susunan pengurus, dan contoh acara.
+
+7. Kompilasi aset tampilan antarmuka:
+   Untuk mode pengembangan aktif:
+   ```bash
+   npm run dev
+   ```
+   Atau untuk membangun berkas produksi:
+   ```bash
+   npm run build
+   ```
+
+8. Jalankan server lokal aplikasi:
+   Buka jendela terminal baru lalu jalankan:
+   ```bash
+   php artisan serve
+   ```
+   Aplikasi publik dapat dibuka melalui peramban di `http://localhost:8000`.
+
+---
+
+## Akses Panel Admin
+
+Panel manajemen Filament dapat diakses melalui alamat:
+```
+http://localhost:8000/admin
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Akun bawaan hasil seeder yang dapat digunakan untuk masuk:
+- Email: `admin@aozora.local`
+- Kata Sandi: `password`
+- Peran: `super_admin`
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Konfigurasi Layanan Tambahan
 
-## Code of Conduct
+Buka berkas `.env` untuk melengkapi konfigurasi fitur eksternal bila diperlukan:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Google OAuth
+Untuk mengaktifkan autentikasi akun Google, tambahkan kredensial dari Google Cloud Console:
+```env
+GOOGLE_CLIENT_ID=isi_client_id_anda
+GOOGLE_CLIENT_SECRET=isi_client_secret_anda
+GOOGLE_REDIRECT_URI="${APP_URL}/auth/google/callback"
+---
 
-## Security Vulnerabilities
+## Struktur Direktori Utama
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- `app/Filament/Resources/`: Konfigurasi resource panel admin Filament (acara, dokumentasi, inventaris, pengurus, peran, pengguna).
+- `app/Http/Controllers/`: Logika pemrosesan halaman publik, autentikasi, dan endpoint API chatbot Sora.
+- `app/Models/`: Model Eloquent untuk seluruh entitas data aplikasi.
+- `database/migrations/`: Berkas skema tabel basis data.
+- `database/seeders/`: Pengisi data awal peran, pengguna, pengurus, inventaris, dan acara.
+- `resources/views/`: Berkas template Blade untuk antarmuka pengguna web publik.
+- `routes/web.php`: Rute halaman publik dan rute API internal.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Lisensi
+
+Proyek ini menggunakan lisensi [MIT](LICENSE).
