@@ -44,9 +44,9 @@ class InventarisItem extends Model
         'hilang' => 'Hilang',
     ];
 
-    public function transaksi(): HasMany
+    public function loans(): HasMany
     {
-        return $this->hasMany(TransaksiInventaris::class, 'inventaris_item_id');
+        return $this->hasMany(Loan::class, 'inventaris_item_id');
     }
 
     public function laporanKerusakan(): HasMany

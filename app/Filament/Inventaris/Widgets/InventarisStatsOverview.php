@@ -4,7 +4,6 @@ namespace App\Filament\Inventaris\Widgets;
 
 use App\Models\InventarisItem;
 use App\Models\LaporanKerusakan;
-use App\Models\TransaksiInventaris;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 

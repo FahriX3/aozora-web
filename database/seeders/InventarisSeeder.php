@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\InventarisItem;
 use App\Models\LaporanKerusakan;
-use App\Models\TransaksiInventaris;
+use App\Models\Loan;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -105,24 +105,32 @@ class InventarisSeeder extends Seeder
         $kipas = InventarisItem::where('kode_barang', 'AOZ-CSP-003')->first();
 
         if ($yukataPink && $anggota) {
-            TransaksiInventaris::firstOrCreate([
+            Loan::firstOrCreate([
                 'inventaris_item_id' => $yukataPink->id,
                 'user_id' => $anggota->id,
-                'tipe' => 'keluar',
-                'jumlah' => 1,
-                'keterangan' => 'Peminjaman untuk sesi photoshoot promosi Matsuri',
-                'tanggal' => now()->subDays(2)->toDateString(),
+            ], [
+                'borrower_type' => 'internal',
+                'quantity' => 1,
+                'purpose' => 'Peminjaman untuk sesi photoshoot promosi Matsuri',
+                'borrow_date' => now()->subDays(2),
+                'status' => 'borrowed',
+                'condition_when_borrowed' => 'Baik',
+                'recorded_by_id' => $admin->id ?? $anggota->id,
             ]);
         }
 
         if ($speaker && $koor) {
-            TransaksiInventaris::firstOrCreate([
+            Loan::firstOrCreate([
                 'inventaris_item_id' => $speaker->id,
                 'user_id' => $koor->id,
-                'tipe' => 'keluar',
-                'jumlah' => 1,
-                'keterangan' => 'Latihan Anisong persiapan event',
-                'tanggal' => now()->subDays(1)->toDateString(),
+            ], [
+                'borrower_type' => 'internal',
+                'quantity' => 1,
+                'purpose' => 'Latihan Anisong persiapan event',
+                'borrow_date' => now()->subDays(1),
+                'status' => 'borrowed',
+                'condition_when_borrowed' => 'Baik',
+                'recorded_by_id' => $admin->id ?? $koor->id,
             ]);
         }
 
