@@ -315,8 +315,8 @@
                                         <div
                                             class="relative w-full h-[320px] md:h-[360px] rounded-xl overflow-hidden bg-indigo-night"
                                         >
-                                            @if($event->poster_path)
-    <img src="{{ Storage::url($event->poster_path) }}" alt="{{ $event->title }}" class="w-full h-full object-cover">
+                                            @if($event->display_image)
+    <img src="{{ $event->display_image }}" alt="{{ $event->title }}" class="w-full h-full object-cover">
 @else
     <div class="w-full h-full flex items-center justify-center bg-surface-container"><span class="material-symbols-outlined text-4xl text-outline-variant">image</span></div>
 @endif

@@ -434,11 +434,18 @@
                                 class="absolute top-0 left-0 w-full h-1.5 {{ $event->status === 'completed' ? 'bg-torii-vermilion' : 'bg-gold-shrine' }}">
                             </div>
 
-                            @if($event->poster_path)
-                                <div class="w-full h-48 overflow-hidden bg-surface-container-low">
-                                    <img src="{{ Storage::url($event->poster_path) }}" alt="{{ $event->title }}"
+                            @if($event->display_image)
+                                <div class="w-full h-48 overflow-hidden bg-surface-container-low relative">
+                                    <img src="{{ $event->display_image }}" alt="{{ $event->title }}"
                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         loading="lazy" decoding="async">
+                                    @if($event->youtube_thumbnail)
+                                        <div class="absolute inset-0 bg-black/20 flex items-center justify-center pointer-events-none group-hover:bg-black/10 transition-colors">
+                                            <span class="w-10 h-10 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-md">
+                                                <span class="material-symbols-outlined text-2xl ml-0.5">play_arrow</span>
+                                            </span>
+                                        </div>
+                                    @endif
                                 </div>
                             @endif
 
@@ -525,97 +532,43 @@
                                 class="font-label-badge text-label-badge text-torii-vermilion uppercase font-bold">SNAPSHOT
                                 REKAPITULASI</span>
                             <h4 class="font-headline-md text-headline-md text-indigo-night tracking-tight mt-0.5">
-                                Galeri Foto &amp; Aftermovie Matsuri
+                                Aftermovie Matsuri
                             </h4>
                         </div>
-                        <div class="flex items-center gap-space-xs font-label-badge text-label-badge">
-                            <span class="px-2 py-1 rounded bg-secondary-container/50 text-indigo-night">Total 250+
-                                Dokumentasi</span>
-                            <span class="px-2 py-1 rounded bg-sakura-tint text-torii-vermilion">Update Terbaru</span>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
-                        <!-- Video Mockup Preview (7 cols) -->
                         @if($aftermovieEvent)
+                            <div class="flex items-center gap-space-xs font-label-badge text-label-badge">
+                                <span class="px-2.5 py-1 rounded-full bg-torii-vermilion/10 text-torii-vermilion font-bold flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-torii-vermilion animate-ping"></span>
+                                    Official Aftermovie
+                                </span>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="w-full">
+                        <!-- Video Preview (Full Width) -->
+                        @if($aftermovieEvent && ($aftermovieEvent->youtube_embed_url || $aftermovieEvent->youtube_link))
                             <div
-                                class="md:col-span-7 relative rounded-xl overflow-hidden bg-indigo-night group aspect-video flex items-center justify-center shadow-inner">
-                                @if($aftermovieEvent->poster_path)
-                                    <img src="{{ Storage::url($aftermovieEvent->poster_path) }}"
-                                        class="absolute inset-0 w-full h-full object-cover opacity-60">
-                                @endif
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-indigo-night/90 via-indigo-night/30 to-transparent z-10 pointer-events-none">
-                                </div>
-                                <div class="absolute top-4 left-4 z-20 flex items-center gap-space-xs">
+                                class="w-full relative rounded-xl overflow-hidden bg-indigo-night aspect-video shadow-inner">
+                                <div class="absolute top-4 left-4 z-20 flex items-center gap-space-xs pointer-events-none">
                                     <span class="w-2.5 h-2.5 rounded-full bg-torii-vermilion animate-ping"></span>
                                     <span
-                                        class="font-label-badge text-label-badge text-cloud-white bg-indigo-night/60 px-2 py-0.5 rounded backdrop-blur-md uppercase">
+                                        class="font-label-badge text-label-badge text-cloud-white bg-indigo-night/70 px-2.5 py-1 rounded-md backdrop-blur-md uppercase tracking-wider font-bold">
                                         AFTERMOVIE {{ $aftermovieEvent->title }}
                                     </span>
                                 </div>
-                                <iframe src="{{ str_replace('watch?v=', 'embed/', $aftermovieEvent->youtube_link) }}"
-                                    class="w-full h-full border-0" allowfullscreen></iframe>
-                                <span class="material-symbols-outlined text-3xl ml-1"
-                                    style="font-variation-settings: 'FILL' 1;">play_arrow</span>
-                                </a>
+                                <iframe src="{{ $aftermovieEvent->youtube_embed_url ?? str_replace('watch?v=', 'embed/', $aftermovieEvent->youtube_link) }}"
+                                    class="w-full h-full border-0" 
+                                    title="Aftermovie {{ $aftermovieEvent->title }}"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
                             </div>
                         @else
                             <div
-                                class="md:col-span-7 relative rounded-xl overflow-hidden bg-surface-container-high group aspect-video flex flex-col items-center justify-center shadow-inner text-on-surface-variant">
+                                class="w-full relative rounded-xl overflow-hidden bg-surface-container-high aspect-video flex flex-col items-center justify-center shadow-inner text-on-surface-variant">
                                 <span class="material-symbols-outlined text-4xl mb-2">videocam_off</span>
                                 <span class="font-bold">Belum ada video aftermovie</span>
                             </div>
                         @endif
-                        <!-- 2 Gallery Thumbnails (5 cols) -->
-                        <div class="md:col-span-5 flex flex-col gap-space-sm justify-between">
-                            <div
-                                class="p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-center gap-space-md cursor-pointer group">
-                                <div
-                                    class="w-20 h-20 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary overflow-hidden relative shadow-sm">
-                                    <span
-                                        class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform text-primary">photo_camera</span>
-                                    <span
-                                        class="absolute bottom-1 right-1 font-label-badge text-[9px] bg-indigo-night/80 text-cloud-white px-1 rounded">24
-                                        JPG</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-badge text-label-badge text-torii-vermilion font-bold">FOTO
-                                        RESMI</span>
-                                    <span class="font-headline-sm text-sm font-bold text-indigo-night">Cosplay Showcase
-                                        &amp; Maid
-                                        Cafe 2025</span>
-                                    <span class="font-body-sm text-xs text-secondary mt-1">Dokumentasi Tim Jurnalistik
-                                        SMKN 1</span>
-                                </div>
-                            </div>
-                            <div
-                                class="p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-center gap-space-md cursor-pointer group">
-                                <div
-                                    class="w-20 h-20 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary overflow-hidden relative shadow-sm">
-                                    <span
-                                        class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform text-torii-vermilion">history_edu</span>
-                                    <span
-                                        class="absolute bottom-1 right-1 font-label-badge text-[9px] bg-indigo-night/80 text-cloud-white px-1 rounded">16
-                                        JPG</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-badge text-label-badge text-primary font-bold">HASIL
-                                        KARYA</span>
-                                    <span class="font-headline-sm text-sm font-bold text-indigo-night">Pameran Kaligrafi
-                                        Shodo Anggota
-                                        Baru</span>
-                                    <span class="font-body-sm text-xs text-secondary mt-1">Dipajang di Mading
-                                        Perpustakaan</span>
-                                </div>
-                            </div>
-                            <div
-                                class="p-space-sm rounded-xl bg-secondary-container/40 flex items-center justify-between px-space-md">
-                                <span class="font-body-sm text-body-sm text-indigo-night">Punya foto dokumentasi bersama
-                                    Aozora?</span>
-                                <a class="font-label-badge text-label-badge text-primary font-bold hover:underline"
-                                    href="#">Kirim ke Arsip ↗</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -45,9 +45,16 @@
                 <div class="rounded-2xl bg-cloud-white shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-full h-1.5 {{ $event->status === 'completed' ? 'bg-torii-vermilion' : 'bg-gold-shrine' }}"></div>
                     
-                    @if($event->poster_path)
-                    <div class="w-full h-48 overflow-hidden bg-surface-container-low">
-                        <img src="{{ Storage::url($event->poster_path) }}" alt="{{ $event->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    @if($event->display_image)
+                    <div class="w-full h-48 overflow-hidden bg-surface-container-low relative">
+                        <img src="{{ $event->display_image }}" alt="{{ $event->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        @if($event->youtube_thumbnail)
+                            <div class="absolute inset-0 bg-black/20 flex items-center justify-center pointer-events-none group-hover:bg-black/10 transition-colors">
+                                <span class="w-10 h-10 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-md">
+                                    <span class="material-symbols-outlined text-2xl ml-0.5">play_arrow</span>
+                                </span>
+                            </div>
+                        @endif
                     </div>
                     @else
                     <div class="w-full h-48 overflow-hidden bg-surface-container-low flex items-center justify-center">

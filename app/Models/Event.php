@@ -53,4 +53,40 @@ class Event extends Model
     {
         return $this->hasMany(EventRundown::class)->orderBy('time');
     }
+
+    public function getYoutubeIdAttribute(): ?string
+    {
+        if (empty($this->youtube_link)) {
+            return null;
+        }
+
+        $link = (string) $this->youtube_link;
+
+        if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $link, $match)) {
+            return $match[1];
+        }
+
+        return null;
+    }
+
+    public function getYoutubeThumbnailAttribute(): ?string
+    {
+        $id = $this->youtube_id;
+        return $id ? "https://img.youtube.com/vi/{$id}/hqdefault.jpg" : null;
+    }
+
+    public function getYoutubeEmbedUrlAttribute(): ?string
+    {
+        $id = $this->youtube_id;
+        return $id ? "https://www.youtube.com/embed/{$id}" : null;
+    }
+
+    public function getDisplayImageAttribute(): ?string
+    {
+        if ($this->youtube_thumbnail) {
+            return $this->youtube_thumbnail;
+        }
+
+        return $this->poster_path ? \Illuminate\Support\Facades\Storage::url($this->poster_path) : null;
+    }
 }

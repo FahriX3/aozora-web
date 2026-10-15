@@ -27,8 +27,8 @@
             @if($currentFeatured)
                 <div class="fe-current-preview">
                     <div class="fe-preview-row">
-                        @if($currentFeatured->poster_path)
-                            <img src="{{ Storage::url($currentFeatured->poster_path) }}" alt="{{ $currentFeatured->title }}" width="100" height="100" class="fe-poster" />
+                        @if($currentFeatured->display_image)
+                            <img src="{{ $currentFeatured->display_image }}" alt="{{ $currentFeatured->title }}" width="100" height="100" class="fe-poster" />
                         @else
                             <div class="fe-poster-placeholder">
                                 No Image

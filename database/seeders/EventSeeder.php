@@ -20,9 +20,19 @@ class EventSeeder extends Seeder
         }
 
         $imageName = 'semple.jpg';
-        $fallbackImage = public_path('assets/DSC02070.jpg');
-        if (File::exists($fallbackImage) && !File::exists($destPath . '/' . $imageName)) {
-            File::copy($fallbackImage, $destPath . '/' . $imageName);
+        $fallbackCandidates = [
+            public_path('assets/events/' . $imageName),
+            base_path('stitch_aozora_japanese_club_landing_page/' . $imageName),
+            public_path('assets/DSC02070.jpg'),
+        ];
+
+        if (!File::exists($destPath . '/' . $imageName)) {
+            foreach ($fallbackCandidates as $source) {
+                if (File::exists($source)) {
+                    File::copy($source, $destPath . '/' . $imageName);
+                    break;
+                }
+            }
         }
 
         $posterPath = File::exists($destPath . '/' . $imageName) ? 'events/' . $imageName : null;
@@ -39,6 +49,9 @@ class EventSeeder extends Seeder
                 'location' => 'Aula Graha SMKN 1',
                 'poster_path' => $posterPath,
                 'status' => 'completed',
+                'is_featured' => true,
+                'is_aftermovie' => true,
+                'youtube_link' => 'https://www.youtube.com/watch?v=TceXpTTdTHw',
             ]
         );
 
