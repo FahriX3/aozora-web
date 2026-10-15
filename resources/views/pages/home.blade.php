@@ -359,7 +359,7 @@
                         <div
                             class="pt-space-md mt-space-sm flex items-center gap-space-xs text-primary font-label-badge text-label-badge">
                             <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                            <span class="">Keluarga Besar Smecon</span>
+                            <span class="">Keluarga Besar Smecone</span>
                         </div>
                     </div>
                     <!-- Pillar 4 -->

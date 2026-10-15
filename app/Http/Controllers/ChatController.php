@@ -23,11 +23,11 @@ class ChatController extends Controller
      */
     private function getBaseKnowledge(): string
     {
-        return Cache::remember('sora_base_knowledge_v5', 300, function () {
+        return Cache::remember('sora_base_knowledge_v6', 300, function () {
             $lines = [];
 
             // 1. Profil Umum & Sekolah
-            $lines[] = '• Profil: Aozora Nihongo Club adalah ekstrakurikuler Bahasa dan Budaya Jepang resmi di SMK Negeri 1 Purwokerto (SMECO).';
+            $lines[] = '• Profil: Aozora Nihongo Club adalah ekstrakurikuler Bahasa dan Budaya Jepang resmi di SMK Negeri 1 Purwokerto (Smecone).';
             $lines[] = '• Lokasi Sekolah: SMKN 1 Purwokerto, Jl. Dr. Soeparno No. 29, Purwokerto Timur, Kab. Banyumas, Jawa Tengah.';
             $lines[] = '• Jadwal Kumpul Rutin: Setiap hari Kamis pukul 16.00 - 17.00 WIB di lingkungan SMKN 1 Purwokerto.';
             $lines[] = "• Slogan: 'Ichigo Ichie' (一期一会 - satu pertemuan seumur hidup) & 'Aozora: Blue Skies Ahead'.";
@@ -188,7 +188,7 @@ class ChatController extends Controller
 
         // Check if query is asking about Pembina / Guru
         if (str_contains($query, 'pembina') || str_contains($query, 'guru')) {
-            $extras[] = '• Pembina Ekstrakurikuler: Kikie Astri Mahdalika S.Pd (Guru Pembina SMECO).';
+            $extras[] = '• Pembina Ekstrakurikuler: Kikie Astri Mahdalika S.Pd (Guru Pembina Smecone).';
         }
 
         // Check if query is asking about Ketua / Wakil
@@ -247,7 +247,7 @@ class ChatController extends Controller
         $dynamicContext = $this->getDynamicContext($userQuery);
 
         return <<<PROMPT
-Kamu adalah Sora (そら), asisten AI resmi sekaligus maskot Aozora Nihongo Club di SMKN 1 Purwokerto (SMECO), Banyumas, Jawa Tengah.
+Kamu adalah Sora (そら), asisten AI resmi sekaligus maskot Aozora Nihongo Club di SMKN 1 Purwokerto (Smecone), Banyumas, Jawa Tengah.
 
 KEPRIBADIAN & GAYA KOMUNIKASI:
 1. Ramah, ceria, sopan, dan hangat layaknya teman sebaya di sekolah (genki & bersahabat).
@@ -262,7 +262,7 @@ KEPRIBADIAN & GAYA KOMUNIKASI:
 8. JIKA DITANYA DAFTAR DIVISI: Cukup sebutkan nama 6 divisi dan fokus singkatnya saja dalam 1 baris per nomor. JANGAN sertakan nama koordinator kecuali jika pengguna bertanya siapa koordinatornya.
 
 ATURAN KEBENARAN FAKTA (GROUNDING DATA):
-1. Identitas & Sekolahmu HANYA SATU: SMKN 1 Purwokerto (SMECO), Banyumas, Jawa Tengah. DILARANG KERAS menyebut sekolah atau kota lain (DILARANG menyebut Klaten, Kebumen, Solo, dsb).
+1. Identitas & Sekolahmu HANYA SATU: SMKN 1 Purwokerto (Smecone), Banyumas, Jawa Tengah. DILARANG KERAS menyebut sekolah atau kota lain (DILARANG menyebut Klaten, Kebumen, Solo, dsb).
 2. Jawab pertanyaan seputar klub, sekolah, pengurus, ketua, pembina, jadwal, divisi, dan event HANYA berdasarkan "FAKTA RESMI AOZORA" di bawah ini.
 3. DILARANG KERAS mengarang nama orang, organisasi, atau sekolah lain.
 4. Jika ditanya hal seputar klub yang tidak tercantum dalam fakta di bawah, katakan dengan sopan dan ramah bahwa kamu belum memiliki informasi tersebut.
