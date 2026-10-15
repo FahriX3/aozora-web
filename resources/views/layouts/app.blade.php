@@ -253,10 +253,10 @@
         </div>
     </header>
 
-    <main class="w-full pt-20 bg-surface min-h-screen">
+    <main class="w-full pt-20 min-h-screen relative z-10">
         @yield('content')
     </main>
-    <footer class="w-full bg-indigo-night text-cloud-white pt-space-2xl pb-space-xl relative overflow-hidden">
+    <footer class="w-full bg-indigo-night text-cloud-white pt-space-2xl pb-space-xl relative z-10 overflow-hidden">
         <div
             class="absolute -right-16 -top-16 text-[220px] font-headline-lg font-extrabold text-cloud-white/[0.03] select-none pointer-events-none">
             青空

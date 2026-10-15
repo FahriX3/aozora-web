@@ -1,7 +1,7 @@
 {{-- JAPANESE AMBIENT COMPONENT: FALLING SAKURA PETALS & TRADITIONAL KOTO BGM --}}
 <div>
-    {{-- 1. Fullscreen Falling Sakura Canvas --}}
-    <canvas id="sakura-canvas" class="fixed inset-0 pointer-events-none z-[35] w-full h-full" aria-hidden="true"></canvas>
+    {{-- 1. Fullscreen Falling Sakura Canvas (Background Layer z-[1]) --}}
+    <canvas id="sakura-canvas" class="fixed inset-0 pointer-events-none z-[1] w-full h-full" aria-hidden="true"></canvas>
 
     {{-- 2. Audio Element --}}
     <audio id="aozora-bgm" src="{{ asset('audio/koto_bgm.mp3') }}" preload="auto" loop></audio>
@@ -89,7 +89,7 @@
 <script>
     (function () {
         // =======================================================
-        // 1. FALLING SAKURA PETALS ENGINE (CANVAS 60FPS)
+        // 1. FALLING SAKURA ENGINE WITH SCROLL PARALLAX & DEPTH
         // =======================================================
         const canvas = document.getElementById('sakura-canvas');
         if (!canvas) return;
@@ -102,50 +102,111 @@
         let sakuraEnabled = localStorage.getItem('aozora_sakura_enabled') !== 'false';
         let animationFrameId = null;
 
+        // Scroll Tracking for Natural Parallax Physics
+        let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
+        let targetScrollDelta = 0;
+        let currentScrollVelocity = 0;
+
+        function onScroll() {
+            const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+            const diff = currentScrollY - lastScrollY;
+            lastScrollY = currentScrollY;
+
+            // Cap instant jumps (e.g. clicking anchor link jumping 2000px in 1ms)
+            const maxInstantJump = 280;
+            if (Math.abs(diff) > maxInstantJump) {
+                targetScrollDelta += Math.sign(diff) * maxInstantJump;
+            } else {
+                targetScrollDelta += diff;
+            }
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+
         // Resize handler
         function onResize() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
+            lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
+            targetScrollDelta = 0;
         }
         window.addEventListener('resize', onResize);
 
-        // Sakura Petal Class
+        // Sakura Petal Class with 3D Depth Layering
         class Petal {
             constructor() {
                 this.reset(true);
             }
 
-            reset(initial = false) {
+            reset(initial = false, fromBottom = false) {
                 this.x = Math.random() * width;
-                this.y = initial ? Math.random() * height : -20 - Math.random() * 50;
-                this.size = Math.random() * 8 + 8; // 8px - 16px
-                this.speedX = Math.random() * 1.5 + 0.5; // drifting right
-                this.speedY = Math.random() * 1.2 + 0.9; // falling down
+                // 3D Parallax Depth: 0.35 (deep background) to 1.05 (near background)
+                this.depth = Math.random() * 0.7 + 0.35;
+
+                if (initial) {
+                    this.y = Math.random() * height;
+                } else if (fromBottom) {
+                    this.y = height + 15 + Math.random() * 40;
+                } else {
+                    this.y = -20 - Math.random() * 50;
+                }
+
+                // Scale size and speeds by depth
+                this.size = (Math.random() * 6 + 7) * (0.65 + this.depth * 0.45); // 7px - 16px
+                this.speedX = (Math.random() * 1.0 + 0.4) * (0.8 + this.depth * 0.3); // drifting right
+                this.speedY = (Math.random() * 0.8 + 0.8) * (0.7 + this.depth * 0.35); // gravity fall
                 this.angle = Math.random() * Math.PI * 2;
                 this.rotationSpeed = (Math.random() - 0.5) * 0.03;
                 this.roll = Math.random() * Math.PI * 2;
-                this.rollSpeed = Math.random() * 0.04 + 0.01;
-                this.opacity = Math.random() * 0.4 + 0.5; // 0.5 - 0.9
+                this.rollSpeed = Math.random() * 0.035 + 0.015;
+                this.swaySpeed = Math.random() * 0.02 + 0.015;
+                this.swayOffset = Math.random() * Math.PI * 2;
+                this.driftFactor = (Math.random() - 0.3) * 1.5; // individual wind susceptibility
+                this.opacity = (Math.random() * 0.25 + 0.5) * (0.6 + this.depth * 0.4); // 0.4 - 0.85
                 
                 // Color palette (soft cherry blossom gradients)
                 const colors = [
                     { r: 255, g: 183, b: 197 }, // Classic sakura pink
                     { r: 255, g: 197, b: 211 }, // Light blossom
-                    { r: 253, g: 226, b: 233 }, // Very soft pink
+                    { r: 253, g: 226, b: 233 }, // Very soft pastel pink
                     { r: 251, g: 168, b: 188 }  // Deeper rose pink
                 ];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
             }
 
-            update() {
+            update(scrollStep, scrollVel) {
+                // 1. Natural gravity fall
                 this.y += this.speedY;
-                this.x += Math.sin(this.angle) * 0.8 + this.speedX;
-                this.angle += this.rotationSpeed;
-                this.roll += this.rollSpeed;
 
-                // Reset when off screen
-                if (this.y > height + 25 || this.x > width + 25 || this.x < -25) {
-                    this.reset(false);
+                // 2. Horizontal gentle organic sway
+                this.x += Math.sin(this.swayOffset) * 0.75 + this.speedX;
+                this.swayOffset += this.swaySpeed;
+
+                // 3. Scroll Parallax Reaction ("ngikutin halaman aslinya"):
+                // Scrolling DOWN (page scrolls UP, scrollStep > 0): Petals move UP relative to viewport!
+                // Scrolling UP (page scrolls DOWN, scrollStep < 0): Petals move DOWN relative to viewport!
+                // Depth factor ensures distant petals move slower, near petals move 1:1 with page
+                this.y -= scrollStep * (this.depth * 0.92);
+
+                // 4. Scroll Airflow & Wind Swirl ("lebih fleksible"):
+                this.x += scrollStep * 0.035 * this.driftFactor;
+                this.angle += this.rotationSpeed + scrollVel * 0.003;
+                this.roll += this.rollSpeed + Math.abs(scrollVel) * 0.007;
+
+                // 5. Boundary wrapping & smooth replenishment:
+                // Petal moved past top (from user scrolling down quickly)
+                if (this.y < -45) {
+                    this.reset(false, true); // wrap to bottom
+                }
+                // Petal moved past bottom (natural fall or user scrolling up quickly)
+                else if (this.y > height + 45) {
+                    this.reset(false, false); // wrap to top
+                }
+
+                // Horizontal wrap-around
+                if (this.x > width + 40) {
+                    this.x = -35;
+                } else if (this.x < -40) {
+                    this.x = width + 35;
                 }
             }
 
@@ -157,7 +218,7 @@
                 ctx.scale(1, Math.cos(this.roll));
 
                 ctx.beginPath();
-                // Draw realistic organic petal curve with a small heart-notch at top
+                // Realistic organic petal curve with heart-notch
                 ctx.moveTo(0, -this.size);
                 ctx.bezierCurveTo(this.size * 0.8, -this.size * 0.8, this.size * 0.8, this.size * 0.5, 0, this.size);
                 ctx.bezierCurveTo(-this.size * 0.8, this.size * 0.5, -this.size * 0.8, -this.size * 0.8, 0, -this.size);
@@ -166,7 +227,7 @@
                 const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size);
                 grad.addColorStop(0, `rgba(${this.color.r + 10}, ${this.color.g + 10}, ${this.color.b + 10}, ${this.opacity})`);
                 grad.addColorStop(0.8, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.opacity * 0.9})`);
-                grad.addColorStop(1, `rgba(244, 114, 182, ${this.opacity * 0.6})`);
+                grad.addColorStop(1, `rgba(244, 114, 182, ${this.opacity * 0.55})`);
 
                 ctx.fillStyle = grad;
                 ctx.fill();
@@ -174,9 +235,9 @@
             }
         }
 
-        // Initialize Petal Pool (balanced for high performance)
+        // Initialize Petal Pool (balanced for high performance 60 FPS)
         function initPetals() {
-            const count = window.innerWidth < 768 ? 16 : 32;
+            const count = window.innerWidth < 768 ? 18 : 34;
             petals = [];
             for (let i = 0; i < count; i++) {
                 petals.push(new Petal());
@@ -184,16 +245,24 @@
         }
         initPetals();
 
-        // Render Loop
+        // Render Loop with Fluid Damping
         function renderSakura() {
             if (!sakuraEnabled) {
                 ctx.clearRect(0, 0, width, height);
                 return;
             }
 
+            // Smoothly consume scroll delta with lerp dampening for buttery 60 FPS motion
+            const scrollStep = targetScrollDelta * 0.65;
+            targetScrollDelta -= scrollStep;
+            if (Math.abs(targetScrollDelta) < 0.08) targetScrollDelta = 0;
+
+            // Calculate decaying scroll velocity for wind airflow physics
+            currentScrollVelocity = currentScrollVelocity * 0.85 + scrollStep * 0.15;
+
             ctx.clearRect(0, 0, width, height);
             for (let i = 0; i < petals.length; i++) {
-                petals[i].update();
+                petals[i].update(scrollStep, currentScrollVelocity);
                 petals[i].draw();
             }
 
@@ -205,6 +274,8 @@
             if (document.hidden) {
                 if (animationFrameId) cancelAnimationFrame(animationFrameId);
             } else if (sakuraEnabled) {
+                lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
+                targetScrollDelta = 0;
                 renderSakura();
             }
         });
