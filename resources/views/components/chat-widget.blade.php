@@ -198,7 +198,7 @@
                 <span class="inline-block w-1.5 h-1.5 bg-primary/60 rounded-full animate-bounce"></span>
                 <span class="inline-block w-1.5 h-1.5 bg-primary/60 rounded-full animate-bounce [animation-delay:0.2s]"></span>
                 <span class="inline-block w-1.5 h-1.5 bg-primary/60 rounded-full animate-bounce [animation-delay:0.4s]"></span>
-                <span class="ml-1 text-gray-400">Sora sedang mengetik...</span>
+                <span class="ml-1 text-gray-400">Sora sedang berpikir...</span>
             </div>
         </div>
 
