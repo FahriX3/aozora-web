@@ -556,11 +556,19 @@
                             <div class="p-space-lg flex-1 flex flex-col">
                                 <!-- Header Tags -->
                                 <div class="flex items-center justify-between gap-space-xs mb-space-sm">
-                                    <span
-                                        class="px-2.5 py-1 rounded-full {{ $event->status === 'completed' ? 'bg-sakura-tint text-torii-vermilion' : 'bg-gold-shrine/15 text-gold-shrine' }} font-label-badge text-label-badge font-bold uppercase truncate">
-                                        {{ $event->subtitle ?? 'EVENT' }}
-                                    </span>
-                                    <span class="font-label-badge text-label-badge text-secondary font-medium">
+                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                        @if($event->is_featured)
+                                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-700 border border-amber-300/40 text-[11px] font-bold uppercase tracking-wider">
+                                                <span class="material-symbols-outlined text-xs text-amber-500">star</span>
+                                                Unggulan
+                                            </span>
+                                        @endif
+                                        <span
+                                            class="px-2.5 py-1 rounded-full {{ $event->status === 'completed' ? 'bg-sakura-tint text-torii-vermilion' : 'bg-gold-shrine/15 text-gold-shrine' }} font-label-badge text-label-badge font-bold uppercase truncate">
+                                            {{ $event->subtitle ?? 'EVENT' }}
+                                        </span>
+                                    </div>
+                                    <span class="font-label-badge text-label-badge text-secondary font-medium shrink-0">
                                         {{ \Carbon\Carbon::parse($event->event_date)->translatedFormat('d M Y') }}
                                     </span>
                                 </div>

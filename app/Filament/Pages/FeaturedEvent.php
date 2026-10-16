@@ -39,7 +39,7 @@ class FeaturedEvent extends Page
 
     public function mount(): void
     {
-        $current = Event::where('is_aftermovie', true)->first() 
+        $current = Event::where('is_aftermovie', true)->first()
             ?? Event::where('is_featured', true)->first();
 
         if ($current) {
@@ -60,13 +60,12 @@ class FeaturedEvent extends Page
             'youtube_link.url' => 'Format URL YouTube tidak valid. Contoh: https://www.youtube.com/watch?v=... atau https://youtu.be/...',
         ]);
 
-        // Reset semua event lain
+        // Reset status aftermovie pada event lain (karena aftermovie utama di beranda hanya ada 1)
         Event::query()->update([
             'is_aftermovie' => false,
-            'is_featured' => false,
         ]);
 
-        // Aktifkan event yang dipilih
+        // Aktifkan event yang dipilih sebagai aftermovie utama & pastikan featured aktif
         $event = Event::findOrFail($this->event_id);
         $event->update([
             'is_aftermovie' => true,
@@ -85,7 +84,7 @@ class FeaturedEvent extends Page
     {
         return [
             'events' => Event::orderBy('event_date', 'desc')->get(),
-            'currentFeatured' => Event::where('is_aftermovie', true)->first() 
+            'currentFeatured' => Event::where('is_aftermovie', true)->first()
                 ?? Event::where('is_featured', true)->first(),
         ];
     }

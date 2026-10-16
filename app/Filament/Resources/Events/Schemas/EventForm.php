@@ -6,15 +6,17 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Components\Wizard;
 use Filament\Schemas\Components\Wizard\Step;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 class EventForm
 {
@@ -36,7 +38,7 @@ class EventForm
                                             ->placeholder('Contoh: Bunkasai Matsuri SMKN 1: "Haru no Hikari"')
                                             ->required()
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', \Illuminate\Support\Str::slug($state)) : null),
+                                            ->afterStateUpdated(fn (string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
                                         TextInput::make('slug')
                                             ->label('Slug URL')
                                             ->placeholder('bunkasai-matsuri-2026')
@@ -75,13 +77,17 @@ class EventForm
                                             ])
                                             ->default('upcoming')
                                             ->required(),
-                                        FileUpload::make('poster_path')
-                                            ->label('Poster Event')
-                                            ->image()
-                                            ->directory('events')
-                                            ->disk('public')
-                                            ->visibility('public'),
+                                        Toggle::make('is_featured')
+                                            ->label('Jadikan Event Unggulan (Satuan)')
+                                            ->helperText('Jika aktif, event ini akan selalu tampil di carousel beranda')
+                                            ->default(false),
                                     ]),
+                                    FileUpload::make('poster_path')
+                                        ->label('Poster Event')
+                                        ->image()
+                                        ->directory('events')
+                                        ->disk('public')
+                                        ->visibility('public'),
                                 ]),
                         ]),
 
@@ -155,8 +161,8 @@ class EventForm
                                 ]),
                         ]),
                 ])
-                ->skippable()
-                ->columnSpanFull(),
+                    ->skippable()
+                    ->columnSpanFull(),
             ]);
     }
 }

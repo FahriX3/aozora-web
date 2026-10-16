@@ -7,9 +7,9 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class EventsTable
@@ -43,13 +43,10 @@ class EventsTable
                         'completed' => 'success',
                         default => 'gray',
                     }),
-                IconColumn::make('is_featured')
-                    ->label('Unggulan')
-                    ->boolean()
-                    ->trueIcon('heroicon-o-star')
-                    ->falseIcon('heroicon-o-minus')
-                    ->trueColor('warning')
-                    ->falseColor('gray'),
+                ToggleColumn::make('is_featured')
+                    ->label('Unggulan Satuan')
+                    ->sortable()
+                    ->tooltip('Aktifkan untuk menampilkan event ini di carousel beranda'),
                 TextColumn::make('youtube_link')
                     ->label('YouTube')
                     ->icon('heroicon-o-play')
