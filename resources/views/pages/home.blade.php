@@ -407,7 +407,6 @@
                 x-data="{
                     currentIndex: 0,
                     autoplayTimer: null,
-                    isHovered: false,
                     totalCards: {{ $featuredEvents->count() }},
 
                     init() {
@@ -421,11 +420,10 @@
                     startAutoplay() {
                         if (this.totalCards <= 1) return;
                         this.stopAutoplay();
+                        // Geser otomatis setiap 3.2 detik tanpa terblokir hover sembarangan
                         this.autoplayTimer = setInterval(() => {
-                            if (!this.isHovered) {
-                                this.next();
-                            }
-                        }, 5000);
+                            this.slideNext(true);
+                        }, 3200);
                     },
 
                     stopAutoplay() {
@@ -445,9 +443,11 @@
                         }
                     },
 
-                    next() {
+                    slideNext(fromAutoplay = false) {
                         const el = this.$refs.sliderTrack;
                         if (!el) return;
+                        if (!fromAutoplay) this.startAutoplay();
+                        
                         const firstCard = el.querySelector('.event-slide-card');
                         const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 400;
                         
@@ -458,7 +458,8 @@
                         }
                     },
 
-                    prev() {
+                    slidePrev() {
+                        this.startAutoplay();
                         const el = this.$refs.sliderTrack;
                         if (!el) return;
                         const firstCard = el.querySelector('.event-slide-card');
@@ -472,6 +473,7 @@
                     },
 
                     goTo(idx) {
+                        this.startAutoplay();
                         const el = this.$refs.sliderTrack;
                         if (!el) return;
                         const firstCard = el.querySelector('.event-slide-card');
@@ -479,9 +481,7 @@
                         el.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
                         this.currentIndex = idx;
                     }
-                }"
-                @mouseenter="isHovered = true"
-                @mouseleave="isHovered = false">
+                }">
                 <!-- Section Header -->
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md">
                     <div class="flex flex-col">
@@ -508,13 +508,13 @@
                             <span x-text="totalCards + ' Agenda Event'">{{ $featuredEvents->count() }} Agenda Event</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <button @click="prev()"
+                            <button @click="slidePrev()"
                                 class="w-11 h-11 rounded-xl bg-white hover:bg-primary text-indigo-night hover:text-white border border-gray-200/80 shadow-xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer group active:scale-95"
                                 title="Event Sebelumnya"
                                 aria-label="Event Sebelumnya">
                                 <span class="material-symbols-outlined text-xl transition-transform group-hover:-translate-x-0.5">arrow_back</span>
                             </button>
-                            <button @click="next()"
+                            <button @click="slideNext()"
                                 class="w-11 h-11 rounded-xl bg-white hover:bg-primary text-indigo-night hover:text-white border border-gray-200/80 shadow-xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer group active:scale-95"
                                 title="Event Selanjutnya"
                                 aria-label="Event Selanjutnya">
