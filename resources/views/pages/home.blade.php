@@ -401,10 +401,9 @@
                 </div>
             </div>
         </section>
-        <!-- SECTION 3: AGENDA EVENT TERBARU & CAROUSEL SLIDER (VIDEOTRON STREAM) -->
-        <section class="w-full py-space-2xl relative" id="event">
-            <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin"
-                x-data="{
+        <!-- SECTION 3: AGENDA EVENT TERBARU & CAROUSEL SLIDER (VIDEOTRON FULL-WIDTH STREAM) -->
+        <section class="w-full py-space-2xl relative overflow-hidden" id="event"
+            x-data="{
                     isPaused: false,
                     isDown: false,
                     isDragging: false,
@@ -566,11 +565,12 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Carousel Slider Track (Videotron Endless Stream) -->
-                <div class="relative group/track"
-                    @mouseenter="isPaused = true"
-                    @mouseleave="if (!isDown) isPaused = false">
+            <!-- Full-Width Videotron Stream (Mentok layar kiri-kanan tanpa terpotong batas grid) -->
+            <div class="w-full relative group/track overflow-hidden my-2"
+                @mouseenter="isPaused = true"
+                @mouseleave="if (!isDown) isPaused = false">
                     <div x-ref="sliderTrack"
                         class="flex gap-space-lg overflow-x-auto py-3 px-1 select-none cursor-grab active:cursor-grabbing"
                         style="scrollbar-width: none; -ms-overflow-style: none; touch-action: pan-y; -webkit-overflow-scrolling: touch;">
@@ -680,13 +680,15 @@
                             <p class="text-sm text-gray-500 mt-1">Aktifkan toggle 'Unggulan Satuan' pada daftar event di panel Admin untuk menampilkannya di sini.</p>
                         </div>
                     @endif
-                    </div>
+                </div>
+            </div>
 
-                    <!-- Interactive Drag & Gesture Hint -->
-                    <div class="flex items-center justify-center gap-2 mt-5 text-xs text-on-surface-variant/80 font-medium select-none" x-show="totalCards > 1">
-                        <span class="material-symbols-outlined text-sm text-amber-500 animate-pulse">swipe</span>
-                        <span>Geser dengan mouse atau jari untuk menjelajah • Arahkan kursor untuk jeda</span>
-                    </div>
+            <!-- Bagian Bawah: Hint, CTA & Aftermovie (Kembali ke dalam batasan grid 1280px) -->
+            <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin">
+                <!-- Interactive Drag & Gesture Hint -->
+                <div class="flex items-center justify-center gap-2 mt-3 mb-space-sm text-xs text-on-surface-variant/80 font-medium select-none" x-show="totalCards > 1">
+                    <span class="material-symbols-outlined text-sm text-amber-500 animate-pulse">swipe</span>
+                    <span>Geser dengan mouse atau jari untuk menjelajah • Arahkan kursor untuk jeda</span>
                 </div>
                 <!-- Prominent Call to Action Button for Full Event Archive -->
                 <div class="mt-space-xl flex justify-center">
