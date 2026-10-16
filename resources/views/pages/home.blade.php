@@ -408,22 +408,87 @@
                     currentIndex: 0,
                     autoplayTimer: null,
                     totalCards: {{ $featuredEvents->count() }},
+                    isDown: false,
+                    isDragging: false,
+                    startX: 0,
+                    scrollStart: 0,
+                    lastX: 0,
+                    lastTime: 0,
+                    velocity: 0,
 
                     init() {
                         this.updateIndex();
                         this.startAutoplay();
-                        this.$refs.sliderTrack.addEventListener('scroll', () => {
+                        
+                        const track = this.$refs.sliderTrack;
+                        if (!track) return;
+
+                        track.addEventListener('scroll', () => {
                             this.updateIndex();
+                        }, { passive: true });
+
+                        // Drag to scroll dengan mouse (Desktop)
+                        track.addEventListener('mousedown', (e) => {
+                            if (e.button !== 0) return; // Hanya klik kiri
+                            this.isDown = true;
+                            this.isDragging = false;
+                            this.startX = e.pageX - track.offsetLeft;
+                            this.scrollStart = track.scrollLeft;
+                            this.lastX = e.pageX;
+                            this.lastTime = Date.now();
+                            this.velocity = 0;
+                            this.stopAutoplay();
+                            track.style.scrollBehavior = 'auto';
+                            track.style.scrollSnapType = 'none';
+                        });
+
+                        window.addEventListener('mousemove', (e) => {
+                            if (!this.isDown) return;
+                            const x = e.pageX - track.offsetLeft;
+                            const walk = x - this.startX;
+                            if (Math.abs(walk) > 6) {
+                                this.isDragging = true;
+                            }
+                            track.scrollLeft = this.scrollStart - walk;
+                            const now = Date.now();
+                            const dt = now - this.lastTime;
+                            if (dt > 0) {
+                                this.velocity = (e.pageX - this.lastX) / dt;
+                                this.lastX = e.pageX;
+                                this.lastTime = now;
+                            }
+                        });
+
+                        window.addEventListener('mouseup', () => {
+                            if (!this.isDown) return;
+                            this.isDown = false;
+                            track.style.scrollBehavior = 'smooth';
+                            if (Math.abs(this.velocity) > 0.2) {
+                                track.scrollBy({ left: -this.velocity * 320, behavior: 'smooth' });
+                            }
+                            setTimeout(() => {
+                                track.style.scrollSnapType = 'x proximity';
+                                this.isDragging = false;
+                                this.startAutoplay();
+                            }, 250);
+                        });
+
+                        // Touch gestures pada HP
+                        track.addEventListener('touchstart', () => {
+                            this.stopAutoplay();
+                        }, { passive: true });
+
+                        track.addEventListener('touchend', () => {
+                            this.startAutoplay();
                         }, { passive: true });
                     },
 
                     startAutoplay() {
-                        if (this.totalCards <= 1) return;
+                        if (this.totalCards <= 1 || this.isDown) return;
                         this.stopAutoplay();
-                        // Geser otomatis setiap 3.2 detik tanpa terblokir hover sembarangan
                         this.autoplayTimer = setInterval(() => {
                             this.slideNext(true);
-                        }, 3200);
+                        }, 3500);
                     },
 
                     stopAutoplay() {
@@ -451,7 +516,7 @@
                         const firstCard = el.querySelector('.event-slide-card');
                         const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 400;
                         
-                        if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 15) {
+                        if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 20) {
                             el.scrollTo({ left: 0, behavior: 'smooth' });
                         } else {
                             el.scrollBy({ left: cardWidth, behavior: 'smooth' });
@@ -465,7 +530,7 @@
                         const firstCard = el.querySelector('.event-slide-card');
                         const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 400;
                         
-                        if (el.scrollLeft <= 15) {
+                        if (el.scrollLeft <= 20) {
                             el.scrollTo({ left: el.scrollWidth, behavior: 'smooth' });
                         } else {
                             el.scrollBy({ left: -cardWidth, behavior: 'smooth' });
@@ -503,9 +568,9 @@
 
                     <!-- Slider Navigation Controls (Menggantikan Mockup Tab Filter) -->
                     <div class="flex items-center gap-3 self-start md:self-auto">
-                        <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 border border-gray-200/80 text-xs text-secondary font-medium shadow-2xs">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <span x-text="totalCards + ' Agenda Event'">{{ $featuredEvents->count() }} Agenda Event</span>
+                        <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 border border-gray-200/80 text-xs text-secondary font-medium shadow-2xs" x-show="totalCards > 0">
+                            <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                            <span x-text="totalCards + ' Event Unggulan'">{{ $featuredEvents->count() }} Event Unggulan</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <button @click="slidePrev()"
@@ -525,11 +590,13 @@
                 </div>
 
                 <!-- Carousel Slider Track -->
-                <div class="relative">
+                <div class="relative"
+                    @mouseenter="stopAutoplay()"
+                    @mouseleave="startAutoplay()">
                     <div x-ref="sliderTrack"
-                        class="flex gap-space-lg overflow-x-auto scroll-smooth snap-x snap-mandatory py-3 px-1"
-                        style="scrollbar-width: none; -ms-overflow-style: none;">
-                    @foreach($featuredEvents as $event)
+                        class="flex gap-space-lg overflow-x-auto py-3 px-1 select-none cursor-grab active:cursor-grabbing scroll-smooth"
+                        style="scrollbar-width: none; -ms-overflow-style: none; scroll-snap-type: x proximity; touch-action: pan-y; -webkit-overflow-scrolling: touch;">
+                    @forelse($featuredEvents as $event)
                         <div
                             class="event-slide-card w-[88vw] sm:w-[380px] md:w-[400px] lg:w-[420px] shrink-0 snap-start rounded-2xl bg-cloud-white shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden border border-gray-100 hover:-translate-y-1">
                             <div
@@ -539,7 +606,8 @@
                             @if($event->display_image)
                                 <div class="w-full h-48 overflow-hidden bg-surface-container-low relative">
                                     <img src="{{ $event->display_image }}" alt="{{ $event->title }}"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        draggable="false"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none select-none"
                                         loading="lazy" decoding="async">
                                     @if($event->youtube_thumbnail)
                                         <div
@@ -614,6 +682,7 @@
                             </div>
                             <div class="px-space-lg pb-space-lg">
                                 <a href="{{ route('event.detail', $event->slug) }}" wire:navigate.hover
+                                    @click="if (isDragging) { $event.preventDefault(); return false; }"
                                     class="w-full py-2.5 rounded-lg {{ $event->status === 'completed' ? 'bg-surface-container hover:bg-torii-vermilion hover:text-cloud-white' : 'bg-surface-container hover:bg-gold-shrine hover:text-indigo-night' }} text-indigo-night font-label-md text-label-md font-bold transition-colors flex items-center justify-center gap-space-xs">
                                     <span
                                         class="">{{ $event->status === 'completed' ? 'Lihat Dokumentasi' : 'Registrasi / Detail' }}</span>
@@ -621,7 +690,13 @@
                                 </a>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="w-full py-12 flex flex-col items-center justify-center text-center bg-white/60 rounded-2xl border border-dashed border-gray-200">
+                            <span class="material-symbols-outlined text-4xl text-gray-400 mb-2">star_outline</span>
+                            <p class="font-bold text-indigo-night">Belum Ada Event Unggulan</p>
+                            <p class="text-sm text-gray-500 mt-1">Aktifkan toggle 'Unggulan Satuan' pada daftar event di panel Admin untuk menampilkannya di sini.</p>
+                        </div>
+                    @endforelse
                     </div>
 
                     <!-- Interactive Indicator Dots -->
