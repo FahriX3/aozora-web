@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Event;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
 class EventSeeder extends Seeder
@@ -14,29 +14,30 @@ class EventSeeder extends Seeder
     public function run(): void
     {
         $destPath = storage_path('app/public/events');
-        
-        if (!File::exists($destPath)) {
+
+        if (! File::exists($destPath)) {
             File::makeDirectory($destPath, 0755, true);
         }
 
         $imageName = 'semple.jpg';
         $fallbackCandidates = [
-            public_path('assets/events/' . $imageName),
-            base_path('stitch_aozora_japanese_club_landing_page/' . $imageName),
+            public_path('assets/events/'.$imageName),
+            base_path('stitch_aozora_japanese_club_landing_page/'.$imageName),
             public_path('assets/DSC02070.jpg'),
         ];
 
-        if (!File::exists($destPath . '/' . $imageName)) {
+        if (! File::exists($destPath.'/'.$imageName)) {
             foreach ($fallbackCandidates as $source) {
                 if (File::exists($source)) {
-                    File::copy($source, $destPath . '/' . $imageName);
+                    File::copy($source, $destPath.'/'.$imageName);
                     break;
                 }
             }
         }
 
-        $posterPath = File::exists($destPath . '/' . $imageName) ? 'events/' . $imageName : null;
+        $posterPath = File::exists($destPath.'/'.$imageName) ? 'events/'.$imageName : null;
 
+        // 1. Bunkasai Matsuri (Completed Event)
         $completedEvent = Event::updateOrCreate(
             ['slug' => 'bunkasai-matsuri-2026'],
             [
@@ -64,6 +65,7 @@ class EventSeeder extends Seeder
             }
         }
 
+        // 2. Speech & Quiz Contest (Upcoming)
         Event::updateOrCreate(
             ['slug' => 'aozora-nihongo-speech-quiz-contest'],
             [
@@ -76,6 +78,75 @@ class EventSeeder extends Seeder
                 'location' => 'Ruang Teater Mini',
                 'poster_path' => $posterPath,
                 'status' => 'upcoming',
+                'is_featured' => true,
+            ]
+        );
+
+        // 3. Workshop Shodo & Origami Tradisional (Upcoming)
+        Event::updateOrCreate(
+            ['slug' => 'workshop-shodo-origami-tradisional'],
+            [
+                'title' => 'Workshop Shodo (書道) & Seni Origami Tradisional',
+                'subtitle' => 'TRADITIONAL WORKSHOP',
+                'description' => 'Pelatihan menulis huruf Kanji menggunakan kuas fude dan tinta sumi tradisional, didampingi pembuatan karya origami 3D orisinal karya peserta.',
+                'event_date' => '2026-11-28',
+                'start_time' => '15:30',
+                'end_time' => '17:15',
+                'location' => 'Lab Bahasa 2 Smecone',
+                'poster_path' => $posterPath,
+                'status' => 'upcoming',
+                'is_featured' => true,
+            ]
+        );
+
+        // 4. Aozora Kaiwa Club & Cosplay Walk (Upcoming)
+        Event::updateOrCreate(
+            ['slug' => 'aozora-kaiwa-cosplay-walk'],
+            [
+                'title' => 'Aozora Kaiwa & Cosplay Showcase: "Natsu no Yume"',
+                'subtitle' => 'COMMUNITY & SHOWCASE',
+                'description' => 'Sesi latihan percakapan santai (Kaiwa) bersama native speaker, dilanjutkan parade kostum karakter anime favorit kreasi anggota divisi Perkap.',
+                'event_date' => '2026-12-05',
+                'start_time' => '13:00',
+                'end_time' => '16:30',
+                'location' => 'Area Teater Terbuka SMKN 1',
+                'poster_path' => $posterPath,
+                'status' => 'upcoming',
+                'is_featured' => true,
+            ]
+        );
+
+        // 5. JLPT Intensive Preparation Camp (Upcoming)
+        Event::updateOrCreate(
+            ['slug' => 'jlpt-intensive-preparation-camp'],
+            [
+                'title' => 'JLPT N5 & N4 Intensive Preparation Camp',
+                'subtitle' => 'ACADEMIC & CERTIFICATION',
+                'description' => 'Bimbingan belajar intensif tata bahasa, kanji, dan simulasi try-out ujian kemampuan bahasa Jepang (JLPT) bersama pemateri senior klub ANC.',
+                'event_date' => '2026-12-15',
+                'start_time' => '08:30',
+                'end_time' => '12:00',
+                'location' => 'Ruang Multimedia 1 Smecone',
+                'poster_path' => $posterPath,
+                'status' => 'upcoming',
+                'is_featured' => true,
+            ]
+        );
+
+        // 6. Japan Pop Culture Day & Anisong Acoustic (Upcoming)
+        Event::updateOrCreate(
+            ['slug' => 'japan-pop-culture-day-anisong'],
+            [
+                'title' => 'Japan Pop Culture Day: Anime Screening & Anisong Live',
+                'subtitle' => 'MUSIC & POP CULTURE',
+                'description' => 'Nonton bareng film animasi pilihan pemenang penghargaan, diiringi sesi live akustik lagu-lagu anime legendaris dari band akustik Aozora.',
+                'event_date' => '2026-12-22',
+                'start_time' => '14:00',
+                'end_time' => '17:00',
+                'location' => 'Aula Sasana Krida Smecone',
+                'poster_path' => $posterPath,
+                'status' => 'upcoming',
+                'is_featured' => true,
             ]
         );
     }
