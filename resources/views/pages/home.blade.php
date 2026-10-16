@@ -401,150 +401,122 @@
                 </div>
             </div>
         </section>
-        <!-- SECTION 3: AGENDA EVENT TERBARU & CAROUSEL SLIDER -->
+        <!-- SECTION 3: AGENDA EVENT TERBARU & CAROUSEL SLIDER (VIDEOTRON STREAM) -->
         <section class="w-full py-space-2xl relative" id="event">
             <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin"
                 x-data="{
-                    currentIndex: 0,
-                    autoplayTimer: null,
-                    totalCards: {{ $featuredEvents->count() }},
+                    isPaused: false,
                     isDown: false,
                     isDragging: false,
                     startX: 0,
-                    scrollStart: 0,
-                    lastX: 0,
-                    lastTime: 0,
-                    velocity: 0,
+                    startScroll: 0,
+                    speed: 0.85, // Kecepatan gerak videotron mulus tanpa henti
+                    animationFrameId: null,
+                    totalCards: {{ $featuredEvents->count() }},
 
                     init() {
-                        this.updateIndex();
-                        this.startAutoplay();
-                        
+                        if (this.totalCards > 1) {
+                            this.startVideotron();
+                        }
+
                         const track = this.$refs.sliderTrack;
                         if (!track) return;
 
+                        // Pastikan loop tak terbatas (infinite wrapping) ketika di-scroll manual
                         track.addEventListener('scroll', () => {
-                            this.updateIndex();
+                            if (this.totalCards <= 1) return;
+                            const half = track.scrollWidth / 2;
+                            if (half > 0) {
+                                if (track.scrollLeft >= half * 1.95) {
+                                    track.scrollLeft -= half;
+                                } else if (track.scrollLeft <= 2) {
+                                    track.scrollLeft += half;
+                                }
+                            }
                         }, { passive: true });
 
                         // Drag to scroll dengan mouse (Desktop)
                         track.addEventListener('mousedown', (e) => {
-                            if (e.button !== 0) return; // Hanya klik kiri
+                            if (e.button !== 0) return;
                             this.isDown = true;
                             this.isDragging = false;
-                            this.startX = e.pageX - track.offsetLeft;
-                            this.scrollStart = track.scrollLeft;
-                            this.lastX = e.pageX;
-                            this.lastTime = Date.now();
-                            this.velocity = 0;
-                            this.stopAutoplay();
-                            track.style.scrollBehavior = 'auto';
-                            track.style.scrollSnapType = 'none';
+                            this.startX = e.pageX;
+                            this.startScroll = track.scrollLeft;
+                            this.isPaused = true;
                         });
 
                         window.addEventListener('mousemove', (e) => {
                             if (!this.isDown) return;
-                            const x = e.pageX - track.offsetLeft;
-                            const walk = x - this.startX;
-                            if (Math.abs(walk) > 6) {
+                            const diff = e.pageX - this.startX;
+                            if (Math.abs(diff) > 5) {
                                 this.isDragging = true;
                             }
-                            track.scrollLeft = this.scrollStart - walk;
-                            const now = Date.now();
-                            const dt = now - this.lastTime;
-                            if (dt > 0) {
-                                this.velocity = (e.pageX - this.lastX) / dt;
-                                this.lastX = e.pageX;
-                                this.lastTime = now;
+                            const half = track.scrollWidth / 2;
+                            let target = this.startScroll - diff;
+                            if (half > 0) {
+                                while (target >= half) target -= half;
+                                while (target < 0) target += half;
                             }
+                            track.scrollLeft = target;
                         });
 
                         window.addEventListener('mouseup', () => {
                             if (!this.isDown) return;
                             this.isDown = false;
-                            track.style.scrollBehavior = 'smooth';
-                            if (Math.abs(this.velocity) > 0.2) {
-                                track.scrollBy({ left: -this.velocity * 320, behavior: 'smooth' });
-                            }
                             setTimeout(() => {
-                                track.style.scrollSnapType = 'x proximity';
                                 this.isDragging = false;
-                                this.startAutoplay();
-                            }, 250);
+                                this.isPaused = false;
+                            }, 150);
                         });
 
-                        // Touch gestures pada HP
+                        // Touch gestures pada layar sentuh / HP
                         track.addEventListener('touchstart', () => {
-                            this.stopAutoplay();
+                            this.isPaused = true;
                         }, { passive: true });
 
                         track.addEventListener('touchend', () => {
-                            this.startAutoplay();
+                            setTimeout(() => {
+                                this.isPaused = false;
+                            }, 350);
                         }, { passive: true });
                     },
 
-                    startAutoplay() {
-                        if (this.totalCards <= 1 || this.isDown) return;
-                        this.stopAutoplay();
-                        this.autoplayTimer = setInterval(() => {
-                            this.slideNext(true);
-                        }, 3500);
+                    startVideotron() {
+                        const track = this.$refs.sliderTrack;
+                        if (!track) return;
+
+                        const animate = () => {
+                            if (!this.isPaused && !this.isDown && this.totalCards > 1) {
+                                track.scrollLeft += this.speed;
+                                const half = track.scrollWidth / 2;
+                                if (half > 0 && track.scrollLeft >= half) {
+                                    track.scrollLeft -= half;
+                                }
+                            }
+                            this.animationFrameId = requestAnimationFrame(animate);
+                        };
+
+                        this.animationFrameId = requestAnimationFrame(animate);
                     },
 
-                    stopAutoplay() {
-                        if (this.autoplayTimer) {
-                            clearInterval(this.autoplayTimer);
-                            this.autoplayTimer = null;
-                        }
+                    togglePlay() {
+                        this.isPaused = !this.isPaused;
                     },
 
-                    updateIndex() {
-                        const el = this.$refs.sliderTrack;
-                        if (!el) return;
-                        const firstCard = el.querySelector('.event-slide-card');
-                        if (firstCard) {
-                            const cardWidth = firstCard.offsetWidth + 24;
-                            this.currentIndex = Math.min(Math.round(el.scrollLeft / cardWidth), Math.max(0, this.totalCards - 1));
-                        }
-                    },
-
-                    slideNext(fromAutoplay = false) {
-                        const el = this.$refs.sliderTrack;
-                        if (!el) return;
-                        if (!fromAutoplay) this.startAutoplay();
-                        
-                        const firstCard = el.querySelector('.event-slide-card');
+                    slideNext() {
+                        const track = this.$refs.sliderTrack;
+                        if (!track) return;
+                        const firstCard = track.querySelector('.event-slide-card');
                         const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 400;
-                        
-                        if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 20) {
-                            el.scrollTo({ left: 0, behavior: 'smooth' });
-                        } else {
-                            el.scrollBy({ left: cardWidth, behavior: 'smooth' });
-                        }
+                        track.scrollBy({ left: cardWidth, behavior: 'smooth' });
                     },
 
                     slidePrev() {
-                        this.startAutoplay();
-                        const el = this.$refs.sliderTrack;
-                        if (!el) return;
-                        const firstCard = el.querySelector('.event-slide-card');
+                        const track = this.$refs.sliderTrack;
+                        if (!track) return;
+                        const firstCard = track.querySelector('.event-slide-card');
                         const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 400;
-                        
-                        if (el.scrollLeft <= 20) {
-                            el.scrollTo({ left: el.scrollWidth, behavior: 'smooth' });
-                        } else {
-                            el.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-                        }
-                    },
-
-                    goTo(idx) {
-                        this.startAutoplay();
-                        const el = this.$refs.sliderTrack;
-                        if (!el) return;
-                        const firstCard = el.querySelector('.event-slide-card');
-                        const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 400;
-                        el.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
-                        this.currentIndex = idx;
+                        track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
                     }
                 }">
                 <!-- Section Header -->
@@ -566,37 +538,46 @@
                         </p>
                     </div>
 
-                    <!-- Slider Navigation Controls (Menggantikan Mockup Tab Filter) -->
+                    <!-- Slider Navigation Controls (Videotron Stream Controls) -->
                     <div class="flex items-center gap-3 self-start md:self-auto">
-                        <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 border border-gray-200/80 text-xs text-secondary font-medium shadow-2xs" x-show="totalCards > 0">
-                            <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                            <span x-text="totalCards + ' Event Unggulan'">{{ $featuredEvents->count() }} Event Unggulan</span>
+                        <div class="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-gray-200/80 text-xs text-secondary font-medium shadow-2xs" x-show="totalCards > 0">
+                            <span class="w-2 h-2 rounded-full" :class="isPaused ? 'bg-amber-400' : 'bg-emerald-500 animate-pulse'"></span>
+                            <span x-text="totalCards + ' Event Unggulan' + (isPaused ? ' (Jeda)' : ' (Videotron Stream)')"></span>
                         </div>
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2" x-show="totalCards > 1">
+                            <button @click="togglePlay()"
+                                class="w-11 h-11 rounded-xl bg-white hover:bg-primary text-indigo-night hover:text-white border border-gray-200/80 shadow-xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer group active:scale-95"
+                                :title="isPaused ? 'Lanjutkan Gerakan Mulus' : 'Jeda Gerakan Mulus'"
+                                :aria-label="isPaused ? 'Putar' : 'Jeda'">
+                                <span class="material-symbols-outlined text-xl" x-text="isPaused ? 'play_arrow' : 'pause'"></span>
+                            </button>
                             <button @click="slidePrev()"
                                 class="w-11 h-11 rounded-xl bg-white hover:bg-primary text-indigo-night hover:text-white border border-gray-200/80 shadow-xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer group active:scale-95"
-                                title="Event Sebelumnya"
-                                aria-label="Event Sebelumnya">
+                                title="Geser ke Kiri"
+                                aria-label="Geser ke Kiri">
                                 <span class="material-symbols-outlined text-xl transition-transform group-hover:-translate-x-0.5">arrow_back</span>
                             </button>
                             <button @click="slideNext()"
                                 class="w-11 h-11 rounded-xl bg-white hover:bg-primary text-indigo-night hover:text-white border border-gray-200/80 shadow-xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer group active:scale-95"
-                                title="Event Selanjutnya"
-                                aria-label="Event Selanjutnya">
+                                title="Geser ke Kanan"
+                                aria-label="Geser ke Kanan">
                                 <span class="material-symbols-outlined text-xl transition-transform group-hover:translate-x-0.5">arrow_forward</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Carousel Slider Track -->
-                <div class="relative"
-                    @mouseenter="stopAutoplay()"
-                    @mouseleave="startAutoplay()">
+                <!-- Carousel Slider Track (Videotron Endless Stream) -->
+                <div class="relative group/track"
+                    @mouseenter="isPaused = true"
+                    @mouseleave="if (!isDown) isPaused = false">
                     <div x-ref="sliderTrack"
-                        class="flex gap-space-lg overflow-x-auto py-3 px-1 select-none cursor-grab active:cursor-grabbing scroll-smooth"
-                        style="scrollbar-width: none; -ms-overflow-style: none; scroll-snap-type: x proximity; touch-action: pan-y; -webkit-overflow-scrolling: touch;">
-                    @forelse($featuredEvents as $event)
+                        class="flex gap-space-lg overflow-x-auto py-3 px-1 select-none cursor-grab active:cursor-grabbing"
+                        style="scrollbar-width: none; -ms-overflow-style: none; touch-action: pan-y; -webkit-overflow-scrolling: touch;">
+                    @if($featuredEvents->isNotEmpty())
+                        {{-- Duplikasi kartu untuk looping videotron mulus tanpa batas --}}
+                        @for($loopRound = 0; $loopRound < ($featuredEvents->count() > 1 ? 2 : 1); $loopRound++)
+                            @foreach($featuredEvents as $event)
                         <div
                             class="event-slide-card w-[88vw] sm:w-[380px] md:w-[400px] lg:w-[420px] shrink-0 snap-start rounded-2xl bg-cloud-white shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden border border-gray-100 hover:-translate-y-1">
                             <div
@@ -690,24 +671,21 @@
                                 </a>
                             </div>
                         </div>
-                    @empty
+                            @endforeach
+                        @endfor
+                    @else
                         <div class="w-full py-12 flex flex-col items-center justify-center text-center bg-white/60 rounded-2xl border border-dashed border-gray-200">
                             <span class="material-symbols-outlined text-4xl text-gray-400 mb-2">star_outline</span>
                             <p class="font-bold text-indigo-night">Belum Ada Event Unggulan</p>
                             <p class="text-sm text-gray-500 mt-1">Aktifkan toggle 'Unggulan Satuan' pada daftar event di panel Admin untuk menampilkannya di sini.</p>
                         </div>
-                    @endforelse
+                    @endif
                     </div>
 
-                    <!-- Interactive Indicator Dots -->
-                    <div class="flex items-center justify-center gap-2 mt-6" x-show="totalCards > 1">
-                        <template x-for="idx in totalCards" :key="idx">
-                            <button @click="goTo(idx - 1)"
-                                class="h-2 rounded-full transition-all duration-300 cursor-pointer"
-                                :class="currentIndex === (idx - 1) ? 'w-8 bg-primary' : 'w-2 bg-gray-300 hover:bg-gray-400'"
-                                :aria-label="'Ke slide ' + idx">
-                            </button>
-                        </template>
+                    <!-- Interactive Drag & Gesture Hint -->
+                    <div class="flex items-center justify-center gap-2 mt-5 text-xs text-on-surface-variant/80 font-medium select-none" x-show="totalCards > 1">
+                        <span class="material-symbols-outlined text-sm text-amber-500 animate-pulse">swipe</span>
+                        <span>Geser dengan mouse atau jari untuk menjelajah • Arahkan kursor untuk jeda</span>
                     </div>
                 </div>
                 <!-- Prominent Call to Action Button for Full Event Archive -->
