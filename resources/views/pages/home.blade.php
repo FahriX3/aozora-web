@@ -404,32 +404,38 @@
         <!-- SECTION 3: AGENDA EVENT TERBARU & CAROUSEL SLIDER (VIDEOTRON FULL-WIDTH STREAM) -->
         <section class="w-full py-space-2xl relative overflow-hidden" id="event"
             x-data="{
-                    isPaused: false,
-                    isDown: false,
-                    isDragging: false,
-                    startX: 0,
-                    startScroll: 0,
-                    speed: 0.85, // Kecepatan gerak videotron mulus tanpa henti
-                    animationFrameId: null,
-                    totalCards: {{ $featuredEvents->count() }},
+                isPaused: false,
+                isDown: false,
+                isDragging: false,
+                startX: 0,
+                startScroll: 0,
+                currentPos: 0,
+                speed: 1.0, // Kecepatan videotron mulus tanpa henti
+                animationFrameId: null,
+                totalCards: {{ $featuredEvents->count() }},
 
-                    init() {
+                init() {
+                    this.$nextTick(() => {
+                        const track = this.$refs.sliderTrack;
+                        if (!track) return;
+
+                        this.currentPos = track.scrollLeft;
+
                         if (this.totalCards > 1) {
                             this.startVideotron();
                         }
 
-                        const track = this.$refs.sliderTrack;
-                        if (!track) return;
-
-                        // Pastikan loop tak terbatas (infinite wrapping) ketika di-scroll manual
+                        // Infinite loop wrapping saat di-scroll manual
                         track.addEventListener('scroll', () => {
-                            if (this.totalCards <= 1) return;
+                            if (this.isDown) return;
                             const half = track.scrollWidth / 2;
                             if (half > 0) {
                                 if (track.scrollLeft >= half * 1.95) {
                                     track.scrollLeft -= half;
+                                    this.currentPos = track.scrollLeft;
                                 } else if (track.scrollLeft <= 2) {
                                     track.scrollLeft += half;
+                                    this.currentPos = track.scrollLeft;
                                 }
                             }
                         }, { passive: true });
@@ -457,11 +463,13 @@
                                 while (target < 0) target += half;
                             }
                             track.scrollLeft = target;
+                            this.currentPos = target;
                         });
 
                         window.addEventListener('mouseup', () => {
                             if (!this.isDown) return;
                             this.isDown = false;
+                            this.currentPos = track.scrollLeft;
                             setTimeout(() => {
                                 this.isDragging = false;
                                 this.isPaused = false;
@@ -474,52 +482,67 @@
                         }, { passive: true });
 
                         track.addEventListener('touchend', () => {
+                            this.currentPos = track.scrollLeft;
                             setTimeout(() => {
                                 this.isPaused = false;
                             }, 350);
                         }, { passive: true });
-                    },
+                    });
+                },
 
-                    startVideotron() {
-                        const track = this.$refs.sliderTrack;
-                        if (!track) return;
+                startVideotron() {
+                    const track = this.$refs.sliderTrack;
+                    if (!track) return;
 
-                        const animate = () => {
-                            if (!this.isPaused && !this.isDown && this.totalCards > 1) {
-                                track.scrollLeft += this.speed;
-                                const half = track.scrollWidth / 2;
-                                if (half > 0 && track.scrollLeft >= half) {
-                                    track.scrollLeft -= half;
-                                }
+                    const animate = () => {
+                        if (!this.isPaused && !this.isDown && this.totalCards > 1) {
+                            this.currentPos += this.speed;
+                            const half = track.scrollWidth / 2;
+                            if (half > 0 && this.currentPos >= half) {
+                                this.currentPos -= half;
                             }
-                            this.animationFrameId = requestAnimationFrame(animate);
-                        };
-
+                            track.scrollLeft = Math.round(this.currentPos);
+                        }
                         this.animationFrameId = requestAnimationFrame(animate);
-                    },
+                    };
 
-                    togglePlay() {
-                        this.isPaused = !this.isPaused;
-                    },
+                    this.animationFrameId = requestAnimationFrame(animate);
+                },
 
-                    slideNext() {
+                togglePlay() {
+                    this.isPaused = !this.isPaused;
+                    if (!this.isPaused) {
                         const track = this.$refs.sliderTrack;
-                        if (!track) return;
-                        const firstCard = track.querySelector('.event-slide-card');
-                        const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 400;
-                        track.scrollBy({ left: cardWidth, behavior: 'smooth' });
-                    },
-
-                    slidePrev() {
-                        const track = this.$refs.sliderTrack;
-                        if (!track) return;
-                        const firstCard = track.querySelector('.event-slide-card');
-                        const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 400;
-                        track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+                        if (track) this.currentPos = track.scrollLeft;
                     }
-                }">
-                <!-- Section Header -->
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md">
+                },
+
+                slideNext() {
+                    const track = this.$refs.sliderTrack;
+                    if (!track) return;
+                    const firstCard = track.querySelector('.event-slide-card');
+                    const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 400;
+                    this.currentPos += cardWidth;
+                    const half = track.scrollWidth / 2;
+                    if (half > 0 && this.currentPos >= half) this.currentPos -= half;
+                    track.scrollTo({ left: this.currentPos, behavior: 'smooth' });
+                },
+
+                slidePrev() {
+                    const track = this.$refs.sliderTrack;
+                    if (!track) return;
+                    const firstCard = track.querySelector('.event-slide-card');
+                    const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 400;
+                    this.currentPos -= cardWidth;
+                    const half = track.scrollWidth / 2;
+                    if (half > 0 && this.currentPos < 0) this.currentPos += half;
+                    track.scrollTo({ left: this.currentPos, behavior: 'smooth' });
+                }
+            }">
+
+            <!-- 1. HEADER SECTION: TETAP PERSIS DI DALAM GRID UTAMA 1280px -->
+            <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin mb-space-xl">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
                     <div class="flex flex-col">
                         <div
                             class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200/80 shadow-xs text-xs font-bold uppercase tracking-wider mb-space-xs self-start">
@@ -541,7 +564,7 @@
                     <div class="flex items-center gap-3 self-start md:self-auto">
                         <div class="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-gray-200/80 text-xs text-secondary font-medium shadow-2xs" x-show="totalCards > 0">
                             <span class="w-2 h-2 rounded-full" :class="isPaused ? 'bg-amber-400' : 'bg-emerald-500 animate-pulse'"></span>
-                            <span x-text="totalCards + ' Event Unggulan' + (isPaused ? ' (Jeda)' : ' (Videotron Stream)')"></span>
+                            <span x-text="totalCards + ' Event Unggulan' + (isPaused ? ' (Jeda)' : ' (Live Stream)')"></span>
                         </div>
                         <div class="flex items-center gap-2" x-show="totalCards > 1">
                             <button @click="togglePlay()"
@@ -567,123 +590,123 @@
                 </div>
             </div>
 
-            <!-- Full-Width Videotron Stream (Mentok layar kiri-kanan tanpa terpotong batas grid) -->
+            <!-- 2. KHUSUS CARD YANG GERAK: KELUAR DARI GRID, MENTOK LAYAR KIRI-KANAN (FULL-WIDTH 100vw) -->
             <div class="w-full relative group/track overflow-hidden my-2"
                 @mouseenter="isPaused = true"
                 @mouseleave="if (!isDown) isPaused = false">
-                    <div x-ref="sliderTrack"
-                        class="flex gap-space-lg overflow-x-auto py-3 px-1 select-none cursor-grab active:cursor-grabbing"
-                        style="scrollbar-width: none; -ms-overflow-style: none; touch-action: pan-y; -webkit-overflow-scrolling: touch;">
-                    @if($featuredEvents->isNotEmpty())
-                        {{-- Duplikasi kartu untuk looping videotron mulus tanpa batas --}}
-                        @for($loopRound = 0; $loopRound < ($featuredEvents->count() > 1 ? 2 : 1); $loopRound++)
-                            @foreach($featuredEvents as $event)
+                <div x-ref="sliderTrack"
+                    class="flex gap-space-lg overflow-x-auto py-3 px-4 select-none cursor-grab active:cursor-grabbing"
+                    style="scrollbar-width: none; -ms-overflow-style: none; touch-action: pan-y; -webkit-overflow-scrolling: touch;">
+                @if($featuredEvents->isNotEmpty())
+                    {{-- Duplikasi kartu untuk looping videotron mulus tanpa batas --}}
+                    @for($loopRound = 0; $loopRound < ($featuredEvents->count() > 1 ? 2 : 1); $loopRound++)
+                        @foreach($featuredEvents as $event)
+                    <div
+                        class="event-slide-card w-[88vw] sm:w-[380px] md:w-[400px] lg:w-[420px] shrink-0 snap-start rounded-2xl bg-cloud-white shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden border border-gray-100 hover:-translate-y-1">
                         <div
-                            class="event-slide-card w-[88vw] sm:w-[380px] md:w-[400px] lg:w-[420px] shrink-0 snap-start rounded-2xl bg-cloud-white shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden border border-gray-100 hover:-translate-y-1">
-                            <div
-                                class="absolute top-0 left-0 w-full h-1.5 {{ $event->status === 'completed' ? 'bg-torii-vermilion' : 'bg-gold-shrine' }}">
-                            </div>
+                            class="absolute top-0 left-0 w-full h-1.5 {{ $event->status === 'completed' ? 'bg-torii-vermilion' : 'bg-gold-shrine' }}">
+                        </div>
 
-                            @if($event->display_image)
-                                <div class="w-full h-48 overflow-hidden bg-surface-container-low relative">
-                                    <img src="{{ $event->display_image }}" alt="{{ $event->title }}"
-                                        draggable="false"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none select-none"
-                                        loading="lazy" decoding="async">
-                                    @if($event->youtube_thumbnail)
-                                        <div
-                                            class="absolute inset-0 bg-black/20 flex items-center justify-center pointer-events-none group-hover:bg-black/10 transition-colors">
-                                            <span
-                                                class="w-10 h-10 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-md">
-                                                <span class="material-symbols-outlined text-2xl ml-0.5">play_arrow</span>
-                                            </span>
-                                        </div>
-                                    @endif
-                                </div>
-                            @endif
-
-                            <div class="p-space-lg flex-1 flex flex-col">
-                                <!-- Header Tags -->
-                                <div class="flex items-center justify-between gap-space-xs mb-space-sm">
-                                    <div class="flex items-center gap-1.5 flex-wrap">
-                                        @if($event->is_featured)
-                                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-700 border border-amber-300/40 text-[11px] font-bold uppercase tracking-wider">
-                                                <span class="material-symbols-outlined text-xs text-amber-500">star</span>
-                                                Unggulan
-                                            </span>
-                                        @endif
+                        @if($event->display_image)
+                            <div class="w-full h-48 overflow-hidden bg-surface-container-low relative">
+                                <img src="{{ $event->display_image }}" alt="{{ $event->title }}"
+                                    draggable="false"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none select-none"
+                                    loading="lazy" decoding="async">
+                                @if($event->youtube_thumbnail)
+                                    <div
+                                        class="absolute inset-0 bg-black/20 flex items-center justify-center pointer-events-none group-hover:bg-black/10 transition-colors">
                                         <span
-                                            class="px-2.5 py-1 rounded-full {{ $event->status === 'completed' ? 'bg-sakura-tint text-torii-vermilion' : 'bg-gold-shrine/15 text-gold-shrine' }} font-label-badge text-label-badge font-bold uppercase truncate">
-                                            {{ $event->subtitle ?? 'EVENT' }}
+                                            class="w-10 h-10 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-md">
+                                            <span class="material-symbols-outlined text-2xl ml-0.5">play_arrow</span>
                                         </span>
-                                    </div>
-                                    <span class="font-label-badge text-label-badge text-secondary font-medium shrink-0">
-                                        {{ \Carbon\Carbon::parse($event->event_date)->translatedFormat('d M Y') }}
-                                    </span>
-                                </div>
-                                <!-- Title & Time -->
-                                <h3
-                                    class="font-headline-sm text-headline-sm text-indigo-night font-bold group-hover:{{ $event->status === 'completed' ? 'text-torii-vermilion' : 'text-gold-shrine' }} transition-colors">
-                                    {{ $event->title }}
-                                </h3>
-                                <div
-                                    class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm mt-space-xs">
-                                    <span
-                                        class="material-symbols-outlined text-sm {{ $event->status === 'completed' ? 'text-torii-vermilion' : 'text-gold-shrine' }}">schedule</span>
-                                    <span class="">{{ \Carbon\Carbon::parse($event->start_time)->format('H:i') }} -
-                                        {{ \Carbon\Carbon::parse($event->end_time)->format('H:i') }} WIB</span>
-                                    <span class="text-secondary">•</span>
-                                    <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                                    <span class="truncate">{{ $event->location }}</span>
-                                </div>
-                                <!-- Description -->
-                                <p
-                                    class="font-body-sm text-body-sm text-on-surface-variant mt-space-sm leading-relaxed line-clamp-3">
-                                    {{ $event->description }}
-                                </p>
-
-                                @if($event->status === 'completed')
-                                    <!-- Documentation indicator -->
-                                    <div
-                                        class="mt-space-md p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between">
-                                        <div class="flex items-center gap-space-xs text-primary font-label-badge text-label-badge">
-                                            <span class="material-symbols-outlined text-base">photo_library</span>
-                                            <span class="">📸 {{ $event->documentations()->count() }} Dokumentasi</span>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div
-                                        class="mt-space-md p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between">
-                                        <div class="flex items-center gap-space-xs text-primary font-label-badge text-label-badge">
-                                            <span class="material-symbols-outlined text-base">campaign</span>
-                                            <span class="">Segera Hadir</span>
-                                        </div>
                                     </div>
                                 @endif
                             </div>
-                            <div class="px-space-lg pb-space-lg">
-                                <a href="{{ route('event.detail', $event->slug) }}" wire:navigate.hover
-                                    @click="if (isDragging) { $event.preventDefault(); return false; }"
-                                    class="w-full py-2.5 rounded-lg {{ $event->status === 'completed' ? 'bg-surface-container hover:bg-torii-vermilion hover:text-cloud-white' : 'bg-surface-container hover:bg-gold-shrine hover:text-indigo-night' }} text-indigo-night font-label-md text-label-md font-bold transition-colors flex items-center justify-center gap-space-xs">
+                        @endif
+
+                        <div class="p-space-lg flex-1 flex flex-col">
+                            <!-- Header Tags -->
+                            <div class="flex items-center justify-between gap-space-xs mb-space-sm">
+                                <div class="flex items-center gap-1.5 flex-wrap">
+                                    @if($event->is_featured)
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-700 border border-amber-300/40 text-[11px] font-bold uppercase tracking-wider">
+                                            <span class="material-symbols-outlined text-xs text-amber-500">star</span>
+                                            Unggulan
+                                        </span>
+                                    @endif
                                     <span
-                                        class="">{{ $event->status === 'completed' ? 'Lihat Dokumentasi' : 'Registrasi / Detail' }}</span>
-                                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                                </a>
+                                        class="px-2.5 py-1 rounded-full {{ $event->status === 'completed' ? 'bg-sakura-tint text-torii-vermilion' : 'bg-gold-shrine/15 text-gold-shrine' }} font-label-badge text-label-badge font-bold uppercase truncate">
+                                        {{ $event->subtitle ?? 'EVENT' }}
+                                    </span>
+                                </div>
+                                <span class="font-label-badge text-label-badge text-secondary font-medium shrink-0">
+                                    {{ \Carbon\Carbon::parse($event->event_date)->translatedFormat('d M Y') }}
+                                </span>
                             </div>
+                            <!-- Title & Time -->
+                            <h3
+                                class="font-headline-sm text-headline-sm text-indigo-night font-bold group-hover:{{ $event->status === 'completed' ? 'text-torii-vermilion' : 'text-gold-shrine' }} transition-colors">
+                                {{ $event->title }}
+                            </h3>
+                            <div
+                                class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm mt-space-xs">
+                                <span
+                                    class="material-symbols-outlined text-sm {{ $event->status === 'completed' ? 'text-torii-vermilion' : 'text-gold-shrine' }}">schedule</span>
+                                <span class="">{{ \Carbon\Carbon::parse($event->start_time)->format('H:i') }} -
+                                    {{ \Carbon\Carbon::parse($event->end_time)->format('H:i') }} WIB</span>
+                                <span class="text-secondary">•</span>
+                                <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                                <span class="truncate">{{ $event->location }}</span>
+                            </div>
+                            <!-- Description -->
+                            <p
+                                class="font-body-sm text-body-sm text-on-surface-variant mt-space-sm leading-relaxed line-clamp-3">
+                                {{ $event->description }}
+                            </p>
+
+                            @if($event->status === 'completed')
+                                <!-- Documentation indicator -->
+                                <div
+                                    class="mt-space-md p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between">
+                                    <div class="flex items-center gap-space-xs text-primary font-label-badge text-label-badge">
+                                        <span class="material-symbols-outlined text-base">photo_library</span>
+                                        <span class="">📸 {{ $event->documentations()->count() }} Dokumentasi</span>
+                                    </div>
+                                </div>
+                            @else
+                                <div
+                                    class="mt-space-md p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between">
+                                    <div class="flex items-center gap-space-xs text-primary font-label-badge text-label-badge">
+                                        <span class="material-symbols-outlined text-base">campaign</span>
+                                        <span class="">Segera Hadir</span>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
-                            @endforeach
-                        @endfor
-                    @else
-                        <div class="w-full py-12 flex flex-col items-center justify-center text-center bg-white/60 rounded-2xl border border-dashed border-gray-200">
-                            <span class="material-symbols-outlined text-4xl text-gray-400 mb-2">star_outline</span>
-                            <p class="font-bold text-indigo-night">Belum Ada Event Unggulan</p>
-                            <p class="text-sm text-gray-500 mt-1">Aktifkan toggle 'Unggulan Satuan' pada daftar event di panel Admin untuk menampilkannya di sini.</p>
+                        <div class="px-space-lg pb-space-lg">
+                            <a href="{{ route('event.detail', $event->slug) }}" wire:navigate.hover
+                                @click="if (isDragging) { $event.preventDefault(); return false; }"
+                                class="w-full py-2.5 rounded-lg {{ $event->status === 'completed' ? 'bg-surface-container hover:bg-torii-vermilion hover:text-cloud-white' : 'bg-surface-container hover:bg-gold-shrine hover:text-indigo-night' }} text-indigo-night font-label-md text-label-md font-bold transition-colors flex items-center justify-center gap-space-xs">
+                                <span
+                                    class="">{{ $event->status === 'completed' ? 'Lihat Dokumentasi' : 'Registrasi / Detail' }}</span>
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                            </a>
                         </div>
-                    @endif
+                    </div>
+                        @endforeach
+                    @endfor
+                @else
+                    <div class="w-full py-12 flex flex-col items-center justify-center text-center bg-white/60 rounded-2xl border border-dashed border-gray-200">
+                        <span class="material-symbols-outlined text-4xl text-gray-400 mb-2">star_outline</span>
+                        <p class="font-bold text-indigo-night">Belum Ada Event Unggulan</p>
+                        <p class="text-sm text-gray-500 mt-1">Aktifkan toggle 'Unggulan Satuan' pada daftar event di panel Admin untuk menampilkannya di sini.</p>
+                    </div>
+                @endif
                 </div>
             </div>
 
-            <!-- Bagian Bawah: Hint, CTA & Aftermovie (Kembali ke dalam batasan grid 1280px) -->
+            <!-- 3. BAGIAN BAWAH: KEMBALI PERSIS KE DALAM GRID UTAMA 1280px -->
             <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin">
                 <!-- Interactive Drag & Gesture Hint -->
                 <div class="flex items-center justify-center gap-2 mt-3 mb-space-sm text-xs text-on-surface-variant/80 font-medium select-none" x-show="totalCards > 1">
