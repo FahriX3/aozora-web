@@ -401,9 +401,87 @@
                 </div>
             </div>
         </section>
-        <!-- SECTION 3: AGENDA EVENT TERBARU & TIMELINE -->
+        <!-- SECTION 3: AGENDA EVENT TERBARU & CAROUSEL SLIDER -->
         <section class="w-full py-space-2xl relative" id="event">
-            <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin">
+            <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin"
+                x-data="{
+                    currentIndex: 0,
+                    autoplayTimer: null,
+                    isHovered: false,
+                    totalCards: {{ $featuredEvents->count() }},
+
+                    init() {
+                        this.updateIndex();
+                        this.startAutoplay();
+                        this.$refs.sliderTrack.addEventListener('scroll', () => {
+                            this.updateIndex();
+                        }, { passive: true });
+                    },
+
+                    startAutoplay() {
+                        if (this.totalCards <= 1) return;
+                        this.stopAutoplay();
+                        this.autoplayTimer = setInterval(() => {
+                            if (!this.isHovered) {
+                                this.next();
+                            }
+                        }, 5000);
+                    },
+
+                    stopAutoplay() {
+                        if (this.autoplayTimer) {
+                            clearInterval(this.autoplayTimer);
+                            this.autoplayTimer = null;
+                        }
+                    },
+
+                    updateIndex() {
+                        const el = this.$refs.sliderTrack;
+                        if (!el) return;
+                        const firstCard = el.querySelector('.event-slide-card');
+                        if (firstCard) {
+                            const cardWidth = firstCard.offsetWidth + 24;
+                            this.currentIndex = Math.min(Math.round(el.scrollLeft / cardWidth), Math.max(0, this.totalCards - 1));
+                        }
+                    },
+
+                    next() {
+                        const el = this.$refs.sliderTrack;
+                        if (!el) return;
+                        const firstCard = el.querySelector('.event-slide-card');
+                        const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 400;
+                        
+                        if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 15) {
+                            el.scrollTo({ left: 0, behavior: 'smooth' });
+                        } else {
+                            el.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                        }
+                    },
+
+                    prev() {
+                        const el = this.$refs.sliderTrack;
+                        if (!el) return;
+                        const firstCard = el.querySelector('.event-slide-card');
+                        const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 400;
+                        
+                        if (el.scrollLeft <= 15) {
+                            el.scrollTo({ left: el.scrollWidth, behavior: 'smooth' });
+                        } else {
+                            el.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+                        }
+                    },
+
+                    goTo(idx) {
+                        const el = this.$refs.sliderTrack;
+                        if (!el) return;
+                        const firstCard = el.querySelector('.event-slide-card');
+                        const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 400;
+                        el.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
+                        this.currentIndex = idx;
+                    }
+                }"
+                @mouseenter="isHovered = true"
+                @mouseleave="isHovered = false">
                 <!-- Section Header -->
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md">
                     <div class="flex flex-col">
@@ -419,35 +497,41 @@
                             Event &amp; Kegiatan Unggulan Aozora
                         </h2>
                         <p class="font-body-md text-body-md text-on-surface-variant mt-space-xs max-w-xl">
-                            Keseruan festival akbar tahunan, workshop
-                            seni mendalam, dan uji ketangkasan bahasa
-                            yang siap kamu ikuti.
+                            Keseruan festival akbar tahunan, workshop seni mendalam, dan uji ketangkasan bahasa yang siap kamu ikuti.
                         </p>
                     </div>
-                    <!-- Filter / Tab selector Mockup -->
-                    <div class="inline-flex p-1 rounded-xl bg-surface-container shadow-inner self-start md:self-auto">
-                        <button
-                            class="event-filter-btn px-4 py-2 rounded-lg font-label-md text-label-md transition-all text-secondary"
-                            data-tab="all">
-                            Semua Agenda
-                        </button>
-                        <button
-                            class="event-filter-btn px-4 py-2 rounded-lg hover:text-indigo-night font-label-md text-label-md transition-all text-secondary"
-                            data-tab="matsuri">
-                            Matsuri
-                        </button>
-                        <button
-                            class="event-filter-btn px-4 py-2 rounded-lg hover:text-indigo-night font-label-md text-label-md transition-all bg-cloud-white text-primary shadow-sm font-bold"
-                            data-tab="workshop">
-                            Workshop
-                        </button>
+
+                    <!-- Slider Navigation Controls (Menggantikan Mockup Tab Filter) -->
+                    <div class="flex items-center gap-3 self-start md:self-auto">
+                        <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 border border-gray-200/80 text-xs text-secondary font-medium shadow-2xs">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span x-text="totalCards + ' Agenda Event'">{{ $featuredEvents->count() }} Agenda Event</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button @click="prev()"
+                                class="w-11 h-11 rounded-xl bg-white hover:bg-primary text-indigo-night hover:text-white border border-gray-200/80 shadow-xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer group active:scale-95"
+                                title="Event Sebelumnya"
+                                aria-label="Event Sebelumnya">
+                                <span class="material-symbols-outlined text-xl transition-transform group-hover:-translate-x-0.5">arrow_back</span>
+                            </button>
+                            <button @click="next()"
+                                class="w-11 h-11 rounded-xl bg-white hover:bg-primary text-indigo-night hover:text-white border border-gray-200/80 shadow-xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer group active:scale-95"
+                                title="Event Selanjutnya"
+                                aria-label="Event Selanjutnya">
+                                <span class="material-symbols-outlined text-xl transition-transform group-hover:translate-x-0.5">arrow_forward</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <!-- Dynamic Event Cards -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg">
+
+                <!-- Carousel Slider Track -->
+                <div class="relative">
+                    <div x-ref="sliderTrack"
+                        class="flex gap-space-lg overflow-x-auto scroll-smooth snap-x snap-mandatory py-3 px-1"
+                        style="scrollbar-width: none; -ms-overflow-style: none;">
                     @foreach($featuredEvents as $event)
                         <div
-                            class="rounded-2xl bg-cloud-white shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+                            class="event-slide-card w-[88vw] sm:w-[380px] md:w-[400px] lg:w-[420px] shrink-0 snap-start rounded-2xl bg-cloud-white shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden border border-gray-100 hover:-translate-y-1">
                             <div
                                 class="absolute top-0 left-0 w-full h-1.5 {{ $event->status === 'completed' ? 'bg-torii-vermilion' : 'bg-gold-shrine' }}">
                             </div>
@@ -530,6 +614,18 @@
                             </div>
                         </div>
                     @endforeach
+                    </div>
+
+                    <!-- Interactive Indicator Dots -->
+                    <div class="flex items-center justify-center gap-2 mt-6" x-show="totalCards > 1">
+                        <template x-for="idx in totalCards" :key="idx">
+                            <button @click="goTo(idx - 1)"
+                                class="h-2 rounded-full transition-all duration-300 cursor-pointer"
+                                :class="currentIndex === (idx - 1) ? 'w-8 bg-primary' : 'w-2 bg-gray-300 hover:bg-gray-400'"
+                                :aria-label="'Ke slide ' + idx">
+                            </button>
+                        </template>
+                    </div>
                 </div>
                 <!-- Prominent Call to Action Button for Full Event Archive -->
                 <div class="mt-space-xl flex justify-center">
