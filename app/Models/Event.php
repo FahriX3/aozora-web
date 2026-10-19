@@ -14,8 +14,9 @@ class Event extends Model
     protected $fillable = [
         'title', 'slug', 'subtitle', 'description', 
         'event_date', 'start_time', 'end_time',
-        'location', 'poster_path', 'status',
-        'is_featured', 'is_aftermovie', 'youtube_link',
+        'location', 'participants_info', 'specific_location',
+        'poster_path', 'status',
+        'is_featured', 'is_aftermovie', 'youtube_link', 'gdrive_link',
         'latitude',
         'longitude',
         'visitor_access_instructions', 'location_assistance'

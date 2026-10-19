@@ -13,6 +13,8 @@ Route::get('/events', [EventController::class, 'list'])->name('events.index');
 Route::get('/pengurus', [PengurusController::class, 'index'])->name('pengurus');
 
 Route::get('/event/{slug}', [EventController::class, 'show'])->name('event.detail');
+Route::get('/event/{slug}/download-zip', [EventController::class, 'downloadZip'])->name('event.download-zip');
+Route::get('/media/thumbnail/{id}', [EventController::class, 'thumbnail'])->name('event.thumbnail');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');

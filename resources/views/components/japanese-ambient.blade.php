@@ -309,8 +309,8 @@
         const sakuraToggleBtn = document.getElementById('sakura-toggle-btn');
         const autoplayHint = document.getElementById('bgm-autoplay-hint');
 
-        // Comfortable gentle background volume
-        const TARGET_VOLUME = 0.32;
+        // Clear, pleasant background volume (boosted from 0.32)
+        const TARGET_VOLUME = 0.85;
         audio.volume = TARGET_VOLUME;
 
         let isPlaying = false;

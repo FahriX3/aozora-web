@@ -70,23 +70,18 @@
                             </a>
                         </div>
                         <!-- Quick Stat Badges Strip -->
-                        <div class="grid grid-cols-3 gap-space-sm pt-space-md max-w-lg">
-                            <div class="p-space-md rounded-xl bg-cloud-white shadow-sm flex flex-col">
-                                <span class="font-headline-md text-headline-md text-primary font-extrabold">50+</span>
-                                <span class="font-label-badge text-label-badge text-secondary uppercase">Anggota
-                                    Aktif</span>
+                        <div class="grid grid-cols-3 gap-2 sm:gap-space-sm pt-space-md max-w-lg">
+                            <div class="p-2.5 sm:p-space-md rounded-xl bg-cloud-white shadow-sm flex flex-col text-center sm:text-left">
+                                <span class="font-headline-md text-xl sm:text-headline-md text-primary font-extrabold">50+</span>
+                                <span class="font-label-badge text-[10px] sm:text-label-badge text-secondary uppercase font-bold tracking-tight">Anggota Aktif</span>
                             </div>
-                            <div class="p-space-md rounded-xl bg-cloud-white shadow-sm flex flex-col">
-                                <span
-                                    class="font-headline-md text-headline-md text-torii-vermilion font-extrabold">10+</span>
-                                <span class="font-label-badge text-label-badge text-secondary uppercase">Event /
-                                    Tahun</span>
+                            <div class="p-2.5 sm:p-space-md rounded-xl bg-cloud-white shadow-sm flex flex-col text-center sm:text-left">
+                                <span class="font-headline-md text-xl sm:text-headline-md text-torii-vermilion font-extrabold">10+</span>
+                                <span class="font-label-badge text-[10px] sm:text-label-badge text-secondary uppercase font-bold tracking-tight">Event / Tahun</span>
                             </div>
-                            <div class="p-space-md rounded-xl bg-cloud-white shadow-sm flex flex-col">
-                                <span
-                                    class="font-headline-md text-headline-md text-indigo-night font-extrabold">Basic</span>
-                                <span class="font-label-badge text-label-badge text-secondary uppercase">JLPT
-                                    Coaching</span>
+                            <div class="p-2.5 sm:p-space-md rounded-xl bg-cloud-white shadow-sm flex flex-col text-center sm:text-left">
+                                <span class="font-headline-md text-xl sm:text-headline-md text-indigo-night font-extrabold">Basic</span>
+                                <span class="font-label-badge text-[10px] sm:text-label-badge text-secondary uppercase font-bold tracking-tight">JLPT Coaching</span>
                             </div>
                         </div>
                     </div>
@@ -402,6 +397,39 @@
             </div>
         </section>
         <!-- SECTION 3: AGENDA EVENT TERBARU & CAROUSEL SLIDER (VIDEOTRON FULL-WIDTH STREAM) -->
+        <style>
+            .event-slide-card {
+                width: 350px !important;
+                min-width: 350px !important;
+                max-width: 350px !important;
+                height: 520px !important;
+                flex: 0 0 350px !important;
+            }
+            .event-slide-card-image {
+                width: 100% !important;
+                height: 210px !important;
+                min-height: 210px !important;
+                max-height: 210px !important;
+            }
+            @media (max-width: 639px) {
+                .event-slide-card {
+                    width: 290px !important;
+                    min-width: 280px !important;
+                    max-width: 300px !important;
+                    height: 505px !important;
+                    flex: 0 0 290px !important;
+                }
+                .event-slide-card-image {
+                    height: 175px !important;
+                    min-height: 175px !important;
+                    max-height: 175px !important;
+                }
+                .event-slide-card .p-space-md,
+                .event-slide-card .px-space-lg {
+                    padding: 0.875rem !important;
+                }
+            }
+        </style>
         <section class="w-full py-space-2xl relative overflow-hidden" id="event"
             x-data="{
                 isPaused: false,
@@ -476,14 +504,41 @@
                             }, 150);
                         });
 
-                        // Touch gestures pada layar sentuh / HP
-                        track.addEventListener('touchstart', () => {
+                        // Touch gestures pada layar sentuh / HP (smooth touch swipe support)
+                        let touchStartX = 0;
+                        let touchStartScroll = 0;
+                        let isTouchActive = false;
+
+                        track.addEventListener('touchstart', (e) => {
                             this.isPaused = true;
+                            isTouchActive = true;
+                            if (e.touches && e.touches.length > 0) {
+                                touchStartX = e.touches[0].pageX;
+                                touchStartScroll = track.scrollLeft;
+                            }
+                        }, { passive: true });
+
+                        track.addEventListener('touchmove', (e) => {
+                            if (!isTouchActive || !e.touches || e.touches.length === 0) return;
+                            const diff = e.touches[0].pageX - touchStartX;
+                            if (Math.abs(diff) > 5) {
+                                this.isDragging = true;
+                            }
+                            const half = track.scrollWidth / 2;
+                            let target = touchStartScroll - diff;
+                            if (half > 0) {
+                                while (target >= half) target -= half;
+                                while (target < 0) target += half;
+                            }
+                            track.scrollLeft = target;
+                            this.currentPos = target;
                         }, { passive: true });
 
                         track.addEventListener('touchend', () => {
+                            isTouchActive = false;
                             this.currentPos = track.scrollLeft;
                             setTimeout(() => {
+                                this.isDragging = false;
                                 this.isPaused = false;
                             }, 350);
                         }, { passive: true });
@@ -595,20 +650,20 @@
                 @mouseenter="isPaused = true"
                 @mouseleave="if (!isDown) isPaused = false">
                 <div x-ref="sliderTrack"
-                    class="flex gap-space-lg overflow-x-auto py-3 px-4 select-none cursor-grab active:cursor-grabbing"
-                    style="scrollbar-width: none; -ms-overflow-style: none; touch-action: pan-y; -webkit-overflow-scrolling: touch;">
+                    class="flex gap-space-lg overflow-x-auto py-3 px-4 select-none cursor-grab active:cursor-grabbing no-scrollbar"
+                    style="scrollbar-width: none; -ms-overflow-style: none; touch-action: pan-x pan-y; -webkit-overflow-scrolling: touch;">
                 @if($featuredEvents->isNotEmpty())
                     {{-- Duplikasi kartu untuk looping videotron mulus tanpa batas --}}
                     @for($loopRound = 0; $loopRound < ($featuredEvents->count() > 1 ? 2 : 1); $loopRound++)
                         @foreach($featuredEvents as $event)
                     <div
-                        class="event-slide-card w-[320px] sm:w-[350px] min-w-[320px] sm:min-w-[350px] max-w-[320px] sm:max-w-[350px] h-[510px] shrink-0 flex-none rounded-2xl bg-cloud-white shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden border border-gray-100 hover:-translate-y-1">
+                        class="event-slide-card w-[290px] sm:w-[350px] min-w-[280px] sm:min-w-[350px] max-w-[300px] sm:max-w-[350px] h-[505px] sm:h-[520px] shrink-0 flex-none rounded-2xl bg-cloud-white shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden border border-gray-100 hover:-translate-y-1">
                         <div
                             class="absolute top-0 left-0 w-full h-1.5 z-10 {{ $event->status === 'completed' ? 'bg-torii-vermilion' : 'bg-gold-shrine' }}">
                         </div>
 
                         <!-- Fixed Ratio Image Box: Apapun bentuk foto asli (portrait/square/landscape), dipotong rapi secara proporsional 16:10 tanpa mengubah ukuran kartu -->
-                        <div class="w-full h-48 min-h-[192px] max-h-[192px] overflow-hidden bg-slate-100 relative shrink-0">
+                        <div class="event-slide-card-image w-full h-[175px] sm:h-[210px] min-h-[175px] max-h-[210px] overflow-hidden bg-slate-100 relative shrink-0">
                             @if($event->display_image)
                                 <img src="{{ $event->display_image }}" alt="{{ $event->title }}"
                                     draggable="false"
@@ -631,7 +686,7 @@
                             @endif
                         </div>
 
-                        <div class="p-space-md sm:p-space-lg flex-1 flex flex-col justify-between">
+                        <div class="p-3.5 sm:p-space-lg flex-1 flex flex-col justify-between">
                             <div>
                                 <!-- Header Tags -->
                                 <div class="flex items-center justify-between gap-space-xs mb-2">
@@ -693,7 +748,7 @@
                         </div>
 
                         <!-- Card Action Button (Always Pinned at Bottom) -->
-                        <div class="px-space-md sm:px-space-lg pb-space-md sm:pb-space-lg pt-0">
+                        <div class="px-3.5 sm:px-space-lg pb-3.5 sm:pb-space-lg pt-0">
                             <a href="{{ route('event.detail', $event->slug) }}" wire:navigate.hover
                                 @click="if (isDragging) { $event.preventDefault(); return false; }"
                                 class="w-full py-2.5 rounded-xl {{ $event->status === 'completed' ? 'bg-surface-container hover:bg-torii-vermilion hover:text-cloud-white' : 'bg-surface-container hover:bg-gold-shrine hover:text-indigo-night' }} text-indigo-night text-xs font-bold transition-all flex items-center justify-center gap-1 shadow-2xs hover:shadow-xs">
@@ -851,29 +906,79 @@
                         </div>
                         <!-- Official Social & Contacts Mini Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
-                            <a class="p-space-md rounded-xl bg-cloud-white hover:bg-secondary-container/30 shadow-sm flex items-center gap-space-sm transition-colors group"
-                                href="https://instagram.com" target="_blank">
-                                <div
-                                    class="w-10 h-10 rounded-lg bg-torii-vermilion/10 text-torii-vermilion flex items-center justify-center">
-                                    <span class="font-bold text-lg">📸</span>
+                            <!-- Instagram -->
+                            <a class="p-space-md rounded-xl bg-cloud-white hover:bg-slate-50/80 shadow-sm flex items-center gap-space-sm transition-all duration-200 border border-transparent hover:border-slate-200 group hover:shadow-md hover:-translate-y-0.5"
+                                href="https://www.instagram.com/ancsmecone" target="_blank" rel="noopener noreferrer">
+                                <div class="w-10 h-10 rounded-xl bg-white border border-slate-200/90 flex items-center justify-center shrink-0 shadow-xs">
+                                    <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+                                        <defs>
+                                            <radialGradient id="ig-colored-grad" cx="20%" cy="115%" r="140%">
+                                                <stop offset="0%" stop-color="#ffd600" />
+                                                <stop offset="10%" stop-color="#ffd600" />
+                                                <stop offset="35%" stop-color="#ff0100" />
+                                                <stop offset="60%" stop-color="#d800b9" />
+                                                <stop offset="90%" stop-color="#7000ff" />
+                                            </radialGradient>
+                                        </defs>
+                                        <path fill="url(#ig-colored-grad)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                    </svg>
                                 </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-badge text-label-badge text-secondary">INSTAGRAM RESMI</span>
-                                    <span
-                                        class="font-label-lg text-label-lg font-bold text-indigo-night group-hover:text-primary transition-colors">@aozora_nihongo</span>
+                                <div class="flex flex-col min-w-0">
+                                    <span class="font-label-badge text-[10px] text-slate-500 font-bold tracking-wider">INSTAGRAM RESMI</span>
+                                    <span class="font-label-lg text-sm font-bold text-indigo-night group-hover:text-pink-600 transition-colors truncate">@ancsmecone</span>
                                 </div>
+                                <span class="ml-auto text-slate-400 group-hover:text-pink-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs font-bold">↗</span>
                             </a>
-                            <a class="p-space-md rounded-xl bg-cloud-white hover:bg-secondary-container/30 shadow-sm flex items-center gap-space-sm transition-colors group"
-                                href="mailto:noreplyaozora@gmail.com">
-                                <div
-                                    class="w-10 h-10 rounded-lg bg-aozora-sky/15 text-primary flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-xl">mail</span>
+
+                            <!-- TikTok -->
+                            <a class="p-space-md rounded-xl bg-cloud-white hover:bg-slate-50/80 shadow-sm flex items-center gap-space-sm transition-all duration-200 border border-transparent hover:border-slate-200 group hover:shadow-md hover:-translate-y-0.5"
+                                href="https://www.tiktok.com/@ancsmecone?_t=ZS-8xTPYnrUwGA&amp;_r=1" target="_blank" rel="noopener noreferrer">
+                                <div class="w-10 h-10 rounded-xl bg-white border border-slate-200/90 flex items-center justify-center shrink-0 shadow-xs">
+                                    <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+                                        <path fill="#25F4EE" d="M19.3 5.4a4.8 4.8 0 0 1-3.5-3.4h-2.9v14.1a2.8 2.8 0 0 1-2.8 2.8 2.8 2.8 0 0 1-2.8-2.8 2.8 2.8 0 0 1 2.8-2.8c.4 0 .7.1 1.1.2V9.6a6.8 6.8 0 0 0-1.1-.1A6.7 6.7 0 0 0 3.4 16.2a6.7 6.7 0 0 0 6.7 6.7c3.7 0 6.7-3 6.7-6.7V9a8 8 0 0 0 4.6 1.4V6.5a4.8 4.8 0 0 1-2.1-1.1z" opacity="0.85"/>
+                                        <path fill="#FE2C55" d="M18.7 4.8a4.8 4.8 0 0 1-3.5-3.4h-2.9v14.1a2.8 2.8 0 0 1-2.8 2.8 2.8 2.8 0 0 1-2.8-2.8 2.8 2.8 0 0 1 2.8-2.8c.4 0 .7.1 1.1.2V9a6.8 6.8 0 0 0-1.1-.1A6.7 6.7 0 0 0 2.8 15.6a6.7 6.7 0 0 0 6.7 6.7c3.7 0 6.7-3 6.7-6.7V8.4a8 8 0 0 0 4.6 1.4V5.9a4.8 4.8 0 0 1-2.1-1.1z" opacity="0.85"/>
+                                        <path fill="#000000" d="M19 5.1a4.8 4.8 0 0 1-3.5-3.4h-2.9v14.1a2.8 2.8 0 0 1-2.8 2.8 2.8 2.8 0 0 1-2.8-2.8 2.8 2.8 0 0 1 2.8-2.8c.4 0 .7.1 1.1.2V9.3a6.8 6.8 0 0 0-1.1-.1A6.7 6.7 0 0 0 3.1 15.9a6.7 6.7 0 0 0 6.7 6.7c3.7 0 6.7-3 6.7-6.7V8.7a8 8 0 0 0 4.6 1.4V6.2a4.8 4.8 0 0 1-2.1-1.1z"/>
+                                    </svg>
                                 </div>
-                                <div class="flex flex-col">
-                                    <span class="font-label-badge text-label-badge text-secondary">EMAIL RESMI</span>
-                                    <span
-                                        class="font-label-lg text-label-lg font-bold text-indigo-night group-hover:text-primary transition-colors">noreplyaozora@gmail.com</span>
+                                <div class="flex flex-col min-w-0">
+                                    <span class="font-label-badge text-[10px] text-slate-500 font-bold tracking-wider">TIKTOK RESMI</span>
+                                    <span class="font-label-lg text-sm font-bold text-indigo-night group-hover:text-black transition-colors truncate">@ancsmecone</span>
                                 </div>
+                                <span class="ml-auto text-slate-400 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs font-bold">↗</span>
+                            </a>
+
+                            <!-- YouTube -->
+                            <a class="p-space-md rounded-xl bg-cloud-white hover:bg-slate-50/80 shadow-sm flex items-center gap-space-sm transition-all duration-200 border border-transparent hover:border-slate-200 group hover:shadow-md hover:-translate-y-0.5"
+                                href="https://www.youtube.com/@ancsmecone" target="_blank" rel="noopener noreferrer">
+                                <div class="w-10 h-10 rounded-xl bg-white border border-slate-200/90 flex items-center justify-center shrink-0 shadow-xs">
+                                    <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24">
+                                        <path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
+                                        <polygon fill="#FFFFFF" points="9.545,15.568 15.818,12 9.545,8.432"/>
+                                    </svg>
+                                </div>
+                                <div class="flex flex-col min-w-0">
+                                    <span class="font-label-badge text-[10px] text-slate-500 font-bold tracking-wider">YOUTUBE RESMI</span>
+                                    <span class="font-label-lg text-sm font-bold text-indigo-night group-hover:text-red-600 transition-colors truncate">@ancsmecone</span>
+                                </div>
+                                <span class="ml-auto text-slate-400 group-hover:text-red-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs font-bold">↗</span>
+                            </a>
+
+                            <!-- Email (Gmail) -->
+                            <a class="p-space-md rounded-xl bg-cloud-white hover:bg-slate-50/80 shadow-sm flex items-center gap-space-sm transition-all duration-200 border border-transparent hover:border-slate-200 group hover:shadow-md hover:-translate-y-0.5"
+                                href="mailto:aozoraclub2021@gmail.com">
+                                <div class="w-10 h-10 rounded-xl bg-white border border-slate-200/90 flex items-center justify-center shrink-0 shadow-xs">
+                                    <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+                                        <path fill="#4285F4" d="M2.5 5.5v13a1 1 0 0 0 1 1h2v-8.5L2.5 8.5z"/>
+                                        <path fill="#34A853" d="M18.5 19.5h2a1 1 0 0 0 1-1v-13L18.5 8.5v11z"/>
+                                        <path fill="#EA4335" d="M18.5 5.5l-6.5 5-6.5-5H3.5a1 1 0 0 0-1 1v1l9.5 7.25L21.5 7.5v-1a1 1 0 0 0-1-1h-2z"/>
+                                        <path fill="#FBBC05" d="M5.5 11v8.5h-2a1 1 0 0 1-1-1v-5.5l3-2z"/>
+                                    </svg>
+                                </div>
+                                <div class="flex flex-col min-w-0">
+                                    <span class="font-label-badge text-[10px] text-slate-500 font-bold tracking-wider">EMAIL RESMI</span>
+                                    <span class="font-label-lg text-[11px] sm:text-xs xl:text-sm font-bold text-indigo-night group-hover:text-red-600 transition-colors break-all leading-tight">aozoraclub2021@gmail.com</span>
+                                </div>
+                                <span class="ml-auto text-slate-400 group-hover:text-slate-700 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs font-bold">↗</span>
                             </a>
                         </div>
                         <!-- School Address Badge -->

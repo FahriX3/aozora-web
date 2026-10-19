@@ -1,6 +1,39 @@
 @import "tailwindcss";
 @config "../../tailwind.config.js";
 
+/* ===== Event Carousel Slide Card Strict & Responsive Dimensions ===== */
+.event-slide-card {
+  width: 350px !important;
+  min-width: 350px !important;
+  max-width: 350px !important;
+  height: 520px !important;
+  flex: 0 0 350px !important;
+}
+
+.event-slide-card-image {
+  width: 100% !important;
+  height: 210px !important;
+  min-height: 210px !important;
+  max-height: 210px !important;
+}
+
+/* Khusus Tampilan Layar HP / Mobile (< 640px) */
+@media (max-width: 639px) {
+  .event-slide-card {
+    width: 290px !important;
+    min-width: 280px !important;
+    max-width: 300px !important;
+    height: 505px !important;
+    flex: 0 0 290px !important;
+  }
+
+  .event-slide-card-image {
+    height: 175px !important;
+    min-height: 175px !important;
+    max-height: 175px !important;
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
