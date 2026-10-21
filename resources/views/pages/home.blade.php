@@ -440,6 +440,7 @@
                 currentPos: 0,
                 speed: 1.0, // Kecepatan videotron mulus tanpa henti
                 animationFrameId: null,
+                resumeTimer: null,
                 totalCards: {{ $featuredEvents->count() }},
 
                 init() {
@@ -453,19 +454,14 @@
                             this.startVideotron();
                         }
 
-                        // Infinite loop wrapping saat di-scroll manual
+                        // Infinite loop wrapping saat di-scroll (otomatis maupun manual)
                         track.addEventListener('scroll', () => {
                             if (this.isDown) return;
                             const half = track.scrollWidth / 2;
-                            if (half > 0) {
-                                if (track.scrollLeft >= half * 1.95) {
-                                    track.scrollLeft -= half;
-                                    this.currentPos = track.scrollLeft;
-                                } else if (track.scrollLeft <= 2) {
-                                    track.scrollLeft += half;
-                                    this.currentPos = track.scrollLeft;
-                                }
+                            if (half > 0 && track.scrollLeft >= half * 1.95) {
+                                track.scrollLeft -= half;
                             }
+                            this.currentPos = track.scrollLeft;
                         }, { passive: true });
 
                         // Drag to scroll dengan mouse (Desktop)
@@ -476,6 +472,7 @@
                             this.startX = e.pageX;
                             this.startScroll = track.scrollLeft;
                             this.isPaused = true;
+                            if (this.resumeTimer) clearTimeout(this.resumeTimer);
                         });
 
                         window.addEventListener('mousemove', (e) => {
@@ -487,7 +484,7 @@
                             const half = track.scrollWidth / 2;
                             let target = this.startScroll - diff;
                             if (half > 0) {
-                                while (target >= half) target -= half;
+                                while (target >= half * 1.95) target -= half;
                                 while (target < 0) target += half;
                             }
                             track.scrollLeft = target;
@@ -500,49 +497,39 @@
                             this.currentPos = track.scrollLeft;
                             setTimeout(() => {
                                 this.isDragging = false;
-                                this.isPaused = false;
-                            }, 150);
+                            }, 50);
+                            this.scheduleResume(2500);
                         });
 
-                        // Touch gestures pada layar sentuh / HP (smooth touch swipe support)
-                        let touchStartX = 0;
-                        let touchStartScroll = 0;
-                        let isTouchActive = false;
-
-                        track.addEventListener('touchstart', (e) => {
+                        // Touch gestures pada layar sentuh / HP:
+                        // Biarkan browser mobile melakukan GPU-accelerated touch scroll (overflow-x-auto) secara natural!
+                        // Kita jeda videotron saat disentuh, dan berikan jeda 4 detik agar user santai membaca kartu yang baru saja digeser.
+                        track.addEventListener('touchstart', () => {
                             this.isPaused = true;
-                            isTouchActive = true;
-                            if (e.touches && e.touches.length > 0) {
-                                touchStartX = e.touches[0].pageX;
-                                touchStartScroll = track.scrollLeft;
-                            }
-                        }, { passive: true });
-
-                        track.addEventListener('touchmove', (e) => {
-                            if (!isTouchActive || !e.touches || e.touches.length === 0) return;
-                            const diff = e.touches[0].pageX - touchStartX;
-                            if (Math.abs(diff) > 5) {
-                                this.isDragging = true;
-                            }
-                            const half = track.scrollWidth / 2;
-                            let target = touchStartScroll - diff;
-                            if (half > 0) {
-                                while (target >= half) target -= half;
-                                while (target < 0) target += half;
-                            }
-                            track.scrollLeft = target;
-                            this.currentPos = target;
+                            if (this.resumeTimer) clearTimeout(this.resumeTimer);
                         }, { passive: true });
 
                         track.addEventListener('touchend', () => {
-                            isTouchActive = false;
                             this.currentPos = track.scrollLeft;
-                            setTimeout(() => {
-                                this.isDragging = false;
-                                this.isPaused = false;
-                            }, 350);
+                            this.scheduleResume(4000);
+                        }, { passive: true });
+
+                        track.addEventListener('touchcancel', () => {
+                            this.currentPos = track.scrollLeft;
+                            this.scheduleResume(3000);
                         }, { passive: true });
                     });
+                },
+
+                scheduleResume(delay = 3000) {
+                    if (this.resumeTimer) clearTimeout(this.resumeTimer);
+                    this.resumeTimer = setTimeout(() => {
+                        const track = this.$refs.sliderTrack;
+                        if (track) {
+                            this.currentPos = track.scrollLeft;
+                        }
+                        this.isPaused = false;
+                    }, delay);
                 },
 
                 startVideotron() {
@@ -566,6 +553,7 @@
 
                 togglePlay() {
                     this.isPaused = !this.isPaused;
+                    if (this.resumeTimer) clearTimeout(this.resumeTimer);
                     if (!this.isPaused) {
                         const track = this.$refs.sliderTrack;
                         if (track) this.currentPos = track.scrollLeft;
@@ -575,23 +563,21 @@
                 slideNext() {
                     const track = this.$refs.sliderTrack;
                     if (!track) return;
+                    this.isPaused = true;
                     const firstCard = track.querySelector('.event-slide-card');
-                    const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 374;
-                    this.currentPos += cardWidth;
-                    const half = track.scrollWidth / 2;
-                    if (half > 0 && this.currentPos >= half) this.currentPos -= half;
-                    track.scrollTo({ left: this.currentPos, behavior: 'smooth' });
+                    const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 314;
+                    track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                    this.scheduleResume(3500);
                 },
 
                 slidePrev() {
                     const track = this.$refs.sliderTrack;
                     if (!track) return;
+                    this.isPaused = true;
                     const firstCard = track.querySelector('.event-slide-card');
-                    const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 374;
-                    this.currentPos -= cardWidth;
-                    const half = track.scrollWidth / 2;
-                    if (half > 0 && this.currentPos < 0) this.currentPos += half;
-                    track.scrollTo({ left: this.currentPos, behavior: 'smooth' });
+                    const cardWidth = firstCard ? (firstCard.offsetWidth + 24) : 314;
+                    track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+                    this.scheduleResume(3500);
                 }
             }">
 
@@ -852,12 +838,12 @@
                             class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200/80 shadow-xs text-xs font-bold uppercase tracking-wider mb-space-xs self-start">
                             <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Logo"
                                 class="w-4 h-4 rounded-full object-cover ring-1 ring-rose-200 shrink-0" />
-                            <span class="text-torii-vermilion font-bold">⛩️ JADWAL &amp; SEKRETARIAT</span>
+                            <span class="text-torii-vermilion font-bold">⛩️ JADWAL FORUM &amp; SEKRETARIAT</span>
                             <span class="text-gray-300">•</span>
                             <span class="text-gray-600">連絡先</span>
                         </div>
                         <h2 class="font-headline-lg text-2xl sm:text-3xl lg:text-headline-lg text-indigo-night tracking-tight">
-                            Datang &amp; Kunjungi Sesi Latihan Rutin
+                            Datang &amp; Ikuti Sesi Forum Rutin
                         </h2>
                         <p class="font-body-md text-body-md text-on-surface-variant">
                             Pintu Aozora selalu terbuka untuk seluruh
@@ -874,7 +860,7 @@
                                     class="w-11 h-11 rounded-full object-cover ring-1 ring-black/10 shrink-0 shadow-xs" />
                                 <div class="flex flex-col">
                                     <span class="font-label-badge text-label-badge text-torii-vermilion font-bold">JADWAL
-                                        KUMPUL MINGGUAN
+                                        FORUM MINGGUAN
                                         (MOKUYOUBI)</span>
                                     <span class="font-headline-sm text-headline-sm text-indigo-night font-bold">Setiap Hari
                                         Kamis Sore</span>
@@ -885,9 +871,9 @@
                                     <span class="material-symbols-outlined text-primary text-xl mt-0.5">timer</span>
                                     <div class="flex flex-col">
                                         <span class="font-label-badge text-label-badge text-secondary">WAKTU
-                                            PERTEMUAN</span>
+                                            FORUM</span>
                                         <span class="font-headline-sm text-sm font-bold text-indigo-night">16.00 - 17.00
-                                            WIB</span>
+                                             WIB</span>
                                         <span class="font-body-sm text-xs text-on-surface-variant">Setelah jam pelajaran
                                             usai</span>
                                     </div>
@@ -896,10 +882,8 @@
                                     <span class="material-symbols-outlined text-torii-vermilion text-xl mt-0.5">room</span>
                                     <div class="flex flex-col">
                                         <span class="font-label-badge text-label-badge text-secondary">LOKASI RUANGAN</span>
-                                        <span class="font-headline-sm text-sm font-bold text-indigo-night">Lab Bahasa / R.
-                                            Eskul</span>
-                                        <span class="font-body-sm text-xs text-on-surface-variant">Gedung Tengah Lt. 2 SMKN
-                                            1</span>
+                                        <span class="font-headline-sm text-sm font-bold text-indigo-night">Ruang Kelas</span>
+                                        <span class="font-body-sm text-xs text-on-surface-variant">SMKN 1 Purwokerto</span>
                                     </div>
                                 </div>
                             </div>

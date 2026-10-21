@@ -169,16 +169,16 @@
                     </p>
                     <p class="text-[13px] leading-relaxed">
                         Konnichiwa! 🌸 Aku <strong>Sora</strong>, asisten AI resmi Aozora Nihongo Club SMKN 1 Purwokerto. 
-                        Ada yang ingin kamu tanyakan seputar jadwal kumpul, divisi klub, kebudayaan Jepang, atau event matsuri?
+                        Ada yang ingin kamu tanyakan seputar jadwal forum, divisi klub, kebudayaan Jepang, atau event matsuri?
                     </p>
                 </div>
             </div>
 
             {{-- Suggested Prompts --}}
             <div id="sora-suggestions" class="pt-1 pb-1 flex flex-wrap gap-1.5 pl-9">
-                <button type="button" onclick="sendSuggestion('Jadwal kumpul rutin Aozora kapan?')"
+                <button type="button" onclick="sendSuggestion('Jadwal forum rutin Aozora kapan?')"
                     class="text-xs bg-white hover:bg-primary/5 hover:text-primary text-gray-600 border border-gray-200 hover:border-primary/30 px-3 py-1.5 rounded-full transition-all text-left shadow-2xs cursor-pointer">
-                    📅 Jadwal kumpul kapan?
+                    📅 Jadwal forum kapan?
                 </button>
                 <button type="button" onclick="sendSuggestion('Divisi kegiatan apa saja yang ada di Aozora?')"
                     class="text-xs bg-white hover:bg-primary/5 hover:text-primary text-gray-600 border border-gray-200 hover:border-primary/30 px-3 py-1.5 rounded-full transition-all text-left shadow-2xs cursor-pointer">

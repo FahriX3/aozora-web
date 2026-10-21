@@ -376,11 +376,11 @@
                     <span
                         class="font-headline-sm text-headline-sm text-cloud-white flex items-center gap-space-xs"><span
                             class="text-torii-vermilion">⛩️</span> Info
-                        Jadwal Rutin</span>
+                        Jadwal Forum</span>
                     <div class="p-space-md rounded-xl bg-cloud-white/5 flex flex-col gap-space-xs">
                         <div class="flex items-center gap-space-xs text-aozora-sky font-label-md text-label-md">
                             <span class="w-2 h-2 rounded-full bg-aozora-sky animate-ping"></span><span
-                                class="">PERTEMUAN MINGGUAN</span>
+                                class="">FORUM MINGGUAN</span>
                         </div>
                         <span class="font-headline-sm text-headline-sm text-cloud-white">Setiap Kamis</span><span
                             class="font-body-sm text-body-sm text-surface-dim">16.00 - 17.00 WIB</span>
