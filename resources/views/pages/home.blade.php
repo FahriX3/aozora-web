@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="flex flex-col w-full overflow-hidden">
+    <div class="flex flex-col w-full overflow-x-clip">
         <!-- Top Ambient Anime Glow Elements -->
         <div class="relative w-full">
             <div
@@ -39,7 +39,7 @@
                         </div>
                         <!-- Bold Display Typography -->
                         <h1
-                            class="font-display-hero text-display-hero text-indigo-night tracking-tight leading-[1.08] mt-space-xs">
+                            class="font-display-hero text-3xl sm:text-4xl lg:text-display-hero text-indigo-night tracking-tight leading-[1.15] lg:leading-[1.08] mt-space-xs">
                             Jelajahi Bahasa &amp; Pesona
                             <span class="relative inline-block text-primary">
                                 Budaya Jepang
@@ -52,7 +52,7 @@
                             Bersama Aozora!
                         </h1>
                         <!-- Subtitle -->
-                        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mt-space-xs leading-relaxed">
+                        <p class="font-body-lg text-sm sm:text-base lg:text-body-lg text-on-surface-variant max-w-2xl mt-space-xs leading-relaxed">
                             Wadah eksplorasi bahasa Jepang, anime &amp;
                             manga, festival matsuri, hingga persiapan
                             sertifikasi JLPT yang seru, interaktif, dan
@@ -61,7 +61,7 @@
                         </p>
                         <!-- Quick Action Buttons -->
                         <div class="flex flex-wrap items-center gap-space-md pt-space-sm">
-                            <a class="inline-flex items-center gap-space-sm bg-cloud-white hover:bg-surface-container-low text-primary font-label-lg text-label-lg px-space-lg py-space-md rounded-lg shadow-md hover:shadow-lg transition-all group"
+                            <a class="inline-flex items-center gap-space-sm bg-cloud-white hover:bg-surface-container-low text-primary font-label-lg text-sm sm:text-label-lg px-space-md sm:px-space-lg py-2.5 sm:py-space-md rounded-lg shadow-md hover:shadow-lg transition-all group"
                                 href="#event">
                                 <span
                                     class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">calendar_month</span>
@@ -237,7 +237,7 @@
                         <span class="text-gray-300">•</span>
                         <span class="text-gray-600">私たちについて</span>
                     </div>
-                    <h2 class="font-headline-lg text-headline-lg text-indigo-night tracking-tight">
+                    <h2 class="font-headline-lg text-2xl sm:text-3xl lg:text-headline-lg text-indigo-night tracking-tight">
                         Kenapa Belajar &amp; Berkarya di Aozora?
                     </h2>
                     <p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
@@ -607,7 +607,7 @@
                             <span class="text-gray-300">•</span>
                             <span class="text-gray-600">催し物</span>
                         </div>
-                        <h2 class="font-headline-lg text-headline-lg text-indigo-night tracking-tight">
+                        <h2 class="font-headline-lg text-2xl sm:text-3xl lg:text-headline-lg text-indigo-night tracking-tight">
                             Event &amp; Kegiatan Unggulan Aozora
                         </h2>
                         <p class="font-body-md text-body-md text-on-surface-variant mt-space-xs max-w-xl">
@@ -778,7 +778,7 @@
                 </div>
                 <!-- Prominent Call to Action Button for Full Event Archive -->
                 <div class="mt-space-xl flex justify-center">
-                    <a class="inline-flex items-center gap-space-sm bg-indigo-night hover:bg-primary text-cloud-white font-label-lg text-label-lg px-space-xl py-space-md rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 group"
+                    <a class="inline-flex items-center justify-center gap-2 sm:gap-space-sm bg-indigo-night hover:bg-primary text-cloud-white font-label-lg text-xs sm:text-sm md:text-label-lg px-4 sm:px-space-xl py-3 sm:py-space-md rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 group max-w-full text-center"
                         href="{{ route('events.index') }}" wire:navigate.hover>
                         <span
                             class="material-symbols-outlined text-aozora-sky group-hover:rotate-45 transition-transform">auto_awesome</span>
@@ -856,7 +856,7 @@
                             <span class="text-gray-300">•</span>
                             <span class="text-gray-600">連絡先</span>
                         </div>
-                        <h2 class="font-headline-lg text-headline-lg text-indigo-night tracking-tight">
+                        <h2 class="font-headline-lg text-2xl sm:text-3xl lg:text-headline-lg text-indigo-night tracking-tight">
                             Datang &amp; Kunjungi Sesi Latihan Rutin
                         </h2>
                         <p class="font-body-md text-body-md text-on-surface-variant">

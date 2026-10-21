@@ -19,7 +19,7 @@
 
 <div class="flex flex-col w-full">
     <!-- Subtle Anime/Culture Lattice Background Vector Layer -->
-    <div class="relative w-full overflow-hidden">
+    <div class="relative w-full overflow-x-clip">
         <!-- Faint Ambient Aura -->
         <div class="absolute -top-24 right-1/4 w-96 h-96 bg-aozora-sky/15 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute top-80 -left-20 w-80 h-80 bg-sakura-tint/60 rounded-full blur-3xl pointer-events-none"></div>

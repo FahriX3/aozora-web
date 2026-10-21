@@ -21,17 +21,16 @@
         rel="stylesheet" />
     <style>
         @layer base {
-
-            html,
-            body {
-                margin: 0;
-                padding: 0;
-                overflow-x: hidden;
-                max-width: 100vw;
+            html {
+                scroll-behavior: smooth;
+                -webkit-text-size-adjust: 100%;
             }
 
             body {
-                overscroll-behavior-y: none;
+                margin: 0;
+                padding: 0;
+                min-height: 100%;
+                overflow-x: clip;
             }
 
             main> :first-child {
@@ -119,8 +118,8 @@
                         <span>Login</span>
                     </button>
                 @else
-                    {{-- User Authenticated Chip & Dropdown --}}
-                    <div class="relative" id="user-menu-container">
+                    {{-- User Authenticated Chip & Dropdown (Desktop Only, di HP ada di dalam Hamburger Drawer) --}}
+                    <div class="hidden lg:block relative" id="user-menu-container">
                         @php
                             $user = Auth::user();
                             $roleLabel = 'Anggota';
@@ -147,13 +146,13 @@
                         @endphp
 
                         <button type="button" onclick="toggleUserMenu()"
-                            class="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-full bg-cloud-white border border-outline-variant/60 shadow-sm hover:shadow hover:border-primary/40 transition-all cursor-pointer"
+                            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cloud-white border border-outline-variant/60 shadow-sm hover:shadow hover:border-primary/40 transition-all cursor-pointer"
                             id="btn-user-menu">
                             <div
-                                class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-primary text-cloud-white flex items-center justify-center font-bold text-xs sm:text-sm shadow-xs">
+                                class="w-8 h-8 rounded-full bg-primary text-cloud-white flex items-center justify-center font-bold text-sm shadow-xs">
                                 {{ strtoupper(substr($user->name, 0, 1)) }}
                             </div>
-                            <div class="hidden sm:flex flex-col text-left">
+                            <div class="flex flex-col text-left">
                                 <span
                                     class="font-label-md text-xs font-bold text-indigo-night truncate max-w-[120px]">{{ $user->name }}</span>
                                 <span class="text-[10px] text-secondary font-medium">{{ $roleLabel }}</span>
@@ -161,7 +160,7 @@
                             <span class="material-symbols-outlined text-sm text-secondary">expand_more</span>
                         </button>
 
-                        {{-- User Dropdown Card --}}
+                        {{-- User Dropdown Card (Desktop) --}}
                         <div id="user-dropdown-menu"
                             class="hidden absolute right-0 mt-2 w-64 rounded-2xl bg-cloud-white border border-surface-container-high/80 shadow-2xl p-4 z-50 animate-modal-in">
                             <div class="pb-3 border-b border-surface-container-high/60">
@@ -214,9 +213,9 @@
                     </div>
                 @endguest
 
-                {{-- Mobile Menu Hamburger --}}
+                {{-- Mobile Menu Hamburger (Rapi & Minimalis di HP) --}}
                 <button type="button" onclick="toggleMobileDrawer()"
-                    class="lg:hidden w-10 h-10 rounded-xl bg-surface-container-low border border-surface-container-high flex items-center justify-center text-indigo-night hover:text-primary transition-colors focus:outline-none"
+                    class="lg:hidden w-10 h-10 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-200/80 flex items-center justify-center text-gray-800 hover:text-primary transition-all focus:outline-none cursor-pointer shadow-xs active:scale-95"
                     aria-label="Buka menu navigasi">
                     <span class="material-symbols-outlined text-2xl" id="icon-mobile-menu">menu</span>
                 </button>
@@ -225,15 +224,36 @@
 
         {{-- Mobile Drawer Navigation --}}
         <div id="mobile-drawer"
-            class="hidden lg:hidden border-t border-gray-100 bg-white/98 backdrop-blur-xl px-4 py-4 shadow-xl">
-            <div class="flex items-center gap-3 px-3 py-2.5 mb-3 rounded-xl bg-gray-50 border border-gray-100">
-                <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Logo"
-                    class="w-10 h-10 rounded-full object-cover ring-1 ring-black/5" />
-                <div class="flex flex-col">
-                    <span class="text-sm font-bold text-gray-900">Aozora Nihongo Club</span>
-                    <span class="text-xs text-gray-500">SMKN 1 Purwokerto</span>
+            class="hidden lg:hidden border-t border-gray-100 bg-white/98 backdrop-blur-xl px-4 py-4 shadow-xl max-h-[calc(100vh-5rem)] overflow-y-auto">
+            
+            @auth
+                {{-- Profil Pengguna di dalam Drawer HP --}}
+                <div class="mb-3.5 p-3 rounded-2xl bg-gradient-to-br from-blue-50/80 to-indigo-50/50 border border-blue-100/80 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shadow-xs shrink-0">
+                        {{ strtoupper(substr($user->name, 0, 1)) }}
+                    </div>
+                    <div class="flex flex-col min-w-0 flex-1">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <span class="text-sm font-bold text-gray-900 truncate">{{ $user->name }}</span>
+                            <span class="text-[9px] font-bold px-2 py-0.5 rounded-full border shrink-0 {{ $roleBadgeColor }}">
+                                {{ $roleLabel }}
+                            </span>
+                        </div>
+                        <span class="text-xs text-gray-500 truncate">{{ $user->email }}</span>
+                    </div>
                 </div>
-            </div>
+            @else
+                {{-- Header Identitas ANC di dalam Drawer untuk Guest --}}
+                <div class="flex items-center gap-3 px-3 py-2.5 mb-3 rounded-xl bg-gray-50 border border-gray-100">
+                    <img src="{{ asset('assets/ANC_icon.png') }}" alt="ANC Logo"
+                        class="w-10 h-10 rounded-full object-cover ring-1 ring-black/5" />
+                    <div class="flex flex-col">
+                        <span class="text-sm font-bold text-gray-900">Aozora Nihongo Club</span>
+                        <span class="text-xs text-gray-500">SMKN 1 Purwokerto</span>
+                    </div>
+                </div>
+            @endauth
+
             <nav class="flex flex-col gap-1">
                 <a class="px-4 py-2.5 rounded-xl font-medium text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2.5 transition-colors"
                     href="/#beranda" onclick="toggleMobileDrawer()">
@@ -275,7 +295,7 @@
                     </button>
                 </div>
 
-                {{-- Mobile Drawer Login Button (Khusus HP di dalam Hamburger Menu) --}}
+                {{-- Tombol Login / Akses Panel di dalam Drawer HP --}}
                 @guest
                     <div class="pt-3 mt-1.5 border-t border-gray-100">
                         <button type="button" onclick="toggleMobileDrawer(); openLoginModal();"
@@ -288,14 +308,32 @@
                 @else
                     <div class="pt-3 mt-1.5 border-t border-gray-100 flex flex-col gap-2">
                         <a href="{{ url($panelUrl) }}"
-                            class="w-full px-4 py-2.5 rounded-xl font-bold text-sm bg-primary text-white flex items-center justify-between shadow-sm">
-                            <span>🚀 Masuk Panel ({{ $roleLabel }})</span>
+                            class="w-full px-4 py-2.5 rounded-xl font-bold text-sm bg-primary hover:bg-primary/90 text-white flex items-center justify-between shadow-sm transition-colors">
+                            <span>🚀 Masuk Dashboard Panel</span>
                             <span class="material-symbols-outlined text-sm">open_in_new</span>
                         </a>
-                        <form action="{{ route('logout') }}" method="POST">
+
+                        @if($user->hasRole('super_admin'))
+                            <div class="grid grid-cols-2 gap-1.5 pt-1">
+                                <a href="{{ url('/admin') }}"
+                                    class="px-3 py-2 rounded-xl bg-gray-100 text-gray-800 text-xs font-semibold text-center hover:bg-gray-200 transition-colors">
+                                    Panel Admin
+                                </a>
+                                <a href="{{ url('/inventaris') }}"
+                                    class="px-3 py-2 rounded-xl bg-gray-100 text-gray-800 text-xs font-semibold text-center hover:bg-gray-200 transition-colors">
+                                    Panel Inventaris
+                                </a>
+                            </div>
+                            <a href="{{ url('/anggota') }}"
+                                class="px-3 py-2 rounded-xl bg-gray-100 text-gray-800 text-xs font-semibold text-center hover:bg-gray-200 transition-colors">
+                                Panel Anggota
+                            </a>
+                        @endif
+
+                        <form action="{{ route('logout') }}" method="POST" class="pt-1">
                             @csrf
                             <button type="submit"
-                                class="w-full px-4 py-2 rounded-xl text-xs font-bold text-torii-vermilion hover:bg-torii-vermilion/10 flex items-center justify-center gap-1.5 transition-colors cursor-pointer">
+                                class="w-full px-4 py-2 rounded-xl text-xs font-bold text-torii-vermilion hover:bg-rose-50 flex items-center justify-center gap-1.5 transition-colors cursor-pointer border border-rose-100">
                                 <span class="material-symbols-outlined text-sm">logout</span>
                                 Keluar (Logout)
                             </button>

@@ -37,13 +37,15 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
   html, body {
     margin: 0;
     padding: 0;
   }
   body {
-    overscroll-behavior: none;
+    overflow-x: clip;
+    min-height: 100%;
   }
   main > :first-child {
     margin-top: 0 !important;

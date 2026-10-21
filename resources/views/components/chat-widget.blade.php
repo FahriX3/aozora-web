@@ -1,5 +1,5 @@
 {{-- ===== CHATBOT SORA (AI ASSISTANT) WIDGET ===== --}}
-<div id="sora-chat-widget" class="fixed bottom-5 right-5 z-[9990] font-sans">
+<div id="sora-chat-widget" class="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 z-[9990] font-sans">
     <style>
         #sora-messages::-webkit-scrollbar {
             width: 5px;
@@ -72,7 +72,7 @@
 
     {{-- Floating Toggle Launcher Button --}}
     <button type="button" id="sora-launcher" onclick="toggleSoraChat()"
-        class="group relative flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-primary to-[#0052cc] hover:from-[#003399] hover:to-primary text-cloud-white rounded-full shadow-[0_10px_30px_rgba(0,60,173,0.35)] hover:shadow-[0_15px_35px_rgba(0,60,173,0.5)] transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+        class="group relative flex items-center gap-2 sm:gap-3 p-2.5 sm:px-4 sm:py-3 bg-gradient-to-r from-primary to-[#0052cc] hover:from-[#003399] hover:to-primary text-cloud-white rounded-full shadow-[0_10px_30px_rgba(0,60,173,0.35)] hover:shadow-[0_15px_35px_rgba(0,60,173,0.5)] transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
         aria-label="Buka Chat dengan Sora AI">
         
         {{-- Avatar Circle --}}

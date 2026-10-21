@@ -21,14 +21,14 @@
     <!-- FILTER SECTION -->
     <section class="w-full pb-8 relative z-10">
         <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin flex justify-center">
-            <div class="inline-flex p-1 rounded-xl bg-surface-container shadow-inner">
-                <a href="{{ route('events.index') }}" wire:navigate.hover class="px-6 py-2.5 rounded-lg font-label-md text-label-md transition-all {{ !request('filter') ? 'bg-cloud-white text-primary shadow-sm font-bold' : 'text-secondary hover:text-indigo-night' }}">
+            <div class="inline-flex max-w-full overflow-x-auto p-1 rounded-xl bg-surface-container shadow-inner" style="scrollbar-width: none;">
+                <a href="{{ route('events.index') }}" wire:navigate.hover class="px-3.5 sm:px-6 py-2 sm:py-2.5 whitespace-nowrap text-xs sm:text-sm rounded-lg font-label-md text-label-md transition-all {{ !request('filter') ? 'bg-cloud-white text-primary shadow-sm font-bold' : 'text-secondary hover:text-indigo-night' }}">
                     Semua Agenda
                 </a>
-                <a href="{{ route('events.index', ['filter' => 'upcoming']) }}" wire:navigate.hover class="px-6 py-2.5 rounded-lg font-label-md text-label-md transition-all {{ request('filter') === 'upcoming' ? 'bg-cloud-white text-primary shadow-sm font-bold' : 'text-secondary hover:text-indigo-night' }}">
+                <a href="{{ route('events.index', ['filter' => 'upcoming']) }}" wire:navigate.hover class="px-3.5 sm:px-6 py-2 sm:py-2.5 whitespace-nowrap text-xs sm:text-sm rounded-lg font-label-md text-label-md transition-all {{ request('filter') === 'upcoming' ? 'bg-cloud-white text-primary shadow-sm font-bold' : 'text-secondary hover:text-indigo-night' }}">
                     Mendatang (Upcoming)
                 </a>
-                <a href="{{ route('events.index', ['filter' => 'completed']) }}" wire:navigate.hover class="px-6 py-2.5 rounded-lg font-label-md text-label-md transition-all {{ request('filter') === 'completed' ? 'bg-cloud-white text-primary shadow-sm font-bold' : 'text-secondary hover:text-indigo-night' }}">
+                <a href="{{ route('events.index', ['filter' => 'completed']) }}" wire:navigate.hover class="px-3.5 sm:px-6 py-2 sm:py-2.5 whitespace-nowrap text-xs sm:text-sm rounded-lg font-label-md text-label-md transition-all {{ request('filter') === 'completed' ? 'bg-cloud-white text-primary shadow-sm font-bold' : 'text-secondary hover:text-indigo-night' }}">
                     Selesai (Completed)
                 </a>
             </div>

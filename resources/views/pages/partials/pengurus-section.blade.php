@@ -108,12 +108,12 @@
                             badge_bg: 'bg-emerald-600',
                             badge_style: 'background-color: #059669; color: #ffffff;'
                          })"
-                         class="bg-white rounded-2xl p-6 border border-emerald-200/90 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center gap-5 cursor-pointer group">
+                         class="bg-white rounded-2xl p-4 sm:p-6 border border-emerald-200/90 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center gap-3.5 sm:gap-5 cursor-pointer group">
                         <div class="relative shrink-0">
                             <img 
                                 src="{{ $pembina['avatar'] ?? asset('assets/kepengurusan/kikie_sensei.jpg') }}" 
                                 alt="{{ $pembina['nama'] }}" 
-                                class="w-20 h-20 rounded-2xl object-cover ring-2 ring-emerald-500/30 shadow-sm group-hover:ring-emerald-500 transition-all"
+                                class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover ring-2 ring-emerald-500/30 shadow-sm group-hover:ring-emerald-500 transition-all"
                                 loading="lazy" decoding="async"
                             />
                             <span class="absolute -bottom-1.5 -right-1 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold shadow-xs">顧問</span>
@@ -141,12 +141,12 @@
                             badge_bg: 'bg-emerald-600',
                             badge_style: 'background-color: #059669; color: #ffffff;'
                          })"
-                         class="bg-white rounded-2xl p-6 border border-emerald-200/90 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center gap-5 cursor-pointer group">
+                         class="bg-white rounded-2xl p-4 sm:p-6 border border-emerald-200/90 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center gap-3.5 sm:gap-5 cursor-pointer group">
                         <div class="relative shrink-0">
                             <img 
                                 src="{{ $pelatih['avatar'] ?? asset('assets/kepengurusan/mba_ayu.jpg') }}" 
                                 alt="{{ $pelatih['nama'] }}" 
-                                class="w-20 h-20 rounded-2xl object-cover ring-2 ring-emerald-500/30 shadow-sm group-hover:ring-emerald-500 transition-all"
+                                class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover ring-2 ring-emerald-500/30 shadow-sm group-hover:ring-emerald-500 transition-all"
                             />
                             <span class="absolute -bottom-1.5 -right-1 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold shadow-xs">指導員</span>
                         </div>
@@ -189,12 +189,12 @@
                         badge_bg: 'bg-blue-600',
                         badge_style: 'background-color: #2563eb; color: #ffffff;'
                      })"
-                     class="bg-white rounded-2xl p-6 border border-gray-200/90 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center gap-5 cursor-pointer group">
+                     class="bg-white rounded-2xl p-4 sm:p-6 border border-gray-200/90 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center gap-3.5 sm:gap-5 cursor-pointer group">
                     <div class="relative shrink-0">
                         <img 
                             src="{{ $ketua['avatar'] ?? asset('assets/kepengurusan/pengurus_dummy.jpg') }}" 
                             alt="{{ $ketua['nama'] ?? 'Ketua Umum' }}" 
-                            class="w-20 h-20 rounded-2xl object-cover ring-2 ring-primary/20 shadow-sm group-hover:ring-primary transition-all"
+                            class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover ring-2 ring-primary/20 shadow-sm group-hover:ring-primary transition-all"
                             loading="lazy" decoding="async"
                         />
                         <span class="absolute -bottom-1.5 -right-1 px-2 py-0.5 rounded-full bg-primary text-white text-[10px] font-bold shadow-xs">会長</span>
@@ -221,12 +221,12 @@
                         badge_bg: 'bg-sky-600',
                         badge_style: 'background-color: #0284c7; color: #ffffff;'
                      })"
-                     class="bg-white rounded-2xl p-6 border border-gray-200/90 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center gap-5 cursor-pointer group">
+                     class="bg-white rounded-2xl p-4 sm:p-6 border border-gray-200/90 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center gap-3.5 sm:gap-5 cursor-pointer group">
                     <div class="relative shrink-0">
                         <img 
                             src="{{ $wakil['avatar'] ?? asset('assets/kepengurusan/pengurus_dummy.jpg') }}" 
                             alt="{{ $wakil['nama'] ?? 'Wakil Ketua' }}" 
-                            class="w-20 h-20 rounded-2xl object-cover ring-2 ring-sky-400/20 shadow-sm group-hover:ring-sky-500 transition-all"
+                            class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover ring-2 ring-sky-400/20 shadow-sm group-hover:ring-sky-500 transition-all"
                             loading="lazy" decoding="async"
                         />
                         <span class="absolute -bottom-1.5 -right-1 px-2 py-0.5 rounded-full bg-sky-600 text-white text-[10px] font-bold shadow-xs">副部長</span>
