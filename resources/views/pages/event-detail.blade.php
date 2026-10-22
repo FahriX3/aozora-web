@@ -177,9 +177,17 @@
                     <!-- Graphic Hero Media Card (5 cols) -->
                     <div class="lg:col-span-5 relative">
                         <div class="relative w-full rounded-2xl bg-gradient-to-tr from-surface-container to-surface-container-low p-3 shadow-[0_12px_32px_-4px_rgba(13,89,242,0.12)]">
-                            <div class="relative w-full h-[220px] sm:h-[300px] md:h-[360px] rounded-xl overflow-hidden bg-indigo-night">
+                            <div class="relative w-full h-[220px] sm:h-[300px] md:h-[360px] rounded-xl overflow-hidden bg-indigo-night group {{ $event->display_image ? 'cursor-pointer' : '' }}"
+                                 @if($event->display_image)
+                                 onclick="openPosterModal('{{ $event->display_image }}', '{{ addslashes($event->title) }}')"
+                                 title="Klik untuk melihat poster lebih besar"
+                                 @endif>
                                 @if($event->display_image)
-                                    <img src="{{ $event->display_image }}" alt="{{ $event->title }}" class="w-full h-full object-cover">
+                                    <img src="{{ $event->display_image }}" alt="{{ $event->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <div class="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-semibold flex items-center gap-1 opacity-90 group-hover:opacity-100 transition-opacity shadow-md pointer-events-none">
+                                        <span class="material-symbols-outlined text-sm">zoom_in</span>
+                                        <span>Perbesar</span>
+                                    </div>
                                 @else
                                     <div class="w-full h-full flex flex-col items-center justify-center bg-surface-container text-secondary gap-2">
                                         <span class="material-symbols-outlined text-5xl text-outline-variant">image</span>
@@ -606,8 +614,10 @@
             btn.classList.add("bg-surface-container", "text-on-surface-variant");
         });
 
-        element.classList.remove("bg-surface-container", "text-on-surface-variant");
-        element.classList.add("bg-primary", "text-on-primary", "active", "font-bold");
+        if (element) {
+            element.classList.remove("bg-surface-container", "text-on-surface-variant");
+            element.classList.add("bg-primary", "text-on-primary", "active", "font-bold");
+        }
 
         if (tabId === 'tab-denah' && typeof initPublicMap === 'function') {
             setTimeout(() => {
@@ -615,6 +625,7 @@
             }, 100);
         }
     }
+    window.switchTab = switchTab;
 
     // ================= LIGHTBOX & GALLERY LOGIC =================
     let currentGalleryIndex = 0;
@@ -625,16 +636,20 @@
         galleryItems = [];
         const cards = document.querySelectorAll('.gallery-card');
         cards.forEach((card, index) => {
+            const type = card.getAttribute('data-type') || 'image';
+            const src = card.getAttribute('data-src') || '';
+            const caption = card.getAttribute('data-caption') || (type === 'video' ? 'Video Dokumentasi' : 'Foto Dokumentasi ' + (index + 1));
             galleryItems.push({
                 index: index,
-                type: card.getAttribute('data-type'),
-                src: card.getAttribute('data-src'),
-                caption: card.getAttribute('data-caption'),
+                type: type,
+                src: src,
+                caption: caption,
                 element: card
             });
         });
         updateVisibleCounter();
     }
+    window.initGalleryData = initGalleryData;
 
     function updateVisibleCounter() {
         const visibleCards = document.querySelectorAll('.gallery-card:not(.gallery-item-hidden)');
@@ -654,6 +669,7 @@
             showAllBtn.style.display = hiddenInFilter.length > 0 ? 'inline-flex' : 'none';
         }
     }
+    window.updateVisibleCounter = updateVisibleCounter;
 
     function loadMoreGallery(count = 12) {
         const hiddenCards = document.querySelectorAll('.gallery-card.gallery-item-extra.gallery-item-hidden');
@@ -669,6 +685,7 @@
         });
         updateVisibleCounter();
     }
+    window.loadMoreGallery = loadMoreGallery;
 
     function showAllGallery() {
         const cards = document.querySelectorAll('.gallery-card');
@@ -680,6 +697,7 @@
         });
         updateVisibleCounter();
     }
+    window.showAllGallery = showAllGallery;
 
     function filterGalleryType(type, button) {
         currentFilterType = type;
@@ -689,8 +707,10 @@
             btn.classList.remove('bg-primary', 'text-white', 'active', 'font-bold');
             btn.classList.add('bg-surface-container', 'text-on-surface-variant');
         });
-        button.classList.remove('bg-surface-container', 'text-on-surface-variant');
-        button.classList.add('bg-primary', 'text-white', 'active', 'font-bold');
+        if (button) {
+            button.classList.remove('bg-surface-container', 'text-on-surface-variant');
+            button.classList.add('bg-primary', 'text-white', 'active', 'font-bold');
+        }
 
         let matchedCount = 0;
         document.querySelectorAll('.gallery-card').forEach((card, idx) => {
@@ -711,12 +731,35 @@
 
         updateVisibleCounter();
     }
+    window.filterGalleryType = filterGalleryType;
 
     // Lightbox Controls
     function openLightbox(index) {
+        if (!galleryItems || galleryItems.length === 0) {
+            initGalleryData();
+        }
+
+        let item = galleryItems[index];
+        if (!item) {
+            const cards = document.querySelectorAll('.gallery-card');
+            const card = cards[index] || document.querySelector(`.gallery-card[data-index="${index}"]`);
+            if (card) {
+                item = {
+                    index: index,
+                    type: card.getAttribute('data-type') || 'image',
+                    src: card.getAttribute('data-src'),
+                    caption: card.getAttribute('data-caption') || 'Dokumentasi',
+                    element: card
+                };
+            }
+        }
+
+        if (!item || !item.src) {
+            console.warn('Lightbox: data tidak ditemukan untuk index', index);
+            return;
+        }
+
         currentGalleryIndex = index;
-        const item = galleryItems[index];
-        if (!item) return;
 
         const modal = document.getElementById('lightbox-modal');
         const img = document.getElementById('lightbox-img');
@@ -726,32 +769,53 @@
         const download = document.getElementById('lightbox-download');
         const spinner = document.getElementById('lightbox-spinner');
 
-        caption.innerText = item.caption;
-        counter.innerText = (item.type === 'video' ? 'Video ' : 'Foto ') + (index + 1) + ' / ' + galleryItems.length;
-        download.href = item.src;
+        if (!modal) return;
+
+        if (caption) caption.innerText = item.caption;
+        if (counter) {
+            const total = galleryItems.length > 0 ? galleryItems.length : document.querySelectorAll('.gallery-card').length;
+            counter.innerText = (item.type === 'video' ? 'Video ' : 'Foto ') + (index + 1) + ' / ' + total;
+        }
+        if (download) download.href = item.src;
 
         if (item.type === 'video') {
-            img.classList.add('hidden');
+            if (img) {
+                img.classList.add('hidden');
+                img.removeAttribute('src');
+            }
             if (spinner) spinner.classList.add('hidden');
-            video.classList.remove('hidden');
-            video.src = item.src;
-            video.play().catch(() => {});
+            if (video) {
+                video.classList.remove('hidden');
+                video.src = item.src;
+                video.play().catch(() => {});
+            }
         } else {
-            video.pause();
-            video.classList.add('hidden');
-            img.classList.remove('hidden');
-            
-            if (spinner) spinner.classList.remove('hidden');
-            img.onload = function() {
-                if (spinner) spinner.classList.add('hidden');
-            };
-            img.src = item.src;
+            if (video) {
+                video.pause();
+                video.removeAttribute('src');
+                video.load();
+                video.classList.add('hidden');
+            }
+            if (img) {
+                img.classList.remove('hidden');
+                if (spinner) spinner.classList.remove('hidden');
+                img.onload = function() {
+                    if (spinner) spinner.classList.add('hidden');
+                };
+                img.onerror = function() {
+                    if (spinner) spinner.classList.add('hidden');
+                };
+                img.src = item.src;
+                if (img.complete && spinner) {
+                    spinner.classList.add('hidden');
+                }
+            }
         }
 
         modal.classList.remove('hidden');
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             modal.classList.remove('opacity-0');
-        }, 10);
+        });
         document.body.classList.add('overflow-hidden');
 
         // Hide AI Sora Floating Widget while popup is open
@@ -760,14 +824,67 @@
             soraWidget.style.setProperty('display', 'none', 'important');
         }
     }
+    window.openLightbox = openLightbox;
+
+    // Single Media (e.g. Hero Poster)
+    function openPosterModal(src, caption) {
+        const modal = document.getElementById('lightbox-modal');
+        const img = document.getElementById('lightbox-img');
+        const video = document.getElementById('lightbox-video');
+        const captionEl = document.getElementById('lightbox-caption');
+        const counter = document.getElementById('lightbox-counter');
+        const download = document.getElementById('lightbox-download');
+        const spinner = document.getElementById('lightbox-spinner');
+
+        if (!modal) return;
+        if (captionEl) captionEl.innerText = caption || 'Poster Acara';
+        if (counter) counter.innerText = 'Poster Event';
+        if (download) download.href = src;
+
+        if (video) {
+            video.pause();
+            video.removeAttribute('src');
+            video.load();
+            video.classList.add('hidden');
+        }
+        if (img) {
+            img.classList.remove('hidden');
+            if (spinner) spinner.classList.remove('hidden');
+            img.onload = function() {
+                if (spinner) spinner.classList.add('hidden');
+            };
+            img.src = src;
+            if (img.complete && spinner) spinner.classList.add('hidden');
+        }
+
+        modal.classList.remove('hidden');
+        requestAnimationFrame(() => {
+            modal.classList.remove('opacity-0');
+        });
+        document.body.classList.add('overflow-hidden');
+
+        const soraWidget = document.getElementById('sora-chat-widget');
+        if (soraWidget) {
+            soraWidget.style.setProperty('display', 'none', 'important');
+        }
+    }
+    window.openPosterModal = openPosterModal;
 
     function closeLightbox() {
         const modal = document.getElementById('lightbox-modal');
+        if (!modal) return;
+
         const video = document.getElementById('lightbox-video');
         if (video) {
             video.pause();
-            video.src = '';
+            video.removeAttribute('src');
+            video.load();
         }
+        const img = document.getElementById('lightbox-img');
+        if (img) {
+            img.removeAttribute('src');
+        }
+
         modal.classList.add('opacity-0');
         setTimeout(() => {
             modal.classList.add('hidden');
@@ -780,76 +897,95 @@
             soraWidget.style.removeProperty('display');
         }
     }
+    window.closeLightbox = closeLightbox;
 
     function handleBackdropClick(event) {
         if (event.target.id === 'lightbox-modal' || event.target.id === 'lightbox-stage') {
             closeLightbox();
         }
     }
+    window.handleBackdropClick = handleBackdropClick;
 
     function prevLightbox(e) {
         if (e) e.stopPropagation();
+        if (!galleryItems || galleryItems.length === 0) initGalleryData();
         if (galleryItems.length === 0) return;
         currentGalleryIndex = (currentGalleryIndex - 1 + galleryItems.length) % galleryItems.length;
         openLightbox(currentGalleryIndex);
     }
+    window.prevLightbox = prevLightbox;
 
     function nextLightbox(e) {
         if (e) e.stopPropagation();
+        if (!galleryItems || galleryItems.length === 0) initGalleryData();
         if (galleryItems.length === 0) return;
         currentGalleryIndex = (currentGalleryIndex + 1) % galleryItems.length;
         openLightbox(currentGalleryIndex);
     }
+    window.nextLightbox = nextLightbox;
 
-    // Touch Swipe Detection on Mobile
+    // Attach Swipe & Key Listeners safely
     let touchStartX = 0;
     let touchStartY = 0;
     let touchEndX = 0;
     let touchEndY = 0;
 
-    const modalEl = document.getElementById('lightbox-modal');
-    if (modalEl) {
-        modalEl.addEventListener('touchstart', function (e) {
-            touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
-        }, { passive: true });
-
-        modalEl.addEventListener('touchend', function (e) {
-            touchEndX = e.changedTouches[0].screenX;
-            touchEndY = e.changedTouches[0].screenY;
-            handleSwipe();
-        }, { passive: true });
-    }
-
     function handleSwipe() {
         const diffX = touchEndX - touchStartX;
         const diffY = touchEndY - touchStartY;
-        // Horizontal swipe threshold 45px
         if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
             if (diffX < 0) {
                 nextLightbox();
             } else {
                 prevLightbox();
             }
-        }
-        // Swipe down to close (like iOS Photos / Instagram)
-        else if (diffY > 90 && Math.abs(diffY) > Math.abs(diffX)) {
+        } else if (diffY > 90 && Math.abs(diffY) > Math.abs(diffX)) {
             closeLightbox();
         }
     }
 
-    // Keyboard navigation
-    window.addEventListener('keydown', function (e) {
-        const modal = document.getElementById('lightbox-modal');
-        if (!modal || modal.classList.contains('hidden')) return;
+    function initLightboxListeners() {
+        const modalEl = document.getElementById('lightbox-modal');
+        if (modalEl && !modalEl._hasSwipeListeners) {
+            modalEl._hasSwipeListeners = true;
+            modalEl.addEventListener('touchstart', function (e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
 
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft') prevLightbox();
-        if (e.key === 'ArrowRight') nextLightbox();
-    });
+            modalEl.addEventListener('touchend', function (e) {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            }, { passive: true });
+        }
+    }
+
+    // Keyboard navigation (registered once globally)
+    if (!window._hasLightboxKeyboard) {
+        window._hasLightboxKeyboard = true;
+        window.addEventListener('keydown', function (e) {
+            const modal = document.getElementById('lightbox-modal');
+            if (!modal || modal.classList.contains('hidden')) return;
+
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') prevLightbox();
+            if (e.key === 'ArrowRight') nextLightbox();
+        });
+    }
+
+    // Auto-init on all lifecycle events: DOMContentLoaded, Livewire navigate, and immediate execution!
+    initGalleryData();
+    initLightboxListeners();
 
     document.addEventListener('DOMContentLoaded', function () {
         initGalleryData();
+        initLightboxListeners();
+    });
+
+    document.addEventListener('livewire:navigated', function () {
+        initGalleryData();
+        initLightboxListeners();
     });
 
     // Countdown logic
