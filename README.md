@@ -4,12 +4,17 @@
   <p><strong>Aplikasi Profil Komunitas, Portal Informasi Kegiatan &amp; Sistem Manajemen Ekstrakurikuler Bahasa dan Budaya Jepang</strong></p>
 
   <p>
+    <a href="https://aozora.synchrolabs.site/" target="_blank">
+      <img src="https://img.shields.io/badge/🌐_Website_Live-aozora.synchrolabs.site-0D59F2?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live Demo" />
+    </a>
     <img src="https://img.shields.io/badge/Laravel-13-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 13" />
     <img src="https://img.shields.io/badge/PHP-8.3-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.3" />
     <img src="https://img.shields.io/badge/Filament-v5-F59E0B?style=for-the-badge&logo=filament&logoColor=white" alt="Filament v5" />
     <img src="https://img.shields.io/badge/TailwindCSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
     <img src="https://img.shields.io/badge/MariaDB-11-003545?style=for-the-badge&logo=mariadb&logoColor=white" alt="MariaDB" />
   </p>
+
+  <p>🔗 <strong>URL Website Resmi (Live Production):</strong> <a href="https://aozora.synchrolabs.site/" target="_blank"><strong>https://aozora.synchrolabs.site/</strong></a></p>
 </div>
 
 ---
@@ -17,6 +22,8 @@
 ## 📌 Tentang Proyek
 
 **Aozora Web** adalah platform web terpadu yang dirancang untuk mendukung operasional dan keterbukaan informasi **Aozora Nihongo Club (ANC)**, ekstrakurikuler Bahasa dan Budaya Jepang di **SMK Negeri 1 Purwokerto**.
+
+Aplikasi ini dapat diakses secara langsung melalui: **[https://aozora.synchrolabs.site/](https://aozora.synchrolabs.site/)**
 
 Aplikasi ini menggabungkan dua ekosistem utama:
 1. **Portal Publik**: Menampilkan profil klub, etalase divisi minat (Kaiwa, Shodo, Cosplay, Matsuri, Anime/Manga, Edukasi), videotron agenda kegiatan interaktif, dokumentasi foto/video resolusi tinggi dengan pop-up lightbox HD, musik latar tradisional Jepang, serta chatbot asisten virtual berbasis AI (**Sora-chan**).
@@ -149,9 +156,10 @@ Buka browser dan akses aplikasi di: **`http://localhost:8000`**
 
 ---
 
-## 🔐 Akun Demo Panel Admin (Filament)
+## 🔐 Akses Panel Admin (Filament)
 
-Panel admin dapat diakses di: **`http://localhost:8000/admin`**
+- **Akses Lokal:** `http://localhost:8000/admin`
+- **Akses Live Server:** `https://aozora.synchrolabs.site/admin`
 
 | Peran (Role) | Email Login | Kata Sandi |
 | :--- | :--- | :--- |
