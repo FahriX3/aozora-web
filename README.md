@@ -187,6 +187,20 @@ aozora-web/
 
 ---
 
+## 👥 Tim Pengembang (Development Team)
+
+Proyek ini disusun dan dikembangkan oleh:
+
+| No | Nama Lengkap | No. Presensi | Peran &amp; Kontribusi |
+| :---: | :--- | :---: | :--- |
+| 1 | **Fahri Azzam Mandriva** | 14 | Project Lead &amp; Fullstack Developer |
+| 2 | **Galang Ma'ruf Sherinian** | 17 | Frontend &amp; UI/UX Developer |
+| 3 | **Muhammad Iqbal Widodo** | 23 | Backend &amp; Database Developer |
+
+**SMK Negeri 1 Purwokerto**
+
+---
+
 ## 📜 Lisensi &amp; Hak Cipta
 
 Proyek ini dikembangkan untuk keperluan akademik dan manajemen ekstrakurikuler **Aozora Nihongo Club - SMK Negeri 1 Purwokerto**.
