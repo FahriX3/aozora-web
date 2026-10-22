@@ -195,15 +195,15 @@ aozora-web/
 
 ---
 
-## 👥 Tim Pengembang (Development Team)
+## 👥 Anggota Tim Pengembang
 
 Proyek ini disusun dan dikembangkan oleh:
 
-| No | Nama Lengkap | No. Presensi | Peran &amp; Kontribusi |
-| :---: | :--- | :---: | :--- |
-| 1 | **Fahri Azzam Mandriva** | 14 | Project Lead &amp; Fullstack Developer |
-| 2 | **Galang Ma'ruf Sherinian** | 17 | Frontend &amp; UI/UX Developer |
-| 3 | **Muhammad Iqbal Widodo** | 23 | Backend &amp; Database Developer |
+| No | Nama Lengkap | No. Presensi |
+| :---: | :--- | :---: |
+| 1 | **Fahri Azzam Mandriva** | 14 |
+| 2 | **Galang Ma'ruf Sherinian** | 17 |
+| 3 | **Muhammad Iqbal Widodo** | 23 |
 
 **SMK Negeri 1 Purwokerto**
 
