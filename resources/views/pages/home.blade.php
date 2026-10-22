@@ -407,26 +407,22 @@
             }
             .event-slide-card-image {
                 width: 100% !important;
-                height: 210px !important;
-                min-height: 210px !important;
-                max-height: 210px !important;
+                height: 200px !important;
+                min-height: 200px !important;
+                max-height: 200px !important;
             }
             @media (max-width: 639px) {
                 .event-slide-card {
                     width: 290px !important;
                     min-width: 280px !important;
                     max-width: 300px !important;
-                    height: 505px !important;
+                    height: 510px !important;
                     flex: 0 0 290px !important;
                 }
                 .event-slide-card-image {
                     height: 175px !important;
                     min-height: 175px !important;
                     max-height: 175px !important;
-                }
-                .event-slide-card .p-space-md,
-                .event-slide-card .px-space-lg {
-                    padding: 0.875rem !important;
                 }
             }
         </style>
@@ -643,13 +639,13 @@
                     @for($loopRound = 0; $loopRound < ($featuredEvents->count() > 1 ? 2 : 1); $loopRound++)
                         @foreach($featuredEvents as $event)
                     <div
-                        class="event-slide-card w-[290px] sm:w-[350px] min-w-[280px] sm:min-w-[350px] max-w-[300px] sm:max-w-[350px] h-[505px] sm:h-[520px] shrink-0 flex-none rounded-2xl bg-cloud-white shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden border border-gray-100 hover:-translate-y-1">
+                        class="event-slide-card w-[290px] sm:w-[350px] min-w-[280px] sm:min-w-[350px] max-w-[300px] sm:max-w-[350px] h-[510px] sm:h-[520px] shrink-0 flex-none rounded-2xl bg-cloud-white shadow-md hover:shadow-xl transition-all duration-300 flex flex-col group relative overflow-hidden border border-gray-100 hover:-translate-y-1">
                         <div
                             class="absolute top-0 left-0 w-full h-1.5 z-10 {{ $event->status === 'completed' ? 'bg-torii-vermilion' : 'bg-gold-shrine' }}">
                         </div>
 
-                        <!-- Fixed Ratio Image Box: Apapun bentuk foto asli (portrait/square/landscape), dipotong rapi secara proporsional 16:10 tanpa mengubah ukuran kartu -->
-                        <div class="event-slide-card-image w-full h-[175px] sm:h-[210px] min-h-[175px] max-h-[210px] overflow-hidden bg-slate-100 relative shrink-0">
+                        <!-- Fixed Ratio Image Box -->
+                        <div class="event-slide-card-image w-full h-[175px] sm:h-[200px] min-h-[175px] max-h-[200px] overflow-hidden bg-slate-100 relative shrink-0">
                             @if($event->display_image)
                                 <img src="{{ $event->display_image }}" alt="{{ $event->title }}"
                                     draggable="false"
@@ -672,25 +668,34 @@
                             @endif
                         </div>
 
-                        <div class="p-3.5 sm:p-space-lg flex-1 flex flex-col justify-between">
+                        <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
                             <div>
-                                <!-- Header Tags -->
-                                <div class="flex items-center justify-between gap-space-xs mb-2">
-                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                <!-- Header Tags: Konsisten 2 baris terstruktur untuk semua card -->
+                                <div class="mb-2">
+                                    <div class="flex items-center justify-between gap-1.5">
                                         @if($event->is_featured)
                                             <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-700 border border-amber-300/40 text-[10px] font-bold uppercase tracking-wider">
                                                 <span class="material-symbols-outlined text-xs text-amber-500">star</span>
                                                 Unggulan
                                             </span>
+                                        @else
+                                            <span
+                                                class="px-2 py-0.5 rounded-full {{ $event->status === 'completed' ? 'bg-sakura-tint text-torii-vermilion' : 'bg-gold-shrine/15 text-gold-shrine' }} font-label-badge text-[11px] font-bold uppercase truncate max-w-[160px]">
+                                                {{ $event->subtitle ?? 'EVENT' }}
+                                            </span>
                                         @endif
-                                        <span
-                                            class="px-2 py-0.5 rounded-full {{ $event->status === 'completed' ? 'bg-sakura-tint text-torii-vermilion' : 'bg-gold-shrine/15 text-gold-shrine' }} font-label-badge text-[11px] font-bold uppercase truncate max-w-[150px]">
-                                            {{ $event->subtitle ?? 'EVENT' }}
+                                        <span class="font-label-badge text-label-badge text-secondary font-medium shrink-0 text-xs">
+                                            {{ \Carbon\Carbon::parse($event->event_date)->translatedFormat('d M Y') }}
                                         </span>
                                     </div>
-                                    <span class="font-label-badge text-label-badge text-secondary font-medium shrink-0 text-xs">
-                                        {{ \Carbon\Carbon::parse($event->event_date)->translatedFormat('d M Y') }}
-                                    </span>
+                                    @if($event->is_featured)
+                                        <div class="mt-1.5 flex items-center">
+                                            <span
+                                                class="px-2 py-0.5 rounded-full {{ $event->status === 'completed' ? 'bg-sakura-tint text-torii-vermilion' : 'bg-gold-shrine/15 text-gold-shrine' }} font-label-badge text-[11px] font-bold uppercase truncate max-w-[200px]">
+                                                {{ $event->subtitle ?? 'EVENT' }}
+                                            </span>
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <!-- Title: Terkunci 2 baris (line-clamp-2) dengan tinggi konsisten -->
@@ -717,30 +722,31 @@
                                 </p>
                             </div>
 
-                            <!-- Status Badge Info -->
-                            <div class="mt-2 pt-2 border-t border-gray-100">
-                                @if($event->status === 'completed')
-                                    <div class="flex items-center gap-1.5 text-primary text-xs font-semibold">
-                                        <span class="material-symbols-outlined text-sm">photo_library</span>
-                                        <span>📸 {{ $event->documentations()->count() }} Dokumentasi</span>
-                                    </div>
-                                @else
-                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                                        <span>Pendaftaran Terbuka</span>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
+                            <!-- Bottom Section: Status & Button (Terkunci rata bawah dengan posisi identik di semua kartu) -->
+                            <div class="mt-auto pt-2.5">
+                                <!-- Status Badge Info -->
+                                <div class="pt-2 border-t border-gray-100 mb-3">
+                                    @if($event->status === 'completed')
+                                        <div class="flex items-center gap-1.5 text-primary text-xs font-semibold">
+                                            <span class="material-symbols-outlined text-sm">photo_library</span>
+                                            <span>📸 {{ $event->documentations()->count() }} Dokumentasi</span>
+                                        </div>
+                                    @else
+                                        <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                            <span>Pendaftaran Terbuka</span>
+                                        </div>
+                                    @endif
+                                </div>
 
-                        <!-- Card Action Button (Always Pinned at Bottom) -->
-                        <div class="px-3.5 sm:px-space-lg pb-3.5 sm:pb-space-lg pt-0">
-                            <a href="{{ route('event.detail', $event->slug) }}" wire:navigate.hover
-                                @click="if (isDragging) { $event.preventDefault(); return false; }"
-                                class="w-full py-2.5 rounded-xl {{ $event->status === 'completed' ? 'bg-surface-container hover:bg-torii-vermilion hover:text-cloud-white' : 'bg-surface-container hover:bg-gold-shrine hover:text-indigo-night' }} text-indigo-night text-xs font-bold transition-all flex items-center justify-center gap-1 shadow-2xs hover:shadow-xs">
-                                <span>{{ $event->status === 'completed' ? 'Lihat Dokumentasi' : 'Registrasi / Detail' }}</span>
-                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                            </a>
+                                <!-- Card Action Button (Selalu sejajar dan konsisten di paling bawah) -->
+                                <a href="{{ route('event.detail', $event->slug) }}" wire:navigate.hover
+                                    @click="if (isDragging) { $event.preventDefault(); return false; }"
+                                    class="w-full py-2.5 rounded-xl {{ $event->status === 'completed' ? 'bg-surface-container hover:bg-torii-vermilion hover:text-cloud-white' : 'bg-surface-container hover:bg-gold-shrine hover:text-indigo-night' }} text-indigo-night text-xs font-bold transition-all flex items-center justify-center gap-1 shadow-2xs hover:shadow-xs">
+                                    <span>{{ $event->status === 'completed' ? 'Lihat Dokumentasi' : 'Registrasi / Detail' }}</span>
+                                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                         @endforeach

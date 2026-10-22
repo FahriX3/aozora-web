@@ -12,9 +12,9 @@
 
 .event-slide-card-image {
   width: 100% !important;
-  height: 210px !important;
-  min-height: 210px !important;
-  max-height: 210px !important;
+  height: 200px !important;
+  min-height: 200px !important;
+  max-height: 200px !important;
 }
 
 /* Khusus Tampilan Layar HP / Mobile (< 640px) */
@@ -23,7 +23,7 @@
     width: 290px !important;
     min-width: 280px !important;
     max-width: 300px !important;
-    height: 505px !important;
+    height: 510px !important;
     flex: 0 0 290px !important;
   }
 
